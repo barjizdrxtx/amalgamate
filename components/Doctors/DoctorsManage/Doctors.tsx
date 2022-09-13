@@ -29,6 +29,7 @@ export const Doctors = () => {
         "clinic_contact_no"
 
     ]
+    
 
     return (
 
@@ -41,3 +42,4 @@ export const Doctors = () => {
         </Grid>
     )
 }
+\
