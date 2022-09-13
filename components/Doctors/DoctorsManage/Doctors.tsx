@@ -11,11 +11,13 @@ export const Doctors = () => {
     const tableHead = [
 
         "Image",
+        
         "Name",
         "Website",
         "Discription",
         "Clinic Email",
         "Clinic Contact",
+
         "Actions"
 
     ];
