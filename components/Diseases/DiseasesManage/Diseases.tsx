@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, Box, Alert } from '@mui/material'
-import axios from 'axios';
+import React from 'react'
+import { Grid } from '@mui/material'
 import { useRouter } from 'next/router';
-import { useQueryFetch } from '../../../utils/useQueryFetch';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { TableUI } from '../../UI/TableUI/TableUI';
 
 export const Diseases = () => {
 
     const router = useRouter();
-
-    const [isDelete, setIsDelete] = useState(false);
-
-    const { fetchedData: fetchedData, refetch: refetch } = useQueryFetch('diseases');
-
-    console.log("fetchedData", fetchedData?.result)
 
     const tableHead = [
 
@@ -27,23 +19,6 @@ export const Diseases = () => {
         "Actions"
 
     ];
-
-    useEffect(() => {
-        const timer = setTimeout(() => setIsDelete(false), 3000);
-        return () => clearTimeout(timer);
-    }, []);
-
-
-    const handleSubmitDelete = (data: any) => {
-
-        axios.delete(`diseases/${data}`)
-            .then((response) => {
-                console.log(response);
-                setIsDelete(true)
-                refetch();
-            })
-    }
-
 
     const element = [
 
@@ -60,22 +35,9 @@ export const Diseases = () => {
 
         <Grid>
 
-            {isDelete && <Box>
-
-                <Alert variant="outlined" severity="error">
-                    Deleted
-                </Alert>
-
-            </Box>}
-
             <CustomizedButton onClick={() => router.push("/diseases/create")} bgColor="#229954">Create Diseases</CustomizedButton>
 
-            <TableUI
-                tableHead={tableHead}
-                tableData={fetchedData?.result}
-                handleSubmitDelete={handleSubmitDelete}
-                element={element}
-            />
+            <TableUI tableHead={tableHead} element={element} name="diseases" />
 
         </Grid>
     )

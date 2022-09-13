@@ -5,11 +5,26 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import axios from 'axios';
+import { useQueryFetch } from '../../../utils/useQueryFetch';
 
 export const TableUI = (props: any) => {
 
 
-  const { tableHead, element, tableData, handleSubmitDelete } = props;
+  const { tableHead, element, name } = props;
+
+  const { fetchedData: tableData, refetch: refetch } = useQueryFetch(name);
+
+
+  const handleSubmitDelete = (data: any) => {
+
+    axios.delete(`${name}/${data}`)
+      .then((response) => {
+        console.log(response);
+        refetch();
+      })
+  }
+
 
   return (
 

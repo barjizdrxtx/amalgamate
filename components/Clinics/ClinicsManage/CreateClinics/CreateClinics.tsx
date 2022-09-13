@@ -78,7 +78,7 @@ export default function CreateClinics() {
         onSubmit: (values: any) => {
 
             axios.post(`clinics`, {
-                image: clinic_img,
+                image_location: clinic_img,
                 role: role,
                 name: values.name,
                 profile: values.profile,
