@@ -1,31 +1,29 @@
-import { Box, Button, Grid, IconButton, MenuItem, Select, Stack, TextField, Typography } from '@mui/material';
-import { useFormik } from 'formik';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react'
-import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
-import { PhotoCamera } from '@mui/icons-material';
-import ImageIcon from '@mui/icons-material/Image';
-
+import { Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import ImageIcon from '@mui/icons-material/Image';
+import { useFormik } from 'formik';
 import { TabHome } from './TabHome';
+import { Box, Stack } from '@mui/system';
+import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
+import { DropDown } from '../../../UI/DropDown/DropDown';
 
 
+export const CreateLabs = () => {
 
-export default function CreateLabs() {
-
-
-    const [role, setRole]: any = useState("null");
+    const [role, setRole] = useState("null");
 
     const router = useRouter();
 
-    const [lab_img, setLabImg]: any = useState(null);
+    const [lab_img, setLabImg] = useState(null);
 
-    const [documents, setDocuments]: any = useState([{ id: 1 }]);
+    const [documents, setDocuments] = useState([{ id: 1 }]);
 
-    const [procedures, setProcedures]: any = useState([{ id: 1 }]);
+    const [procedures, setProcedures] = useState([{ id: 1 }]);
 
 
-    const [specialities, setSpecialities]: any = useState([{ id: 1 }]);
+    const [specialities, setSpecialities] = useState([{ id: 1 }]);
 
 
     const [amineties, setAmenities] = useState([
@@ -49,7 +47,6 @@ export default function CreateLabs() {
         },
     ]);
 
-
     const AddImages = (event: any) => {
 
         const formData = new FormData();
@@ -67,49 +64,67 @@ export default function CreateLabs() {
 
     const formik = useFormik({
         initialValues: {
-            // role: '',
             name: '',
             profile: '',
             website: '',
             lab_admin_name: '',
             lab_admin_mobile: '',
-            langtitude_altitude: '',
+            longitude_latitude: '',
             lab_contact_no: '',
             lab_email: '',
             lab_reg_no: '',
             description: '',
             location: '',
-            latitude: '',
-            meta_tag: '',
+            address: '',
+            meta_title: '',
+            meta_tag_description: '',
             meta_tag_keyword: '',
         },
 
-        // validationSchema: clinicSchemea,
+        // validationSchema: labSchema,
 
         onSubmit: (values: any) => {
 
-            axios.post(`lab`, {
+            const axiosrequest1 = axios.post(`lab`, {
 
-                image_location: lab_img,
-                role: role,
                 name: values.name,
+                role: role,
                 profile: values.profile,
                 website: values.website,
                 lab_admin_name: values.lab_admin_name,
-                langtitude_altitude: values.langtitude_altitude,
+                lab_admin_mobile: values.lab_admin_mobile,
+                image_location: lab_img,
+                address: values.address,
                 location: values.location,
+                langtitude_altitude: values.langtitude_altitude,
                 lab_contact_no: values.lab_contact_no,
-                lab_reg_no: values.lab_reg_no,
                 lab_email: values.lab_email,
-                description: values.description
+                lab_reg_no: values.lab_reg_no,
+                description: values.description,
+                add_more: values.add_more,
+                active: true,
+                amineties: amineties,
+                documents: documents,
+                procedures: procedures,
+                specialities: specialities
 
+            })
 
-            }).then((response) => {
+            const axiosrequest2 = axios.post(`meta-tags`, {
 
-                console.log(response);
+                title: values.meta_title,
+                description: values.meta_tag_description,
+                keyword: values.meta_tag_keyword,
+
+            })
+
+            // you could also use destructuring to have an array of responses
+            axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
+                console.log(res1);
+                console.log(res2);
                 alert("submit success")
                 router.push('/labs')
-            })
+            }));
 
         },
     });
@@ -164,7 +179,7 @@ export default function CreateLabs() {
         },
 
         {
-            title: "Admin Number",
+            title: "Lab Admin Mobile",
             label: "lab_admin_mobile",
             type: "number",
             value: formik.values.lab_admin_mobile,
@@ -195,13 +210,22 @@ export default function CreateLabs() {
             errors: formik.errors.location,
         },
         {
-            title: "Latitude",
-            label: "latitude",
+            title: "Address",
+            label: "address",
             type: "number",
-            rows: 1,
-            value: formik.values.latitude,
-            touched: formik.touched.latitude,
-            errors: formik.errors.latitude,
+            rows: 6,
+            value: formik.values.address,
+            touched: formik.touched.address,
+            errors: formik.errors.address,
+        },
+        {
+            title: "Longitude Latitude",
+            label: "longitude_latitude",
+            type: "number",
+            rows: 4,
+            value: formik.values.longitude_latitude,
+            touched: formik.touched.longitude_latitude,
+            errors: formik.errors.longitude_latitude,
         },
         {
             title: "Profile",
@@ -224,42 +248,39 @@ export default function CreateLabs() {
     ]
 
     //SEO
-    // const tabData2 = [
+    const tabData2 = [
 
-    //     {
-    //         title: "Meta Title",
-    //         label: "meta_title",
-    //         type: "text",
-    //         rows: 1,
-    //         value: formik.values.meta_title,
-    //         touched: formik.touched.meta_title,
-    //         errors: formik.errors.meta_title,
-    //     },
-    //     {
-    //         title: "Meta Tag Keyword",
-    //         label: "meta_tag_keyword",
-    //         type: "text",
-    //         rows: 4,
-    //         value: formik.values.meta_tag_keyword,
-    //         touched: formik.touched.meta_tag_keyword,
-    //         errors: formik.errors.meta_tag_keyword,
-    //     },
-    //     {
-    //         title: "Meta Tag Description",
-    //         label: "meta_tag_description",
-    //         type: "text",
-    //         rows: 6,
-    //         value: formik.values.meta_tag_description,
-    //         touched: formik.touched.meta_tag_description,
-    //         errors: formik.errors.meta_tag_description,
-    //     },
+        {
+            title: "Meta Title",
+            label: "meta_title",
+            type: "text",
+            rows: 1,
+            value: formik.values.meta_title,
+            touched: formik.touched.meta_title,
+            errors: formik.errors.meta_title,
+        },
+        {
+            title: "Meta Tag Keyword",
+            label: "meta_tag_keyword",
+            type: "text",
+            rows: 4,
+            value: formik.values.meta_tag_keyword,
+            touched: formik.touched.meta_tag_keyword,
+            errors: formik.errors.meta_tag_keyword,
+        },
+        {
+            title: "Meta Tag Description",
+            label: "meta_tag_description",
+            type: "text",
+            rows: 6,
+            value: formik.values.meta_tag_description,
+            touched: formik.touched.meta_tag_description,
+            errors: formik.errors.meta_tag_description,
+        },
 
-    // ]
-
-
+    ]
 
     return (
-
 
         <Grid container justifyContent="center" sx={{ mt: { xs: 6, lg: 0 } }} >
 
@@ -279,7 +300,6 @@ export default function CreateLabs() {
 
                         </Box>
 
-
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
                             <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Lab</CustomizedButton >
@@ -287,7 +307,6 @@ export default function CreateLabs() {
                             <CustomizedButton bgColor="black" onClick={() => router.push('/labs')}>Cancel</CustomizedButton >
 
                         </Box>
-
 
                     </Box>
 
@@ -300,28 +319,12 @@ export default function CreateLabs() {
 
                                 <Grid lg={6}>
 
-                                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                            <Typography>Role</Typography>
-
-                                        </Box>
-
-                                        <Select sx={{ flex: 2, width: "100%", mb: 2 }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={role}
-                                            label="Age"
-                                            onChange={(e: any) => setRole(e.target.value)}
-                                        >
-                                            <MenuItem value="Doctor">Doctor</MenuItem>
-                                            <MenuItem value="Admin">Admin</MenuItem>
-                                            <MenuItem value="Nurse">Nurse</MenuItem>
-                                            <MenuItem value="Staff">Staff</MenuItem>
-                                        </Select>
-
-                                    </Box>
+                                    <DropDown
+                                        text="Role"
+                                        dropData={["Doctor", "Admin", "Nurse", "Staff"]}
+                                        value={role}
+                                        setValue={setRole}
+                                    />
 
                                     {clincs.map((data, index) =>
 
@@ -449,8 +452,8 @@ export default function CreateLabs() {
 
                         formik={formik}
 
-                        // tabData1={tabData1}
-                        // tabData2={tabData2}
+                        tabData1={tabData1}
+                        tabData2={tabData2}
 
                         amineties={amineties}
                         setAmenities={setAmenities}
@@ -465,7 +468,6 @@ export default function CreateLabs() {
                         setSpecialities={setSpecialities}
 
                     />
-
 
                 </Box>
 

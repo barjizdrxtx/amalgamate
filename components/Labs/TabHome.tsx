@@ -1,13 +1,15 @@
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Tab } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
-import { Labs } from "./LabManage/Labs";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import { Labs } from './LabManage/Labs';
 
 
+export const TabHome = () => {
 
-export default function TabHome() {
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = React.useState('1');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -15,32 +17,37 @@ export default function TabHome() {
 
   return (
 
-    <Box sx={{ width: "100%", typography: "body1" }}>
+    <Box sx={{ width: '100%', typography: 'body1' }} >
       <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="Create Lab" value="1" />
-            <Tab label="lab shedule" value="2" />
-            <Tab label="packages" value="3" />
+
+            <Tab label="Create Labs" value="1" />
+            <Tab label="schedule" value="2" />
+            <Tab label="health packages" value="3" />
 
           </TabList>
+
         </Box>
 
         <TabPanel value="1">
 
-          <Labs/>
-          
+          <Labs />
+
         </TabPanel>
+
         <TabPanel value="2">
-          2
+          B
         </TabPanel>
+        
         <TabPanel value="3">
-          3
+          c
         </TabPanel>
 
       </TabContext>
-    </Box>
+
+    </Box >
 
   );
 }

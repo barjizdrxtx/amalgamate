@@ -12,22 +12,24 @@ import { PhotoCamera } from '@mui/icons-material';
 import ImageIcon from '@mui/icons-material/Image';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DropDown } from '../../../UI/DropDown/DropDown';
 
 export const CreateDoctors = () => {
 
-    const [image, setImage]: any = useState();
+    const [role, setRole] = useState("null");
+
+    const [doctor_img, setDoctor_img] = useState(null);
+
+    const [certificates, setCertificates] = useState([{ id: 1 }]);
+
+    const [specialisedIn, setSpecialisedIn] = useState([{ id: 1 }]);
+
+    const [id_proof, setId_proof] = useState([{ id: 1 }]);
+
+    const [gender, setGender] = useState("null");
 
 
-    const [preview, setPreview]: any = useState();
-
-    const [documents, setDocuments]: any = useState();
-
-    // const [exper, setRole]: any = useState();
-
-    const [role, setRole]: any = useState();
-
-    // const [role, setRole]: any = useState();
-
+    const router = useRouter();
 
     const [value, setValue] = React.useState<Date | null>(
         new Date(''),
@@ -37,60 +39,108 @@ export const CreateDoctors = () => {
         setValue(newValue);
     };
 
-    const router = useRouter();
+
+
+    const AddImages = (event: any) => {
+
+        const formData = new FormData();
+
+        formData.append('file_location', event.target.files[0]);
+
+        axios.post(`images`, formData).then((response) => {
+
+            console.log(response);
+            setDoctor_img(response.data.result.file_location)
+
+        })
+    }
+
 
 
     const formik = useFormik({
         initialValues: {
-            role: '',
             name: '',
-            specialisedIn: '',
             registration_number: '',
             email: '',
             mobile: '',
+            image_location: '',
+            years_of_experience: '',
+            qualificaton: '',
             profile: '',
-            meta_tag: '',
-            meta_tag_keyword: '',
-            id_number: '',
+
             short_profile: '',
             academic_achievments: '',
             professional_contributions: '',
-            affiliations: '',
-            success_stories: '',
+            affliation: '',
+
+            practice: '',
+            consulation_fee: '',
+            specilized_tag: '',
+
+            meta_title: '',
+            meta_tag_description: '',
+            meta_tag_keyword: '',
 
         },
-
-        validationSchema: clinicSchemea,
+        // validationSchema: doctorSchemea,
 
         onSubmit: (values: any) => {
 
-            const formData = new FormData();
+            const axiosrequest1 = axios.post(`doctors`, {
 
-            formData.append('dp', image);
-            formData.append('role', role);
-            formData.append('name', values.name);
-            formData.append('profile', values.profile);
-            formData.append('website', values.website);
-            formData.append('clinic_admin_name', values.clinic_admin_name);
-            formData.append('clinic_admin_mobile', values.clinic_admin_mobile);
-            formData.append('langtitude_altitude', values.langtitude_altitude);
-            formData.append('location', values.location);
-            formData.append('clinic_contact_no', values.clinic_contact_no);
-            formData.append('email', values.email);
-            formData.append('clinic_reg_no', values.clinic_reg_no);
-            formData.append('description', values.description);
+                name: values.name,
+                role: role,
+                specialisedIn: specialisedIn,
+                registration_number: values.registration_number,
+                email: values.email,
+                mobile: values.mobile,
+                address: {
+                    address1: "string",
+                    address2: "string",
+                    city: "string",
+                    state: "string"
+                },
+                gender: gender,
+                image_id: "string",
+                image_location: doctor_img,
+                years_of_experience: values.years_of_experience,
+                dateOfBirth: "2022-09-13T18:41:40.248Z",
+                qualificaton: values.qualificaton,
+                certificates: certificates,
+                profileText: {
+                    short_profile: values.short_profile,
+                    academic_architecture: values.academic_achievments,
+                    professional_contributions: values.professional_contributions,
+                    affliation: values.affliation
+                },
+                practice: values.practice,
+                is_authorized: true,
+                id_proof: id_proof,
+                consulation_fee: values.consulation_fee,
+                specilized_tag: values.specilized_tag
+
+            })
 
 
-            formData.append('documents', documents);
+            const axiosrequest2 = axios.post(`meta-tags`, {
 
-            axios.post(`doctors`, formData).then((response) => {
+                title: values.meta_title,
+                description: values.meta_tag_description,
+                keyword: values.meta_tag_keyword,
 
-                console.log(response);
+            })
+
+            // you could also use destructuring to have an array of responses
+            axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
+                console.log(res1);
+                console.log(res2);
                 alert("submit success")
                 router.push('/doctors')
-            })
+            }));
+
         },
     });
+
 
     const doctors = [
 
@@ -130,31 +180,17 @@ export const CreateDoctors = () => {
 
     const tabData1 = [
         {
-            title: "Specialization",
-            label: "specialization",
+            title: "Registration Number",
+            label: "registration_number",
             type: "text",
             rows: 6,
-            value: formik.values.specialisedIn,
-            touched: formik.touched.specialisedIn,
-            errors: formik.errors.specialisedIn,
+            value: formik.values.registration_number,
+            touched: formik.touched.registration_number,
+            errors: formik.errors.registration_number,
         },
     ]
 
 
-    const tabData2 = [
-
-        {
-            title: "No",
-            label: "id_number",
-            type: "text",
-            rows: 1,
-            value: formik.values.id_number,
-            touched: formik.touched.id_number,
-            errors: formik.errors.id_number,
-        },
-
-
-    ]
 
     const tabData3 = [
 
@@ -178,6 +214,7 @@ export const CreateDoctors = () => {
             errors: formik.errors.profile,
         },
 
+
         {
             title: "Academic Achievments",
             label: "academic_achievments",
@@ -197,55 +234,52 @@ export const CreateDoctors = () => {
             errors: formik.errors.professional_contributions,
         },
         {
-            title: "Affiliations",
-            label: "affiliations",
+            title: "Affliation",
+            label: "affliation",
             type: "text",
             rows: 2,
-            value: formik.values.affiliations,
-            touched: formik.touched.affiliations,
-            errors: formik.errors.affiliations,
+            value: formik.values.affliation,
+            touched: formik.touched.affliation,
+            errors: formik.errors.affliation,
         },
-        {
-            title: "Success Stories",
-            label: "success_stories",
-            type: "text",
-            rows: 2,
-            value: formik.values.success_stories,
-            touched: formik.touched.success_stories,
-            errors: formik.errors.success_stories,
-        },
-
-
     ]
-
 
 
 
     const tabData8 = [
 
+
         {
-            title: "Meta Tag",
-            label: "meta_tag",
+            title: "Meta Title",
+            label: "meta_title",
             type: "text",
             rows: 1,
-            value: formik.values.meta_tag,
-            touched: formik.touched.meta_tag,
-            errors: formik.errors.meta_tag,
+            value: formik.values.meta_title,
+            touched: formik.touched.meta_title,
+            errors: formik.errors.meta_title,
         },
         {
             title: "Meta Tag Keyword",
             label: "meta_tag_keyword",
             type: "text",
-            rows: 6,
+            rows: 4,
             value: formik.values.meta_tag_keyword,
             touched: formik.touched.meta_tag_keyword,
             errors: formik.errors.meta_tag_keyword,
+        },
+        {
+            title: "Meta Tag Description",
+            label: "meta_tag_description",
+            type: "text",
+            rows: 6,
+            value: formik.values.meta_tag_description,
+            touched: formik.touched.meta_tag_description,
+            errors: formik.errors.meta_tag_description,
         },
 
     ]
 
 
-    console.log("image", image)
 
     return (
 
@@ -288,28 +322,12 @@ export const CreateDoctors = () => {
 
                                 <Grid lg={6}>
 
-                                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                            <Typography>Role</Typography>
-
-                                        </Box>
-
-                                        <Select sx={{ flex: 2, width: "100%", mb: 2 }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={role}
-                                            label="Age"
-                                            onChange={(e: any) => setRole(e.target.value)}
-                                        >
-                                            <MenuItem value="Doctor">Doctor</MenuItem>
-                                            <MenuItem value="Admin">Admin</MenuItem>
-                                            <MenuItem value="Nurse">Nurse</MenuItem>
-                                            <MenuItem value="Staff">Staff</MenuItem>
-                                        </Select>
-
-                                    </Box>
+                                    <DropDown
+                                        text="Role"
+                                        dropData={["Doctor", "Admin", "Nurse", "Staff"]}
+                                        value={role}
+                                        setValue={setRole}
+                                    />
 
                                     {doctors.map(data =>
 
@@ -345,55 +363,56 @@ export const CreateDoctors = () => {
 
                                 <Grid container lg={6} >
 
-                                    <Grid lg={8}>
+                                    <Grid container lg={6} >
 
-                                        <Box sx={{
-                                            display: "flex", flexDirection: "column", justifyContent: "end",
-                                            alignItems: "end",
-                                        }}>
+                                        <Grid lg={8}>
 
-                                            <Box sx={{ width: "50%" }}>
+                                            <Box sx={{
+                                                display: "flex", flexDirection: "column", justifyContent: "end",
+                                                alignItems: "end",
+                                            }}>
 
-                                                <Box sx={{
-                                                    backgroundColor: "lightgray", width: "150px", mb: 2,
-                                                    height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
-                                                }}>
+                                                <Box sx={{ width: "50%" }}>
 
-                                                    {preview == undefined ? <ImageIcon sx={{ fontSize: "4rem" }} />
+                                                    <Box sx={{
+                                                        backgroundColor: "lightgray", width: "150px", mb: 2,
+                                                        height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
+                                                    }}>
 
-                                                        :
+                                                        {doctor_img === null ? <ImageIcon sx={{ fontSize: "4rem" }} />
 
-                                                        <img src={preview} width="100%" />
+                                                            :
 
-                                                    }
+                                                            <img src={doctor_img} width="100%" />
+
+                                                        }
+
+                                                    </Box>
+
+                                                </Box>
+
+                                                <Box sx={{ display: "flex", width: "50%" }}>
+
+                                                    <Stack direction="row" alignItems="center" spacing={2}>
+
+                                                        <Button variant="contained" component="label">
+                                                            Upload
+
+                                                            <input hidden type='file' key="image" id="outlined-basic"
+
+                                                                onChange={(event: any) => AddImages(event)} />
+
+                                                        </Button>
+
+                                                    </Stack>
 
                                                 </Box>
 
                                             </Box>
 
-                                            <Box sx={{ display: "flex", width: "50%" }}>
-
-                                                <Stack direction="row" alignItems="center" spacing={2}>
-                                                    <Button variant="contained" component="label">
-                                                        Upload
-
-                                                        <input hidden type='file' key="dp" id="outlined-basic"
-                                                            onChange={(e: any) => {
-                                                                setImage((e.target.files[0]))
-                                                                setPreview(URL.createObjectURL(e.target.files[0]))
-                                                            }
-                                                            } />
-
-                                                    </Button>
-
-                                                </Stack>
-
-                                            </Box>
-
-                                        </Box>
+                                        </Grid>
 
                                     </Grid>
-
 
 
                                 </Grid>
@@ -434,30 +453,13 @@ export const CreateDoctors = () => {
 
                                 <Grid lg={6}>
 
-                                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <DropDown
+                                        text="Gender"
+                                        dropData={["Male", "Female", "Other"]}
+                                        value={gender}
+                                        setValue={setGender}
+                                    />
 
-                                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                            <Typography>Sex</Typography>
-
-                                        </Box>
-
-                                        <Select sx={{ flex: 2, width: "100%", mb: 2 }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={role}
-                                            label="Age"
-                                            onChange={(e: any) => setRole(e.target.value)}
-                                        >
-
-
-                                            <MenuItem value="Male">Male</MenuItem>
-                                            <MenuItem value="FeMale">FeMale</MenuItem>
-                                            <MenuItem value="Other">Other</MenuItem>
-
-                                        </Select>
-
-                                    </Box>
 
                                 </Grid>
 
@@ -498,7 +500,6 @@ export const CreateDoctors = () => {
 
                     <TabHome formik={formik}
                         tabData1={tabData1}
-                        tabData2={tabData2}
                         tabData3={tabData3}
                         tabData8={tabData8}
                     />

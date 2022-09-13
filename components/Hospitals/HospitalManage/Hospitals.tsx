@@ -14,8 +14,8 @@ export const Hospitals = () => {
         "Name",
         "Website",
         "Discription",
-        "Clinic Email",
-        "Clinic Contact",
+        "Hospital Email",
+        "Hospital Contact",
         "Actions"
 
     ];
@@ -25,8 +25,8 @@ export const Hospitals = () => {
         "name",
         "website",
         "description",
-        "clinic_email",
-        "clinic_contact_no"
+        "hospital_email",
+        "hospital_contact_no"
 
     ]
 

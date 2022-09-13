@@ -10,20 +10,20 @@ import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 
 
-export default function CreateClinics() {
+export const CreateClinics = () => {
 
-    const [role, setRole]: any = useState("null");
+    const [role, setRole] = useState("null");
 
     const router = useRouter();
 
-    const [clinic_img, setClinicImg]: any = useState(null);
+    const [clinic_img, setClinicImg] = useState(null);
 
-    const [documents, setDocuments]: any = useState([{ id: 1 }]);
+    const [documents, setDocuments] = useState([{ id: 1 }]);
 
-    const [procedures, setProcedures]: any = useState([{ id: 1 }]);
+    const [procedures, setProcedures] = useState([{ id: 1 }]);
 
 
-    const [specialities, setSpecialities]: any = useState([{ id: 1 }]);
+    const [specialities, setSpecialities] = useState([{ id: 1 }]);
 
 
     const [amineties, setAmenities] = useState([
@@ -64,7 +64,6 @@ export default function CreateClinics() {
 
     const formik = useFormik({
         initialValues: {
-            // role: '',
             name: '',
             profile: '',
             website: '',
@@ -303,7 +302,7 @@ export default function CreateClinics() {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Clinics</CustomizedButton >
+                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Clinic</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/labs')}>Cancel</CustomizedButton >
 

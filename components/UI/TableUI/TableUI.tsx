@@ -7,6 +7,8 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import axios from 'axios';
 import { useQueryFetch } from '../../../utils/useQueryFetch';
+import { CSVLink, CSVDownload } from "react-csv";
+
 
 export const TableUI = (props: any) => {
 
@@ -26,6 +28,8 @@ export const TableUI = (props: any) => {
   }
 
 
+
+
   return (
 
     <Grid>
@@ -37,13 +41,15 @@ export const TableUI = (props: any) => {
       }}>
 
 
+
+
         <Box sx={{ py: 3 }}>
 
           <OutlinedInput placeholder="Search" />
 
           <IconButton>
 
-            <FileUploadIcon />
+            {/* <CSVLink data={tableData}><FileUploadIcon /></CSVLink> */}
 
           </IconButton>
 
@@ -68,7 +74,7 @@ export const TableUI = (props: any) => {
             )}
           </tr>
 
-          {tableData?.map((data: any, index: any) =>
+          {tableData?.result?.map((data: any, index: any) =>
 
             <tr>
 

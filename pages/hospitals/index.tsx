@@ -1,8 +1,7 @@
 import { Box, Button, Grid } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { HospitalTabHome } from '../../components/Hospitals/TabHome'
-
+import { TabHome } from '../../components/Hospitals/TabHome'
 
 const index = () => {
 
@@ -14,7 +13,7 @@ const index = () => {
 
             <Box sx={{ m: 2 }}>
 
-               <HospitalTabHome/>
+               <TabHome/>
 
             </Box>
 

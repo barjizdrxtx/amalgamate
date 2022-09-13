@@ -13,7 +13,7 @@ export const TabHome = (props: any) => {
 
   const [value, setValue] = React.useState('1');
 
-  const { tabData1, procedures, setProcedures, tabData4, tabData5, formik, amineties, setAmenities,
+  const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities,
     documents, setDocuments, specialities, setSpecialities } = props;
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -62,7 +62,7 @@ export const TabHome = (props: any) => {
           </TabPanel>
 
           <TabPanel value="5">
-            <Seo tabList={tabData5} formik={formik} />
+            <Seo tabList={tabData2} formik={formik} />
           </TabPanel>
 
         </TabContext>

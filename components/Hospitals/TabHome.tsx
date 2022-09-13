@@ -7,7 +7,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { Hospitals } from './HospitalManage/Hospitals';
 
 
-export const HospitalTabHome = () => {
+export const TabHome = () => {
 
   const [value, setValue] = React.useState('1');
 

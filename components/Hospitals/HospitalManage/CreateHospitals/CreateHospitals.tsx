@@ -1,39 +1,51 @@
-import React, { useState } from 'react'
-import { Box, TextField, Grid, FormGroup, FormControlLabel, Checkbox, Button, Typography, Select, MenuItem, Stack, IconButton } from '@mui/material';
-import { useFormik } from 'formik';
-//import { clinicSchemea } from './validation';
+import { Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import axios from 'axios';
-
 import { useRouter } from 'next/router';
-import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
-//import { TabHome } from './TabHome';
-import { PhotoCamera } from '@mui/icons-material';
-
+import React, { useState } from 'react';
 import ImageIcon from '@mui/icons-material/Image';
+import { useFormik } from 'formik';
 import { TabHome } from './TabHome';
-
+import { Box, Stack } from '@mui/system';
+import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
+import { DropDown } from '../../../UI/DropDown/DropDown';
 
 
 export const CreateHospitals = () => {
 
+    const [role, setRole] = useState("null");
+
+    const router = useRouter();
+
+    const [hospital_img, setHospitalImg] = useState(null);
+
+    const [documents, setDocuments] = useState([{ id: 1 }]);
+
+    const [procedures, setProcedures] = useState([{ id: 1 }]);
 
 
-    const [image, setImage]: any = useState();
+    const [specialities, setSpecialities] = useState([{ id: 1 }]);
 
 
+    const [amineties, setAmenities] = useState([
 
-    const [role, setRole]: any = useState("null");
+        {
+            title: "Ac",
+            checked: false,
+        },
+        {
+            title: "Parking",
+            checked: false,
+        },
+        {
+            title: "Ambulance",
+            checked: false,
+        },
 
-    const [hospital_image, sethospitalimage]: any = useState(null);
-
-
-    const [documents, setDocuments]: any = useState([{ id: 1 }]);
-
-    const [procedures, setProcedures]: any = useState([{ id: 1 }]);
-
-
-    const [specialities, setSpecialities]: any = useState([{ id: 1 }]);
-
+        {
+            title: "Internet/wifi",
+            checked: false,
+        },
+    ]);
 
     const AddImages = (event: any) => {
 
@@ -44,17 +56,14 @@ export const CreateHospitals = () => {
         axios.post(`images`, formData).then((response) => {
 
             console.log(response);
-            sethospitalimage(response.data.result.file_location)
+            setHospitalImg(response.data.result.file_location)
 
         })
     }
 
-    const router = useRouter();
-
 
     const formik = useFormik({
         initialValues: {
-            role: '',
             name: '',
             profile: '',
             website: '',
@@ -66,43 +75,61 @@ export const CreateHospitals = () => {
             hospital_reg_no: '',
             description: '',
             location: '',
-
-            meta_tag: '',
+            address: '',
+            meta_title: '',
+            meta_tag_description: '',
             meta_tag_keyword: '',
-            add_more: '',
         },
 
         // validationSchema: hospitalSchemea,
 
         onSubmit: (values: any) => {
 
-            axios.post(`hospitals`, {
-                image_location: hospital_image,
-                role: role,
+            const axiosrequest1 = axios.post(`hospitals`, {
+
                 name: values.name,
+                role: role,
                 profile: values.profile,
                 website: values.website,
                 hospital_admin_name: values.hospital_admin_name,
                 hospital_admin_mobile: values.hospital_admin_mobile,
-                longitude_latitude: values.longitude_latitude,
+                image_location: hospital_img,
+                address: values.address,
+                location: values.location,
+                langtitude_altitude: values.langtitude_altitude,
                 hospital_contact_no: values.hospital_contact_no,
                 hospital_email: values.hospital_email,
                 hospital_reg_no: values.hospital_reg_no,
                 description: values.description,
-                location: values.location,
+                add_more: values.add_more,
+                active: true,
+                amineties: amineties,
+                documents: documents,
+                procedures: procedures,
+                specialities: specialities
 
-                meta_tag: '',
-                meta_tag_keyword: '',
-                add_more: '',
-            }).then((response) => {
+            })
+
+            const axiosrequest2 = axios.post(`meta-tags`, {
+
+                title: values.meta_title,
+                description: values.meta_tag_description,
+                keyword: values.meta_tag_keyword,
+
+            })
+
+            // you could also use destructuring to have an array of responses
+            axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
+                console.log(res1);
+                console.log(res2);
                 alert("submit success")
                 router.push('/hospitals')
-            })
+            }));
 
         },
     });
 
-    const hospital = [
+    const clincs = [
 
         {
             title: "Hospital Name",
@@ -116,7 +143,7 @@ export const CreateHospitals = () => {
     ]
 
 
-    const hospital2 = [
+    const clincs2 = [
 
         {
             title: "Hospital Reg no",
@@ -143,7 +170,7 @@ export const CreateHospitals = () => {
             errors: formik.errors.hospital_admin_name,
         },
         {
-            title: "Email",
+            title: "Hospital Email",
             label: "hospital_email",
             type: "email",
             value: formik.values.hospital_email,
@@ -152,7 +179,7 @@ export const CreateHospitals = () => {
         },
 
         {
-            title: "Admin Number",
+            title: "Hospital Admin Mobile",
             label: "hospital_admin_mobile",
             type: "number",
             value: formik.values.hospital_admin_mobile,
@@ -170,6 +197,7 @@ export const CreateHospitals = () => {
 
     ]
 
+    //INFO
     const tabData1 = [
 
         {
@@ -181,15 +209,24 @@ export const CreateHospitals = () => {
             touched: formik.touched.location,
             errors: formik.errors.location,
         },
-        // {
-        //     title: "Latitude",
-        //     label: "latitude",
-        //     type: "number",
-        //     rows: 1,
-        //     value: formik.values.latitude,
-        //     touched: formik.touched.latitude,
-        //     errors: formik.errors.latitude,
-        // },
+        {
+            title: "Address",
+            label: "address",
+            type: "number",
+            rows: 6,
+            value: formik.values.address,
+            touched: formik.touched.address,
+            errors: formik.errors.address,
+        },
+        {
+            title: "Longitude Latitude",
+            label: "longitude_latitude",
+            type: "number",
+            rows: 4,
+            value: formik.values.longitude_latitude,
+            touched: formik.touched.longitude_latitude,
+            errors: formik.errors.longitude_latitude,
+        },
         {
             title: "Profile",
             label: "profile",
@@ -210,87 +247,38 @@ export const CreateHospitals = () => {
         },
     ]
 
-
-    //PROCEDURES
+    //SEO
     const tabData2 = [
 
         {
-            title: "Procedures",
-            label: "procedure",
+            title: "Meta Title",
+            label: "meta_title",
             type: "text",
-            value: formik.values.name,
-            touched: formik.touched.name,
-            errors: formik.errors.name,
+            rows: 1,
+            value: formik.values.meta_title,
+            touched: formik.touched.meta_title,
+            errors: formik.errors.meta_title,
         },
-
-    ]
-
-    //SPECIALIZATION
-    const tabData3 = [
-
         {
-            title: "Specialities",
-            label: "specialities",
+            title: "Meta Tag Keyword",
+            label: "meta_tag_keyword",
             type: "text",
-            value: formik.values.name,
-            touched: formik.touched.name,
-            errors: formik.errors.name,
+            rows: 4,
+            value: formik.values.meta_tag_keyword,
+            touched: formik.touched.meta_tag_keyword,
+            errors: formik.errors.meta_tag_keyword,
         },
-
-    ]
-
-
-    //SEO
-    // const tabData4 = [
-
-    //     {
-    //         title: "Meta Tag",
-    //         label: "meta_tag",
-    //         type: "text",
-    //         rows: 1,
-    //         value: formik.values.meta_tag,
-    //         touched: formik.touched.meta_tag,
-    //         errors: formik.errors.meta_tag,
-    //     },
-    //     {
-    //         title: "Meta Tag Keyword",
-    //         label: "meta_tag_keyword",
-    //         type: "number",
-    //         rows: 6,
-    //         value: formik.values.meta_tag_keyword,
-    //         touched: formik.touched.meta_tag_keyword,
-    //         errors: formik.errors.meta_tag_keyword,
-    //     },
-
-    // ]
-
-
-    // const tabData4 = [
-
-    //     {
-    //         title: "Procedures",
-    //         label: "procedure",
-    //         type: "text",
-    //         value: formik.values.name,
-    //         touched: formik.touched.name,
-    //         errors: formik.errors.name,
-    //     },
-
-    // ]
-    const tabData5 = [
-
         {
-            title: "Specialities",
-            label: "specialities",
+            title: "Meta Tag Description",
+            label: "meta_tag_description",
             type: "text",
-            value: formik.values.name,
-            touched: formik.touched.name,
-            errors: formik.errors.name,
+            rows: 6,
+            value: formik.values.meta_tag_description,
+            touched: formik.touched.meta_tag_description,
+            errors: formik.errors.meta_tag_description,
         },
 
     ]
-
-    console.log("image", image)
 
     return (
 
@@ -308,21 +296,17 @@ export const CreateHospitals = () => {
 
                         <Box sx={{ width: "100%", display: "flex", m: 2 }}>
 
-                            <Typography variant='h5' color="green" sx={{ fontWeight: "bold" }}>Add New Hospitals</Typography>
+                            <Typography variant='h5' color="green" sx={{ fontWeight: "bold" }}>Add New Hospital</Typography>
 
                         </Box>
-
-                        {/* 
-                        <Typography variant="h5" color="green">Clinic Details</Typography> */}
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
                             <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Hospital</CustomizedButton >
 
-                            <CustomizedButton bgColor="black" onClick={() => router.push('/hospitals')}>Cancel</CustomizedButton >
+                            <CustomizedButton bgColor="black" onClick={() => router.push('/labs')}>Cancel</CustomizedButton >
 
                         </Box>
-
 
                     </Box>
 
@@ -335,30 +319,14 @@ export const CreateHospitals = () => {
 
                                 <Grid lg={6}>
 
-                                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <DropDown
+                                        text="Role"
+                                        dropData={["Doctor", "Admin", "Nurse", "Staff"]}
+                                        value={role}
+                                        setValue={setRole}
+                                    />
 
-                                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                            <Typography>Role</Typography>
-
-                                        </Box>
-
-                                        <Select sx={{ flex: 2, width: "100%", mb: 2 }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={role}
-                                            label="Age"
-                                            onChange={(e: any) => setRole(e.target.value)}
-                                        >
-                                            <MenuItem value="Doctor">Doctor</MenuItem>
-                                            <MenuItem value="Admin">Admin</MenuItem>
-                                            <MenuItem value="Nurse">Nurse</MenuItem>
-                                            <MenuItem value="Staff">Staff</MenuItem>
-                                        </Select>
-
-                                    </Box>
-
-                                    {hospital.map((data, index) =>
+                                    {clincs.map((data, index) =>
 
                                         <Box key={index} sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
@@ -403,11 +371,11 @@ export const CreateHospitals = () => {
                                                     height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
                                                 }}>
 
-                                                    {hospital_image === null ? <ImageIcon sx={{ fontSize: "4rem" }} />
+                                                    {hospital_img === null ? <ImageIcon sx={{ fontSize: "4rem" }} />
 
                                                         :
 
-                                                        <img src={hospital_image} width="100%" />
+                                                        <img src={hospital_img} width="100%" />
 
                                                     }
 
@@ -445,9 +413,9 @@ export const CreateHospitals = () => {
 
                             <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-                                {hospital2.map((data, index) =>
+                                {clincs2.map((data, index) =>
 
-                                    <Grid lg={6} key={index}>
+                                    <Grid key={index} lg={6}>
 
                                         <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
@@ -480,7 +448,6 @@ export const CreateHospitals = () => {
 
                     </form>
 
-
                     <TabHome
 
                         formik={formik}
@@ -488,8 +455,8 @@ export const CreateHospitals = () => {
                         tabData1={tabData1}
                         tabData2={tabData2}
 
-                        // amineties={amineties}
-                        // setAmenities={setAmenities}
+                        amineties={amineties}
+                        setAmenities={setAmenities}
 
                         documents={documents}
                         setDocuments={setDocuments}
@@ -502,14 +469,11 @@ export const CreateHospitals = () => {
 
                     />
 
-
-
                 </Box>
 
             </Grid>
 
         </Grid >
-
 
     )
 }

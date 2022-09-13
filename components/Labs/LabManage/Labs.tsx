@@ -14,8 +14,8 @@ export const Labs = () => {
         "Name",
         "Website",
         "Discription",
-        "Clinic Email",
-        "Clinic Contact",
+        "Lab Email",
+        "Lab Contact",
         "Actions"
 
     ];
@@ -25,8 +25,8 @@ export const Labs = () => {
         "name",
         "website",
         "description",
-        "clinic_email",
-        "clinic_contact_no"
+        "lab_email",
+        "lab_contact_no"
 
     ]
 
@@ -34,7 +34,7 @@ export const Labs = () => {
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push("/labs/create")} bgColor="#229954">Create Labs</CustomizedButton>
+            <CustomizedButton onClick={() => router.push("/labs/create")} bgColor="#229954">Create Lab</CustomizedButton>
 
             <TableUI tableHead={tableHead} element={element} name="lab" />
 

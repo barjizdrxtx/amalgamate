@@ -13,7 +13,7 @@ export const TabHome = (props: any) => {
 
   const [value, setValue] = React.useState('1');
 
-  const { tabData1, tabData2, tabData3, tabData4, procedures, setProcedures, formik, amineties, setAmenities,
+  const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities,
     documents, setDocuments, specialities, setSpecialities } = props;
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {

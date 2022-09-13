@@ -9,8 +9,6 @@ import { diseaseSchema } from './validation';
 import { TextEditor } from '../TextEditor';
 import { TabHome } from './TabHome';
 
-// import { TextEditor } from '../TextEditor';
-
 export const CreateDiseases = () => {
 
     const [image, setImage]: any = useState('')
@@ -69,7 +67,6 @@ export const CreateDiseases = () => {
 
             name: '',
             description: '',
-
 
             faq_title: '',
             faq_description: '',
