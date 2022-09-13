@@ -1,41 +1,41 @@
 import { Box, Grid, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
-export const DropDown = () => {
+export const DropDown = (props: any) => {
 
-    const [type, setType]: any = useState();
+    const { text, dropData, value, setValue } = props;
 
     const handleChange = (event: SelectChangeEvent) => {
-        setType(event.target.value as string);
+        setValue(event.target.value as string);
     };
 
     return (
 
-        <Grid lg={3}>
+        <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-            <Box sx={{ m: 2 }}>
+            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                <Typography sx={{ width: "100%", mb: 1 }}>Type</Typography>
-
-                <Select sx={{ width: "100%" }}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={type}
-                    label="Age"
-                    onChange={handleChange}
-                >
-
-                    {['BannerAd', 'BigAd', 'FooterAd'].map(data =>
-
-                        <MenuItem value={data}>{data}</MenuItem>
-
-                    )}
-
-                </Select>
-
+                <Typography>{text}</Typography>
 
             </Box>
 
-        </Grid>
+            <Select sx={{ flex: 2, width: "100%", mb: 2 }}
+                id={text}
+                value={value}
+                onChange={handleChange}
+            >
+
+                <MenuItem value={"null"} disabled >Select a Role</MenuItem>
+
+                {dropData.map((data: any) =>
+
+                    <MenuItem value={data}>{data}</MenuItem>
+
+                )}
+
+            </Select>
+
+        </Box>
+
     )
 }

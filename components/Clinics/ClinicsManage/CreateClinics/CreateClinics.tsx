@@ -7,15 +7,24 @@ import { useFormik } from 'formik';
 import { TabHome } from './TabHome';
 import { Box, Stack } from '@mui/system';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
+import { DropDown } from '../../../UI/DropDown/DropDown';
 
 
 export default function CreateClinics() {
 
-    const [role, setRole]: any = useState();
+    const [role, setRole]: any = useState("null");
 
     const router = useRouter();
 
     const [clinic_img, setClinicImg]: any = useState(null);
+
+    const [documents, setDocuments]: any = useState([{ id: 1 }]);
+
+    const [procedures, setProcedures]: any = useState([{ id: 1 }]);
+
+
+    const [specialities, setSpecialities]: any = useState([{ id: 1 }]);
+
 
     const [amineties, setAmenities] = useState([
 
@@ -61,44 +70,62 @@ export default function CreateClinics() {
             website: '',
             clinic_admin_name: '',
             clinic_admin_mobile: '',
-            langtitude_altitude: '',
+            longitude_latitude: '',
             clinic_contact_no: '',
             clinic_email: '',
             clinic_reg_no: '',
             description: '',
             location: '',
-            latitude: '',
-            meta_tag: '',
+            address: '',
+            meta_title: '',
+            meta_tag_description: '',
             meta_tag_keyword: '',
-            add_more: ''
         },
 
         // validationSchema: clinicSchemea,
 
         onSubmit: (values: any) => {
 
-            axios.post(`clinics`, {
-                image_location: clinic_img,
-                role: role,
+            const axiosrequest1 = axios.post(`clinics`, {
+
                 name: values.name,
+                role: role,
                 profile: values.profile,
                 website: values.website,
                 clinic_admin_name: values.clinic_admin_name,
-                langtitude_altitude: values.langtitude_altitude,
+                clinic_admin_mobile: values.clinic_admin_mobile,
+                image_location: clinic_img,
+                address: values.address,
                 location: values.location,
+                langtitude_altitude: values.langtitude_altitude,
                 clinic_contact_no: values.clinic_contact_no,
-                clinic_reg_no: values.clinic_reg_no,
                 clinic_email: values.clinic_email,
+                clinic_reg_no: values.clinic_reg_no,
                 description: values.description,
                 add_more: values.add_more,
-                amineties: amineties
+                active: true,
+                amineties: amineties,
+                documents: documents,
+                procedures: procedures,
+                specialities: specialities
 
-            }).then((response) => {
+            })
 
-                console.log(response);
+            const axiosrequest2 = axios.post(`meta-tags`, {
+
+                title: values.meta_title,
+                description: values.meta_tag_description,
+                keyword: values.meta_tag_keyword,
+
+            })
+
+            // you could also use destructuring to have an array of responses
+            axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
+                console.log(res1);
+                console.log(res2);
                 alert("submit success")
                 router.push('/clinics')
-            })
+            }));
 
         },
     });
@@ -184,13 +211,22 @@ export default function CreateClinics() {
             errors: formik.errors.location,
         },
         {
-            title: "Latitude",
-            label: "latitude",
+            title: "Address",
+            label: "address",
             type: "number",
-            rows: 1,
-            value: formik.values.latitude,
-            touched: formik.touched.latitude,
-            errors: formik.errors.latitude,
+            rows: 6,
+            value: formik.values.address,
+            touched: formik.touched.address,
+            errors: formik.errors.address,
+        },
+        {
+            title: "Longitude Latitude",
+            label: "longitude_latitude",
+            type: "number",
+            rows: 4,
+            value: formik.values.longitude_latitude,
+            touched: formik.touched.longitude_latitude,
+            errors: formik.errors.longitude_latitude,
         },
         {
             title: "Profile",
@@ -212,56 +248,35 @@ export default function CreateClinics() {
         },
     ]
 
-
-    //PROCEDURES
-    const tabData3 = [
-
-        {
-            title: "Procedures",
-            label: "procedure",
-            type: "text",
-            value: formik.values.name,
-            touched: formik.touched.name,
-            errors: formik.errors.name,
-        },
-
-    ]
-
-    //SPECIALIZATION
-    const tabData4 = [
-
-        {
-            title: "Specialities",
-            label: "specialities",
-            type: "text",
-            value: formik.values.name,
-            touched: formik.touched.name,
-            errors: formik.errors.name,
-        },
-
-    ]
-
-
     //SEO
-    const tabData5 = [
+    const tabData2 = [
 
         {
-            title: "Meta Tag",
-            label: "meta_tag",
+            title: "Meta Title",
+            label: "meta_title",
             type: "text",
             rows: 1,
-            value: formik.values.meta_tag,
-            touched: formik.touched.meta_tag,
-            errors: formik.errors.meta_tag,
+            value: formik.values.meta_title,
+            touched: formik.touched.meta_title,
+            errors: formik.errors.meta_title,
         },
         {
             title: "Meta Tag Keyword",
             label: "meta_tag_keyword",
-            type: "number",
-            rows: 6,
+            type: "text",
+            rows: 4,
             value: formik.values.meta_tag_keyword,
             touched: formik.touched.meta_tag_keyword,
             errors: formik.errors.meta_tag_keyword,
+        },
+        {
+            title: "Meta Tag Description",
+            label: "meta_tag_description",
+            type: "text",
+            rows: 6,
+            value: formik.values.meta_tag_description,
+            touched: formik.touched.meta_tag_description,
+            errors: formik.errors.meta_tag_description,
         },
 
     ]
@@ -286,17 +301,13 @@ export default function CreateClinics() {
 
                         </Box>
 
-                        {/* 
-            <Typography variant="h5" color="green">Clinic Details</Typography> */}
-
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Lab</CustomizedButton >
+                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Clinics</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/labs')}>Cancel</CustomizedButton >
 
                         </Box>
-
 
                     </Box>
 
@@ -309,28 +320,12 @@ export default function CreateClinics() {
 
                                 <Grid lg={6}>
 
-                                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                            <Typography>Role</Typography>
-
-                                        </Box>
-
-                                        <Select sx={{ flex: 2, width: "100%", mb: 2 }}
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={role}
-                                            label="Age"
-                                            onChange={(e: any) => setRole(e.target.value)}
-                                        >
-                                            <MenuItem value="Doctor">Doctor</MenuItem>
-                                            <MenuItem value="Admin">Admin</MenuItem>
-                                            <MenuItem value="Nurse">Nurse</MenuItem>
-                                            <MenuItem value="Staff">Staff</MenuItem>
-                                        </Select>
-
-                                    </Box>
+                                    <DropDown
+                                        text="Role"
+                                        dropData={["Doctor", "Admin", "Nurse", "Staff"]}
+                                        value={role}
+                                        setValue={setRole}
+                                    />
 
                                     {clincs.map((data, index) =>
 
@@ -454,14 +449,25 @@ export default function CreateClinics() {
 
                     </form>
 
-                    <TabHome formik={formik}
+                    <TabHome
+
+                        formik={formik}
 
                         tabData1={tabData1}
-                        tabData3={tabData3}
-                        tabData4={tabData4}
-                        tabData5={tabData5}
+                        tabData2={tabData2}
+
                         amineties={amineties}
                         setAmenities={setAmenities}
+
+                        documents={documents}
+                        setDocuments={setDocuments}
+
+                        procedures={procedures}
+                        setProcedures={setProcedures}
+
+                        specialities={specialities}
+                        setSpecialities={setSpecialities}
+
                     />
 
                 </Box>

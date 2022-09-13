@@ -8,16 +8,18 @@ import { Procedures } from './TabComponents/Procedures';
 import { Specialisation } from './TabComponents/Specialisation';
 
 
+
 export const TabHome = (props: any) => {
 
   const [value, setValue] = React.useState('1');
 
-  const { tabData1, tabData3, tabData4, tabData5, formik, amineties, setAmenities } = props;
+  const { tabData1, tabData2, tabData3, tabData4, procedures, setProcedures, formik, amineties, setAmenities,
+    documents, setDocuments, specialities, setSpecialities } = props;
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   }
-  
+
   return (
     <Grid>
 
@@ -40,7 +42,11 @@ export const TabHome = (props: any) => {
           </Box>
 
           <TabPanel value="1">
-            <Info tabList={tabData1} formik={formik} />
+            <Info
+              tabList={tabData1}
+              formik={formik}
+              documents={documents}
+              setDocuments={setDocuments} />
           </TabPanel>
 
           <TabPanel value="2">
@@ -48,15 +54,15 @@ export const TabHome = (props: any) => {
           </TabPanel>
 
           <TabPanel value="3">
-            <Procedures tabList={tabData3} formik={formik} />
+            <Procedures procedures={procedures} setProcedures={setProcedures} formik={formik} />
           </TabPanel>
 
           <TabPanel value="4">
-            <Specialisation tabList={tabData4} formik={formik} />
+            <Specialisation specialities={specialities} setSpecialities={setSpecialities} formik={formik} />
           </TabPanel>
 
           <TabPanel value="5">
-            <Seo tabList={tabData5} formik={formik} />
+            <Seo tabList={tabData2} formik={formik} />
           </TabPanel>
 
         </TabContext>

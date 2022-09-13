@@ -1,83 +1,74 @@
-
-
-import { Box, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
+import ImageIcon from '@mui/icons-material/Image';
 import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
+import axios from 'axios';
 
 export const Procedures = (props: any) => {
 
-  const { tabData4, formik } = props;
+  const { tabList, formik, procedures, setProcedures } = props;
 
-
-
-  const [inputfield, setInputField]: any = useState([{ id: 1 }]);
+  console.log("procedures", procedures)
 
 
   const handleChangeInput = (index: any, event: any) => {
-    const values = [...inputfield]
+    const values = [...procedures]
     values[index][event.target.name] = event.target.value
-    setInputField(values)
+    setProcedures(values)
   }
 
 
   const handleAddFields = () => {
-
-    setInputField([...inputfield, { id: inputfield.length + 1 }])
-    console.log(inputfield)
-
+    setProcedures([...procedures, { id: procedures.length + 1 }])
+    console.log(procedures)
   }
 
   const handleRemoveFields = () => {
-    setInputField((inputfield: any) => inputfield.filter((_: any, i: any) => i !== inputfield.length - 1))
+    setProcedures((procedures: any) => procedures.filter((_: any, i: any) => i !== procedures.length - 1))
   }
 
   return (
 
     <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-      {tabData4.map((data: any) =>
+      <Grid lg={12}>
 
-        <Grid lg={12}>
+        {procedures.map((add: any, index: any) =>
 
-          <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+          <Grid key={index} lg={6}>
 
-              <Typography>{data.title}</Typography>
+            <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+              <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                <Typography>Procedures {index + 1}</Typography>
+
+              </Box>
+
+              <TextField sx={{ flex: 1, width: "100%" }} defaultValue={procedures[index].procedures}
+                name="procedures"
+                onChange={(event: any) => handleChangeInput(index, event)} />
+
 
             </Box>
 
+          </Grid>
 
-            <Box>
-              {inputfield.map((add: any) => <Box>
-
-                < TextField sx={{ flex: 4, width: "100%", mb: 2 }}
-                  fullWidth
-                  id="outlined-multiline-static"
-                  multiline
-                  rows={data.rows}
-                  name={data.label}
-                  // label={data.label}
-                  value={data.value}
-                  type={data.type}
-                  onChange={formik.handleChange}
-                  error={data.touched && Boolean(data.errors)}
-                  helperText={data.touched && data.errors}
-                />  </Box>
-              )}
-
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex" }}>
-            <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{inputfield.length > 1
-              && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
-            }
-
-          </Box>
+        )}
 
 
-        </Grid>
-      )}
+      </Grid>
+
+      <Grid>
+
+        <Box sx={{ display: "flex" }}>
+          <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{procedures.length > 1
+            && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
+          }
+
+        </Box>
+      </Grid>
 
     </Grid>
   )

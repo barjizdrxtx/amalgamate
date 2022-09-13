@@ -3,15 +3,15 @@ import React from 'react'
 
 export const Seo = (props: any) => {
 
-    const { tabData8, formik } = props;
+    const { tabList, formik } = props;
 
     return (
 
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-            {tabData8.map((data: any) =>
+            { tabList.map((data: any,index:any) =>
 
-                <Grid lg={12}>
+                <Grid key={index} lg={12}>
 
                     <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 

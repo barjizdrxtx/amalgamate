@@ -5,19 +5,49 @@ import React, { useState } from 'react'
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { PhotoCamera } from '@mui/icons-material';
 import ImageIcon from '@mui/icons-material/Image';
-import TabHome from './TabHome';
+
 import axios from 'axios';
+import { TabHome } from './TabHome';
 
 
 
 export default function CreateLabs() {
 
 
-    const [role, setRole]: any = useState();
+    const [role, setRole]: any = useState("null");
 
     const router = useRouter();
 
     const [lab_img, setLabImg]: any = useState(null);
+
+    const [documents, setDocuments]: any = useState([{ id: 1 }]);
+
+    const [procedures, setProcedures]: any = useState([{ id: 1 }]);
+
+
+    const [specialities, setSpecialities]: any = useState([{ id: 1 }]);
+
+
+    const [amineties, setAmenities] = useState([
+
+        {
+            title: "Ac",
+            checked: false,
+        },
+        {
+            title: "Parking",
+            checked: false,
+        },
+        {
+            title: "Ambulance",
+            checked: false,
+        },
+
+        {
+            title: "Internet/wifi",
+            checked: false,
+        },
+    ]);
 
 
     const AddImages = (event: any) => {
@@ -59,8 +89,8 @@ export default function CreateLabs() {
         onSubmit: (values: any) => {
 
             axios.post(`lab`, {
-                
-                image: lab_img,
+
+                image_location: lab_img,
                 role: role,
                 name: values.name,
                 profile: values.profile,
@@ -152,6 +182,7 @@ export default function CreateLabs() {
 
     ]
 
+    //INFO
     const tabData1 = [
 
         {
@@ -192,30 +223,38 @@ export default function CreateLabs() {
         },
     ]
 
+    //SEO
+    // const tabData2 = [
 
+    //     {
+    //         title: "Meta Title",
+    //         label: "meta_title",
+    //         type: "text",
+    //         rows: 1,
+    //         value: formik.values.meta_title,
+    //         touched: formik.touched.meta_title,
+    //         errors: formik.errors.meta_title,
+    //     },
+    //     {
+    //         title: "Meta Tag Keyword",
+    //         label: "meta_tag_keyword",
+    //         type: "text",
+    //         rows: 4,
+    //         value: formik.values.meta_tag_keyword,
+    //         touched: formik.touched.meta_tag_keyword,
+    //         errors: formik.errors.meta_tag_keyword,
+    //     },
+    //     {
+    //         title: "Meta Tag Description",
+    //         label: "meta_tag_description",
+    //         type: "text",
+    //         rows: 6,
+    //         value: formik.values.meta_tag_description,
+    //         touched: formik.touched.meta_tag_description,
+    //         errors: formik.errors.meta_tag_description,
+    //     },
 
-    const tabData2 = [
-
-        {
-            title: "Meta Tag",
-            label: "meta_tag",
-            type: "text",
-            rows: 1,
-            value: formik.values.meta_tag,
-            touched: formik.touched.meta_tag,
-            errors: formik.errors.meta_tag,
-        },
-        {
-            title: "Meta Tag Keyword",
-            label: "meta_tag_keyword",
-            type: "number",
-            rows: 6,
-            value: formik.values.meta_tag_keyword,
-            touched: formik.touched.meta_tag_keyword,
-            errors: formik.errors.meta_tag_keyword,
-        },
-
-    ]
+    // ]
 
 
 
@@ -240,8 +279,6 @@ export default function CreateLabs() {
 
                         </Box>
 
-                        {/* 
-            <Typography variant="h5" color="green">Clinic Details</Typography> */}
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
@@ -408,14 +445,26 @@ export default function CreateLabs() {
 
                     </form>
 
-                    <TabHome formik={formik}
+                    <TabHome
 
-                        tabData1={tabData1}
-                        tabData2={tabData2}
+                        formik={formik}
+
+                        // tabData1={tabData1}
+                        // tabData2={tabData2}
+
+                        amineties={amineties}
+                        setAmenities={setAmenities}
+
+                        documents={documents}
+                        setDocuments={setDocuments}
+
+                        procedures={procedures}
+                        setProcedures={setProcedures}
+
+                        specialities={specialities}
+                        setSpecialities={setSpecialities}
 
                     />
-
-
 
 
                 </Box>

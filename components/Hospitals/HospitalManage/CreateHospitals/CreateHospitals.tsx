@@ -1,6 +1,3 @@
-
-
-
 import React, { useState } from 'react'
 import { Box, TextField, Grid, FormGroup, FormControlLabel, Checkbox, Button, Typography, Select, MenuItem, Stack, IconButton } from '@mui/material';
 import { useFormik } from 'formik';
@@ -19,11 +16,25 @@ import { TabHome } from './TabHome';
 
 export const CreateHospitals = () => {
 
+
+
     const [image, setImage]: any = useState();
 
 
-    const [preview, setPreview]: any = useState();
+
+    const [role, setRole]: any = useState("null");
+
     const [hospital_image, sethospitalimage]: any = useState(null);
+
+
+    const [documents, setDocuments]: any = useState([{ id: 1 }]);
+
+    const [procedures, setProcedures]: any = useState([{ id: 1 }]);
+
+
+    const [specialities, setSpecialities]: any = useState([{ id: 1 }]);
+
+
     const AddImages = (event: any) => {
 
         const formData = new FormData();
@@ -37,9 +48,6 @@ export const CreateHospitals = () => {
 
         })
     }
-
-
-    const [role, setRole]: any = useState();
 
     const router = useRouter();
 
@@ -69,7 +77,7 @@ export const CreateHospitals = () => {
         onSubmit: (values: any) => {
 
             axios.post(`hospitals`, {
-                hospital_image: hospital_image,
+                image_location: hospital_image,
                 role: role,
                 name: values.name,
                 profile: values.profile,
@@ -173,15 +181,15 @@ export const CreateHospitals = () => {
             touched: formik.touched.location,
             errors: formik.errors.location,
         },
-        {
-            title: "Longitude_Latitude",
-            label: "longitude_latitude",
-            type: "text",
-            rows: 1,
-            value: formik.values.longitude_latitude,
-            touched: formik.touched.longitude_latitude,
-            errors: formik.errors.longitude_latitude,
-        },
+        // {
+        //     title: "Latitude",
+        //     label: "latitude",
+        //     type: "number",
+        //     rows: 1,
+        //     value: formik.values.latitude,
+        //     touched: formik.touched.latitude,
+        //     errors: formik.errors.latitude,
+        // },
         {
             title: "Profile",
             label: "profile",
@@ -203,67 +211,8 @@ export const CreateHospitals = () => {
     ]
 
 
-
-    const tabData8 = [
-
-        {
-            title: "Meta Tag",
-            label: "meta_tag",
-            type: "text",
-            rows: 1,
-            value: formik.values.meta_tag,
-            touched: formik.touched.meta_tag,
-            errors: formik.errors.meta_tag,
-        },
-        {
-            title: "Meta Tag Keyword",
-            label: "meta_tag_keyword",
-            type: "number",
-            rows: 6,
-            value: formik.values.meta_tag_keyword,
-            touched: formik.touched.meta_tag_keyword,
-            errors: formik.errors.meta_tag_keyword,
-        },
-
-    ]
-
-    const tabData3 = [
-
-        {
-            title: "Ac",
-
-        },
-        {
-            title: "Parking",
-
-
-        },
-        {
-            title: "Ambulance",
-
-
-        },
-
-        {
-            title: "Internet/wifi",
-
-
-        },
-
-        {
-            title: "Add More",
-            label: "add_more",
-            type: "text",
-            rows: 4,
-            value: formik.values.add_more,
-            touched: formik.touched.add_more,
-            errors: formik.errors.add_more,
-        },
-
-
-    ]
-
-    const tabData4 = [
+    //PROCEDURES
+    const tabData2 = [
 
         {
             title: "Procedures",
@@ -275,6 +224,59 @@ export const CreateHospitals = () => {
         },
 
     ]
+
+    //SPECIALIZATION
+    const tabData3 = [
+
+        {
+            title: "Specialities",
+            label: "specialities",
+            type: "text",
+            value: formik.values.name,
+            touched: formik.touched.name,
+            errors: formik.errors.name,
+        },
+
+    ]
+
+
+    //SEO
+    // const tabData4 = [
+
+    //     {
+    //         title: "Meta Tag",
+    //         label: "meta_tag",
+    //         type: "text",
+    //         rows: 1,
+    //         value: formik.values.meta_tag,
+    //         touched: formik.touched.meta_tag,
+    //         errors: formik.errors.meta_tag,
+    //     },
+    //     {
+    //         title: "Meta Tag Keyword",
+    //         label: "meta_tag_keyword",
+    //         type: "number",
+    //         rows: 6,
+    //         value: formik.values.meta_tag_keyword,
+    //         touched: formik.touched.meta_tag_keyword,
+    //         errors: formik.errors.meta_tag_keyword,
+    //     },
+
+    // ]
+
+
+    // const tabData4 = [
+
+    //     {
+    //         title: "Procedures",
+    //         label: "procedure",
+    //         type: "text",
+    //         value: formik.values.name,
+    //         touched: formik.touched.name,
+    //         errors: formik.errors.name,
+    //     },
+
+    // ]
     const tabData5 = [
 
         {
@@ -389,7 +391,7 @@ export const CreateHospitals = () => {
 
                                     <Grid lg={8}>
 
-                                    <Box sx={{
+                                        <Box sx={{
                                             display: "flex", flexDirection: "column", justifyContent: "end",
                                             alignItems: "end",
                                         }}>
@@ -478,12 +480,26 @@ export const CreateHospitals = () => {
 
                     </form>
 
-                    <TabHome formik={formik}
+
+                    <TabHome
+
+                        formik={formik}
+
                         tabData1={tabData1}
-                        tabData3={tabData3}
-                        tabData4={tabData4}
-                        tabData5={tabData5}
-                        tabData8={tabData8}
+                        tabData2={tabData2}
+
+                        // amineties={amineties}
+                        // setAmenities={setAmenities}
+
+                        documents={documents}
+                        setDocuments={setDocuments}
+
+                        procedures={procedures}
+                        setProcedures={setProcedures}
+
+                        specialities={specialities}
+                        setSpecialities={setSpecialities}
+
                     />
 
 

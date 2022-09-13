@@ -1,38 +1,41 @@
 import { Box, Checkbox, Grid, TextField, Typography } from '@mui/material';
-import React from 'react'
+import React, { useState } from 'react'
+import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
 
 export const Amenities = (props: any) => {
 
-    const { tabData3, formik } = props;
+    const { amineties, setAmenities } = props;
+
+    const [data, setData] = useState();
+
+    console.log("amineties", amineties)
+
+
+    const handleChangeInput = (index: any, event: any) => {
+        const values = [...amineties]
+        values[index][event.target.name] = !amineties[index].checked
+        setAmenities(values)
+    }
+
+
+    const handleAddFields = () => {
+
+        setAmenities([...amineties, { title: data, checked: true, }])
+        console.log(amineties)
+
+    }
+
+    const handleRemoveFields = () => {
+        setAmenities((amineties: any) => amineties.filter((_: any, i: any) => i !== amineties.length - 1))
+    }
 
     return (
 
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-            {tabData3.slice(0, 4).map((data: any) =>
+            {amineties.map((data: any, index: any) =>
 
-                <Grid lg={12}>
-
-                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                            <Typography>{data.title}</Typography>
-
-                        </Box>
-
-
-                        <Checkbox />
-
-                    </Box>
-
-                </Grid>
-            )}
-
-
-            {tabData3.slice(4).map((data: any) =>
-
-                <Grid lg={12}>
+                <Grid key={index} lg={12}>
 
                     <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
@@ -42,19 +45,7 @@ export const Amenities = (props: any) => {
 
                         </Box>
 
-
-                        < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                            fullWidth
-                            id={data.label}
-                            name={data.label}
-                            // label={data.label}
-                            value={data.value}
-                            type={data.type}
-                            onChange={formik.handleChange}
-                            error={data.touched && Boolean(data.errors)}
-                            helperText={data.touched && data.errors}
-                        />
-
+                        <Checkbox name="checked" defaultChecked={data.checked} onChange={(event: any) => handleChangeInput(index, event)} />
 
                     </Box>
 
@@ -62,8 +53,30 @@ export const Amenities = (props: any) => {
             )}
 
 
+            <Grid lg={12}>
 
+                <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+                    <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                        <Typography>Add More</Typography>
+
+                    </Box>
+
+                    < TextField sx={{ flex: 2, width: "100%", mb: 2 }} onChange={(e: any) => setData(e.target.value)} />
+
+                </Box>
+
+            </Grid>
+
+            <Box sx={{ display: "flex" }}>
+                <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{amineties.length > 4
+                    && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
+                }
+
+            </Box>
 
         </Grid>
     )
 }
+
