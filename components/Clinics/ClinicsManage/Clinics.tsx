@@ -36,7 +36,7 @@ export const Clinics = () => {
 
             <CustomizedButton onClick={() => router.push("/clinics/create")} bgColor="#229954">Create Clinic</CustomizedButton>
 
-            <TableUI tableHead={tableHead} element={element} name="clinics" />
+            <TableUI tableHead={tableHead} element={element} name="clinics" isDoc={true} />
 
         </Grid>
     )

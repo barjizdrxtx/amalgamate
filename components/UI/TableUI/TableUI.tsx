@@ -7,16 +7,19 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import axios from 'axios';
 import { useQueryFetch } from '../../../utils/useQueryFetch';
-import { CSVLink, CSVDownload } from "react-csv";
-
+import { useRouter } from 'next/router';
+import BadgeIcon from '@mui/icons-material/Badge';
 
 export const TableUI = (props: any) => {
 
 
-  const { tableHead, element, name } = props;
+  const { tableHead, element, name, isDoc } = props;
+
 
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(name);
 
+
+  const router = useRouter()
 
   const handleSubmitDelete = (data: any) => {
 
@@ -26,8 +29,6 @@ export const TableUI = (props: any) => {
         refetch();
       })
   }
-
-
 
 
   return (
@@ -41,15 +42,13 @@ export const TableUI = (props: any) => {
       }}>
 
 
-
-
         <Box sx={{ py: 3 }}>
 
           <OutlinedInput placeholder="Search" />
 
           <IconButton>
 
-            {/* <CSVLink data={tableData}><FileUploadIcon /></CSVLink> */}
+            <FileUploadIcon />
 
           </IconButton>
 
@@ -94,12 +93,24 @@ export const TableUI = (props: any) => {
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>
 
+
+                  {isDoc && <IconButton>
+
+                    <BadgeIcon sx={{ color: "dodgerblue" }} onClick={() => router.push({ pathname: `${name}/doctors`, query: { clin: data._id } })} />
+
+                  </IconButton>
+                  }
+
                   <IconButton>
+
                     <DeleteOutlineIcon sx={{ color: "red" }} onClick={() => handleSubmitDelete(data._id)} />
+
                   </IconButton>
 
                   <IconButton>
-                    <ModeEditOutlineOutlinedIcon sx={{ color: "green" }} />
+
+                    <ModeEditOutlineOutlinedIcon sx={{ color: "green" }} onClick={() => router.push(`${name}/edit/${data._id}`)} />
+
                   </IconButton>
 
                 </Box>
