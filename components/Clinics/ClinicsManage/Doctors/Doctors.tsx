@@ -9,6 +9,8 @@ export const Doctors = () => {
 
     const router = useRouter();
 
+    const { clin } = router.query
+
     const tableHead = [
 
         "Image",
@@ -38,9 +40,9 @@ export const Doctors = () => {
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push({ pathname: `/clinics/doctors/create`, query: { clin: "632178ac0ea16e0064188c37" } })} bgColor="#229954">Create Doctors</CustomizedButton>
+            <CustomizedButton onClick={() => router.push({ pathname: `/clinics/doctors/create`, query: { clin: clin } })} bgColor="#229954">Create Doctors</CustomizedButton>
 
-            <TableUI tableHead={tableHead} element={element} name="doctors"  />
+            <TableUI tableHead={tableHead} element={element} name="doctors" />
 
         </Grid >
     )

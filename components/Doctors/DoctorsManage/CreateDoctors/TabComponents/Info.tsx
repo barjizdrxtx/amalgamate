@@ -1,121 +1,105 @@
-import { Box, Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material';
-import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
+import ImageIcon from '@mui/icons-material/Image';
 import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
+import axios from 'axios';
 
 export const Info = (props: any) => {
 
-    const { tabData1, formik } = props;
+    const { documents, setDocuments } = props;
 
-    const [inputfield, setInputField]: any = useState([{ id: 1 }]);
+    console.log("documents", documents)
 
 
-    const [value, setValue] = React.useState<Date | null>(
-        new Date(''),
-    );
+    const AddImages = (index: any, event: any) => {
 
-    const handleChange = (newValue: Date | null) => {
-        setValue(newValue);
-    };
+        if (event.target.files[0] === undefined) return;
 
+        const formData = new FormData();
+
+        formData.append('file_location', event.target.files[0]);
+
+        axios.post(`documents`, formData).then((response) => {
+
+            const values = [...documents]
+            values[index]['image'] = response.data.result.file_location
+            setDocuments(values)
+
+        })
+    }
 
     const handleChangeInput = (index: any, event: any) => {
-        const values = [...inputfield]
+        const values = [...documents]
         values[index][event.target.name] = event.target.value
-        setInputField(values)
+        setDocuments(values)
     }
 
 
     const handleAddFields = () => {
 
-        setInputField([...inputfield, { id: inputfield.length + 1 }])
-        console.log(inputfield)
-
+        setDocuments([...documents, { id: documents.length + 1 }])
+        console.log(documents)
     }
 
     const handleRemoveFields = () => {
-        setInputField((inputfield: any) => inputfield.filter((_: any, i: any) => i !== inputfield.length - 1))
+        setDocuments((documents: any) => documents.filter((_: any, i: any) => i !== documents.length - 1))
     }
-
 
     return (
 
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-
             <Grid lg={12}>
 
-                <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                {documents.map((add: any, index: any) =>
 
-                    <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                        <Typography>Qualification</Typography>
-
-                    </Box>
-
-
-                    <Box sx={{ flex: 4, width: "100%", mb: 2, display: "flex", flexDirection: "column", justifyContent: "space-around" }}>
-
-                        {inputfield.map((add: any) => <Box sx={{ flex: 4, width: "100%", mb: 2, display: "flex", justifyContent: "space-around" }}>
-
-                            < TextField sx={{ flex: 4, width: "100%" }}
-                                fullWidth
-                                id="outlined-multiline-static"
-                                name=""
-                                // label={data.label}
-                                value={formik.values.specialisedIn}
-                                type="text"
-                                onChange={formik.handleChange}
-                                error={formik.touched.specialisedIn && Boolean(formik.errors.specialisedIn)}
-                                helperText={formik.touched.specialisedIn && formik.errors.specialisedIn}
-                            />
-
-                            <LocalizationProvider dateAdapter={AdapterDateFns} sx={{ flex: 2, width: "100%", m: 2 }}>
-
-                                <Stack>
-                                    <DesktopDatePicker
-                                        // label="Date desktop"
-                                        inputFormat="MM/dd/yyyy"
-                                        value={value}
-                                        onChange={handleChange}
-                                        renderInput={(params) => <TextField {...params} />}
-                                    />
-                                </Stack>
-                            </LocalizationProvider>
+                    <Box sx={{
+                        width: "100%", display: "flex", flexDirection: "column",
+                        justifyContent: "start", alignItems: "center", mb: 4
+                    }}>
 
 
-                            < TextField sx={{ flex: 4, width: "100%", ml: 2 }}
-                                fullWidth
-                                id="outlined-multiline-static"
-                                name=""
-                                // label={data.label}
-                                value={formik.values.specialisedIn}
-                                type="file"
-                                onChange={formik.handleChange}
-                                error={formik.touched.specialisedIn && Boolean(formik.errors.specialisedIn)}
-                                helperText={formik.touched.specialisedIn && formik.errors.specialisedIn}
-                            />
-                        </Box>
-                        )}
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-                        <Box sx={{ display: "flex" }}>
-                            <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{inputfield.length > 1
-                                && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
-                            }
+
+                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                                <Typography>Documents</Typography>
+
+                            </Box>
+
+
+                            <Box sx={{ flex: 4, width: "100%", mb: 2, display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+                                <TextField sx={{ flex: 1, width: "100%" }} defaultValue={documents[index].document_name}
+                                    name="document_name"
+                                    onChange={(event: any) => handleChangeInput(index, event)} />
+
+                                <TextField sx={{ flex: 1, width: "100%" }} type='file' key="image" id="outlined-basic"
+
+                                    onChange={(event: any) => AddImages(index, event)} />
+
+                            </Box>
 
                         </Box>
 
                     </Box>
 
+                )}
 
-
-                </Box>
 
             </Grid>
 
+            <Grid>
 
+                <Box sx={{ display: "flex" }}>
+                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{documents.length > 1
+                        && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
+                    }
 
-        </Grid >
+                </Box>
+            </Grid>
+
+        </Grid>
     )
 }

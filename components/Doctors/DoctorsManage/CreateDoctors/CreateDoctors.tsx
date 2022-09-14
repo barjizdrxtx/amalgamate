@@ -176,6 +176,17 @@ export const CreateDoctors = () => {
             errors: formik.errors.email,
 
         },
+        {
+            title: "Registration Number",
+            label: "registration_number",
+            type: "registration_number",
+            value: formik.values.registration_number,
+            touched: formik.touched.registration_number,
+            errors: formik.errors.registration_number,
+
+        },
+
+
     ]
 
     const tabData1 = [

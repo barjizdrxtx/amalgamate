@@ -16,7 +16,7 @@ export const TabHome = (props: any) => {
 
   const [value, setValue] = React.useState('1');
 
-  const { tabData1, tabData2,tabData3, tabData8, formik } = props;
+  const { tabData1, tabData2, tabData3, tabData8, formik, documents, setDocuments } = props;
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -40,13 +40,15 @@ export const TabHome = (props: any) => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <Info tabData1={tabData1} formik={formik} />
+            <Info tabData1={tabData1} formik={formik}
+              documents={documents}
+              setDocuments={setDocuments} />
           </TabPanel>
           <TabPanel value="2">
             <Id tabData2={tabData2} formik={formik} />
           </TabPanel>
           <TabPanel value="3">
-            <Profile  tabData3={tabData3} formik={formik}/>
+            <Profile tabData3={tabData3} formik={formik} />
           </TabPanel>
           <TabPanel value="4">
             <Practice />
