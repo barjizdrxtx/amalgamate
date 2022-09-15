@@ -9,7 +9,7 @@
 
 #table tr {
     background-color: white;
-
+    border: 1px solid rgb(223, 223, 223);
 }
 
 #table tr:hover {
@@ -27,4 +27,5 @@
 #table td {
     padding: 12px;
     width: max-content;
+
 }

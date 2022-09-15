@@ -100,12 +100,17 @@ export const AllTabs = (props: any) => {
                         </Box>
 
 
+
                         <Box sx={{
-                            display: "flex", flexDirection: "column", justifyContent: "end",
-                            alignItems: "end",
+                            width: "100%", display: "flex", justifyContent: "center", alignItems: "center"
                         }}>
 
-                            <Box sx={{ width: "50%" }}>
+
+                            <Typography sx={{ flex: 1 }}>Image</Typography>
+
+
+                            <Box sx={{ flex: 5, width: "100%", mb: 2 }}>
+
 
                                 <Box sx={{
                                     backgroundColor: "lightgray", width: "150px", mb: 2,
@@ -122,22 +127,24 @@ export const AllTabs = (props: any) => {
 
                                 </Box>
 
-                            </Box>
 
-                            <Box sx={{ display: "flex", width: "50%" }}>
+                                <Box sx={{ display: "flex", width: "50%" }}>
 
-                                <Stack direction="row" alignItems="center" spacing={2}>
+                                    <Stack direction="row" alignItems="center" spacing={2}>
 
-                                    <Button variant="contained" component="label">
-                                        Upload
+                                        <Button variant="contained" component="label">
+                                            Upload
 
-                                        <input hidden type='file' key="image" id="outlined-basic"
+                                            <input hidden type='file' key="image" id="outlined-basic"
 
-                                            onChange={(event: any) => AddImages(index, event)} />
+                                                onChange={(event: any) => AddImages(index, event)} />
 
-                                    </Button>
+                                        </Button>
 
-                                </Stack>
+                                    </Stack>
+
+                                </Box>
+
 
                             </Box>
 
@@ -150,15 +157,21 @@ export const AllTabs = (props: any) => {
 
             </Grid>
 
-            <Grid>
+            <Box sx={{
+                width: "100%", display: "flex", justifyContent: "center", alignItems: "center"
+            }}>
 
-                <Box sx={{ display: "flex" }}>
-                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{inputfield.length > 1
-                        && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
+                <Typography sx={{ flex: 1 }}></Typography>
+
+
+                <Box sx={{ flex: 5, width: "100%" }}>
+
+                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>Add New</CustomizedButton>{inputfield.length > 1
+                        && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>Remove</CustomizedButton>
                     }
-
                 </Box>
-            </Grid>
+
+            </Box>
 
         </Grid>
     )

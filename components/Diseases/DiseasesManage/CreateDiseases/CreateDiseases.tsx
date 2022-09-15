@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Box, TextField, Grid, Button, Typography, Stack } from '@mui/material';
+import { Box, TextField, Grid, Button, Typography, Stack, Divider } from '@mui/material';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -8,6 +8,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import { diseaseSchema } from './validation';
 import { TextEditor } from '../TextEditor';
 import { TabHome } from './TabHome';
+import { ImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 
 export const CreateDiseases = () => {
 
@@ -37,20 +38,6 @@ export const CreateDiseases = () => {
     const router = useRouter();
 
 
-    const AddImages = (event: any) => {
-
-        if (event.target.files[0] === undefined) return;
-
-        const formData = new FormData();
-
-        formData.append('file_location', event.target.files[0]);
-
-        axios.post(`images`, formData).then((response) => {
-
-            setImage(response.data.result.file_location)
-
-        })
-    }
 
 
     const handleChangeInput = (content: any) => {
@@ -110,7 +97,8 @@ export const CreateDiseases = () => {
                 console.log(res1);
                 console.log(res2);
                 alert("submit success")
-                router.push('/diseases')
+                // router.push('/diseases')
+                setOverView([{ id: 1 }])
             }));
 
         },
@@ -217,6 +205,7 @@ export const CreateDiseases = () => {
 
                     </Box>
 
+                    <Divider />
 
                     <form onSubmit={formik.handleSubmit}>
 
@@ -237,7 +226,7 @@ export const CreateDiseases = () => {
 
                                             </Box>
 
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
+                                            <TextField sx={{ flex: 2, width: "100%", mb: 2 }}
                                                 fullWidth
                                                 id={data.label}
                                                 name={data.label}
@@ -260,47 +249,7 @@ export const CreateDiseases = () => {
 
                                     <Grid lg={8}>
 
-                                        <Box sx={{
-                                            display: "flex", flexDirection: "column", justifyContent: "end",
-                                            alignItems: "end",
-                                        }}>
-
-                                            <Box sx={{ width: "50%" }}>
-
-                                                <Box sx={{
-                                                    backgroundColor: "lightgray", width: "150px", mb: 2,
-                                                    height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
-                                                }}>
-
-                                                    {image === '' ? <ImageIcon sx={{ fontSize: "4rem" }} />
-
-                                                        :
-
-                                                        <img src={image} width="100%" />
-
-                                                    }
-
-                                                </Box>
-
-                                            </Box>
-
-                                            <Box sx={{ display: "flex", width: "50%" }}>
-
-                                                <Stack direction="row" alignItems="center" spacing={2}>
-
-                                                    <Button variant="contained" component="label">
-                                                        Upload
-
-                                                        <input hidden type='file' key="image" id="outlined-basic"
-                                                            onChange={(event) => AddImages(event)} />
-
-                                                    </Button>
-
-                                                </Stack>
-
-                                            </Box>
-
-                                        </Box>
+                                        <ImagePreview image={image} setImage={setImage} />
 
                                     </Grid>
 

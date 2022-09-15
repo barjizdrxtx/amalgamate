@@ -5,6 +5,9 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { subRoutes } from '../../../config/Routes/subRoutes';
 import { useDarkmode } from '../../../utils/useDarkmode';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 export const SubSidebar = () => {
 
@@ -15,10 +18,26 @@ export const SubSidebar = () => {
     const darkmode = useDarkmode();
 
 
+    const [bool, setBool] = useState([]);
+
+
     const Expand = () => {
 
         setIsExpand(!isExpand)
     }
+
+
+
+    const Open = (index: any) => {
+
+        let newArray: any = [...bool]
+
+        newArray[index] = !newArray[index];
+
+        setBool(newArray)
+
+    }
+
 
 
     return (
@@ -33,8 +52,11 @@ export const SubSidebar = () => {
             <Box onClick={Expand} sx={{ cursor: "pointer", display: "flex", justifyContent: 'center', alignItems: "center", p: 2 }}>
 
                 {isExpand ?
+
                     <KeyboardDoubleArrowLeftIcon sx={{ color: "#229954", fontSize: "2rem" }} />
+
                     :
+
                     <KeyboardDoubleArrowRightIcon sx={{ color: "#229954", fontSize: "2rem" }} />
                 }
 
@@ -43,12 +65,15 @@ export const SubSidebar = () => {
             <Divider />
 
 
-
-            {subRoutes.map((data, index) =>
+            {subRoutes.map((data: any, index) =>
 
                 <Box key={index} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "start", }}>
 
-                    <Box onClick={() => router.push(data.path)}
+                    <Box onClick={() => {
+
+                        router.push(data.path)
+                        Open(index)
+                    }}
                         sx={{
                             display: "flex",
                             alignItems: "center",
@@ -56,7 +81,7 @@ export const SubSidebar = () => {
                             cursor: "pointer",
                             backgroundColor: router.asPath === data.path ? "#EAFAF1" : "transparent",
                             px: 2, py: 1.2,
-                            m: 0.5,
+                            my: 0.5,
                             borderRadius: "10px",
                             '&:hover': {
                                 backgroundColor: router.asPath === data.path ? "none" : "#F2F3F4",
@@ -65,6 +90,7 @@ export const SubSidebar = () => {
                         }}>
 
                         <data.icon sx={{ color: router.asPath === data.path ? "#229954" : "#566573", }} />
+
 
                         {isExpand &&
                             <>
@@ -78,6 +104,39 @@ export const SubSidebar = () => {
                                     }}>{data.name}</Typography>
 
                             </>}
+
+                        {bool[index] === true ? <KeyboardArrowDownIcon sx={{ color: 'gray', fontSize: "1.2rem" }} /> : <KeyboardArrowRightIcon sx={{ color: 'gray', fontSize: "1.2rem" }} />}
+
+
+                    </Box>
+
+                    <Box sx={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+
+                        {bool[index] === true && data.children.map((drop: any) =>
+
+                            <Box onClick={() => router.push(drop.path)} sx={{
+                                width: "100%",
+                                display: "flex",
+                                px: 2, py: 1.2,
+                                my: 0.5,
+                                alignItems: "center",
+                                justifyContent: "start",
+                                cursor: "pointer",
+                                borderRadius: "10px",
+                                '&:hover': {
+                                    backgroundColor: "#F2F3F4",
+                                    transition: "0.3s",
+                                },
+                            }}>
+
+                                <FiberManualRecordIcon sx={{ fontSize: "0.5rem", mr: "1rem" }} />
+
+                                <Typography variant='subtitle2'>{drop.text}</Typography>
+
+                            </Box>
+
+                        )}
+
                     </Box>
 
                 </Box>

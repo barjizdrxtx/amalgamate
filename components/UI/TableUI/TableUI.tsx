@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton, OutlinedInput, Pagination, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import style from "../../../styles/TableUI.module.css"
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useQueryFetch } from '../../../utils/useQueryFetch';
 import { useRouter } from 'next/router';
 import BadgeIcon from '@mui/icons-material/Badge';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export const TableUI = (props: any) => {
 
@@ -18,6 +19,18 @@ export const TableUI = (props: any) => {
 
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(name);
 
+  const [bool, setBool] = useState([]);
+
+
+  const Open = (index: any) => {
+
+    let newArray: any = [...bool]
+
+    newArray[index] = !newArray[index];
+
+    setBool(newArray)
+
+  }
 
   const router = useRouter()
 
@@ -75,7 +88,7 @@ export const TableUI = (props: any) => {
 
           {tableData?.result?.map((data: any, index: any) =>
 
-            <tr>
+            <tr onClick={() => Open(index)}>
 
               <td style={{ display: "flex", alignItems: "center" }}>
 
@@ -91,27 +104,63 @@ export const TableUI = (props: any) => {
 
               <td>
 
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+
+                  {bool[index] === true &&
+
+                    <Box sx={{
+                      backgroundColor: "white", display: "flex", flexDirection: "column", justifyContent: "center",
+                      alignItems: "center",
+                      boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
+                      borderRadius: "5px", width: "120px",
+                      position: "absolute", top: "0", right: "0", zIndex: "100",
+                    }}>
+
+                      {isDoc && <IconButton>
+
+                        <BadgeIcon sx={{ color: "dodgerblue" }} onClick={() => router.push({ pathname: `${name}/doctors`, query: { clin: data._id } })} />
+
+                      </IconButton>
+                      }
 
 
-                  {isDoc && <IconButton>
+                      <Box onClick={() => router.push(`${name}/edit/${data._id}`)} sx={{
+                        width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
+                        '&:hover': {
+                          backgroundColor: "lightgray"
+                        }
 
-                    <BadgeIcon sx={{ color: "dodgerblue" }} onClick={() => router.push({ pathname: `${name}/doctors`, query: { clin: data._id } })} />
+                      }}>
 
-                  </IconButton>
-                  }
+                        <ModeEditOutlineOutlinedIcon sx={{ color: "green" }} />
+
+                        <Typography variant='subtitle2' sx={{ ml: 1 }}>Edit</Typography>
+
+                      </Box>
+
+
+                      <Box onClick={() => handleSubmitDelete(data._id)} sx={{
+                        width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
+                        '&:hover': {
+                          backgroundColor: "lightgray"
+                        }
+                      }}>
+
+                        <DeleteOutlineIcon sx={{ color: "red" }} />
+
+                        <Typography variant='subtitle2' sx={{ ml: 1 }}>Delete</Typography>
+
+                      </Box>
+
+                    </Box>}
 
                   <IconButton>
 
-                    <DeleteOutlineIcon sx={{ color: "red" }} onClick={() => handleSubmitDelete(data._id)} />
+                    <MoreVertIcon onClick={() => Open(index)} />
 
                   </IconButton>
 
-                  <IconButton>
 
-                    <ModeEditOutlineOutlinedIcon sx={{ color: "green" }} onClick={() => router.push(`${name}/edit/${data._id}`)} />
-
-                  </IconButton>
 
                 </Box>
 

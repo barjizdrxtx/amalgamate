@@ -21,32 +21,68 @@ export const subRoutes = [
     {
         name: 'Clincs',
         icon: VaccinesIcon,
-        path: '/clinics'
+        path: '/clinics',
+        children: [
+            {
+                text: "clinics",
+                path: '/clinics'
+            }
+        ]
     },
     {
         name: 'Hospitals',
         icon: LocalHospitalIcon,
-        path: '/hospitals'
+        path: '/hospitals',
+        children: [
+            {
+                text: "clinics",
+                path: '/clinics'
+            }
+        ]
     },
     {
         name: 'Labs',
         icon: ScienceIcon,
-        path: '/labs'
+        path: '/labs',
+        children: [
+            {
+                text: "clinics",
+                path: '/clinics'
+            }
+        ]
     },
     {
         name: 'Doctors',
         icon: PersonIcon,
-        path: '/doctors'
+        path: '/doctors',
+        children: [
+            {
+                text: "clinics",
+                path: '/clinics'
+            }
+        ]
     },
     {
         name: 'Diseases',
         icon: CoronavirusIcon,
-        path: '/diseases'
+        path: '/diseases',
+        children: [
+            {
+                text: "clinics",
+                path: '/clinics'
+            }
+        ]
     },
     {
         name: 'Enquiry',
         icon: MedicalInformationIcon,
-        path: '/enquiry'
+        path: '/enquiry',
+        children: [
+            {
+                text: "clinics",
+                path: '/clinics'
+            }
+        ]
     },
     // {
     //     name: 'Advertisement',
