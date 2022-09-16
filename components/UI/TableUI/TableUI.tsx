@@ -14,7 +14,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 export const TableUI = (props: any) => {
 
 
-  const { tableHead, element, name, isDoc } = props;
+  const { tableHead, element, name, isDoc, doubleArray } = props;
 
 
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(name);
@@ -98,7 +98,12 @@ export const TableUI = (props: any) => {
 
               {element.map((el: any) =>
 
-                <td>{data[el]}</td>
+
+                <td>
+
+                  {doubleArray ? data["data"][el] : data[el]}
+
+                </td>
 
               )}
 

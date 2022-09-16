@@ -65,15 +65,19 @@ export const Login = () => {
     return (
 
 
-        <Grid container alignItems="center">
+        <Grid container alignItems="center" >
 
-            <Grid lg={6}>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
 
-                <img width="100%" src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-135.jpg?w=2000" />
 
-            </Grid>
+                <Box sx={{ width: "50%", display: "flex", flexDirection: "column" }}>
 
-            <Grid lg={6}>
+
+                    <img width="100%" src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-135.jpg?w=2000" />
+
+
+                </Box>
+
 
                 <Box sx={{ width: "50%", display: "flex", flexDirection: "column" }}>
 
@@ -108,10 +112,9 @@ export const Login = () => {
 
                 </Box>
 
-            </Grid>
+            </Box>
 
         </Grid>
-
 
     )
 }
