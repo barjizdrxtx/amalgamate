@@ -10,23 +10,22 @@ export const EnquiryDoctors = () => {
 
     const tableHead = [
 
-        "Image",
         "Name",
-        "Website",
-        "Clinic Admin Name",
-        "Location",
-        "Clinic Contact",
-        "Actions"
+        "Specialised In",
+        "Qualification",
+        "Email",
+        "Mobile",
+        // "Actions"
 
     ];
 
     const element = [
 
         "name",
-        "website",
-        "clinic_admin_name",
-        "location",
-        "clinic_contact_no"
+        "specialisedIn",
+        "qualification",
+        "email",
+        "mobile",
 
     ]
 
@@ -37,6 +36,7 @@ export const EnquiryDoctors = () => {
             <TableUI
                 tableHead={tableHead}
                 element={element}
+                tableName="Doctors"
                 name="enquiry/list-by-type/doctors"
                 doubleArray="data"
                 isDoc={true} />

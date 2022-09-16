@@ -12,7 +12,7 @@ import { EnquiryHospitals } from './Enquirys/EnquiryHospitals';
 
 export const TabHome = () => {
 
-  const [value, setValue] = React.useState('2');
+  const [value, setValue] = React.useState('1');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
