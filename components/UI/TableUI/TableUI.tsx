@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, OutlinedInput, Pagination, Stack, Typography } from '@mui/material'
+import { Box, Grid, IconButton, OutlinedInput, Pagination, Stack, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import style from "../../../styles/TableUI.module.css"
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -30,6 +30,12 @@ export const TableUI = (props: any) => {
 
   const [bool, setBool] = useState([]);
 
+  const totalLength = tableData?.result?.length
+
+  let totalPages = totalLength === limit ? page + 1 : page;
+
+  console.log("totalPages", totalPages)
+
 
   const Open = (index: any) => {
 
@@ -38,6 +44,12 @@ export const TableUI = (props: any) => {
     newArray[index] = !newArray[index];
 
     setBool(newArray)
+
+  }
+
+  const handleChange = (e: any, p: any) => {
+
+    setPage(p)
 
   }
 
@@ -111,7 +123,7 @@ export const TableUI = (props: any) => {
             <tr onClick={() => Open(index)}>
 
               <td style={{ fontWeight: "bold" }}>
-                {index + 1}
+                {index + 1 + (page - 1) * limit}
               </td>
 
 
@@ -233,9 +245,11 @@ export const TableUI = (props: any) => {
         </table>
 
         <Box sx={{ display: "flex", justifyContent: "end", py: 2 }}>
+{/* 
+          <TextField onChange={(e: any) => setLimit(e.target.value)} /> */}
 
           <Stack spacing={2}>
-            <Pagination onClick={() => setPage(page + 1)} count={100} color="primary" />
+            <Pagination onChange={handleChange} count={totalPages} color="primary" />
           </Stack>
 
         </Box>

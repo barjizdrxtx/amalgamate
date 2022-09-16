@@ -44,7 +44,6 @@ export const SubSidebar = () => {
 
         <Box sx={{
             overflow: "hidden", width: 'fit-content',
-            height: "70vh",
             px: 1,
             backgroundColor: darkmode ? "#17202A" : "white", borderRight: "1px solid #EAEDED"
         }}>
@@ -71,7 +70,7 @@ export const SubSidebar = () => {
 
                     <Box onClick={() => {
 
-                        router.push(data.path)
+                        // router.push(data.path)
                         Open(index)
                     }}
                         sx={{
@@ -129,9 +128,17 @@ export const SubSidebar = () => {
                                 },
                             }}>
 
-                                <FiberManualRecordIcon sx={{ fontSize: "0.5rem", mr: "1rem" }} />
+                                <FiberManualRecordIcon sx={{
+                                    color: router.asPath === drop.path ? "#229954" : "black",
+                                    fontSize: router.asPath === drop.path ? "0.7rem" : "0.5rem",
+                                    mr: "1rem",
 
-                                <Typography variant='subtitle2'>{drop.text}</Typography>
+                                }} />
+
+                                <Typography variant='subtitle2' sx={{
+                                    color: "black",
+                                    fontWeight: router.asPath === drop.path ? "bold" : "normal",
+                                }}>{drop.text}</Typography>
 
                             </Box>
 

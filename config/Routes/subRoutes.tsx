@@ -24,9 +24,9 @@ export const subRoutes = [
         path: '/clinics',
         children: [
             {
-                text: "clinics",
+                text: "Clinic List",
                 path: '/clinics'
-            }
+            },
         ]
     },
     {
@@ -35,8 +35,8 @@ export const subRoutes = [
         path: '/hospitals',
         children: [
             {
-                text: "clinics",
-                path: '/clinics'
+                text: "Hospital List",
+                path: '/hospitals'
             }
         ]
     },
@@ -46,7 +46,7 @@ export const subRoutes = [
         path: '/labs',
         children: [
             {
-                text: "clinics",
+                text: "Lab List",
                 path: '/clinics'
             }
         ]
@@ -57,8 +57,8 @@ export const subRoutes = [
         path: '/doctors',
         children: [
             {
-                text: "clinics",
-                path: '/clinics'
+                text: "Doctors List",
+                path: '/doctors'
             }
         ]
     },
@@ -68,8 +68,8 @@ export const subRoutes = [
         path: '/diseases',
         children: [
             {
-                text: "clinics",
-                path: '/clinics'
+                text: "Diseases List",
+                path: '/diseases'
             }
         ]
     },
@@ -79,7 +79,7 @@ export const subRoutes = [
         path: '/enquiry',
         children: [
             {
-                text: "Enquiry",
+                text: "Enquiry List",
                 path: '/enquiry'
             }
         ]
