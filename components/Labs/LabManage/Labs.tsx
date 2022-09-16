@@ -10,12 +10,12 @@ export const Labs = () => {
 
     const tableHead = [
 
-        "Image",
+
         "Name",
         "Website",
-        "Discription",
-        "Lab Email",
-        "Lab Contact",
+        "Admin",
+        "Location",
+        "Contact",
         "Actions"
 
     ];
@@ -24,8 +24,8 @@ export const Labs = () => {
 
         "name",
         "website",
-        "description",
-        "lab_email",
+        "lab_admin_name",
+        "location",
         "lab_contact_no"
 
     ]

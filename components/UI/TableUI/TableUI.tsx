@@ -22,8 +22,11 @@ export const TableUI = (props: any) => {
 
   const [isPopUp, setIsPopup] = useState(false);
 
+  const [page, setPage] = useState(1);
 
-  const { fetchedData: tableData, refetch: refetch } = useQueryFetch(name);
+  const [limit, setLimit] = useState(10);
+
+  const { fetchedData: tableData, refetch: refetch } = useQueryFetch(`${name}?page=${page}&limit=${limit}`);
 
   const [bool, setBool] = useState([]);
 
@@ -232,7 +235,7 @@ export const TableUI = (props: any) => {
         <Box sx={{ display: "flex", justifyContent: "end", py: 2 }}>
 
           <Stack spacing={2}>
-            <Pagination count={100} color="primary" />
+            <Pagination onClick={() => setPage(page + 1)} count={100} color="primary" />
           </Stack>
 
         </Box>

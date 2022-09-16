@@ -10,7 +10,7 @@ import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 
 
-export const CreateClinics = () => {
+export const CreateClinics = ({ path = 'clinics' }) => {
 
     const [role, setRole] = useState("null");
 
@@ -85,7 +85,7 @@ export const CreateClinics = () => {
 
         onSubmit: (values: any) => {
 
-            const axiosrequest1 = axios.post(`clinics`, {
+            const axiosrequest1 = axios.post(path, {
 
                 name: values.name,
                 role: role,
@@ -123,7 +123,7 @@ export const CreateClinics = () => {
                 console.log(res1);
                 console.log(res2);
                 alert("submit success")
-                router.push('/clinics')
+                router.push(`/${path}`)
             }));
 
         },
@@ -304,7 +304,7 @@ export const CreateClinics = () => {
 
                             <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Clinic</CustomizedButton >
 
-                            <CustomizedButton bgColor="black" onClick={() => router.push('/labs')}>Cancel</CustomizedButton >
+                            <CustomizedButton bgColor="black" onClick={() => router.push(`/${path}`)}>Cancel</CustomizedButton >
 
                         </Box>
 

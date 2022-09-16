@@ -20,6 +20,9 @@ export const CreateDoctors = () => {
 
     const [doctor_img, setDoctor_img] = useState(null);
 
+    const [documents, setDocuments] = useState([{ id: 1 }]);
+
+
     const [certificates, setCertificates] = useState([{ id: 1 }]);
 
     const [specialisedIn, setSpecialisedIn] = useState([{ id: 1 }]);
@@ -513,6 +516,8 @@ export const CreateDoctors = () => {
                         tabData1={tabData1}
                         tabData3={tabData3}
                         tabData8={tabData8}
+                        documents={documents}
+                        setDocuments={setDocuments}
                     />
 
 

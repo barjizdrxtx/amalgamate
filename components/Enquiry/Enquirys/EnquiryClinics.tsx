@@ -37,7 +37,7 @@ export const EnquiryClinics = () => {
                 tableHead={tableHead}
                 element={element}
                 tableName="Clinics"
-                name="enquiry/list-by-type/clinics"
+                name={`enquiry/list-by-type/clinics`}
                 doubleArray="data"
                 isDoc={true} />
 

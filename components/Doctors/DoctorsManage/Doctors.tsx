@@ -7,17 +7,13 @@ import { TableUI } from '../../UI/TableUI/TableUI';
 export const Doctors = () => {
 
     const router = useRouter();
-
     const tableHead = [
 
-        "Image",
-        
         "Name",
-        "Website",
-        "Discription",
-        "Clinic Email",
-        "Clinic Contact",
-
+        "Registration Number",
+        "Qualification",
+        "Email",
+        "Mobile",
         "Actions"
 
     ];
@@ -25,10 +21,10 @@ export const Doctors = () => {
     const element = [
 
         "name",
-        "website",
-        "description",
-        "clinic_email",
-        "clinic_contact_no"
+        "registration_number",
+        "qualification",
+        "email",
+        "mobile"
 
     ]
 

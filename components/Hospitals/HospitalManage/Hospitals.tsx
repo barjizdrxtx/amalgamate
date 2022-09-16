@@ -10,12 +10,11 @@ export const Hospitals = () => {
 
     const tableHead = [
 
-        "Image",
         "Name",
         "Website",
-        "Discription",
-        "Hospital Email",
-        "Hospital Contact",
+        "Admin",
+        "Location",
+        "Contact",
         "Actions"
 
     ];
@@ -24,8 +23,8 @@ export const Hospitals = () => {
 
         "name",
         "website",
-        "description",
-        "hospital_email",
+        "hospital_admin_name",
+        "location",
         "hospital_contact_no"
 
     ]
