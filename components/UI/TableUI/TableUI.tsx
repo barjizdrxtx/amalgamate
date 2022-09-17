@@ -14,9 +14,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
 
-
 export const TableUI = (props: any) => {
-
 
   const { tableHead, element, name, isDoc, doubleArray, tableName } = props;
 
