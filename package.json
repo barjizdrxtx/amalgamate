@@ -33,6 +33,7 @@
     "react-redux": "^8.0.2",
     "suneditor": "^2.43.14",
     "suneditor-react": "^3.4.1",
+    "usehooks-ts": "^2.6.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

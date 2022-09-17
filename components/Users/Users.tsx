@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useQueryFetch } from '../../utils/useQueryFetch';
+import { useQueryFetch } from '../../hooks/useQueryFetch';
 import { TableUI } from '../UI/TableUI/TableUI'
 import { CustomizedButton } from '../UI/Button/CustomizedButton';
 

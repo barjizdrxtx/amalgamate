@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { IconButton } from '@mui/material';
-import { useQueryFetch } from '../../../utils/useQueryFetch';
+import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { TableUI } from '../../UI/TableUI/TableUI';
 

@@ -4,10 +4,11 @@ import { useRouter } from 'next/router'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { subRoutes } from '../../../config/Routes/subRoutes';
-import { useDarkmode } from '../../../utils/useDarkmode';
+import { useDarkmode } from '../../../hooks/useDarkmode';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { PRIMARY_COLOR, LIGHT_COLOR } from '../../../url';
 
 export const SubSidebar = () => {
 
@@ -78,12 +79,12 @@ export const SubSidebar = () => {
                             alignItems: "center",
                             justifyContent: "start",
                             cursor: "pointer",
-                            backgroundColor: router.asPath === data.path ? "#EAFAF1" : "transparent",
+                            backgroundColor: router.asPath === data.path ? LIGHT_COLOR : "transparent",
                             px: 2, py: 1.2,
                             my: 0.5,
                             borderRadius: "10px",
                             '&:hover': {
-                                backgroundColor: router.asPath === data.path ? "none" : "#F2F3F4",
+                                backgroundColor: router.asPath === data.path ? "none" : PRIMARY_COLOR,
                                 transition: "0.3s",
                             },
                         }}>
@@ -123,7 +124,7 @@ export const SubSidebar = () => {
                                 cursor: "pointer",
                                 borderRadius: "10px",
                                 '&:hover': {
-                                    backgroundColor: "#F2F3F4",
+                                    backgroundColor: PRIMARY_COLOR,
                                     transition: "0.3s",
                                 },
                             }}>

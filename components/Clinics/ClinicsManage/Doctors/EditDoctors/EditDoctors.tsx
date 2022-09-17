@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import { TabBar } from './TabBar';
 import { doctorSchemea } from '../validation';
-import { useQueryFetchId } from '../../../../../utils/useQueryFetch';
+import { useQueryFetchId } from '../../../../../hooks/useQueryFetch';
 import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
 
 

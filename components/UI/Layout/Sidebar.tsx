@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import React from 'react'
 import SettingsIcon from '@mui/icons-material/Settings';
 import { mainRoutes } from '../../../config/Routes/mainRoutes';
-import { useDarkmode } from '../../../utils/useDarkmode';
+import { useDarkmode } from '../../../hooks/useDarkmode';
 import { subRoutes } from '../../../config/Routes/subRoutes';
+import { LIGHT_COLOR } from '../../../url';
 
 export const Sidebar = () => {
 
@@ -38,7 +39,7 @@ export const Sidebar = () => {
                         p: 1.5, cursor: "pointer", color: "gray", transition: '0.5s',
                         mb: 1,
                         backgroundColor: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? '#EAFAF1' : 'transparent'
-                            : router.asPath === data.path ? "#EAFAF1" : ""
+                            : router.asPath === data.path ? LIGHT_COLOR : ""
                         , borderRadius: "10px"
 
                     }}

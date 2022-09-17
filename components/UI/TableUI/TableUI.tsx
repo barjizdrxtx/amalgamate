@@ -1,28 +1,35 @@
-import { Box, Grid, IconButton, OutlinedInput, Pagination, Stack, TextField, Typography } from '@mui/material'
+
+import { Box, Grid, IconButton, OutlinedInput, Pagination, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import style from "../../../styles/TableUI.module.css"
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import axios from 'axios';
-import { useQueryFetch } from '../../../utils/useQueryFetch';
-import { useRouter } from 'next/router';
-import BadgeIcon from '@mui/icons-material/Badge';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
+import { Actions } from './Actions';
+
+import { useClickAnyWhere } from 'usehooks-ts'
+
 
 export const TableUI = (props: any) => {
 
-  const { tableHead, element, name, isDoc, doubleArray, tableName } = props;
+
+  const { tableHead, element, name, doubleArray, disableActions, disableImage, tableName } = props;
+
+  const [count, setCount] = useState(0)
+
+  useClickAnyWhere(() => {
+    setCount(prev => prev + 1)
+  })
+
 
   const [isPopUp, setIsPopup] = useState(false);
 
   const [page, setPage] = useState(1);
 
   const [limit, setLimit] = useState(10);
+
 
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(`${name}?page=${page}&limit=${limit}`);
 
@@ -51,17 +58,6 @@ export const TableUI = (props: any) => {
 
   }
 
-  const router = useRouter()
-
-  const handleSubmitDelete = (data: any) => {
-
-    axios.delete(`${name}/${data}`)
-      .then((response) => {
-        console.log(response);
-        refetch();
-      })
-  }
-
 
   return (
 
@@ -74,6 +70,7 @@ export const TableUI = (props: any) => {
       }}>
 
         <Typography variant='h5' sx={{ mr: 4, fontWeight: "bold", color: "#566573" }}>{tableName}</Typography>
+        <p>Click count: {count}</p>
 
 
         <Box sx={{ py: 3, display: "flex", justifyContent: "start", alignItems: "center" }}>
@@ -106,7 +103,7 @@ export const TableUI = (props: any) => {
 
             <th>No</th>
 
-            {!doubleArray && <th>Image</th>}
+            {!disableImage && <th>Image</th>}
 
             {tableHead.map((data: any) =>
 
@@ -114,18 +111,20 @@ export const TableUI = (props: any) => {
 
             )}
 
+            {!disableActions && <th>Actions</th>}
+
           </tr>
 
           {tableData?.result?.map((data: any, index: any) =>
 
-            <tr onClick={() => Open(index)}>
+            <tr>
 
               <td style={{ fontWeight: "bold" }}>
                 {index + 1 + (page - 1) * limit}
               </td>
 
 
-              {!doubleArray && <td style={{ display: "flex", alignItems: "center" }}>
+              {!disableImage && <td style={{ display: "flex", alignItems: "center" }}>
 
                 <img style={{ width: "50px", height: "50px", borderRadius: "30%" }} src={data.image_location} />
 
@@ -142,99 +141,19 @@ export const TableUI = (props: any) => {
 
               )}
 
-              <td>
+              {!disableActions && <td>
 
-                {!doubleArray && < Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+                <Actions
 
-                  {bool[index] === true &&
+                  bool={bool}
+                  index={index}
+                  Open={Open}
+                  refetch={refetch}
+                  id={data._id}
+                  name={name}
+                />
 
-                    <Box sx={{
-                      backgroundColor: "white", display: "flex", flexDirection: "column", justifyContent: "center",
-                      alignItems: "center",
-                      boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
-                      borderRadius: "5px", width: "120px",
-                      position: "absolute", top: "0", right: "0", zIndex: "100",
-                    }}>
-
-
-
-                      <Box onClick={() => router.push(`${name}/details/${data._id}`)} sx={{
-                        width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
-                        '&:hover': {
-                          backgroundColor: "#F2F3F4",
-                          cursor: "pointer"
-                        }
-
-                      }}>
-
-                        <RemoveRedEyeOutlinedIcon sx={{ color: "purple" }} />
-
-                        <Typography variant='subtitle2' sx={{ ml: 1 }}>Over View</Typography>
-
-                      </Box>
-
-
-                      {isDoc &&
-
-                        <Box onClick={() => router.push({ pathname: `${name}/doctors`, query: { clin: data._id } })} sx={{
-                          width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
-                          '&:hover': {
-                            backgroundColor: "#F2F3F4",
-                            cursor: "pointer"
-                          }
-
-                        }}>
-
-                          <AccountCircleOutlinedIcon sx={{ color: "dodgerblue" }} />
-
-                          <Typography variant='subtitle2' sx={{ ml: 1 }}>Doctors</Typography>
-
-                        </Box>
-
-                      }
-
-
-                      <Box onClick={() => router.push(`${name}/edit/${data._id}`)} sx={{
-                        width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
-                        '&:hover': {
-                          backgroundColor: "#F2F3F4",
-                          cursor: "pointer"
-                        }
-
-                      }}>
-
-                        <ModeEditOutlineOutlinedIcon sx={{ color: "green" }} />
-
-                        <Typography variant='subtitle2' sx={{ ml: 1 }}>Edit</Typography>
-
-                      </Box>
-
-
-                      <Box onClick={() => handleSubmitDelete(data._id)} sx={{
-                        width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
-                        '&:hover': {
-                          backgroundColor: "#F2F3F4",
-                          cursor: "pointer"
-                        }
-                      }}>
-
-                        <DeleteOutlineIcon sx={{ color: "red" }} />
-
-                        <Typography variant='subtitle2' sx={{ ml: 1 }}>Delete</Typography>
-
-                      </Box>
-
-                    </Box>}
-
-                  <IconButton>
-
-                    <MoreVertIcon onClick={() => Open(index)} />
-
-                  </IconButton>
-
-                </Box>}
-
-              </td>
+              </td>}
 
             </tr>
 
@@ -243,7 +162,7 @@ export const TableUI = (props: any) => {
         </table>
 
         <Box sx={{ display: "flex", justifyContent: "end", py: 2 }}>
-{/* 
+          {/* 
           <TextField onChange={(e: any) => setLimit(e.target.value)} /> */}
 
           <Stack spacing={2}>

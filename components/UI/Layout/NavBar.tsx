@@ -7,7 +7,7 @@ import Image from "next/image"
 import { ToggleMui } from '../ToggleMui/ToggleMui';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDarkTheme } from '../../../redux/featuresSlice';
-import { useDarkmode } from '../../../utils/useDarkmode';
+import { useDarkmode } from '../../../hooks/useDarkmode';
 
 
 export const NavBar = () => {
