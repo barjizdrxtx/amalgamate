@@ -15,13 +15,12 @@ export const Actions = (props: any) => {
 
     const router = useRouter()
 
-
-
     const handleDelete = () => {
 
         axios.delete(`${name}/${id}`)
             .then((response) => {
                 console.log(response);
+                Open(index);
                 refetch();
             })
     }
@@ -72,8 +71,8 @@ export const Actions = (props: any) => {
     ]
 
     let filteredActionButtons = actionButtons.filter(u => actions.includes(u.text));
-    
-    
+
+
     return (
 
         <Grid>

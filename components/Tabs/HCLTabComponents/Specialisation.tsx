@@ -1,30 +1,30 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import ImageIcon from '@mui/icons-material/Image';
-import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
+import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import axios from 'axios';
 
-export const Procedures = (props: any) => {
+export const Specialisation = (props: any) => {
 
-  const { tabList, formik, procedures, setProcedures } = props;
+  const { tabList, formik, specialities, setSpecialities } = props;
 
-  console.log("procedures", procedures)
+  console.log("procedures", specialities)
 
 
   const handleChangeInput = (index: any, event: any) => {
-    const values = [...procedures]
+    const values = [...specialities]
     values[index][event.target.name] = event.target.value
-    setProcedures(values)
+    setSpecialities(values)
   }
 
 
   const handleAddFields = () => {
-    setProcedures([...procedures, { id: procedures.length + 1 }])
-    console.log(procedures)
+    setSpecialities([...specialities, { id: specialities.length + 1 }])
+    console.log(specialities)
   }
 
   const handleRemoveFields = () => {
-    setProcedures((procedures: any) => procedures.filter((_: any, i: any) => i !== procedures.length - 1))
+    setSpecialities((specialities: any) => specialities.filter((_: any, i: any) => i !== specialities.length - 1))
   }
 
   return (
@@ -33,7 +33,7 @@ export const Procedures = (props: any) => {
 
       <Grid lg={12}>
 
-        {procedures.map((add: any, index: any) =>
+        {specialities.map((add: any, index: any) =>
 
 
           <Grid key={index} lg={6}>
@@ -42,12 +42,12 @@ export const Procedures = (props: any) => {
 
               <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                <Typography>Procedures {index + 1}</Typography>
+                <Typography>Specialities {index + 1}</Typography>
 
               </Box>
 
-              <TextField sx={{ flex: 1, width: "100%" }} defaultValue={procedures[index].procedures}
-                name="procedures"
+              <TextField sx={{ flex: 1, width: "100%" }} defaultValue={specialities[index].specialities}
+                name="specialities"
                 onChange={(event: any) => handleChangeInput(index, event)} />
 
 
@@ -63,7 +63,7 @@ export const Procedures = (props: any) => {
       <Grid>
 
         <Box sx={{ display: "flex" }}>
-          <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{procedures.length > 1
+          <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{specialities.length > 1
             && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
           }
 
