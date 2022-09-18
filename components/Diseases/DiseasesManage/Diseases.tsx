@@ -10,13 +10,12 @@ export const Diseases = () => {
 
     const tableHead = [
 
-        "Image",
         "Name",
         "Website",
         "Discription",
         "Clinic Email",
         "Clinic Contact",
-        "Actions"
+
 
     ];
 
@@ -30,6 +29,12 @@ export const Diseases = () => {
 
     ]
 
+    const actions = [
+        "OverView",
+        "Edit",
+        "Delete"
+    ];
+
 
     return (
 
@@ -37,7 +42,7 @@ export const Diseases = () => {
 
             <CustomizedButton onClick={() => router.push("/diseases/create")} bgColor="#229954">Create Diseases</CustomizedButton>
 
-            <TableUI tableHead={tableHead} element={element} name="diseases" />
+            <TableUI tableName="diseases" tableHead={tableHead} element={element} name="diseases" actions={actions} />
 
         </Grid>
     )

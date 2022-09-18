@@ -16,6 +16,7 @@ export const Actions = (props: any) => {
     const router = useRouter()
 
 
+
     const handleDelete = () => {
 
         axios.delete(`${name}/${id}`)
@@ -41,8 +42,6 @@ export const Actions = (props: any) => {
         router.push({ pathname: `${name}/doctors`, query: { clin: id } })
 
     }
-
-
 
     const actionButtons = [
 
@@ -72,6 +71,9 @@ export const Actions = (props: any) => {
         }
     ]
 
+    let filteredActionButtons = actionButtons.filter(u => actions.includes(u.text));
+    
+    
     return (
 
         <Grid>
@@ -88,9 +90,9 @@ export const Actions = (props: any) => {
                         position: "absolute", top: "0", right: "0", zIndex: "100",
                     }}>
 
-                        {actionButtons.map(data =>
+                        {filteredActionButtons.map(data =>
 
-                            < Box onClick={data.onClick}
+                            <Box onClick={data.onClick}
 
                                 sx={{
                                     width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
@@ -110,15 +112,21 @@ export const Actions = (props: any) => {
 
                     </Box>}
 
-                <IconButton>
+                <IconButton onClick={() => Open(index)}>
 
-                    <MoreVertIcon
-                        onClick={() => Open(index)}
-                    />
+                    <MoreVertIcon />
 
                 </IconButton>
 
             </Box >
+
+            {bool[index] === true &&
+                <Box onClick={() => Open(index)} sx={{
+                    top: "0", left: "0", width: "100%",
+                    height: "100vh", position: "absolute"
+                }}>
+
+                </Box>}
 
         </Grid>
 

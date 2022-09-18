@@ -14,7 +14,6 @@ export const Doctors = () => {
         "Qualification",
         "Email",
         "Mobile",
-        "Actions"
 
     ];
 
@@ -28,14 +27,20 @@ export const Doctors = () => {
 
     ]
 
+    const actions = [
+        "OverView",
+        "Edit",
+        "Delete"
+    ];
 
+    
     return (
 
         <Grid>
 
             <CustomizedButton onClick={() => router.push("/doctors/create")} bgColor="#229954">Create Doctors</CustomizedButton>
 
-            <TableUI tableHead={tableHead} element={element} name="doctors" />
+            <TableUI tableName="doctors" tableHead={tableHead} element={element} name="doctors" actions={actions} />
 
         </Grid>
     )

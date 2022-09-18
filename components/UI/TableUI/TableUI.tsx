@@ -15,14 +15,9 @@ import { useClickAnyWhere } from 'usehooks-ts'
 export const TableUI = (props: any) => {
 
 
-  const { tableHead, element, name, doubleArray, disableActions, disableImage, tableName } = props;
+  const { tableHead, element, name, nestedArray, disableActions, disableImage, tableName, actions } = props;
 
   const [count, setCount] = useState(0)
-
-  useClickAnyWhere(() => {
-    setCount(prev => prev + 1)
-  })
-
 
   const [isPopUp, setIsPopup] = useState(false);
 
@@ -69,9 +64,10 @@ export const TableUI = (props: any) => {
         borderRadius: "20px", p: 2
       }}>
 
-        <Typography variant='h5' sx={{ mr: 4, fontWeight: "bold", color: "#566573" }}>{tableName}</Typography>
-        <p>Click count: {count}</p>
-
+        <Typography variant='h5' sx={{
+          mr: 4, fontWeight: "bold",
+          color: "#566573", textTransform: "capitalize"
+        }}>{tableName}</Typography>
 
         <Box sx={{ py: 3, display: "flex", justifyContent: "start", alignItems: "center" }}>
 
@@ -135,7 +131,7 @@ export const TableUI = (props: any) => {
 
                 <td>
 
-                  {doubleArray ? data["data"][el] : data[el]}
+                  {nestedArray ? data["data"][el] : data[el]}
 
                 </td>
 
@@ -151,6 +147,7 @@ export const TableUI = (props: any) => {
                   refetch={refetch}
                   id={data._id}
                   name={name}
+                  actions={actions}
                 />
 
               </td>}

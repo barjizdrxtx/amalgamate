@@ -39,8 +39,11 @@ export const EnquiryLabs = () => {
                 element={element}
                 tableName="lab"
                 name="enquiry/list-by-type/lab"
-                doubleArray="data"
-                isDoc={true} />
+                nestedArray={true}
+                disableActions={true}
+                disableImage={true}
+            />
+
 
         </Grid>
     )
