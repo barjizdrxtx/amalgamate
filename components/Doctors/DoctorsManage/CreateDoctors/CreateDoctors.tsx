@@ -27,9 +27,12 @@ export const CreateDoctors = () => {
 
     const [specialisedIn, setSpecialisedIn] = useState([{ id: 1 }]);
 
-    const [id_proof, setId_proof] = useState([{ id: 1 }]);
+    const [idProof, setIdProof] = useState([{ id: 1 }]);
 
     const [gender, setGender] = useState("null");
+
+
+    console.log("documents", documents)
 
 
     const router = useRouter();
@@ -118,10 +121,9 @@ export const CreateDoctors = () => {
                 },
                 practice: values.practice,
                 is_authorized: true,
-                id_proof: id_proof,
+                id_proof: idProof,
                 consulation_fee: values.consulation_fee,
-                specilized_tag: values.specilized_tag
-
+                specilized_tag: values.specilized_tag,
             })
 
 
@@ -518,6 +520,16 @@ export const CreateDoctors = () => {
                         tabData8={tabData8}
                         documents={documents}
                         setDocuments={setDocuments}
+
+                        certificates={certificates}
+                        setCertificates={setCertificates}
+
+                        idProof={idProof}
+                        setIdProof={setIdProof}
+
+                        specialisedIn={specialisedIn}
+                        setSpecialisedIn={setSpecialisedIn}
+
                     />
 
 
