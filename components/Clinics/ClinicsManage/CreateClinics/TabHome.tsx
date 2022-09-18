@@ -1,74 +1,50 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { Box, Grid, Tab } from '@mui/material'
-import React from 'react'
+import React from 'react';
 import { Seo } from '../../../Tabs/HCLTabComponents/Seo';
 import { Info } from '../../../Tabs/HCLTabComponents/Info';
 import { Amenities } from '../../../Tabs/HCLTabComponents/Amenities';
 import { Procedures } from '../../../Tabs/HCLTabComponents/Procedures';
 import { Specialisation } from '../../../Tabs/HCLTabComponents/Specialisation';
+import { MainTab } from './MainTab';
 
 export const TabHome = (props: any) => {
-
-  const [value, setValue] = React.useState('1');
 
   const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities,
     documents, setDocuments, specialities, setSpecialities } = props;
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  }
+  const tabData = [
 
-  return (
-    <Grid>
+    {
+      label: "Info",
+      component: <Info
+        tabList={tabData1}
+        formik={formik}
+        documents={documents}
+        setDocuments={setDocuments} />
+    },
+    {
+      label: "Amineties",
+      component: <Amenities amineties={amineties} setAmenities={setAmenities} />
+    },
+    {
+      label: "Procedures",
+      component: <Procedures procedures={procedures} setProcedures={setProcedures} formik={formik} />
 
-      <Box sx={{ width: '100%', typography: 'body1' }}>
+    },
+    {
+      label: "Specialisation",
+      component: <Specialisation specialities={specialities} setSpecialities={setSpecialities} formik={formik} />
 
-        <TabContext value={value}>
+    },
+    {
+      label: "Seo",
+      component: <Seo tabList={tabData2} formik={formik} />
 
-          <Box sx={{ backgroundColor: "white" }}>
+    }
+  ]
 
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
 
-              <Tab label="Info" value="1" />
-              <Tab label="Amineties" value="2" />
-              <Tab label="Procedures" value="3" />
-              <Tab label="Specialisation" value="4" />
-              <Tab label="Seo" value="5" />
+  return <MainTab tabData={tabData} />
 
-            </TabList>
-
-          </Box>
-
-          <TabPanel value="1">
-            <Info
-              tabList={tabData1}
-              formik={formik}
-              documents={documents}
-              setDocuments={setDocuments} />
-          </TabPanel>
-
-          <TabPanel value="2">
-            <Amenities amineties={amineties} setAmenities={setAmenities} />
-          </TabPanel>
-
-          <TabPanel value="3">
-            <Procedures procedures={procedures} setProcedures={setProcedures} formik={formik} />
-          </TabPanel>
-
-          <TabPanel value="4">
-            <Specialisation specialities={specialities} setSpecialities={setSpecialities} formik={formik} />
-          </TabPanel>
-
-          <TabPanel value="5">
-            <Seo tabList={tabData2} formik={formik} />
-          </TabPanel>
-
-        </TabContext>
-
-      </Box>
-
-    </Grid >
-  )
 }
 
 
