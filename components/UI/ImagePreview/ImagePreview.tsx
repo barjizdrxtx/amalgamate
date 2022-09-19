@@ -5,7 +5,28 @@ import axios from 'axios';
 
 export const ImagePreview = (props: any) => {
 
-    const { image, AddImages } = props;
+    const { image, setImage } = props;
+
+    console.log("image", image)
+
+
+    const AddImages = (event: any) => {
+
+        if (event.target.files[0] === undefined) return;
+
+        const formData = new FormData();
+
+        formData.append('file_location', event.target.files[0]);
+
+        axios.post(`images`, formData).then((response) => {
+
+            setImage(response.data.result.file_location)
+
+        }).catch((response) => {
+            console.log("response", response.response.data.error)
+            alert(response.response.data.error)
+        })
+    }
 
 
     return (

@@ -39,7 +39,6 @@ export const CreateDiseases = () => {
 
 
 
-
     const handleChangeInput = (content: any) => {
 
         setDescription(content)
@@ -249,7 +248,7 @@ export const CreateDiseases = () => {
 
                                     <Grid lg={8}>
 
-                                        <ImagePreview image={image} setImage={setImage} />
+                                        <ImagePreview image={image} setImage={setImage}  />
 
                                     </Grid>
 
