@@ -3,11 +3,11 @@ import React from 'react'
 
 export const CustomizedButton = (props: any) => {
 
-    const { children, onClick, bgColor, width } = props;
+    const { children, onClick, bgColor, width, disabled } = props;
 
 
     return (
-        <Button style={{ margin: "10px" }} sx={{
+        <Button disabled={disabled} style={{ margin: "10px" }} sx={{
             width: width,
             boxShadow: "none", backgroundColor: bgColor, border: `1px solid ${bgColor}`, "&:hover": {
                 backgroundColor: "transparent", boxShadow: "none",

@@ -39,12 +39,12 @@ export const TabHome = () => {
           <Diseases />
 
         </TabPanel>
-
+{/* 
         <TabPanel value="2">
 
           <Catagory />
 
-        </TabPanel>
+        </TabPanel> */}
 
       </TabContext>
 
