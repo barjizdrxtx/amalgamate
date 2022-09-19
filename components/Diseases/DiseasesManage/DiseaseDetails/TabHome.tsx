@@ -83,7 +83,7 @@ export const TabHome = (props: any) => {
               </TabPanel>
 
               <TabPanel value="6">
-                <Faq fetchedData={fetchedData} />
+                <Faq fetchedData={fetchedData?.result?.faq} />
               </TabPanel>
 
               <TabPanel value="7">

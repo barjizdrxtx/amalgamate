@@ -87,7 +87,7 @@ export const AllTabs = (props: any) => {
                         }}>
 
 
-                            <Typography sx={{ flex: 1 }}>Discription</Typography>
+                            <Typography sx={{ flex: 1 }}>Description</Typography>
 
 
                             <Box sx={{ flex: 5, width: "100%", mb: 2 }}>

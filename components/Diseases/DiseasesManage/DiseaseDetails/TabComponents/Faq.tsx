@@ -6,22 +6,26 @@ export const Faq = (props: any) => {
 
     const { fetchedData } = props;
 
+    console.log("faq", fetchedData)
+
     return (
 
         <Grid container lg={12}>
 
-        {fetchedData?.faq?.map((data: any) =>
+            <Typography variant="h4" fontWeight="bold" sx={{ m: 1 }}>Faq</Typography>
 
-            <Box>
+            {fetchedData?.map((data: any) =>
 
-                <Typography variant='h5'>{data.title}</Typography>
+                <Box sx={{ mb: 2 }}>
 
-                <Typography>{data.description}</Typography>
+                    <Typography sx={{ backgroundColor: "lightgray", p: 1, m: 1 }} variant='h6' fontWeight="bold">{data.title}</Typography>
 
-            </Box>
+                    <Typography variant="h6" sx={{ m: 1 }}>{data.description}</Typography>
 
-        )}
+                </Box>
 
-    </Grid>
+            )}
+
+        </Grid>
     )
 }
