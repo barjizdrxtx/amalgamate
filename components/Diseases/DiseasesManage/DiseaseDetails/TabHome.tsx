@@ -33,8 +33,6 @@ export const TabHome = (props: any) => {
   return (
     <Grid>
 
-
-
       <Box sx={{ width: '100%' }}>
 
         <TabContext value={value}>
