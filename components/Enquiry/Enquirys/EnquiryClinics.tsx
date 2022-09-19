@@ -37,10 +37,13 @@ export const EnquiryClinics = () => {
                 tableHead={tableHead}
                 element={element}
                 tableName="Clinics"
-                name={`enquiry/list-by-type/clinics`}
-                doubleArray="data"
-                isDoc={true} />
+                name='enquiry/list-by-type/clinics'
+                nestedArray={true}
+                disableActions={true}
+                disableImage={true}
+            />
 
         </Grid>
     )
 }
+

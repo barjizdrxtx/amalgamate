@@ -1,13 +1,11 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Grid, Tab } from '@mui/material'
 import React from 'react'
-import { Seo } from './TabComponents/Seo';
-import { Info } from './TabComponents/Info';
-import { Amenities } from './TabComponents/Amenities';
-import { Procedures } from './TabComponents/Procedures';
-import { Specialisation } from './TabComponents/Specialisation';
-
-
+import { Seo } from '../../../Tabs/HCLTabComponents/Seo';
+import { Info } from '../../../Tabs/HCLTabComponents/Info';
+import { Amenities } from '../../../Tabs/HCLTabComponents/Amenities';
+import { Procedures } from '../../../Tabs/HCLTabComponents/Procedures';
+import { Specialisation } from '../../../Tabs/HCLTabComponents/Specialisation';
 
 export const TabHome = (props: any) => {
 
@@ -72,5 +70,7 @@ export const TabHome = (props: any) => {
     </Grid >
   )
 }
+
+
 
 

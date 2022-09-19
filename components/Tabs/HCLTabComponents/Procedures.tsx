@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import ImageIcon from '@mui/icons-material/Image';
-import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
+import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import axios from 'axios';
 
 export const Procedures = (props: any) => {

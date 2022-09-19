@@ -10,7 +10,6 @@ export const Info = (props: any) => {
 
     console.log("documents", documents)
 
-
     const AddImages = (index: any, event: any) => {
 
         if (event.target.files[0] === undefined) return;
@@ -64,7 +63,7 @@ export const Info = (props: any) => {
 
                             <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                <Typography>Documents</Typography>
+                                <Typography>Certificates</Typography>
 
                             </Box>
 
@@ -76,7 +75,7 @@ export const Info = (props: any) => {
                                     onChange={(event: any) => handleChangeInput(index, event)} />
 
                                 <TextField sx={{ flex: 1, width: "100%" }} type='file' key="image" id="outlined-basic"
-
+                                    name="document_location"
                                     onChange={(event: any) => AddImages(index, event)} />
 
                             </Box>

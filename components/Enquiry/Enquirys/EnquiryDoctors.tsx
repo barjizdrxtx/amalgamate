@@ -38,8 +38,11 @@ export const EnquiryDoctors = () => {
                 element={element}
                 tableName="Doctors"
                 name="enquiry/list-by-type/doctors"
-                doubleArray="data"
-                isDoc={true} />
+                nestedArray={true}
+                disableActions={true}
+                disableImage={true}
+            />
+
 
         </Grid>
     )

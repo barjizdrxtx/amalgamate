@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
-import { Box, TextField, Grid, Button, Typography, Select, MenuItem, Stack, } from '@mui/material';
+import { Box, TextField, Grid, Button, Typography, Select, MenuItem, Stack, IconButton } from '@mui/material';
 import { useFormik } from 'formik';
-
 import axios from 'axios';
 
 import { useRouter } from 'next/router';
 
-
 import ImageIcon from '@mui/icons-material/Image';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
-import { DropDown } from '../../../../UI/DropDown/DropDown';
-import { TabHome } from './TabHome';
+import { CustomizedButton } from '../../UI/Button/CustomizedButton';
+import { DropDown } from '../../UI/DropDown/DropDown';
+import { TabHome } from '../../Doctors/DoctorsManage/CreateDoctors/TabHome';
+
 
 export const CreateDoctors = () => {
 
@@ -20,11 +19,14 @@ export const CreateDoctors = () => {
 
     const [doctor_img, setDoctor_img] = useState(null);
 
+    const [documents, setDocuments] = useState([{ id: 1 }]);
+
+
     const [certificates, setCertificates] = useState([{ id: 1 }]);
 
     const [specialisedIn, setSpecialisedIn] = useState([{ id: 1 }]);
 
-    const [id_proof, setId_proof] = useState([{ id: 1 }]);
+    const [idProof, setIdProof] = useState([{ id: 1 }]);
 
     const [gender, setGender] = useState("null");
 
@@ -32,14 +34,15 @@ export const CreateDoctors = () => {
 
     const { clin } = router.query
 
-    console.log("clin", clin)
+    console.log("documents", documents)
 
-    const [value, setValue] = React.useState<Date | null>(
+
+    const [dateOfBirth, setDateofBirth] = React.useState<Date | null>(
         new Date(''),
     );
 
     const handleChange = (newValue: Date | null) => {
-        setValue(newValue);
+        setDateofBirth(newValue);
     };
 
 
@@ -107,7 +110,7 @@ export const CreateDoctors = () => {
                 image_id: "string",
                 image_location: doctor_img,
                 years_of_experience: values.years_of_experience,
-                dateOfBirth: "2022-09-13T18:41:40.248Z",
+                dateOfBirth: dateOfBirth,
                 qualificaton: values.qualificaton,
                 certificates: certificates,
                 profileText: {
@@ -118,11 +121,10 @@ export const CreateDoctors = () => {
                 },
                 practice: values.practice,
                 is_authorized: true,
-                id_proof: id_proof,
+                id_proof: idProof,
                 consulation_fee: values.consulation_fee,
                 specilized_tag: values.specilized_tag,
                 clinic_id: clin
-
             })
 
 
@@ -139,7 +141,7 @@ export const CreateDoctors = () => {
                 console.log(res1);
                 console.log(res2);
                 alert("submit success")
-                router.push('/doctors')
+                router.push(`/clinics/doctors?clin=${clin}`)
             }));
 
         },
@@ -180,6 +182,17 @@ export const CreateDoctors = () => {
             errors: formik.errors.email,
 
         },
+        {
+            title: "Registration Number",
+            label: "registration_number",
+            type: "registration_number",
+            value: formik.values.registration_number,
+            touched: formik.touched.registration_number,
+            errors: formik.errors.registration_number,
+
+        },
+
+
     ]
 
     const tabData1 = [
@@ -246,6 +259,17 @@ export const CreateDoctors = () => {
             touched: formik.touched.affliation,
             errors: formik.errors.affliation,
         },
+        {
+            title: "Qualificaton",
+            label: "qualificaton",
+            type: "text",
+            rows: 2,
+            value: formik.values.qualificaton,
+            touched: formik.touched.qualificaton,
+            errors: formik.errors.qualificaton,
+        },
+
+
     ]
 
 
@@ -484,7 +508,7 @@ export const CreateDoctors = () => {
                                                 <DesktopDatePicker
                                                     // label="Date desktop"
                                                     inputFormat="MM/dd/yyyy"
-                                                    value={value}
+                                                    value={dateOfBirth}
                                                     onChange={handleChange}
                                                     renderInput={(params) => <TextField {...params} />}
                                                 />
@@ -502,11 +526,22 @@ export const CreateDoctors = () => {
 
                     </form>
 
-                    <TabHome
-                        formik={formik}
+                    <TabHome formik={formik}
                         tabData1={tabData1}
                         tabData3={tabData3}
                         tabData8={tabData8}
+                        documents={documents}
+                        setDocuments={setDocuments}
+
+                        certificates={certificates}
+                        setCertificates={setCertificates}
+
+                        idProof={idProof}
+                        setIdProof={setIdProof}
+
+                        specialisedIn={specialisedIn}
+                        setSpecialisedIn={setSpecialisedIn}
+
                     />
 
 

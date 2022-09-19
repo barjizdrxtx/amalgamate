@@ -4,7 +4,7 @@ import { Sidebar } from './Sidebar'
 import { SubSidebar } from './SubSidebar'
 import { useRouter } from 'next/router'
 import { Box, Divider } from '@mui/material'
-import { useDarkmode } from '../../../utils/useDarkmode'
+import { useDarkmode } from '../../../hooks/useDarkmode'
 import { subRoutes } from '../../../config/Routes/subRoutes';
 import axios  from 'axios'
 import { BASE_URL } from '../../../url'

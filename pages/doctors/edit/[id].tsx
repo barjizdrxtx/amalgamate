@@ -1,17 +1,9 @@
-import { Grid } from '@mui/material'
 import React from 'react'
-import { EditDoctors } from '../../../components/Clinics/ClinicsManage/Doctors/EditDoctors/EditDoctors'
-
-
 
 const index = () => {
-    return (
-        <Grid>
-
-            <EditDoctors />
-
-        </Grid>
-    )
+  return (
+    <div>index</div>
+  )
 }
 
 export default index

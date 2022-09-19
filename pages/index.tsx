@@ -2,7 +2,7 @@ import React from 'react'
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useQueryFetch } from '../utils/useQueryFetch';
+import { useQueryFetch } from '../hooks/useQueryFetch';
 import Person2Icon from '@mui/icons-material/Person2';
 import ScienceIcon from '@mui/icons-material/Science';
 import VaccinesIcon from '@mui/icons-material/Vaccines';

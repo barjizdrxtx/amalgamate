@@ -1,6 +1,6 @@
 import { Box, Checkbox, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
-import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
+import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 
 export const Amenities = (props: any) => {
 
