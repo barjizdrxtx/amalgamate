@@ -37,6 +37,7 @@ export const CreateDiseases = () => {
 
     const router = useRouter();
 
+    const [btnDisabled, setBtnDisabled] = useState(false);
 
 
 
@@ -68,6 +69,9 @@ export const CreateDiseases = () => {
 
         onSubmit: (values: any) => {
 
+
+            setBtnDisabled(true);
+
             const axiosrequest1 = axios.post(`diseases`, {
 
                 image_location: image,
@@ -93,13 +97,20 @@ export const CreateDiseases = () => {
 
 
             // you could also use destructuring to have an array of responses
-            axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
-                console.log(res1);
-                console.log(res2);
-                alert("submit success")
-                // router.push('/diseases')
-                setOverView([{ id: 1 }])
-            }));
+            axios.all([axiosrequest1, axiosrequest2])
+                .then(axios.spread(function (res1, res2) {
+                    console.log(res1);
+                    console.log(res2);
+                    alert("submit success")
+                    router.push('/diseases')
+                    setOverView([{ id: 1 }])
+                    setBtnDisabled(false)
+                }))
+                .catch(() => {
+
+                    alert("error");
+
+                });
 
         },
     });
@@ -197,7 +208,7 @@ export const CreateDiseases = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Diseases</CustomizedButton >
+                            <CustomizedButton disabled={btnDisabled} bgColor="#239B56" onClick={formik.handleSubmit}>Create Diseases</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/diseases')}>Cancel</CustomizedButton >
 
@@ -252,8 +263,6 @@ export const CreateDiseases = () => {
                                         <ImagePreview image={image} setImage={setImage} />
 
                                     </Grid>
-
-
 
                                 </Grid>
 

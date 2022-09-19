@@ -124,7 +124,9 @@ export const CreateDoctors = () => {
                 id_proof: idProof,
                 consulation_fee: values.consulation_fee,
                 specilized_tag: values.specilized_tag,
-                clinic_id: clin
+                department_id: "string",
+                institution: "clinic",
+                institution_id: clin
             })
 
 

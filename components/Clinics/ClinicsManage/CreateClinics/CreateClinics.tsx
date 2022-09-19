@@ -1,13 +1,13 @@
-import { Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import ImageIcon from '@mui/icons-material/Image';
 import { useFormik } from 'formik';
 import { TabHome } from './TabHome';
-import { Box, Stack } from '@mui/system';
+import { Box } from '@mui/system';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
+import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 
 
 export const CreateClinics = ({ path = 'clinics' }) => {
@@ -16,15 +16,15 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
     const router = useRouter();
 
-    const [clinic_img, setClinicImg] = useState(null);
+    const [image, setImage] = useState([{ id: 1 }]);
+
+    console.log("image", image)
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
     const [procedures, setProcedures] = useState([{ id: 1 }]);
 
-
     const [specialities, setSpecialities] = useState([{ id: 1 }]);
-
 
     const [amineties, setAmenities] = useState([
 
@@ -47,19 +47,6 @@ export const CreateClinics = ({ path = 'clinics' }) => {
         },
     ]);
 
-    const AddImages = (event: any) => {
-
-        const formData = new FormData();
-
-        formData.append('file_location', event.target.files[0]);
-
-        axios.post(`images`, formData).then((response) => {
-
-            console.log(response);
-            setClinicImg(response.data.result.file_location)
-
-        })
-    }
 
 
     const formik = useFormik({
@@ -93,7 +80,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
                 website: values.website,
                 clinic_admin_name: values.clinic_admin_name,
                 clinic_admin_mobile: values.clinic_admin_mobile,
-                image_location: clinic_img,
+                images: image,
                 address: values.address,
                 location: values.location,
                 langtitude_altitude: values.langtitude_altitude,
@@ -359,54 +346,12 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                                     <Grid lg={8}>
 
-                                        <Box sx={{
-                                            display: "flex", flexDirection: "column", justifyContent: "end",
-                                            alignItems: "end",
-                                        }}>
-
-                                            <Box sx={{ width: "50%" }}>
-
-                                                <Box sx={{
-                                                    backgroundColor: "lightgray", width: "150px", mb: 2,
-                                                    height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
-                                                }}>
-
-                                                    {clinic_img === null ? <ImageIcon sx={{ fontSize: "4rem" }} />
-
-                                                        :
-
-                                                        <img src={clinic_img} width="100%" />
-
-                                                    }
-
-                                                </Box>
-
-                                            </Box>
-
-                                            <Box sx={{ display: "flex", width: "50%" }}>
-
-                                                <Stack direction="row" alignItems="center" spacing={2}>
-
-                                                    <Button variant="contained" component="label">
-                                                        Upload
-
-                                                        <input hidden type='file' key="image" id="outlined-basic"
-
-                                                            onChange={(event: any) => AddImages(event)} />
-
-                                                    </Button>
-
-                                                </Stack>
-
-                                            </Box>
-
-                                        </Box>
+                                        <MultiImagePreview image={image} setImage={setImage} />
 
                                     </Grid>
 
-
-
                                 </Grid>
+
 
                             </Grid>
 
