@@ -8,6 +8,7 @@ import { TabHome } from './TabHome';
 import { Box, Stack } from '@mui/system';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
+import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 
 
 export const CreateLabs = () => {
@@ -16,7 +17,7 @@ export const CreateLabs = () => {
 
     const router = useRouter();
 
-    const [lab_img, setLabImg] = useState(null);
+    const [image, setImage] = useState([{ id: 1 }]);
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
@@ -46,20 +47,6 @@ export const CreateLabs = () => {
             checked: false,
         },
     ]);
-
-    const AddImages = (event: any) => {
-
-        const formData = new FormData();
-
-        formData.append('file_location', event.target.files[0]);
-
-        axios.post(`images`, formData).then((response) => {
-
-            console.log(response);
-            setLabImg(response.data.result.file_location)
-
-        })
-    }
 
 
     const formik = useFormik({
@@ -93,7 +80,7 @@ export const CreateLabs = () => {
                 website: values.website,
                 lab_admin_name: values.lab_admin_name,
                 lab_admin_mobile: values.lab_admin_mobile,
-                image_location: lab_img,
+                images: image,
                 address: values.address,
                 location: values.location,
                 langtitude_altitude: values.langtitude_altitude,
@@ -359,52 +346,9 @@ export const CreateLabs = () => {
 
                                     <Grid lg={8}>
 
-                                        <Box sx={{
-                                            display: "flex", flexDirection: "column", justifyContent: "end",
-                                            alignItems: "end",
-                                        }}>
-
-                                            <Box sx={{ width: "50%" }}>
-
-                                                <Box sx={{
-                                                    backgroundColor: "lightgray", width: "150px", mb: 2,
-                                                    height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
-                                                }}>
-
-                                                    {lab_img === null ? <ImageIcon sx={{ fontSize: "4rem" }} />
-
-                                                        :
-
-                                                        <img src={lab_img} width="100%" />
-
-                                                    }
-
-                                                </Box>
-
-                                            </Box>
-
-                                            <Box sx={{ display: "flex", width: "50%" }}>
-
-                                                <Stack direction="row" alignItems="center" spacing={2}>
-
-                                                    <Button variant="contained" component="label">
-                                                        Upload
-
-                                                        <input hidden type='file' key="image" id="outlined-basic"
-
-                                                            onChange={(event: any) => AddImages(event)} />
-
-                                                    </Button>
-
-                                                </Stack>
-
-                                            </Box>
-
-                                        </Box>
+                                        <MultiImagePreview image={image} setImage={setImage} />
 
                                     </Grid>
-
-
 
                                 </Grid>
 

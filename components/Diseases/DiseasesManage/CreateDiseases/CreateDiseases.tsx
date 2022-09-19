@@ -252,8 +252,6 @@ export const CreateDiseases = () => {
 
                                     </Grid>
 
-
-
                                 </Grid>
 
                             </Grid>
