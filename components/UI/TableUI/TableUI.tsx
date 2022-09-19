@@ -10,6 +10,7 @@ import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
 import { Actions } from './Actions';
 
 import { useClickAnyWhere } from 'usehooks-ts'
+import { useRouter } from 'next/router';
 
 
 export const TableUI = (props: any) => {
@@ -24,6 +25,8 @@ export const TableUI = (props: any) => {
   const [page, setPage] = useState(1);
 
   const [limit, setLimit] = useState(10);
+
+  const router = useRouter();
 
 
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(`${name}?page=${page}&limit=${limit}`);
@@ -113,7 +116,7 @@ export const TableUI = (props: any) => {
 
           {tableData?.result?.map((data: any, index: any) =>
 
-            <tr>
+            <tr style={{ cursor: "pointer" }} onClick={() => router.push(`/diseases/details/${data._id}`)}>
 
               <td style={{ fontWeight: "bold" }}>
                 {index + 1 + (page - 1) * limit}
