@@ -95,7 +95,6 @@ export const CreateDoctors = () => {
             const axiosrequest1 = axios.post(`doctors/clinic-doctors`, {
 
                 name: values.name,
-                role: role,
                 specialisedIn: specialisedIn,
                 registration_number: values.registration_number,
                 email: values.email,
@@ -104,7 +103,7 @@ export const CreateDoctors = () => {
                     address1: "string",
                     address2: "string",
                     city: "string",
-                    state: "string"
+                    state: "string",
                 },
                 gender: gender,
                 image_id: "string",
@@ -122,11 +121,20 @@ export const CreateDoctors = () => {
                 practice: values.practice,
                 is_authorized: true,
                 id_proof: idProof,
-                consulation_fee: values.consulation_fee,
                 specilized_tag: values.specilized_tag,
-                department_id: "string",
                 institution: "clinic",
-                institution_id: clin
+                institution_id: clin,
+                department_id: "string",
+                role: role,
+                serial_number: "string",
+                branch_id: "string",
+                available_time: "string",
+                concession_fee: values.consulation_fee,
+                notes: "string",
+                remarks: "string",
+                attributes: "string"
+
+
             })
 
 

@@ -51,8 +51,8 @@ export const TabHome = (props: any) => {
           </TabPanel>
           <TabPanel value="4">
             <SpecializedIn
-              documents={specialisedIn}
-              setDocuments={setSpecialisedIn} />
+              inputfield={specialisedIn}
+              setInputfield={setSpecialisedIn} />
           </TabPanel>
           <TabPanel value="5">
             <Seo tabData8={tabData8} formik={formik} />
