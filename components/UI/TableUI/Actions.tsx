@@ -8,6 +8,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import ScienceIcon from '@mui/icons-material/Science';
 
 export const Actions = (props: any) => {
 
@@ -44,7 +45,7 @@ export const Actions = (props: any) => {
 
     const handleLabTest = () => {
 
-        router.push({ pathname: `${name}/tests`, query: { institution_id: id } })
+        router.push({ pathname: `${name}/test`, query: { institution_id: id } })
 
     }
 
@@ -64,7 +65,7 @@ export const Actions = (props: any) => {
         },
         {
             text: "LabTest",
-            icon: RemoveRedEyeOutlinedIcon,
+            icon: ScienceIcon,
             color: "orange",
             onClick: handleLabTest
         },
