@@ -20,8 +20,8 @@ export const Diseases = () => {
     ]
 
     const actions = [
-        "OverView",
-        // "Edit",
+        // "OverView",
+        "Edit",
         // "Delete"
     ];
 

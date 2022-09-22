@@ -4,14 +4,16 @@ import { useRouter } from 'next/router';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { TableUI } from '../../UI/TableUI/TableUI';
 
-export const Labs = () => {
+export const LabsTest = () => {
 
     const router = useRouter();
+
+    const { lab_id } = router.query;
 
     const tableHead = [
 
 
-        "Name",
+        "test_name",
         "Website",
         "Admin",
         "Location",
@@ -21,7 +23,7 @@ export const Labs = () => {
 
     const element = [
 
-        "name",
+        "test_name",
         "website",
         "lab_admin_name",
         "location",
@@ -41,9 +43,9 @@ export const Labs = () => {
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push("/lab/create")} bgColor="#229954">Create Lab</CustomizedButton>
+            <CustomizedButton onClick={() => router.push(`/lab/test/create`)} bgColor="#229954">Create Lab Test</CustomizedButton>
 
-            <TableUI tableName="labs" tableHead={tableHead} element={element} name="lab" actions={actions} />
+            <TableUI tableName="labs" tableHead={tableHead} element={element} name="lab-tests" actions={actions} />
 
         </Grid>
     )

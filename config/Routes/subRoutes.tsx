@@ -43,11 +43,11 @@ export const subRoutes = [
     {
         name: 'Labs',
         icon: ScienceIcon,
-        path: '/labs',
+        path: '/lab',
         children: [
             {
                 text: "Lab List",
-                path: '/labs'
+                path: '/lab'
             }
         ]
     },

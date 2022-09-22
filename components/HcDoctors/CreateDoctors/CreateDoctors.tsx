@@ -127,6 +127,68 @@ export const CreateDoctors = () => {
                 department_id: "string",
                 institution: "clinic",
                 institution_id: clin
+
+
+
+                // name: values.name,
+                // specialisedIn: [
+                //     {
+                //         "specialization": "string",
+                //         "years_of_experiance": 0,
+                //         "qualifications": "string"
+                //     }
+                // ],
+                // registration_number: "string",
+                // email: "string",
+                // mobile: "string",
+                // address: {
+                //     address1: "string",
+                //     address2: "string",
+                //     city: "string",
+                //     state: "string"
+                // },
+                // gender: "string",
+                // image_id: "string",
+                // image_location: "string",
+                // years_of_experience: 0,
+                // dateOfBirth: "2022-09-20T06:40:10.578Z",
+                // qualificaton: "string",
+                // certificates: [
+                //     {
+                //         "document_id": "string",
+                //         "document_name": "string",
+                //         "document_location": "string"
+                //     }
+                // ],
+                // profileText: {
+                //     "short_profile": "string",
+                //     "academic_architecture": "string",
+                //     "professional_contributions": "string",
+                //     "affliation": "string"
+                // },
+                // practice: "string",
+                // is_authorized: true,
+                // id_proof: [
+                //     {
+                //         "document_id": "string",
+                //         "document_name": "string",
+                //         "document_location": "string"
+                //     }
+                // ],
+                // specilized_tag: "string",
+                // institution: "string",
+                // institution_id: "string",
+                // department_id: "string",
+                // role: "string",
+                // serial_number: "string",
+                // branch_id: "string",
+                // available_time: "string",
+                // concession_fee: 0,
+                // notes: "string",
+                // remarks: "string",
+                // attributes: "string"
+
+
             })
 
 

@@ -29,7 +29,12 @@ export const TableUI = (props: any) => {
   const router = useRouter();
 
 
+
+
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(`${name}?page=${page}&limit=${limit}`);
+
+
+  console.log("tableData", tableData)
 
   const [bool, setBool] = useState([]);
 
@@ -116,7 +121,7 @@ export const TableUI = (props: any) => {
 
           {tableData?.result?.map((data: any, index: any) =>
 
-            <tr style={{ cursor: "pointer" }} onClick={() => router.push(`/diseases/details/${data._id}`)}>
+            <tr style={{ cursor: "pointer" }}>
 
               <td style={{ fontWeight: "bold" }}>
                 {index + 1 + (page - 1) * limit}
@@ -132,7 +137,7 @@ export const TableUI = (props: any) => {
               {element.map((el: any) =>
 
 
-                <td>
+                <td onClick={() => router.push(`/diseases/details/${data._id}`)}>
 
                   {nestedArray ? data["data"][el] : data[el]}
 

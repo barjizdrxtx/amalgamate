@@ -5,6 +5,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { Labs } from './LabManage/Labs';
+import { LabsTest } from './LabManage/LabsTest';
 
 
 export const TabHome = () => {
@@ -23,9 +24,8 @@ export const TabHome = () => {
 
           <TabList onChange={handleChange} aria-label="lab API tabs example">
 
-            <Tab label="Create Labs" value="1" />
-            <Tab label="schedule" value="2" />
-            <Tab label="health packages" value="3" />
+            <Tab label="Labs Test" value="1" />
+            <Tab label="Create Labs" value="2" />
 
           </TabList>
 
@@ -33,16 +33,14 @@ export const TabHome = () => {
 
         <TabPanel value="1">
 
-          <Labs />
+          <LabsTest />
 
         </TabPanel>
 
         <TabPanel value="2">
-          B
-        </TabPanel>
-        
-        <TabPanel value="3">
-          c
+
+          <Labs />
+
         </TabPanel>
 
       </TabContext>
