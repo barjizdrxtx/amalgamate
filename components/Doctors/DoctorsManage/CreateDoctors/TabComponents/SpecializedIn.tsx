@@ -6,42 +6,24 @@ import axios from 'axios';
 
 export const SpecializedIn = (props: any) => {
 
-    const { documents, setDocuments } = props;
+    const { inputfield, setInputfield } = props;
 
-    console.log("documents", documents)
-
-    const AddImages = (index: any, event: any) => {
-
-        if (event.target.files[0] === undefined) return;
-
-        const formData = new FormData();
-
-        formData.append('file_location', event.target.files[0]);
-
-        axios.post(`documents`, formData).then((response) => {
-
-            const values = [...documents]
-            values[index]['image'] = response.data.result.file_location
-            setDocuments(values)
-
-        })
-    }
 
     const handleChangeInput = (index: any, event: any) => {
-        const values = [...documents]
+        const values = [...inputfield]
         values[index][event.target.name] = event.target.value
-        setDocuments(values)
+        setInputfield(values)
     }
 
 
     const handleAddFields = () => {
 
-        setDocuments([...documents, { id: documents.length + 1 }])
-        console.log(documents)
+        setInputfield([...inputfield, { id: inputfield.length + 1 }])
+        console.log(inputfield)
     }
 
     const handleRemoveFields = () => {
-        setDocuments((documents: any) => documents.filter((_: any, i: any) => i !== documents.length - 1))
+        setInputfield((inputfield: any) => inputfield.filter((_: any, i: any) => i !== inputfield.length - 1))
     }
 
     return (
@@ -50,7 +32,7 @@ export const SpecializedIn = (props: any) => {
 
             <Grid lg={12}>
 
-                {documents.map((add: any, index: any) =>
+                {inputfield.map((add: any, index: any) =>
 
                     <Box sx={{
                         width: "100%", display: "flex", flexDirection: "column",
@@ -70,13 +52,19 @@ export const SpecializedIn = (props: any) => {
 
                             <Box sx={{ flex: 4, width: "100%", mb: 2, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-                                <TextField sx={{ flex: 1, width: "100%" }} defaultValue={documents[index].document_name}
-                                    name="document_name"
+
+                                <TextField sx={{ flex: 1, width: "100%" }} defaultValue={inputfield[index].specialization}
+                                    name="specialization"
                                     onChange={(event: any) => handleChangeInput(index, event)} />
 
-                                <TextField sx={{ flex: 1, width: "100%" }} type='file' key="image" id="outlined-basic"
-                                    name="document_location"
-                                    onChange={(event: any) => AddImages(index, event)} />
+
+                                <TextField sx={{ flex: 1, width: "100%" }} defaultValue={inputfield[index].years_of_experiance}
+                                    name="years_of_experiance"
+                                    onChange={(event: any) => handleChangeInput(index, event)} />
+
+                                <TextField sx={{ flex: 1, width: "100%" }} defaultValue={inputfield[index].qualifications}
+                                    name="qualifications"
+                                    onChange={(event: any) => handleChangeInput(index, event)} />
 
                             </Box>
 
@@ -92,7 +80,7 @@ export const SpecializedIn = (props: any) => {
             <Grid>
 
                 <Box sx={{ display: "flex" }}>
-                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{documents.length > 1
+                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{inputfield.length > 1
                         && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
                     }
 
