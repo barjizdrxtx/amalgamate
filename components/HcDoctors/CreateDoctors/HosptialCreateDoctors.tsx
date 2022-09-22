@@ -13,7 +13,8 @@ import { DropDown } from '../../UI/DropDown/DropDown';
 import { TabHome } from '../../Doctors/DoctorsManage/CreateDoctors/TabHome';
 
 
-export const CreateDoctors = () => {
+export const HosptialCreateDoctors = () => {
+
 
     const [role, setRole] = useState("null");
 
@@ -32,7 +33,7 @@ export const CreateDoctors = () => {
 
     const router = useRouter();
 
-    const { clin } = router.query
+    const { institution_id } = router.query
 
     console.log("documents", documents)
 
@@ -122,71 +123,8 @@ export const CreateDoctors = () => {
                 is_authorized: true,
                 id_proof: idProof,
                 specilized_tag: values.specilized_tag,
-                institution: "clinic",
-<<<<<<< HEAD
-                institution_id: clin
-
-
-
-                // name: values.name,
-                // specialisedIn: [
-                //     {
-                //         "specialization": "string",
-                //         "years_of_experiance": 0,
-                //         "qualifications": "string"
-                //     }
-                // ],
-                // registration_number: "string",
-                // email: "string",
-                // mobile: "string",
-                // address: {
-                //     address1: "string",
-                //     address2: "string",
-                //     city: "string",
-                //     state: "string"
-                // },
-                // gender: "string",
-                // image_id: "string",
-                // image_location: "string",
-                // years_of_experience: 0,
-                // dateOfBirth: "2022-09-20T06:40:10.578Z",
-                // qualificaton: "string",
-                // certificates: [
-                //     {
-                //         "document_id": "string",
-                //         "document_name": "string",
-                //         "document_location": "string"
-                //     }
-                // ],
-                // profileText: {
-                //     "short_profile": "string",
-                //     "academic_architecture": "string",
-                //     "professional_contributions": "string",
-                //     "affliation": "string"
-                // },
-                // practice: "string",
-                // is_authorized: true,
-                // id_proof: [
-                //     {
-                //         "document_id": "string",
-                //         "document_name": "string",
-                //         "document_location": "string"
-                //     }
-                // ],
-                // specilized_tag: "string",
-                // institution: "string",
-                // institution_id: "string",
-                // department_id: "string",
-                // role: "string",
-                // serial_number: "string",
-                // branch_id: "string",
-                // available_time: "string",
-                // concession_fee: 0,
-                // notes: "string",
-                // remarks: "string",
-                // attributes: "string"
-=======
-                institution_id: clin,
+                institution: "hospitals",
+                institution_id: institution_id,
                 department_id: "string",
                 role: role,
                 serial_number: "string",
@@ -196,7 +134,6 @@ export const CreateDoctors = () => {
                 notes: "string",
                 remarks: "string",
                 attributes: "string"
->>>>>>> ff563e465f3209bb3ce9418917d42c094671865c
 
 
             })
@@ -215,7 +152,7 @@ export const CreateDoctors = () => {
                 console.log(res1);
                 console.log(res2);
                 alert("submit success")
-                router.push(`/clinics/doctors?clin=${clin}`)
+                router.push(`/clinics/doctors?institution_id=${institution_id}`)
             }));
 
         },

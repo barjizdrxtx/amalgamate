@@ -11,7 +11,7 @@ import { DropDown } from '../../../UI/DropDown/DropDown';
 import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 
 
-export const CreateHospitals = () => {
+export const CreateHospitals = ({ path = 'hospitals' }) => {
 
     const [role, setRole] = useState("null");
 
@@ -73,7 +73,7 @@ export const CreateHospitals = () => {
 
         onSubmit: (values: any) => {
 
-            const axiosrequest1 = axios.post(`hospitals`, {
+            const axiosrequest1 = axios.post(path, {
 
                 name: values.name,
                 role: role,
@@ -111,7 +111,7 @@ export const CreateHospitals = () => {
                 console.log(res1);
                 console.log(res2);
                 alert("submit success")
-                router.push('/hospitals')
+                router.push(`/${path}`)
             }));
 
         },
@@ -292,7 +292,7 @@ export const CreateHospitals = () => {
 
                             <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Hospital</CustomizedButton >
 
-                            <CustomizedButton bgColor="black" onClick={() => router.push('/labs')}>Cancel</CustomizedButton >
+                            <CustomizedButton bgColor="black" onClick={() => router.push(`/${path}`)}>Cancel</CustomizedButton >
 
                         </Box>
 

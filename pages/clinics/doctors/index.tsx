@@ -1,8 +1,7 @@
 import { Box, Grid } from '@mui/material'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { Doctors } from '../../../components/HcDoctors/Doctors';
-
+import { ClinicsDoctors } from '../../../components/HcDoctors/ClinicsDoctors';
 
 const index = () => {
 
@@ -14,7 +13,7 @@ const index = () => {
             
             <Box sx={{ m: 2 }}>
 
-                <Doctors />
+                <ClinicsDoctors />
 
             </Box>
 

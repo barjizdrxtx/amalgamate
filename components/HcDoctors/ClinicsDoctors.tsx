@@ -5,11 +5,11 @@ import { TableUI } from '../UI/TableUI/TableUI';
 import { CustomizedButton } from '../UI/Button/CustomizedButton';
 
 
-export const Doctors = () => {
+export const ClinicsDoctors = () => {
 
     const router = useRouter();
 
-    const { clin } = router.query
+    const { institution_id } = router.query
 
     const tableHead = [
 
@@ -42,9 +42,9 @@ export const Doctors = () => {
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push({ pathname: `/clinics/doctors/create`, query: { clin: clin } })} bgColor="#229954">Create Doctors</CustomizedButton>
+            <CustomizedButton onClick={() => router.push({ pathname: `/clinics/doctors/create`, query: { institution_id: institution_id } })} bgColor="#229954">Create Doctors</CustomizedButton>
 
-            <TableUI tableName="doctors" tableHead={tableHead} element={element} name={`clinics/doctors-list/${clin}`} actions={actions} />
+            <TableUI tableName="doctors" tableHead={tableHead} element={element} name={`clinics/doctors-list/${institution_id}`} actions={actions} />
 
         </Grid>
     )

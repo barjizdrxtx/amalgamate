@@ -33,7 +33,6 @@ export const LabsTest = () => {
 
     const actions = [
         "OverView",
-        "LabTest",
         "Edit",
         "Delete"
     ];

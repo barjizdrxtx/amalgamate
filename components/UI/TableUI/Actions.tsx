@@ -38,7 +38,7 @@ export const Actions = (props: any) => {
     }
     const handleDoctors = () => {
 
-        router.push({ pathname: `${name}/doctors`, query: { clin: id } })
+        router.push({ pathname: `${name}/doctors`, query: { institution_id: id } })
 
     }
 
@@ -46,100 +46,100 @@ export const Actions = (props: any) => {
 
         router.push({ pathname: `${name}/tests`, query: { institution_id: id } })
 
-}
-
-const actionButtons = [
-
-    {
-        text: "OverView",
-        icon: RemoveRedEyeOutlinedIcon,
-        color: "purple",
-        onClick: handleDetails
-    },
-    {
-        text: "Doctors",
-        icon: AccountCircleOutlinedIcon,
-        color: "dodgerblue",
-        onClick: handleDoctors
-    },
-    {
-        text: "LabTest",
-        icon: RemoveRedEyeOutlinedIcon,
-        color: "orange",
-        onClick: handleLabTest
-    },
-    {
-        text: "Edit",
-        icon: ModeEditOutlineOutlinedIcon,
-        color: "green",
-        onClick: handleEdit
-    },
-    {
-        text: "Delete",
-        icon: DeleteOutlineIcon,
-        color: "red",
-        onClick: handleDelete
     }
-]
 
-let filteredActionButtons = actionButtons.filter(u => actions.includes(u.text));
+    const actionButtons = [
+
+        {
+            text: "OverView",
+            icon: RemoveRedEyeOutlinedIcon,
+            color: "purple",
+            onClick: handleDetails
+        },
+        {
+            text: "Doctors",
+            icon: AccountCircleOutlinedIcon,
+            color: "dodgerblue",
+            onClick: handleDoctors
+        },
+        {
+            text: "LabTest",
+            icon: RemoveRedEyeOutlinedIcon,
+            color: "orange",
+            onClick: handleLabTest
+        },
+        {
+            text: "Edit",
+            icon: ModeEditOutlineOutlinedIcon,
+            color: "green",
+            onClick: handleEdit
+        },
+        {
+            text: "Delete",
+            icon: DeleteOutlineIcon,
+            color: "red",
+            onClick: handleDelete
+        }
+    ]
+
+    let filteredActionButtons = actionButtons.filter(u => actions.includes(u.text));
 
 
-return (
+    return (
 
-    <Grid>
+        <Grid>
 
-        <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+            <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+
+                {bool[index] === true &&
+
+                    <Box sx={{
+                        backgroundColor: "white", display: "flex", flexDirection: "column", justifyContent: "center",
+                        alignItems: "center",
+                        boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
+                        borderRadius: "5px", width: "120px",
+                        position: "absolute", top: "0", right: "0", zIndex: "100",
+                    }}>
+
+                        {filteredActionButtons.map(data =>
+
+                            <Box onClick={data.onClick}
+
+                                sx={{
+                                    width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
+                                    '&:hover': {
+                                        backgroundColor: PRIMARY_COLOR,
+                                        cursor: "pointer"
+                                    }
+
+                                }}>
+
+                                <data.icon sx={{ color: data.color }} />
+
+                                <Typography variant='subtitle2' sx={{ ml: 1 }}>{data.text}</Typography>
+
+                            </Box>
+                        )}
+
+                    </Box>}
+
+                <IconButton onClick={() => Open(index)}>
+
+                    <MoreVertIcon />
+
+                </IconButton>
+
+            </Box >
 
             {bool[index] === true &&
-
-                <Box sx={{
-                    backgroundColor: "white", display: "flex", flexDirection: "column", justifyContent: "center",
-                    alignItems: "center",
-                    boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
-                    borderRadius: "5px", width: "120px",
-                    position: "absolute", top: "0", right: "0", zIndex: "100",
+                <Box onClick={() => Open(index)} sx={{
+                    top: "0", left: "0", width: "100%",
+                    height: "100vh", position: "absolute"
                 }}>
-
-                    {filteredActionButtons.map(data =>
-
-                        <Box onClick={data.onClick}
-
-                            sx={{
-                                width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
-                                '&:hover': {
-                                    backgroundColor: PRIMARY_COLOR,
-                                    cursor: "pointer"
-                                }
-
-                            }}>
-
-                            <data.icon sx={{ color: data.color }} />
-
-                            <Typography variant='subtitle2' sx={{ ml: 1 }}>{data.text}</Typography>
-
-                        </Box>
-                    )}
 
                 </Box>}
 
-            <IconButton onClick={() => Open(index)}>
+        </Grid>
 
-                <MoreVertIcon />
-
-            </IconButton>
-
-        </Box >
-
-        {bool[index] === true &&
-            <Box onClick={() => Open(index)} sx={{
-                top: "0", left: "0", width: "100%",
-                height: "100vh", position: "absolute"
-            }}>
-
-            </Box>}
-
-    </Grid>
-
-)
+    )
 }
