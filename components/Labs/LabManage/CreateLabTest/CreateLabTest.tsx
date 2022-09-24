@@ -76,7 +76,7 @@ export const CreateLabTest = () => {
                 console.log(res1);
                 console.log(res2);
                 alert("submit success")
-                // router.push('/lab')
+                router.push('/lab')
             }));
 
         },
