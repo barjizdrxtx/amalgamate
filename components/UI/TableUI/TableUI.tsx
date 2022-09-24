@@ -1,4 +1,3 @@
-
 import { Box, Grid, IconButton, OutlinedInput, Pagination, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import style from "../../../styles/TableUI.module.css"
@@ -14,6 +13,7 @@ export const TableUI = (props: any) => {
 
 
   const { tableHead, element, name, nestedArray, disableActions, disableImage, tableName, actions } = props;
+
 
   const [isPopUp, setIsPopup] = useState(false);
 
@@ -96,70 +96,78 @@ export const TableUI = (props: any) => {
 
         <table id={style.table}>
 
-          <tr>
-
-            <th>No</th>
-
-            {!disableImage && <th>Image</th>}
-
-            {tableHead.map((data: any) =>
-
-              <th>{data}</th>
-
-            )}
-
-            {!disableActions && <th>Actions</th>}
-
-          </tr>
-
-          {tableData?.result?.map((data: any, index: any) =>
-
-            <tr style={{ cursor: "pointer" }}>
-
-              <td onClick={() => router.push(`/diseases/details/${data._id}`)} style={{ fontWeight: "bold" }}>
-                {index + 1 + (page - 1) * limit}
-              </td>
+          <tbody>
 
 
-              {!disableImage && <td onClick={() => router.push(`/diseases/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
+            <tr>
 
-                <img style={{ width: "50px", height: "50px", borderRadius: "30%" }} src={data.image_location} />
+              <th>No</th>
 
-              </td>}
+              {!disableImage && <th>Image</th>}
 
-              {element.map((el: any) =>
+              {tableHead.map((data: any) =>
 
-
-                <td onClick={() => router.push(`/diseases/details/${data._id}`)}>
-
-                  {nestedArray ? data["data"][el] : data[el]}
-
-                </td>
+                <th>{data}</th>
 
               )}
 
-              {!disableActions && <td>
-
-                <Actions
-
-                  bool={bool}
-                  index={index}
-                  Open={Open}
-                  refetch={refetch}
-                  id={data._id}
-                  name={name}
-                  actions={actions}
-                />
-
-              </td>}
+              {!disableActions && <th>Actions</th>}
 
             </tr>
 
-          )}
+            {tableData?.result?.map((data: any, index: any) =>
+
+              <tr style={{ cursor: "pointer" }}>
+
+                <td style={{ fontWeight: "bold" }}>
+                  {index + 1 + (page - 1) * limit}
+                </td>
+
+
+                {!disableImage && <td style={{ display: "flex", alignItems: "center" }}>
+
+                  <img style={{ width: "50px", height: "50px", borderRadius: "30%" }} src={data.image_location} />
+
+                </td>}
+
+                {element.map((el: any) =>
+
+
+                  <td onClick={() => router.push(`/diseases/details/${data._id}`)}>
+
+                    {nestedArray ? data["data"][el] : data[el]}
+
+                  </td>
+
+                )}
+
+                {!disableActions && <td>
+
+                  <Actions
+
+                    bool={bool}
+                    index={index}
+                    Open={Open}
+                    refetch={refetch}
+                    id={data._id}
+                    name={name}
+                    actions={actions}
+                  />
+
+                </td>}
+
+              </tr>
+
+            )}
+
+
+          </tbody>
 
         </table>
 
         <Box sx={{ display: "flex", justifyContent: "end", py: 2 }}>
+          {/* 
+          <TextField onChange={(e: any) => setLimit(e.target.value)} /> */}
 
           <Stack spacing={2}>
             <Pagination onChange={handleChange} count={totalPages} color="primary" />
