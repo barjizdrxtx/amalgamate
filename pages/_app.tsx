@@ -5,8 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import featuresSlice from '../redux/featuresSlice'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { ProtectedRoutes } from '../components/ProtectedRoutes/ProtectedRoutes'
 
 const queryClient = new QueryClient()
@@ -30,18 +28,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Provider store={store}>
 
 
-        <ProtectedRoutes>
-
+   
           <Layout>
 
             <Component {...pageProps} />
 
           </Layout>
 
-        </ProtectedRoutes>
-
-
-
+  
 
 
       </Provider>

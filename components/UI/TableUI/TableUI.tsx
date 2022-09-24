@@ -4,12 +4,9 @@ import React, { useState } from 'react'
 import style from "../../../styles/TableUI.module.css"
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import axios from 'axios';
 import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
 import { Actions } from './Actions';
-
-import { useClickAnyWhere } from 'usehooks-ts'
 import { useRouter } from 'next/router';
 
 
@@ -18,8 +15,6 @@ export const TableUI = (props: any) => {
 
   const { tableHead, element, name, nestedArray, disableActions, disableImage, tableName, actions } = props;
 
-  const [count, setCount] = useState(0)
-
   const [isPopUp, setIsPopup] = useState(false);
 
   const [page, setPage] = useState(1);
@@ -27,8 +22,6 @@ export const TableUI = (props: any) => {
   const [limit, setLimit] = useState(10);
 
   const router = useRouter();
-
-
 
 
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(`${name}?page=${page}&limit=${limit}`);
@@ -123,12 +116,12 @@ export const TableUI = (props: any) => {
 
             <tr style={{ cursor: "pointer" }}>
 
-              <td style={{ fontWeight: "bold" }}>
+              <td onClick={() => router.push(`/diseases/details/${data._id}`)} style={{ fontWeight: "bold" }}>
                 {index + 1 + (page - 1) * limit}
               </td>
 
 
-              {!disableImage && <td style={{ display: "flex", alignItems: "center" }}>
+              {!disableImage && <td onClick={() => router.push(`/diseases/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
 
                 <img style={{ width: "50px", height: "50px", borderRadius: "30%" }} src={data.image_location} />
 
@@ -167,8 +160,6 @@ export const TableUI = (props: any) => {
         </table>
 
         <Box sx={{ display: "flex", justifyContent: "end", py: 2 }}>
-          {/* 
-          <TextField onChange={(e: any) => setLimit(e.target.value)} /> */}
 
           <Stack spacing={2}>
             <Pagination onChange={handleChange} count={totalPages} color="primary" />
