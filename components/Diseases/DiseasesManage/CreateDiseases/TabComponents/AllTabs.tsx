@@ -92,7 +92,7 @@ export const AllTabs = (props: any) => {
 
                             <Box sx={{ flex: 5, width: "100%", mb: 2 }}>
 
-                                <TextEditor defaultValue={inputfield[index].title}
+                                <TextEditor defaultValue={inputfield[index].description}
                                     onChange={(content: any) => handleChangeInput(index, content, 'description')} />
 
                             </Box>
