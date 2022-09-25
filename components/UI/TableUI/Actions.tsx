@@ -45,7 +45,7 @@ export const Actions = (props: any) => {
 
     const handleLabTest = () => {
 
-        router.push({ pathname: `${name}/test`, query: { institution_id: id } })
+        router.push({ pathname: `${name}/add-test`, query: { institution_id: id } })
 
     }
 

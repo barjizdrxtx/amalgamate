@@ -1,20 +1,27 @@
-import { Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import ImageIcon from '@mui/icons-material/Image';
 import { useFormik } from 'formik';
-import { Box, Stack } from '@mui/system';
+import { Box } from '@mui/system';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
-import { DropDown } from '../../../UI/DropDown/DropDown';
-import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
-
+import { DropDown, DropDownApi } from '../../../UI/DropDown/DropDown';
+import { useQueryFetch } from '../../../../hooks/useQueryFetch';
 
 export const AddLabTestLab = () => {
 
-    const [gender, setGender] = useState("null");
-
     const router = useRouter();
+
+    const { institution_id } = router.query;
+
+
+    const [labtest_id, setLabTestId] = useState("null");
+
+
+    const { fetchedData: fetchedData } = useQueryFetch("lab-tests");
+
+    console.log("fetchedData", fetchedData)
+
 
     const formik = useFormik({
 
@@ -35,19 +42,19 @@ export const AddLabTestLab = () => {
 
         onSubmit: (values: any) => {
 
-            const axiosrequest1 = axios.post(`lab-tests`, {
+            const axiosrequest1 = axios.post(`lab/add-labtest`, {
 
-                lab_id: "string",
-                labtest_id: "string",
-                MRP: 0,
-                lab_rate: 0,
-                customer_note: "string",
-                employee_note: "string",
+                lab_id: institution_id,
+                labtest_id: labtest_id,
+                MRP: values.MRP,
+                lab_rate: values.lab_rate,
+                customer_note: values.customer_note,
+                employee_note: values.employee_note,
                 is_offer_available: false,
-                offer_amount_type: "string",
-                offer_amount_value: 0,
-                offer_valid_from: "2022-09-22T06:48:20.997Z",
-                offer_valid_to: "2022-09-22T06:48:20.997Z",
+                offer_amount_type: values.offer_amount_type,
+                offer_amount_value: values.offer_amount_value,
+                offer_valid_from: values.offer_valid_from,
+                offer_valid_to: values.offer_valid_to,
 
 
             })
@@ -65,7 +72,8 @@ export const AddLabTestLab = () => {
                 console.log(res1);
                 console.log(res2);
                 alert("submit success")
-                // router.push('/lab')
+                // router.push({ pathname: `/lab/add-test`, query: { institution_id: institution_id } })
+
             }));
 
         },
@@ -77,7 +85,7 @@ export const AddLabTestLab = () => {
         {
             title: "MRP",
             label: "MRP",
-            type: "text",
+            type: "number",
             value: formik.values.MRP,
             touched: formik.touched.MRP,
             errors: formik.errors.MRP,
@@ -86,7 +94,7 @@ export const AddLabTestLab = () => {
         {
             title: "Lab Rate",
             label: "lab_rate",
-            type: "text",
+            type: "number",
             value: formik.values.lab_rate,
             touched: formik.touched.lab_rate,
             errors: formik.errors.lab_rate,
@@ -110,12 +118,27 @@ export const AddLabTestLab = () => {
         {
             title: "Offer Amount Value",
             label: "offer_amount_value",
-            type: "email",
+            type: "number",
             value: formik.values.offer_amount_value,
             touched: formik.touched.offer_amount_value,
             errors: formik.errors.offer_amount_value,
         },
-
+        {
+            title: "Offer valid From",
+            label: "offer_valid_from",
+            type: "date",
+            value: formik.values.offer_valid_from,
+            touched: formik.touched.offer_valid_from,
+            errors: formik.errors.offer_valid_from,
+        },
+        {
+            title: "Offer Valid To",
+            label: "offer_valid_to",
+            type: "date",
+            value: formik.values.offer_valid_to,
+            touched: formik.touched.offer_valid_to,
+            errors: formik.errors.offer_valid_to,
+        },
     ]
 
 
@@ -141,9 +164,11 @@ export const AddLabTestLab = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Lab Test</CustomizedButton >
+                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Add Lab Test</CustomizedButton >
 
-                            <CustomizedButton bgColor="black" onClick={() => router.push('/lab')}>Cancel</CustomizedButton >
+                            <CustomizedButton bgColor="black" onClick={() =>
+                                router.push({ pathname: `/lab/add-test`, query: { institution_id: institution_id } })} >
+                                Cancel</CustomizedButton >
 
                         </Box>
 
@@ -157,6 +182,14 @@ export const AddLabTestLab = () => {
                             <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
                                 <Grid lg={6}>
+
+                                    <DropDownApi
+                                        text="Test"
+                                        dropData={fetchedData?.result}
+                                        value={labtest_id}
+                                        setValue={setLabTestId}
+                                    />
+
 
 
                                     {labtest.map((data: any, index: any) =>
@@ -184,14 +217,6 @@ export const AddLabTestLab = () => {
                                         </Box>
 
                                     )}
-
-                                    <DropDown
-                                        text="Gender"
-                                        dropData={["Both", "Male", "Female"]}
-                                        value={gender}
-                                        setValue={setGender}
-                                    />
-
 
                                 </Grid>
 

@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { CreateLabTest } from '../../../components/Labs/LabManage/CreateLabTest/CreateLabTest'
+import { LabsTestLab } from '../../../components/Labs/LabManage/LabsTestLab'
 
 const index = () => {
 
@@ -8,7 +8,7 @@ const index = () => {
 
         <Grid>
 
-            <CreateLabTest />
+            <LabsTestLab />
 
         </Grid>
 
