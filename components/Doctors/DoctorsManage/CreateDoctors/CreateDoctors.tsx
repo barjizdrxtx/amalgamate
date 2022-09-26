@@ -64,6 +64,7 @@ export const CreateDoctors = () => {
 
 
     const formik = useFormik({
+
         initialValues: {
             name: '',
             registration_number: '',
@@ -78,6 +79,7 @@ export const CreateDoctors = () => {
             academic_achievments: '',
             professional_contributions: '',
             affliation: '',
+            success_stories:'',
 
             practice: '',
             consulation_fee: '',
@@ -86,6 +88,7 @@ export const CreateDoctors = () => {
             meta_title: '',
             meta_tag_description: '',
             meta_tag_keyword: '',
+
 
         },
         // validationSchema: doctorSchemea,
@@ -204,6 +207,17 @@ export const CreateDoctors = () => {
             touched: formik.touched.registration_number,
             errors: formik.errors.registration_number,
         },
+        {
+            title: "consulation_fee",
+            label: "registration_number",
+            type: "text",
+            rows: 5,
+            value: formik.values.consulation_fee,
+            touched: formik.touched.consulation_fee,
+            errors: formik.errors.consulation_fee,
+        },
+
+
     ]
 
 
@@ -258,9 +272,18 @@ export const CreateDoctors = () => {
             touched: formik.touched.affliation,
             errors: formik.errors.affliation,
         },
+        {
+            title: "Success Stories",
+            label: "success_stories",
+            type: "text",
+            rows: 6,
+            value: formik.values.success_stories,
+            touched: formik.touched.success_stories,
+            errors: formik.errors.success_stories,
+
+        },
     ]
-
-
+    
 
     const tabData8 = [
 

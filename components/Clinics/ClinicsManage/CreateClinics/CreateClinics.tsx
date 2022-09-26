@@ -18,6 +18,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
     const [image, setImage] = useState([{ id: 1 }]);
 
+
     console.log("image", image)
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
@@ -46,6 +47,28 @@ export const CreateClinics = ({ path = 'clinics' }) => {
             checked: false,
         },
     ]);
+
+    const [payments, setPayments] = useState([
+
+        {
+            title: "Cash On Delivery",
+            checked: false,
+        },
+        {
+            title: "Debit Card",
+            checked: false,
+        },
+        {
+            title: "Credit Card",
+            checked: false,
+        },
+
+        {
+            title: "Upi",
+            checked: false,
+        },
+    ]);
+
 
 
 
@@ -402,6 +425,9 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                         amineties={amineties}
                         setAmenities={setAmenities}
+
+                        payments={payments}
+                        setPayments={setPayments}
 
                         documents={documents}
                         setDocuments={setDocuments}

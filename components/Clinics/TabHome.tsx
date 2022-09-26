@@ -18,13 +18,17 @@ export const TabHome = () => {
   return (
 
     <Box sx={{ width: '100%', typography: 'body1' }} >
+      
       <TabContext value={value}>
+
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 
           <TabList onChange={handleChange} aria-label="lab API tabs example">
 
             <Tab label="Create Clinic" value="1" />
+
             <Tab label="schedule" value="2" />
+
             <Tab label="health packages" value="3" />
 
           </TabList>

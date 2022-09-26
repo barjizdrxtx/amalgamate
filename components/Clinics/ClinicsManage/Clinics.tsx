@@ -45,5 +45,6 @@ export const Clinics = () => {
             <TableUI tableName="clinics" tableHead={tableHead} element={element} name="clinics" actions={actions} />
 
         </Grid>
+
     )
 }

@@ -5,10 +5,12 @@ import { Amenities } from '../../../Tabs/HCLTabComponents/Amenities';
 import { Procedures } from '../../../Tabs/HCLTabComponents/Procedures';
 import { Specialisation } from '../../../Tabs/HCLTabComponents/Specialisation';
 import { MainTab } from './MainTab';
+import { Payments } from '../../../Tabs/HCLTabComponents/Payments';
+import { Timing } from '../../../Tabs/HCLTabComponents/Timing';
 
 export const TabHome = (props: any) => {
 
-  const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities,
+  const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities, payments, setPayments,
     documents, setDocuments, specialities, setSpecialities } = props;
 
   const tabData = [
@@ -21,13 +23,24 @@ export const TabHome = (props: any) => {
         documents={documents}
         setDocuments={setDocuments} />
     },
+
+    {
+      label: "Procedures",
+      component: <Procedures procedures={procedures} setProcedures={setProcedures} formik={formik} />
+
+    },
     {
       label: "Amineties",
       component: <Amenities amineties={amineties} setAmenities={setAmenities} />
     },
     {
-      label: "Procedures",
-      component: <Procedures procedures={procedures} setProcedures={setProcedures} formik={formik} />
+      label: "Payments",
+      component: <Payments payments={payments} setPayments={setPayments} />
+
+    },
+    {
+      label: "Timing",
+      component: <Timing />
 
     },
     {

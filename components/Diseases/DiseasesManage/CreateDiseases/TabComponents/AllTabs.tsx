@@ -65,9 +65,9 @@ export const AllTabs = (props: any) => {
 
             <Grid lg={12}>
 
-                {inputfield.map((add: any, index: any) =>
+                {inputfield.map((data: any, index: any) =>
 
-                    <Box sx={{
+                    <Box key={index} sx={{
                         width: "100%", display: "flex", flexDirection: "column",
                         justifyContent: "start", alignItems: "center", mb: 4
                     }}>

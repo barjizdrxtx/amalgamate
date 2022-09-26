@@ -35,7 +35,7 @@ export const ClinicsCreateDoctors = () => {
 
     const { institution_id } = router.query
 
-    console.log("documents", documents)
+    console.log("institution_id", institution_id)
 
 
     const [dateOfBirth, setDateofBirth] = React.useState<Date | null>(
@@ -152,7 +152,7 @@ export const ClinicsCreateDoctors = () => {
                 console.log(res1);
                 console.log(res2);
                 alert("submit success")
-                router.push(`/clinics/doctors?institution_id=${institution_id}`)
+                // router.push(`/clinics/doctors?institution_id=${institution_id}`)
             }));
 
         },
