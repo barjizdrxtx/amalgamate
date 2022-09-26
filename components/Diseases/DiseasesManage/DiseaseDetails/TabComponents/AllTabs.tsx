@@ -1,4 +1,4 @@
-import { Box, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React from 'react'
 import parse from 'html-react-parser';
 
@@ -31,6 +31,7 @@ export const AllTabs = (props: any) => {
 
                             <img width="100%" src={data.image} />
 
+                       
                         </Box>}
 
 

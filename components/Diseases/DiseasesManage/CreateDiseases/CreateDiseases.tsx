@@ -262,6 +262,8 @@ export const CreateDiseases = () => {
 
                                         <ImagePreview image={image} setImage={setImage} />
 
+                                       
+
                                     </Grid>
 
                                 </Grid>

@@ -40,6 +40,15 @@ export const AllTabs = (props: any) => {
 
     }
 
+
+    const RemoveImage = (index: any, name: any) => {
+
+        const values = [...inputfield]
+        values[index]['image'] = undefined;
+        setInputField(values)
+
+    }
+
     const handleAddFields = () => {
 
         setInputField([...inputfield, { id: inputfield.length + 1 }])
@@ -125,25 +134,44 @@ export const AllTabs = (props: any) => {
 
                                     }
 
-                                </Box>
-
-
-                                <Box sx={{ display: "flex", width: "50%" }}>
-
-                                    <Stack direction="row" alignItems="center" spacing={2}>
-
-                                        <Button variant="contained" component="label">
-                                            Upload
-
-                                            <input hidden type='file' key="image" id="outlined-basic"
-
-                                                onChange={(event: any) => AddImages(index, event)} />
-
-                                        </Button>
-
-                                    </Stack>
 
                                 </Box>
+
+
+                                {inputfield[index].image === undefined ?
+
+                                    <Box sx={{ display: "flex", width: "50%" }}>
+
+                                        <Stack direction="row" alignItems="center" spacing={2}>
+
+                                            <Button variant="contained" component="label">
+                                                Upload
+
+                                                <input hidden type='file' key="image" id="outlined-basic"
+
+                                                    onChange={(event: any) => AddImages(index, event)} />
+
+                                            </Button>
+
+                                        </Stack>
+
+                                    </Box>
+
+                                    :
+
+
+                                    <Box sx={{ display: "flex", width: "50%" }}>
+
+                                        <Stack direction="row" alignItems="center" spacing={2}>
+
+                                            <Button sx={{ mt: 2 }} variant="contained"  onClick={(event: any) => RemoveImage(index, event)}>remove</Button>
+
+                                        </Stack>
+
+                                    </Box>
+
+
+                                }
 
 
                             </Box>
