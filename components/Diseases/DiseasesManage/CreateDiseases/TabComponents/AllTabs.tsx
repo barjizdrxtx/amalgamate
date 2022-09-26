@@ -164,7 +164,7 @@ export const AllTabs = (props: any) => {
 
                                         <Stack direction="row" alignItems="center" spacing={2}>
 
-                                            <Button sx={{ mt: 2 }} variant="contained"  onClick={(event: any) => RemoveImage(index, event)}>remove</Button>
+                                            <Button sx={{ mt: 2 }} variant="contained" color="error" onClick={(event: any) => RemoveImage(index, event)}>remove</Button>
 
                                         </Stack>
 
