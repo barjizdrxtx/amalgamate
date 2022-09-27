@@ -26,16 +26,13 @@ export const TableUI = (props: any) => {
 
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(`${name}?page=${page}&limit=${limit}`);
 
-
-  console.log("tableData", tableData)
-
   const [bool, setBool] = useState([]);
 
   const totalLength = tableData?.result?.length
 
   let totalPages = totalLength === limit ? page + 1 : page;
 
-  console.log("totalPages", totalPages)
+
 
 
   const Open = (index: any) => {

@@ -98,9 +98,9 @@ export const DropDown2 = (props: any) => {
             name={name}
         >
 
-            {dropData.map((data: any) =>
+            {dropData.map((data: any, index: any) =>
 
-                <MenuItem value={data}>{data}</MenuItem>
+                <MenuItem key={index} value={data}>{data}</MenuItem>
 
             )}
 
