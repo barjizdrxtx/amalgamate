@@ -80,3 +80,33 @@ export const DropDownApi = (props: any) => {
 
     )
 }
+
+
+
+
+
+export const DropDown2 = (props: any) => {
+
+    const { name, onChange, dropData, value, setValue } = props;
+
+
+    return (
+
+        <Select
+            value={value}
+            onChange={onChange}
+            name={name}
+            sx={{ m: 1 }}
+        >
+
+            {dropData.map((data: any) =>
+
+                <MenuItem value={data}>{data}</MenuItem>
+
+            )}
+
+        </Select>
+
+    )
+}
+

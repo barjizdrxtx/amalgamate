@@ -6,6 +6,7 @@ import { Info } from './TabComponents/Info';
 import { Id } from './TabComponents/Id';
 import { Profile } from './TabComponents/Profile';
 import { SpecializedIn } from './TabComponents/SpecializedIn';
+import { Timing } from './TabComponents/Timing';
 
 
 export const TabHome = (props: any) => {
@@ -32,8 +33,9 @@ export const TabHome = (props: any) => {
               <Tab label="Info" value="1" />
               <Tab label="ID" value="2" />
               <Tab label="Profile" value="3" />
-              <Tab label="SpecializedIn" value="4" />
-              <Tab label="Seo" value="5" />
+              <Tab label="Schedule" value="4" />
+              <Tab label="SpecializedIn" value="5" />
+              <Tab label="Seo" value="6" />
             </TabList>
           </Box>
           <TabPanel value="1">
@@ -47,14 +49,17 @@ export const TabHome = (props: any) => {
               setDocuments={setIdProof} />
           </TabPanel>
           <TabPanel value="3">
-            <Profile tabData3={tabData3} formik={formik}/>
+            <Profile tabData3={tabData3} formik={formik} />
           </TabPanel>
           <TabPanel value="4">
-            <SpecializedIn
+            <Profile tabData3={tabData3} formik={formik} />
+          </TabPanel>
+          <TabPanel value="5">
+            <Timing
               inputfield={specialisedIn}
               setInputfield={setSpecialisedIn} />
           </TabPanel>
-          <TabPanel value="5">
+          <TabPanel value="6">
             <Seo tabData8={tabData8} formik={formik} />
           </TabPanel>
         </TabContext>

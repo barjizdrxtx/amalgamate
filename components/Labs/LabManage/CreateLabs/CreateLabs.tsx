@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import ImageIcon from '@mui/icons-material/Image';
 import { useFormik } from 'formik';
-import { TabHome } from './TabHome';
 import { Box, Stack } from '@mui/system';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
+import { HCLTabHome } from '../../../MainTab/HCLTabHome';
 
 
 export const CreateLabs = () => {
@@ -19,13 +19,14 @@ export const CreateLabs = () => {
 
     const [image, setImage] = useState([{ id: 1 }]);
 
+
+    console.log("image", image)
+
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
     const [procedures, setProcedures] = useState([{ id: 1 }]);
 
-
     const [specialities, setSpecialities] = useState([{ id: 1 }]);
-
 
     const [amineties, setAmenities] = useState([
 
@@ -44,6 +45,27 @@ export const CreateLabs = () => {
 
         {
             title: "Internet/wifi",
+            checked: false,
+        },
+    ]);
+
+    const [payments, setPayments] = useState([
+
+        {
+            title: "Cash On Delivery",
+            checked: false,
+        },
+        {
+            title: "Debit Card",
+            checked: false,
+        },
+        {
+            title: "Credit Card",
+            checked: false,
+        },
+
+        {
+            title: "Upi",
             checked: false,
         },
     ]);
@@ -392,7 +414,7 @@ export const CreateLabs = () => {
 
                     </form>
 
-                    <TabHome
+                    <HCLTabHome
 
                         formik={formik}
 
@@ -401,6 +423,9 @@ export const CreateLabs = () => {
 
                         amineties={amineties}
                         setAmenities={setAmenities}
+
+                        payments={payments}
+                        setPayments={setPayments}
 
                         documents={documents}
                         setDocuments={setDocuments}

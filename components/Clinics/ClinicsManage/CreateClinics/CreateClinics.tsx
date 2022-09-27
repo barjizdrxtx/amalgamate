@@ -3,11 +3,11 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { TabHome } from './TabHome';
 import { Box } from '@mui/system';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
+import { HCLTabHome } from '../../../MainTab/HCLTabHome';
 
 
 export const CreateClinics = ({ path = 'clinics' }) => {
@@ -416,7 +416,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                     </form>
 
-                    <TabHome
+                    <HCLTabHome
 
                         formik={formik}
 

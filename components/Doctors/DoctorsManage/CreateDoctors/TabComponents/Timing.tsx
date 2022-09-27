@@ -1,6 +1,6 @@
-import { Box, Grid, Switch, Typography } from '@mui/material';
+import { Box, Checkbox, Grid, Switch, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
-import { DropDown2 } from '../../UI/DropDown/DropDown';
+import { DropDown2 } from '../../../../UI/DropDown/DropDown';
 
 export const Timing = (props: any) => {
 
@@ -135,7 +135,7 @@ export const Timing = (props: any) => {
                                     <>
                                         <Box>
 
-                                            <Typography >Start</Typography>
+                                            <Typography>Start</Typography>
 
                                             <DropDown2
                                                 dropData={timeSlot}

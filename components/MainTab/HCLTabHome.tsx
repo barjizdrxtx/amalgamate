@@ -1,14 +1,14 @@
 import React from 'react';
-import { Seo } from '../../../Tabs/HCLTabComponents/Seo';
-import { Info } from '../../../Tabs/HCLTabComponents/Info';
-import { Amenities } from '../../../Tabs/HCLTabComponents/Amenities';
-import { Procedures } from '../../../Tabs/HCLTabComponents/Procedures';
-import { Specialisation } from '../../../Tabs/HCLTabComponents/Specialisation';
+import { Seo } from '../Tabs/HCLTabComponents/Seo';
+import { Info } from '../Tabs/HCLTabComponents/Info';
+import { Amenities } from '../Tabs/HCLTabComponents/Amenities';
+import { Procedures } from '../Tabs/HCLTabComponents/Procedures';
+import { Specialisation } from '../Tabs/HCLTabComponents/Specialisation';
+import { Payments } from '../Tabs/HCLTabComponents/Payments';
+import { Timing } from '../Tabs/HCLTabComponents/Timing';
 import { MainTab } from './MainTab';
-import { Payments } from '../../../Tabs/HCLTabComponents/Payments';
-import { Timing } from '../../../Tabs/HCLTabComponents/Timing';
 
-export const TabHome = (props: any) => {
+export const HCLTabHome = (props: any) => {
 
   const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities, payments, setPayments,
     documents, setDocuments, specialities, setSpecialities } = props;
