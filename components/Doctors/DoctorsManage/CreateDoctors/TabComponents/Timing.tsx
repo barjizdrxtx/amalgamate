@@ -24,46 +24,67 @@ export const Timing = (props: any) => {
 
         {
             title: "Sunday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm"
+            session1: false,
+            session2: false,
+            session1_start: null,
+            session1_end: null,
+            session2_start: null,
+            session2_end: null
         },
         {
             title: "Monday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm"
+            session1: false,
+            session2: false,
+            session1_start: null,
+            session1_end: null,
+            session2_start: null,
+            session2_end: null
         },
         {
             title: "TuesDay",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm"
+            session1: false,
+            session2: false,
+            session1_start: null,
+            session1_end: null,
+            session2_start: null,
+            session2_end: null
         },
         {
             title: "Wednesday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm"
+            session1: false,
+            session2: false,
+            session1_start: null,
+            session1_end: null,
+            session2_start: null,
+            session2_end: null
         },
 
         {
             title: "Thursday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm"
+            session1: false,
+            session2: false,
+            session1_start: null,
+            session1_end: null,
+            session2_start: null,
+            session2_end: null
         },
         {
             title: "Friday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm"
+            session1: false,
+            session2: false,
+            session1_start: null,
+            session1_end: null,
+            session2_start: null,
+            session2_end: null
         },
         {
             title: "Saturday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm"
+            session1: false,
+            session2: false,
+            session1_start: null,
+            session1_end: null,
+            session2_start: null,
+            session2_end: null
         },
 
     ]);
@@ -77,9 +98,16 @@ export const Timing = (props: any) => {
     }
 
 
-    const handleChangeChecked = (index: any, event: any) => {
+    const handleChangeSession1 = (index: any, event: any) => {
         const values = [...days]
-        values[index][event.target.name] = !days[index].isOpen
+        values[index][event.target.name] = !days[index].session1
+        setDays(values)
+    }
+
+
+    const handleChangeSession2 = (index: any, event: any) => {
+        const values = [...days]
+        values[index][event.target.name] = !days[index].session2
         setDays(values)
     }
 
@@ -92,75 +120,88 @@ export const Timing = (props: any) => {
 
             <Grid container lg={12} sx={{ justifyContent: "center", alignItems: 'center' }}>
 
-                <Box sx={{ width: "50%" }}>
+                <Box sx={{ width: "90%" }}>
 
                     {days.map((data: any, index: any) =>
 
                         <Box sx={{
-                            width: "100%",
-                            cursor: "pointer",
-                            mb: 1, flex: 1, display: "flex", justifyContent: "start", alignItems: "center",
-                            m: 1, p: 1, borderRadius: "10px"
-
+                            width: "100%", height: "100px", flex: 1, display: "flex",
+                            justifyContent: "start", alignItems: "center",
                         }}>
-
 
                             <Box sx={{ flex: 1 }}>
 
-                                <Typography >{data.title}</Typography>
+                                <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >{data.title}</Typography>
 
                             </Box>
 
 
-                            <Box sx={{ flex: 1 }}>
+                            <Box sx={{ flex: 2, display: "flex", justifyContent: "start", alignItems: "center" }}>
+
+                                <Typography sx={{ fontWeight: "bold" }}>Session 1</Typography>
 
                                 <Switch  {...label}
-                                    name="isOpen"
-                                    defaultChecked={data.isOpen} onChange={(event: any) => handleChangeChecked(index, event)}
+                                    name="session1"
+                                    defaultChecked={data.session1} onChange={(event: any) => handleChangeSession1(index, event)}
 
                                 />
 
-                            </Box>
+                                {days[index].session1 &&
 
-                            <Box sx={{ flex: 1 }}>
+                                    <Box sx={{ ml: 4, display: "flex", alignItems: "center" }}>
 
-                                <Typography >{days[index].isOpen ? "Open" : "Close"}</Typography>
+                                        <DropDown2
+                                            dropData={timeSlot}
+                                            value={days[index].session1_start === null ? "5:00 Am" : days[index].session1_start}
+                                            name="session1_start"
+                                            onChange={(event: any) => handleChangeInput(index, event)} />
 
-                            </Box>
+                                        <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
 
-                            <Box sx={{ flex: 1, display: "flex" }}>
+                                        <DropDown2
+                                            dropData={timeSlot}
+                                            value={days[index].session1_end === null ? "11:30 Am" : days[index].session1_end}
+                                            name="session1_end"
+                                            onChange={(event: any) => handleChangeInput(index, event)} />
 
-                                {days[index].isOpen &&
-
-                                    <>
-                                        <Box>
-
-                                            <Typography>Start</Typography>
-
-                                            <DropDown2
-                                                dropData={timeSlot}
-                                                value={days[index].start}
-                                                name="start"
-                                                onChange={(event: any) => handleChangeInput(index, event)} />
-
-                                        </Box>
-
-                                        <Box>
-
-                                            <Typography >End</Typography>
-
-                                            <DropDown2
-                                                dropData={timeSlot}
-                                                value={days[index].end}
-                                                name="end"
-                                                onChange={(event: any) => handleChangeInput(index, event)} />
-
-                                        </Box>
-
-                                    </>
+                                    </Box>
 
                                 }
 
+                            </Box>
+
+
+                            <Box sx={{ flex: 2, display: "flex", justifyContent: "start", alignItems: "center" }}>
+
+                                <Typography sx={{ fontWeight: "bold" }}>Session 2</Typography>
+
+                                <Switch  {...label}
+                                    name="session2"
+                                    defaultChecked={data.session2} onChange={(event: any) => handleChangeSession2(index, event)}
+
+                                />
+
+                                {days[index].session2 &&
+
+                                    <Box sx={{ ml: 4, display: "flex", alignItems: "center" }}>
+
+                                        <DropDown2
+                                            dropData={timeSlot}
+                                            value={days[index].session2_start === null ? "5:00 Am" : days[index].session2_start}
+                                            name="session2_start"
+                                            onChange={(event: any) => handleChangeInput(index, event)} />
+
+                                        <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
+
+                                        <DropDown2
+                                            dropData={timeSlot}
+                                            value={days[index].session2_end === null ? "11:30 Am" : days[index].session2_end}
+                                            name="session2_end"
+                                            onChange={(event: any) => handleChangeInput(index, event)} />
+
+                                    </Box>
+
+                                }
 
                             </Box>
 

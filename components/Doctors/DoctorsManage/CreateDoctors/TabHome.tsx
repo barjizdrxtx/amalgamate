@@ -1,5 +1,3 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { Box, Grid, Tab } from '@mui/material'
 import React from 'react'
 import { Seo } from './TabComponents/Seo';
 import { Info } from './TabComponents/Info';
@@ -7,66 +5,70 @@ import { Id } from './TabComponents/Id';
 import { Profile } from './TabComponents/Profile';
 import { SpecializedIn } from './TabComponents/SpecializedIn';
 import { Timing } from './TabComponents/Timing';
+import { MainTab } from '../../../MainTab/MainTab';
 
 
 export const TabHome = (props: any) => {
 
-  const [value, setValue] = React.useState('1');
-
   const { tabData1, tabData2, tabData3, tabData8, formik,
     certificates, setCertificates,
-    idProof, setIdProof, specialisedIn, setSpecialisedIn
+    idProof, setIdProof, specialisedIn, setSpecialisedIn } = props;
 
-  } = props;
+  const tabData = [
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  }
-  return (
 
-    <Grid>
+    {
+      label: "Info",
+      component: <Info tabData1={tabData1} formik={formik}
+        documents={certificates}
+        setDocuments={setCertificates} />
 
-      <Box sx={{ width: '100%', typography: 'body1' }}>
-        <TabContext value={value}>
-          <Box sx={{ backgroundColor: "white" }}>
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="Info" value="1" />
-              <Tab label="ID" value="2" />
-              <Tab label="Profile" value="3" />
-              <Tab label="Schedule" value="4" />
-              <Tab label="SpecializedIn" value="5" />
-              <Tab label="Seo" value="6" />
-            </TabList>
-          </Box>
-          <TabPanel value="1">
-            <Info tabData1={tabData1} formik={formik}
-              documents={certificates}
-              setDocuments={setCertificates} />
-          </TabPanel>
-          <TabPanel value="2">
-            <Id tabData2={tabData2} formik={formik}
-              documents={idProof}
-              setDocuments={setIdProof} />
-          </TabPanel>
-          <TabPanel value="3">
-            <Profile tabData3={tabData3} formik={formik} />
-          </TabPanel>
-          <TabPanel value="4">
-            <Profile tabData3={tabData3} formik={formik} />
-          </TabPanel>
-          <TabPanel value="5">
-            <Timing
-              inputfield={specialisedIn}
-              setInputfield={setSpecialisedIn} />
-          </TabPanel>
-          <TabPanel value="6">
-            <Seo tabData8={tabData8} formik={formik} />
-          </TabPanel>
-        </TabContext>
-      </Box>
+    },
+    {
+      label: "Id",
+      component: <Id tabData2={tabData2} formik={formik}
+        documents={idProof}
+        setDocuments={setIdProof} />
+    },
+    {
+      label: "Profile",
+      component: <Profile tabData3={tabData3} formik={formik} />
 
-    </Grid >
-  )
+    },
+    {
+      label: "Schedule",
+      component: <Timing />
+
+    },
+    {
+      label: "SpecializedIn",
+      component: <SpecializedIn
+        inputfield={specialisedIn}
+        setInputfield={setSpecialisedIn} />
+
+    },
+    {
+      label: "Badging",
+      component: "Badging"
+
+    },
+    {
+      label: "Promotion",
+      component: "Promotion"
+
+    },
+    {
+      label: "Seo",
+      component: <Seo tabData8={tabData8} formik={formik} />
+
+    }
+  ]
+
+
+  return <MainTab tabData={tabData} />
+
 }
+
+
 
 

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import ImageIcon from '@mui/icons-material/Image';
 import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
 import axios from 'axios';
+import { DropDown2 } from '../../../../UI/DropDown/DropDown';
 
 export const Id = (props: any) => {
 
@@ -69,6 +70,13 @@ export const Id = (props: any) => {
 
 
                             <Box sx={{ flex: 4, width: "100%", mb: 2, display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+
+                                <DropDown2
+                                    dropData={["Adhaar Number", "Passport Number"]}
+                                    value={"Adhaar Number"}
+                                    name="end"
+                                    onChange={(event: any) => handleChangeInput(index, event)} />
 
                                 <TextField sx={{ flex: 1, width: "100%" }} defaultValue={documents[index].document_name}
                                     name="document_name"

@@ -1,6 +1,7 @@
-import { Box, Grid, Switch, Typography } from '@mui/material';
+import { Box, Checkbox, Grid, Switch, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import { DropDown2 } from '../../UI/DropDown/DropDown';
+
 
 export const Timing = (props: any) => {
 
@@ -92,27 +93,27 @@ export const Timing = (props: any) => {
 
             <Grid container lg={12} sx={{ justifyContent: "center", alignItems: 'center' }}>
 
-                <Box sx={{ width: "50%" }}>
+                <Box sx={{ width: "60%" }}>
 
                     {days.map((data: any, index: any) =>
 
                         <Box sx={{
                             width: "100%",
+                            height: "70px",
                             cursor: "pointer",
                             mb: 1, flex: 1, display: "flex", justifyContent: "start", alignItems: "center",
                             m: 1, p: 1, borderRadius: "10px"
 
                         }}>
 
-
                             <Box sx={{ flex: 1 }}>
 
-                                <Typography >{data.title}</Typography>
+                                <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >{data.title}</Typography>
 
                             </Box>
 
 
-                            <Box sx={{ flex: 1 }}>
+                            <Box sx={{ flex: 1, display: "flex", justifyContent: "start", alignItems: "center", }}>
 
                                 <Switch  {...label}
                                     name="isOpen"
@@ -120,42 +121,35 @@ export const Timing = (props: any) => {
 
                                 />
 
-                            </Box>
+                                <Typography >{days[index].isOpen ? "Open" : "Closed"}</Typography>
 
-                            <Box sx={{ flex: 1 }}>
-
-                                <Typography >{days[index].isOpen ? "Open" : "Close"}</Typography>
 
                             </Box>
 
-                            <Box sx={{ flex: 1, display: "flex" }}>
+
+
+                            <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>
 
                                 {days[index].isOpen &&
 
                                     <>
-                                        <Box>
 
-                                            <Typography >Start</Typography>
+                                        <DropDown2
+                                            dropData={timeSlot}
+                                            value={days[index].start}
+                                            name="start"
+                                            onChange={(event: any) => handleChangeInput(index, event)} />
 
-                                            <DropDown2
-                                                dropData={timeSlot}
-                                                value={days[index].start}
-                                                name="start"
-                                                onChange={(event: any) => handleChangeInput(index, event)} />
 
-                                        </Box>
+                                        <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
 
-                                        <Box>
 
-                                            <Typography >End</Typography>
+                                        <DropDown2
+                                            dropData={timeSlot}
+                                            value={days[index].end}
+                                            name="end"
+                                            onChange={(event: any) => handleChangeInput(index, event)} />
 
-                                            <DropDown2
-                                                dropData={timeSlot}
-                                                value={days[index].end}
-                                                name="end"
-                                                onChange={(event: any) => handleChangeInput(index, event)} />
-
-                                        </Box>
 
                                     </>
 
