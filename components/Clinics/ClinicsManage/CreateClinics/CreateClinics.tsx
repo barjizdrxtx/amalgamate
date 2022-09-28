@@ -8,6 +8,8 @@ import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { HCLTabHome } from '../../../MainTab/HCLTabHome';
+import { useThemeColor } from '../../../../hooks/useThemeColor';
+
 
 
 export const CreateClinics = ({ path = 'clinics' }) => {
@@ -15,6 +17,8 @@ export const CreateClinics = ({ path = 'clinics' }) => {
     const [role, setRole] = useState("null");
 
     const router = useRouter();
+
+    const themecolor = useThemeColor();
 
     const [image, setImage] = useState([{ id: 1 }]);
 
@@ -312,7 +316,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Clinic</CustomizedButton >
+                            <CustomizedButton bgColor={themecolor} onClick={formik.handleSubmit}>Create Clinic</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push(`/${path}`)}>Cancel</CustomizedButton >
 

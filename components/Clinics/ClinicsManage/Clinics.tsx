@@ -4,10 +4,14 @@ import { useRouter } from 'next/router';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { TableUI } from '../../UI/TableUI/TableUI';
 import { PRIMARY_COLOR } from '../../../utls/colors';
+import { useThemeColor } from '../../../hooks/useThemeColor';
 
 export const Clinics = () => {
 
     const router = useRouter();
+
+
+    const themecolor = useThemeColor();
 
     const tableHead = [
 
@@ -41,7 +45,7 @@ export const Clinics = () => {
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push("/clinics/create")} bgColor={PRIMARY_COLOR}>Create Clinic</CustomizedButton>
+            <CustomizedButton onClick={() => router.push("/clinics/create")} bgColor={themecolor}>Create Clinic</CustomizedButton>
 
             <TableUI tableName="clinics" tableHead={tableHead} element={element} name="clinics" actions={actions} />
 

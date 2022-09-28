@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 export const useDarkmode = () => {
 
-    const darkmode = useSelector((state: any) => state.features.darkmode)
+    const darkmode = useSelector((state: any) => state.features.darkmode.payload)
 
     return darkmode
 }

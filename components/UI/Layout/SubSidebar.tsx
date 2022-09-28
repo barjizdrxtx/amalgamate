@@ -8,7 +8,8 @@ import { useDarkmode } from '../../../hooks/useDarkmode';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { GREY_COLOR, LIGHT_COLOR, LIGHT_GREY_COLOR, PRIMARY_COLOR } from '../../../utls/colors';
+import { GREY_COLOR, LIGHT_COLOR, LIGHT_GREY_COLOR } from '../../../utls/colors';
+import { useThemeColor } from '../../../hooks/useThemeColor';
 
 
 export const SubSidebar = () => {
@@ -19,6 +20,7 @@ export const SubSidebar = () => {
 
     const darkmode = useDarkmode();
 
+    const themecolor = useThemeColor();
 
     const [bool, setBool] = useState([]);
 
@@ -53,7 +55,7 @@ export const SubSidebar = () => {
             <Box onClick={Expand} sx={{ cursor: "pointer", display: "flex", justifyContent: 'center', alignItems: "center", p: 2 }}>
 
                 <KeyboardDoubleArrowLeftIcon
-                    sx={{ color: PRIMARY_COLOR, fontSize: "2rem", transform: isExpand ? "rotate(0deg)" : "rotate(180deg)" }} />
+                    sx={{ color: themecolor, fontSize: "2rem", transform: isExpand ? "rotate(0deg)" : "rotate(180deg)" }} />
 
             </Box>
 
@@ -84,7 +86,7 @@ export const SubSidebar = () => {
                             },
                         }}>
 
-                        <data.icon sx={{ color: router.asPath === data.path ? PRIMARY_COLOR : GREY_COLOR, }} />
+                        <data.icon sx={{ color: router.asPath === data.path ? themecolor : GREY_COLOR, }} />
 
 
                         {isExpand &&
@@ -93,7 +95,7 @@ export const SubSidebar = () => {
                                     sx={{
                                         ml: 2,
                                         width: "150px",
-                                        color: router.asPath === data.path ? PRIMARY_COLOR : GREY_COLOR,
+                                        color: router.asPath === data.path ? themecolor : GREY_COLOR,
                                         fontWeight: router.asPath === data.path ? "bold" : "normal",
 
                                     }}>{data.name}</Typography>
@@ -125,7 +127,7 @@ export const SubSidebar = () => {
                             }}>
 
                                 <FiberManualRecordIcon sx={{
-                                    color: router.asPath === drop.path ? PRIMARY_COLOR : "black",
+                                    color: router.asPath === drop.path ? themecolor : "black",
                                     fontSize: router.asPath === drop.path ? "0.7rem" : "0.5rem",
                                     mr: "1rem",
 

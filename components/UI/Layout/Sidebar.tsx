@@ -6,7 +6,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { mainRoutes } from '../../../config/Routes/mainRoutes';
 import { useDarkmode } from '../../../hooks/useDarkmode';
 import { subRoutes } from '../../../config/Routes/subRoutes';
-import { GREY_COLOR, LIGHT_COLOR, PRIMARY_COLOR } from '../../../utls/colors';
+import { GREY_COLOR, LIGHT_COLOR } from '../../../utls/colors';
+import { useThemeColor } from '../../../hooks/useThemeColor';
+
+
 
 export const Sidebar = () => {
 
@@ -14,6 +17,8 @@ export const Sidebar = () => {
     const router = useRouter();
 
     const darkmode = useDarkmode();
+
+    const themecolor = useThemeColor();
 
 
     return (
@@ -48,10 +53,10 @@ export const Sidebar = () => {
                         }}>
 
                         <data.icon sx={{
-                            color: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? PRIMARY_COLOR : GREY_COLOR
-                                : router.asPath === data.path ? PRIMARY_COLOR : GREY_COLOR
+                            color: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? themecolor : GREY_COLOR
+                                : router.asPath === data.path ? themecolor : GREY_COLOR
                             ,
-                            '&:hover': { color: PRIMARY_COLOR }
+                            '&:hover': { color: themecolor }
                         }} />
 
                     </Box>
@@ -71,8 +76,8 @@ export const Sidebar = () => {
             }}
                 onClick={() => router.push('/settings')}>
                 <SettingsIcon sx={{
-                    color: router.asPath === "/settings" ? PRIMARY_COLOR : GREY_COLOR,
-                    '&:hover': { color: router.asPath === "/settings" ? PRIMARY_COLOR : PRIMARY_COLOR }
+                    color: router.asPath === "/settings" ? themecolor : GREY_COLOR,
+                    '&:hover': { color: router.asPath === "/settings" ? themecolor : themecolor }
                 }} />
 
 
