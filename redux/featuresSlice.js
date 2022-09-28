@@ -4,7 +4,7 @@ const initialState = {
 
     darkmode: { payload: false },
 
-    themeColor: { payload: "red" },
+    themeColor: { payload: "#229954" },
 
 };
 
