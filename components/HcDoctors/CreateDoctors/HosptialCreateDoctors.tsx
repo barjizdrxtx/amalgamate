@@ -11,6 +11,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { DropDown } from '../../UI/DropDown/DropDown';
 import { TabHome } from '../../Doctors/DoctorsManage/CreateDoctors/TabHome';
+import { PRIMARY_COLOR } from '../../../utls/colors';
 
 
 export const HosptialCreateDoctors = () => {
@@ -343,7 +344,7 @@ export const HosptialCreateDoctors = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Doctors</CustomizedButton >
+                            <CustomizedButton bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Doctors</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/clinics')}>Cancel</CustomizedButton >
 

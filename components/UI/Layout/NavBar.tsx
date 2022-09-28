@@ -8,6 +8,7 @@ import { ToggleMui } from '../ToggleMui/ToggleMui';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDarkTheme } from '../../../redux/featuresSlice';
 import { useDarkmode } from '../../../hooks/useDarkmode';
+import { PRIMARY_COLOR } from '../../../utls/colors';
 
 
 export const NavBar = () => {
@@ -29,7 +30,7 @@ export const NavBar = () => {
 
                 <Image src="/assets/logo/logo.png" width="120px" height="40px" />
 
-                <Typography variant="h5" fontWeight="bold" sx={{ color: "#229954", p: 2 }}>CMS</Typography>
+                <Typography variant="h5" fontWeight="bold" sx={{ color: PRIMARY_COLOR, p: 2 }}>CMS</Typography>
 
             </Box>
 

@@ -7,6 +7,7 @@ import { Box } from '@mui/system';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown, DropDownApi } from '../../../UI/DropDown/DropDown';
 import { useQueryFetch } from '../../../../hooks/useQueryFetch';
+import { PRIMARY_COLOR } from '../../../../utls/colors';
 
 export const AddLabTestLab = () => {
 
@@ -164,7 +165,7 @@ export const AddLabTestLab = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Add Lab Test</CustomizedButton >
+                            <CustomizedButton  bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Add Lab Test</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() =>
                                 router.push({ pathname: `/lab/add-test`, query: { institution_id: institution_id } })} >

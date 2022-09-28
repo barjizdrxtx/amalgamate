@@ -312,7 +312,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Clinic</CustomizedButton >
+                            <CustomizedButton bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Clinic</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push(`/${path}`)}>Cancel</CustomizedButton >
 

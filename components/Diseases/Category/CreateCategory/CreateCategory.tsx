@@ -10,6 +10,7 @@ import { PhotoCamera } from '@mui/icons-material';
 import ImageIcon from '@mui/icons-material/Image';
 import { diseaseSchema } from './validation';
 import TabHome from './TabHome';
+import { PRIMARY_COLOR } from '../../../../utls/colors';
 
 
 export const CreateCategory = () => {
@@ -150,7 +151,7 @@ export const CreateCategory = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Disease Category</CustomizedButton >
+                            <CustomizedButton  bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Disease Category</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/diseases')}>Cancel</CustomizedButton >
 

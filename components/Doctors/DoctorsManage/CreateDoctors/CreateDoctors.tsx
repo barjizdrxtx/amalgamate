@@ -13,6 +13,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DropDown } from '../../../UI/DropDown/DropDown';
+import { PRIMARY_COLOR } from '../../../../utls/colors';
 
 export const CreateDoctors = () => {
 
@@ -343,7 +344,7 @@ export const CreateDoctors = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Doctors</CustomizedButton >
+                            <CustomizedButton  bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Doctors</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/clinics')}>Cancel</CustomizedButton >
 

@@ -3,6 +3,7 @@ import { Box, Button, Grid, Modal, Typography } from '@mui/material'
 import { useRouter } from 'next/router';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { TableUI } from '../../UI/TableUI/TableUI';
+import { PRIMARY_COLOR } from '../../../utls/colors';
 
 export const Labs = () => {
 
@@ -41,7 +42,7 @@ export const Labs = () => {
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push("/lab/create")} bgColor="#229954">Create Lab</CustomizedButton>
+            <CustomizedButton onClick={() => router.push("/lab/create")} bgColor={PRIMARY_COLOR}>Create Lab</CustomizedButton>
 
             <TableUI tableName="labs" tableHead={tableHead} element={element} name="lab" actions={actions} />
 

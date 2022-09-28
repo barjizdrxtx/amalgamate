@@ -9,7 +9,8 @@ export const CustomizedButton = (props: any) => {
     return (
         <Button disabled={disabled} style={{ margin: "10px" }} sx={{
             width: width,
-            boxShadow: "none", backgroundColor: bgColor, border: `1px solid ${bgColor}`, "&:hover": {
+            boxShadow: "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px",
+            backgroundColor: bgColor, border: `1px solid ${bgColor}`, "&:hover": {
                 backgroundColor: "transparent", boxShadow: "none",
                 color: bgColor, border: `1px solid ${bgColor}`
             }

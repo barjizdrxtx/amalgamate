@@ -6,7 +6,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { mainRoutes } from '../../../config/Routes/mainRoutes';
 import { useDarkmode } from '../../../hooks/useDarkmode';
 import { subRoutes } from '../../../config/Routes/subRoutes';
-import { LIGHT_COLOR } from '../../../url';
+import { GREY_COLOR, LIGHT_COLOR, PRIMARY_COLOR } from '../../../utls/colors';
 
 export const Sidebar = () => {
 
@@ -36,9 +36,9 @@ export const Sidebar = () => {
                     <Box key={index} sx={{
                         display: "flex",
                         flexDirection: "row", justifyContent: "center", alignItems: "center",
-                        p: 1.5, cursor: "pointer", color: "gray", transition: '0.5s',
+                        p: 1.5, cursor: "pointer", color: GREY_COLOR, transition: '0.5s',
                         mb: 1,
-                        backgroundColor: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? '#EAFAF1' : 'transparent'
+                        backgroundColor: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? LIGHT_COLOR : 'transparent'
                             : router.asPath === data.path ? LIGHT_COLOR : ""
                         , borderRadius: "10px"
 
@@ -48,10 +48,10 @@ export const Sidebar = () => {
                         }}>
 
                         <data.icon sx={{
-                            color: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? '#229954' : 'gray'
-                                : router.asPath === data.path ? "#229954" : "gray"
+                            color: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? PRIMARY_COLOR : GREY_COLOR
+                                : router.asPath === data.path ? PRIMARY_COLOR : GREY_COLOR
                             ,
-                            '&:hover': { color: router.asPath === data.path ? '#229954' : '#229954' }
+                            '&:hover': { color: PRIMARY_COLOR }
                         }} />
 
                     </Box>
@@ -66,13 +66,13 @@ export const Sidebar = () => {
                     borderRadius: "10px",
                 },
                 mb: 1,
-                backgroundColor: router.asPath === '/settings' ? '#EAFAF1' : 'transparent', borderRadius: "10px"
+                backgroundColor: router.asPath === '/settings' ? LIGHT_COLOR : 'transparent', borderRadius: "10px"
 
             }}
                 onClick={() => router.push('/settings')}>
                 <SettingsIcon sx={{
-                    color: router.asPath === "/settings" ? '#229954' : 'gray',
-                    '&:hover': { color: router.asPath === "/settings" ? '#229954' : '#229954' }
+                    color: router.asPath === "/settings" ? PRIMARY_COLOR : GREY_COLOR,
+                    '&:hover': { color: router.asPath === "/settings" ? PRIMARY_COLOR : PRIMARY_COLOR }
                 }} />
 
 

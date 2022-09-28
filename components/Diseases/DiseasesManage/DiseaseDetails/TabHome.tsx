@@ -8,6 +8,7 @@ import { Seo } from './TabComponents/Seo';
 
 import { AllTabs } from './TabComponents/AllTabs';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
+import { PRIMARY_COLOR } from '../../../../utls/colors';
 
 export const TabHome = (props: any) => {
 
@@ -120,7 +121,7 @@ export const TabHome = (props: any) => {
 
               <TextField placeholder='Mobile Number' />
 
-              <CustomizedButton bgColor="#239B56" m="10px">Register Now</CustomizedButton >
+              <CustomizedButton bgColor={PRIMARY_COLOR} m="10px">Register Now</CustomizedButton >
 
 
               <Box>
@@ -144,7 +145,7 @@ export const TabHome = (props: any) => {
 
                   <Box>
 
-                    <CustomizedButton bgColor="#239B56">Book a Slot</CustomizedButton>
+                    <CustomizedButton  bgColor={PRIMARY_COLOR}>Book a Slot</CustomizedButton>
 
                   </Box>
 
@@ -169,7 +170,7 @@ export const TabHome = (props: any) => {
 
                   <Box>
 
-                    <CustomizedButton bgColor="#239B56">Book a Slot</CustomizedButton>
+                    <CustomizedButton  bgColor={PRIMARY_COLOR}>Book a Slot</CustomizedButton>
 
                   </Box>
 
@@ -194,7 +195,7 @@ export const TabHome = (props: any) => {
 
                   <Box>
 
-                    <CustomizedButton bgColor="#239B56">Book a Slot</CustomizedButton>
+                    <CustomizedButton  bgColor={PRIMARY_COLOR}>Book a Slot</CustomizedButton>
 
                   </Box>
 

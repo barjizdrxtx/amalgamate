@@ -7,7 +7,7 @@ import { Box, Divider } from '@mui/material'
 import { useDarkmode } from '../../../hooks/useDarkmode'
 import { subRoutes } from '../../../config/Routes/subRoutes';
 import axios  from 'axios'
-import { BASE_URL } from '../../../url'
+import { BASE_URL } from '../../../utls/url'
 
 export const Layout = (props: { children: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined }) => {
 

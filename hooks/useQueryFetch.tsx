@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from '@tanstack/react-query'
-import { BASE_URL } from "../url";
+import { BASE_URL } from "../utls/url";
 
 
 export const useQueryFetch = (url: any) => {

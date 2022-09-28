@@ -9,6 +9,7 @@ import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { HCLTabHome } from '../../../MainTab/HCLTabHome';
+import { PRIMARY_COLOR } from '../../../../utls/colors';
 
 
 export const CreateLabs = () => {
@@ -311,7 +312,7 @@ export const CreateLabs = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Lab</CustomizedButton >
+                            <CustomizedButton  bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Lab</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/labs')}>Cancel</CustomizedButton >
 

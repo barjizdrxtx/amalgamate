@@ -10,6 +10,7 @@ import { TextEditor } from '../TextEditor';
 import { TabHome } from './TabHome';
 import { ImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { useQueryFetch, useQueryFetchId } from '../../../../hooks/useQueryFetch';
+import { PRIMARY_COLOR } from '../../../../utls/colors';
 
 export const EditDiseases = () => {
 
@@ -214,7 +215,7 @@ export const EditDiseases = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton disabled={btnDisabled} bgColor="#239B56" onClick={formik.handleSubmit}>Create Diseases</CustomizedButton >
+                            <CustomizedButton disabled={btnDisabled}  bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Diseases</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/diseases')}>Cancel</CustomizedButton >
 

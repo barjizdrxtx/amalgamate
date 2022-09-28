@@ -42,7 +42,7 @@ export const ClinicsDoctors = () => {
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push({ pathname: `/clinics/doctors/create`, query: { institution_id: institution_id } })} bgColor="#229954">Create Doctors</CustomizedButton>
+            <CustomizedButton onClick={() => router.push({ pathname: `/clinics/doctors/create`, query: { institution_id: institution_id } })} bgColor={PRIMARY_COLOR}>Create Doctors</CustomizedButton>
 
             <TableUI tableName="doctors" tableHead={tableHead} element={element} name={`clinics/doctors-list/${institution_id}`} actions={actions} />
 

@@ -8,6 +8,7 @@ import { Box, Stack } from '@mui/system';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
+import { PRIMARY_COLOR } from '../../../../utls/colors';
 
 
 export const CreateLabTest = () => {
@@ -152,7 +153,7 @@ export const CreateLabTest = () => {
 
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
-                            <CustomizedButton bgColor="#239B56" onClick={formik.handleSubmit}>Create Lab Test</CustomizedButton >
+                            <CustomizedButton bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Lab Test</CustomizedButton >
 
                             <CustomizedButton bgColor="black" onClick={() => router.push('/lab')}>Cancel</CustomizedButton >
 
