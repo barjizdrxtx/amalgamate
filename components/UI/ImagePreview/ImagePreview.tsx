@@ -106,17 +106,6 @@ export const MultiImagePreview = (props: any) => {
 
 
 
-    const handleChangeInput = (index: any, content: any, name: any) => {
-
-        const values = [...image]
-
-        values[index][name] = content
-
-        setImage(values)
-
-    }
-
-
     const handleAddFields = () => {
 
         setImage([...image, { id: image.length + 1 }])
@@ -128,64 +117,69 @@ export const MultiImagePreview = (props: any) => {
     }
 
 
-
     return (
 
-        <Box sx={{
-            display: "flex", flexDirection: "column", justifyContent: "end",
-            alignItems: "end", m: 1
-        }}>
+        <Grid container lg={12} justifyContent="center">
 
-            <Grid container lg={12}>
+            <Box sx={{ width: "100%" }}>
 
-                {image.map((data: any, index: any) =>
+                <Grid container lg={12}>
 
-                    <Grid lg={3}>
+                    {image.map((data: any, index: any) =>
 
-                        <Box sx={{ width: "50%" }}>
+                        <Grid lg={2}>
 
-                            <Box sx={{
-                                backgroundColor: "lightgray", width: "60px", mb: 2,
-                                height: "60px", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px"
-                            }}>
+                            <Box sx={{ width: "100%", position: "relative" }}>
 
-                                {image[index].image === undefined ? <ImageIcon sx={{ fontSize: "1.8rem" }} />
+                                <Box sx={{
+                                    backgroundColor: "lightgray", width: "150px", mb: 2,
+                                    height: "150px", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px"
+                                }}>
 
-                                    :
+                                    {image[index].image === undefined ? <ImageIcon sx={{ fontSize: "2.5rem" }} />
 
-                                    <img src={image[index].image} style={{ width: "60px", height: "60px", borderRadius: "10px" }} />
+                                        :
 
-                                }
+                                        <img src={image[index].image} style={{ width: "100px", height: "100px", borderRadius: "10px" }} />
+
+                                    }
+
+                                </Box>
+
+                                <Button component="label" sx={{
+                                    width: "150px", height: "150px",
+                                    bgcolor: "transparent", position: "absolute", top: "0"
+                                    , left: "0"
+                                }}>
+
+                                    <input hidden type='file' key="image" id="outlined-basic"
+
+                                        onChange={(event: any) => AddImages(index, event)} />
+
+                                </Button>
 
                             </Box>
 
-                            <Button variant="contained" component="label">
-                                Upload
-                                <input hidden type='file' key="image" id="outlined-basic"
+                        </Grid>
 
-                                    onChange={(event: any) => AddImages(index, event)} />
+                    )}
 
-                            </Button>
-
-                        </Box>
-
-                    </Grid>
-
-                )}
+                </Grid>
 
 
-            </Grid>
+                <Box sx={{ display: "flex" }}>
 
-            <Box sx={{ display: "flex" }}>
+                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>Add New</CustomizedButton>{image.length > 1
+                        && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>Remove</CustomizedButton>
+                    }
 
-                <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>Add New</CustomizedButton>{image.length > 1
-                    && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>Remove</CustomizedButton>
-                }
+                </Box>
 
             </Box>
 
-
-        </Box >
+        </Grid>
 
     )
 }
+
+

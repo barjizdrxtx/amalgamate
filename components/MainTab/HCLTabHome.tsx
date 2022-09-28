@@ -1,5 +1,5 @@
 import React from 'react';
-import { Seo } from '../Tabs/HCLTabComponents/Seo';
+import { Seo } from '../Seo/Seo';
 import { Info } from '../Tabs/HCLTabComponents/Info';
 import { Amenities } from '../Tabs/HCLTabComponents/Amenities';
 import { Procedures } from '../Tabs/HCLTabComponents/Procedures';
@@ -7,11 +7,12 @@ import { Specialisation } from '../Tabs/HCLTabComponents/Specialisation';
 import { Payments } from '../Tabs/HCLTabComponents/Payments';
 import { Timing } from '../Tabs/HCLTabComponents/Timing';
 import { MainTab } from './MainTab';
+import Images from '../Tabs/HCLTabComponents/Images';
 
 export const HCLTabHome = (props: any) => {
 
   const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities, payments, setPayments,
-    documents, setDocuments, specialities, setSpecialities } = props;
+    documents, setDocuments, specialities, setSpecialities, image, setImage } = props;
 
   const tabData = [
 
@@ -22,6 +23,12 @@ export const HCLTabHome = (props: any) => {
         formik={formik}
         documents={documents}
         setDocuments={setDocuments} />
+    },
+
+    {
+      label: "Images",
+      component: <Images image={image} setImage={setImage} />
+
     },
 
     {

@@ -402,6 +402,9 @@ export const CreateLabs = ({ path = 'lab' }) => {
 
                         formik={formik}
 
+                        image={image}
+                        setImage={setImage}
+
                         tabData1={tabData1}
                         tabData2={tabData2}
 

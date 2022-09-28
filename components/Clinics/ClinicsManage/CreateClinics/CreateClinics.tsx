@@ -21,7 +21,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
     const themecolor = useThemeColor();
 
-    const [image, setImage] = useState([{ id: 1 }]);
+    const [image, setImage] = useState([{ id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }]);
 
 
     console.log("image", image)
@@ -144,7 +144,9 @@ export const CreateClinics = ({ path = 'clinics' }) => {
         },
     });
 
-    const clincs = [
+
+
+    const clincs2 = [
 
         {
             title: "Clinic Name",
@@ -154,11 +156,6 @@ export const CreateClinics = ({ path = 'clinics' }) => {
             touched: formik.touched.name,
             errors: formik.errors.name,
         },
-
-    ]
-
-
-    const clincs2 = [
 
         {
             title: "Clinic Reg no",
@@ -311,94 +308,47 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                     <form onSubmit={formik.handleSubmit}>
 
-                        <Grid container lg={12}>
+                        <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+                            <Grid lg={4}>
 
-                                <Grid lg={6}>
-
-                                    <DropDown
-                                        text="Role"
-                                        dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                        value={role}
-                                        setValue={setRole}
-                                    />
-
-                                    {clincs.map((data, index) =>
-
-                                        <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
-
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                                <Typography>{data.title}</Typography>
-
-                                            </Box>
-
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
-
-                                        </Box>
-
-                                    )}
-
-                                </Grid>
-
-
-                                <Grid container lg={6} >
-
-                                    <Grid lg={8}>
-
-                                        <MultiImagePreview image={image} setImage={setImage} />
-
-                                    </Grid>
-
-                                </Grid>
-
+                                <DropDown
+                                    text="Role"
+                                    dropData={["Doctor", "Admin", "Nurse", "Staff"]}
+                                    value={role}
+                                    setValue={setRole}
+                                />
 
                             </Grid>
 
+                            {clincs2.map((data, index) =>
 
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+                                <Grid key={index} lg={4}>
 
-                                {clincs2.map((data, index) =>
+                                    <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
-                                    <Grid key={index} lg={4}>
+                                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                        <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
-
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                                <Typography sx={{ color: "#566573" }}>{data.title}</Typography>
-
-                                            </Box>
-
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
+                                            <Typography sx={{ color: "#566573" }}>{data.title}</Typography>
 
                                         </Box>
 
-                                    </Grid>
-                                )}
+                                        < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
+                                            fullWidth
+                                            id={data.label}
+                                            name={data.label}
+                                            // label={data.label}
+                                            value={data.value}
+                                            type={data.type}
+                                            onChange={formik.handleChange}
+                                            error={data.touched && Boolean(data.errors)}
+                                            helperText={data.touched && data.errors}
+                                        />
 
-                            </Grid>
+                                    </Box>
+
+                                </Grid>
+                            )}
 
                         </Grid>
 
@@ -407,6 +357,9 @@ export const CreateClinics = ({ path = 'clinics' }) => {
                     <HCLTabHome
 
                         formik={formik}
+
+                        image={image}
+                        setImage={setImage}
 
                         tabData1={tabData1}
                         tabData2={tabData2}

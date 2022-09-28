@@ -6,7 +6,7 @@ export const MainTab = (props: any) => {
 
   const { tabData } = props;
 
-  const [value, setValue] = React.useState('3');
+  const [value, setValue] = React.useState('0');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
