@@ -136,7 +136,7 @@ export const NavBar = () => {
                 top: "0", right: "0", zIndex: 1,
                 display: "flex", alignItems: "center",
                 flexDirection: "column",
-                ml: 2, cursor: "pointer", backgroundColor: "#FAFAFA",
+                ml: 2, cursor: "pointer", backgroundColor: darkmode ? "black" : "#FAFAFA",
                 boxShadow: "rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px"
             }}>
 
