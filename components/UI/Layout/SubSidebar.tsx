@@ -10,6 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { GREY_COLOR, LIGHT_COLOR, LIGHT_GREY_COLOR } from '../../../utls/colors';
 import { useThemeColor } from '../../../hooks/useThemeColor';
+import { da } from 'date-fns/locale';
 
 
 export const SubSidebar = () => {
@@ -42,6 +43,8 @@ export const SubSidebar = () => {
 
     }
 
+    console.log("route", subRoutes.map((data: any, index) => data.children[0].path === router.asPath))
+
 
 
     return (
@@ -67,8 +70,6 @@ export const SubSidebar = () => {
                 <Box key={index} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "start", }}>
 
                     <Box onClick={() => {
-
-                        // router.push(data.path)
                         Open(index)
                     }}
                         sx={{
@@ -76,17 +77,17 @@ export const SubSidebar = () => {
                             alignItems: "center",
                             justifyContent: "start",
                             cursor: "pointer",
-                            backgroundColor: router.asPath === data.path ? LIGHT_COLOR : "transparent",
+                            backgroundColor: data.children.filter((fil: any) => router.asPath === fil.path).length > 0 ? LIGHT_COLOR : "transparent",
                             px: 2, py: 1.2,
                             my: 0.5,
                             borderRadius: "10px",
                             '&:hover': {
-                                backgroundColor: router.asPath === data.path ? "none" : LIGHT_GREY_COLOR,
+                                backgroundColor: data.children.filter((fil: any) => router.asPath === fil.path).length > 0 ? "none" : LIGHT_GREY_COLOR,
                                 transition: "0.3s",
                             },
                         }}>
 
-                        <data.icon sx={{ color: router.asPath === data.path ? themecolor : GREY_COLOR, }} />
+                        <data.icon sx={{ color: data.children.filter((fil: any) => router.asPath === fil.path).length > 0 ? themecolor : GREY_COLOR, }} />
 
 
                         {isExpand &&
@@ -95,15 +96,15 @@ export const SubSidebar = () => {
                                     sx={{
                                         ml: 2,
                                         width: "150px",
-                                        color: router.asPath === data.path ? themecolor : GREY_COLOR,
-                                        fontWeight: router.asPath === data.path ? "bold" : "normal",
+                                        color: data.children.filter((fil: any) => router.asPath === fil.path).length > 0 ? themecolor : GREY_COLOR,
+                                        fontWeight: data.children.filter((fil: any) => router.asPath === fil.path).length > 0 ? "bold" : "normal",
 
                                     }}>{data.name}</Typography>
 
+                                {bool[index] === true ? <KeyboardArrowDownIcon sx={{ color: 'gray', fontSize: "1.2rem" }} /> : <KeyboardArrowRightIcon sx={{ color: 'gray', fontSize: "1.2rem" }} />}
+                                {console.log("childdd", data.children.filter((fil: any) => router.asPath === fil.path).length > 0)}
+
                             </>}
-
-                        {bool[index] === true ? <KeyboardArrowDownIcon sx={{ color: 'gray', fontSize: "1.2rem" }} /> : <KeyboardArrowRightIcon sx={{ color: 'gray', fontSize: "1.2rem" }} />}
-
 
                     </Box>
 
@@ -147,9 +148,10 @@ export const SubSidebar = () => {
                 </Box>
 
 
-            )}
+            )
+            }
 
-        </Box>
+        </Box >
 
     )
 }

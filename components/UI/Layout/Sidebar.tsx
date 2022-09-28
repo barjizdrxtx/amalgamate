@@ -43,7 +43,7 @@ export const Sidebar = () => {
                         flexDirection: "row", justifyContent: "center", alignItems: "center",
                         p: 1.5, cursor: "pointer", color: GREY_COLOR, transition: '0.5s',
                         mb: 1,
-                        backgroundColor: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? LIGHT_COLOR : 'transparent'
+                        backgroundColor: index === 1 ? subRoutes.filter(fil => fil.children.map(pa => pa.path === router.asPath)).length > 0 ? LIGHT_COLOR : 'transparent'
                             : router.asPath === data.path ? LIGHT_COLOR : ""
                         , borderRadius: "10px"
 
@@ -53,7 +53,7 @@ export const Sidebar = () => {
                         }}>
 
                         <data.icon sx={{
-                            color: index === 1 ? subRoutes.filter(fil => fil.path === router.asPath).length > 0 ? themecolor : GREY_COLOR
+                            color: index === 1 ? subRoutes.filter(fil => fil.children.map(pa => pa.path === router.asPath)).length > 0 ? themecolor : GREY_COLOR
                                 : router.asPath === data.path ? themecolor : GREY_COLOR
                             ,
                             '&:hover': { color: themecolor }

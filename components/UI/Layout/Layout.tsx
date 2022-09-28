@@ -6,8 +6,9 @@ import { useRouter } from 'next/router'
 import { Box, Divider } from '@mui/material'
 import { useDarkmode } from '../../../hooks/useDarkmode'
 import { subRoutes } from '../../../config/Routes/subRoutes';
-import axios  from 'axios'
+import axios from 'axios'
 import { BASE_URL } from '../../../utls/url'
+import { Settings } from '@mui/icons-material'
 
 export const Layout = (props: { children: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined }) => {
 
@@ -19,7 +20,7 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
 
     const darkmode = useDarkmode();
 
-   
+
 
     return (
 
@@ -45,7 +46,9 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
 
                     <Box>
 
-                        {subRoutes.filter(fil => fil.path === router.asPath).length > 0 && <SubSidebar />}
+                        {/* {subRoutes.filter(fil => fil.path === router.asPath).length > 0 && <SubSidebar />} */}
+
+                        {router.asPath === '/' ? null : <SubSidebar />}
 
                     </Box>
 

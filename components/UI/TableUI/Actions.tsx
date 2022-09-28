@@ -2,13 +2,13 @@ import { Box, Grid, IconButton, Typography } from '@mui/material'
 import React from 'react'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import { PRIMARY_COLOR } from '../../../utls/url'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import ScienceIcon from '@mui/icons-material/Science';
+import { LIGHT_COLOR, LIGHT_GREY_COLOR } from '../../../utls/colors';
 
 export const Actions = (props: any) => {
 
@@ -109,7 +109,7 @@ export const Actions = (props: any) => {
                                 sx={{
                                     width: "100%", display: "flex", justifyContent: "start", alignItems: "center", p: 1,
                                     '&:hover': {
-                                        backgroundColor: PRIMARY_COLOR,
+                                        backgroundColor: LIGHT_GREY_COLOR,
                                         cursor: "pointer"
                                     }
 

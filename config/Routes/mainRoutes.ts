@@ -14,10 +14,4 @@ export const mainRoutes = [
         path: '/clinics',
         subSlider: true,
     },
-    // {
-    //     name: 'Department',
-    //     icon: LanIcon,
-    //     path: '/department',
-    //     subSlider: false,
-    // },
 ]

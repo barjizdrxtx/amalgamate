@@ -1,16 +1,5 @@
-import FeaturedVideoIcon from '@mui/icons-material/FeaturedVideo';
-import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
-import PolicyIcon from '@mui/icons-material/Policy';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward';
-import MasksIcon from '@mui/icons-material/Masks';
-import ElevatorIcon from '@mui/icons-material/Elevator';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
-import InfoIcon from '@mui/icons-material/Info';
 import ScienceIcon from '@mui/icons-material/Science';
-import PaidIcon from '@mui/icons-material/Paid';
-import ReviewsIcon from '@mui/icons-material/Reviews'
-import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import VaccinesIcon from '@mui/icons-material/Vaccines';
 import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
@@ -21,122 +10,82 @@ export const subRoutes = [
     {
         name: 'Clincs',
         icon: VaccinesIcon,
-        path: '/clinics',
         children: [
             {
                 text: "Clinic List",
                 path: '/clinics'
+            },
+            {
+                text: "Create Clinics",
+                path: '/clinics/create'
             },
         ]
     },
     {
         name: 'Hospitals',
         icon: LocalHospitalIcon,
-        path: '/hospitals',
         children: [
             {
                 text: "Hospital List",
                 path: '/hospitals'
-            }
+            },
+            {
+                text: "Create Hospital",
+                path: '/hospitals/create'
+            },
         ]
     },
     {
         name: 'Labs',
         icon: ScienceIcon,
-        path: '/lab',
         children: [
             {
                 text: "Lab List",
                 path: '/lab'
-            }
+            },
+            {
+                text: "Create Lab",
+                path: '/lab/create'
+            },
         ]
     },
     {
         name: 'Doctors',
         icon: PersonIcon,
-        path: '/doctors',
         children: [
             {
                 text: "Doctors List",
                 path: '/doctors'
-            }
+            },
+            {
+                text: "Create Hospital",
+                path: '/doctors/create'
+            },
         ]
     },
     {
         name: 'Diseases',
         icon: CoronavirusIcon,
-        path: '/diseases',
         children: [
             {
                 text: "Diseases List",
                 path: '/diseases'
-            }
+            },
+            {
+                text: "Create Diseases",
+                path: '/diseases/create'
+            },
         ]
     },
     {
         name: 'Enquiry',
         icon: MedicalInformationIcon,
-        path: '/enquiry',
+
         children: [
             {
                 text: "Enquiry List",
                 path: '/enquiry'
-            }
+            },
         ]
     },
-    // {
-    //     name: 'Advertisement',
-    //     icon: FeaturedVideoIcon,
-    //     path: '/advertisement'
-    // },
-    // {
-    //     name: 'Corporate Wellness',
-    //     icon: SelfImprovementIcon,
-    //     path: '/corporatewellness'
-    // },
-    // {
-    //     name: 'users',
-    //     icon: AccessibleForwardIcon,
-    //     path: '/users'
-    // },
-
-    // {
-    //     name: 'DRxTx Policies',
-    //     icon: PolicyIcon,
-    //     path: '/policies'
-
-    // },
-    // {
-    //     name: 'Contact Us',
-    //     icon: ContactMailIcon,
-    //     path: '/contactus'
-
-    // },
-    // {
-    //     name: 'About Us',
-    //     icon: InfoIcon,
-    //     path: '/aboutus'
-    // },
-    // {
-    //     name: 'Investors',
-    //     icon: PaidIcon,
-    //     path: '/investors'
-
-    // },
-    // {
-    //     name: 'Testimonials',
-    //     icon: ReviewsIcon,
-    //     path: '/testimonials'
-    // },
-    // {
-    //     name: 'Services',
-    //     icon: ElevatorIcon,
-    //     path: '/services'
-    // },
-    // {
-    //     name: 'Careers',
-    //     icon: WorkHistoryIcon,
-    //     path: '/careers'
-    // },
-
 ]
