@@ -35,7 +35,7 @@ export const Amenities = (props: any) => {
 
             {amineties.map((data: any, index: any) =>
 
-                <Grid key={index} lg={12}>
+                <Grid key={index} lg={3}>
 
                     <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 

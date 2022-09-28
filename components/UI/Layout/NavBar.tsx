@@ -8,7 +8,7 @@ import { ToggleMui } from '../ToggleMui/ToggleMui';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDarkTheme, setThemeColor } from '../../../redux/featuresSlice';
 import { useDarkmode } from '../../../hooks/useDarkmode';
-import { PRIMARY_COLOR } from '../../../utls/colors';
+import { PRIMARY_COLOR, PRIMARY_SHADOW } from '../../../utls/colors';
 import TuneIcon from '@mui/icons-material/Tune';
 import CloseIcon from '@mui/icons-material/Close';
 import { useThemeColor } from '../../../hooks/useThemeColor';
@@ -65,6 +65,8 @@ export const NavBar = () => {
     console.log("themecolor", themecolor)
 
     const [customize, setCustomize] = useState(false)
+
+    const [tab, setTab] = useState(0);
 
 
     return (
@@ -134,17 +136,26 @@ export const NavBar = () => {
             {customize && <Box sx={{
                 position: "fixed", width: "17%", height: "100vh",
                 top: "0", right: "0", zIndex: 1,
-                display: "flex", alignItems: "center",
+                display: "flex", alignItems: "start", px: 2,
                 flexDirection: "column",
-                ml: 2, cursor: "pointer", backgroundColor: darkmode ? "black" : "#FAFAFA",
+                ml: 2, cursor: "pointer", bgcolor: darkmode ? "black" : "#FAFAFA",
                 boxShadow: "rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px"
             }}>
 
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", p: 2 }}>
+                <Box sx={{
+                    width: "100%", display: "flex", justifyContent: "space-between",
+                    alignItems: "center", py: 2,
+                }}>
 
                     <Typography sx={{ fontWeight: "bold" }}>Customize</Typography>
 
-                    <CloseIcon sx={{ color: "gray" }} onClick={() => setCustomize(!customize)} />
+
+                    <IconButton>
+
+                        <CloseIcon sx={{ color: "gray" }} onClick={() => setCustomize(!customize)} />
+
+                    </IconButton>
+
 
                 </Box>
 
@@ -152,15 +163,19 @@ export const NavBar = () => {
                 <Divider />
 
 
+                <Typography sx={{ mt: 3 }}>Mode</Typography>
+
+
                 <Box sx={{ display: "flex" }}>
 
                     <Box onClick={() => dispatch(setDarkTheme({ payload: false }))}
 
                         sx={{
+                            boxShadow: PRIMARY_SHADOW,
                             backgroundColor: "white",
                             width: "100px", height: "60px",
                             display: "flex", justifyContent: "center", alignItems: "center",
-                            border: "1px solid gray", p: 1.5, borderRadius: "10px", m: 1
+                            p: 1.5, borderRadius: "10px", m: 1
                         }}>
 
                         <WbSunnyIcon sx={{ color: themecolor }} />
@@ -170,10 +185,11 @@ export const NavBar = () => {
                     <Box onClick={() => dispatch(setDarkTheme({ payload: true }))}
 
                         sx={{
+                            boxShadow: PRIMARY_SHADOW,
                             backgroundColor: "black",
                             width: "100px", height: "60px",
                             display: "flex", justifyContent: "center", alignItems: "center",
-                            border: "1px solid gray", p: 1.5, borderRadius: "10px", m: 1
+                            p: 1.5, borderRadius: "10px", m: 1
                         }}>
 
                         <NightlightIcon sx={{ color: themecolor, transform: "rotate(-30deg)" }} />
@@ -183,17 +199,28 @@ export const NavBar = () => {
                 </Box>
 
 
+                <Typography sx={{ mt: 3 }}>Colors</Typography>
+
+
+
                 <Box sx={{ display: "flex" }}>
 
                     <Grid container lg={12}>
 
-                        {primaryColor.map(data =>
+                        {primaryColor.map((data: any, index: any) =>
 
                             <Grid lg={4}>
 
-                                <Box onClick={() => dispatch(setThemeColor({ payload: data.primary_color }))} sx={{ width: "80px", height: "40px", border: "1px solid gray", p: 1.5, borderRadius: "10px", m: 1 }}>
+                                <Box onClick={() => {
+                                    setTab(index)
+                                    dispatch(setThemeColor({ payload: data.primary_color }))
+                                }} sx={{
+                                    boxShadow: PRIMARY_SHADOW, width: "70px",
+                                    height: "50px", p: 1.5, borderRadius: "10px", m: 1, display: "flex", justifyContent: "center",
+                                    alignItems: "center", border: tab === index ? `2px solid ${data.primary_color}` : null
+                                }}>
 
-                                    <Box sx={{ width: "100%", height: "100%", borderRadius: "100%", backgroundColor: data.primary_color }}>
+                                    <Box sx={{ width: "50%", height: "100%", borderRadius: "100%", backgroundColor: data.primary_color }}>
 
                                     </Box>
 
@@ -208,7 +235,18 @@ export const NavBar = () => {
                 </Box>
 
 
-            </Box>
+                <Box sx={{
+                    display: "flex", justifyContent: "center",
+                    p: 1, mt: 3,
+                    width: "100%", border: "1px solid lightgray"
+                }}>
+
+                    <Typography>Full Screen</Typography>
+
+                </Box>
+
+
+            </Box >
 
             }
 

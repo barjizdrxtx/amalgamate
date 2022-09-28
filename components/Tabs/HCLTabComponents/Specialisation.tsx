@@ -31,14 +31,13 @@ export const Specialisation = (props: any) => {
 
     <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-      <Grid lg={12}>
+      <Grid container lg={12}>
 
         {specialities.map((add: any, index: any) =>
 
-
           <Grid key={index} lg={6}>
 
-            <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
               <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 

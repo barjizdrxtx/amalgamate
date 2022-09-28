@@ -16,7 +16,7 @@ export const subRoutes = [
                 path: '/clinics'
             },
             {
-                text: "Create Clinics",
+                text: "Create Clinic",
                 path: '/clinics/create'
             },
         ]
@@ -26,7 +26,7 @@ export const subRoutes = [
         icon: LocalHospitalIcon,
         children: [
             {
-                text: "Hospital List",
+                text: "Hospitals List",
                 path: '/hospitals'
             },
             {
@@ -40,7 +40,7 @@ export const subRoutes = [
         icon: ScienceIcon,
         children: [
             {
-                text: "Lab List",
+                text: "Labs List",
                 path: '/lab'
             },
             {
@@ -58,7 +58,7 @@ export const subRoutes = [
                 path: '/doctors'
             },
             {
-                text: "Create Hospital",
+                text: "Create Doctor",
                 path: '/doctors/create'
             },
         ]
@@ -72,7 +72,7 @@ export const subRoutes = [
                 path: '/diseases'
             },
             {
-                text: "Create Diseases",
+                text: "Create Disease",
                 path: '/diseases/create'
             },
         ]

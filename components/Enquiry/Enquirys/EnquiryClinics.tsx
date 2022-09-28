@@ -3,10 +3,12 @@ import { Grid } from '@mui/material'
 import { useRouter } from 'next/router';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { TableUI } from '../../UI/TableUI/TableUI';
+import { useThemeColor } from '../../../hooks/useThemeColor';
 
 export const EnquiryClinics = () => {
 
     const router = useRouter();
+
 
     const tableHead = [
 

@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from '@mui/material';
+import { Divider, Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -9,6 +9,7 @@ import { DropDown } from '../../../UI/DropDown/DropDown';
 import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { HCLTabHome } from '../../../MainTab/HCLTabHome';
 import { useThemeColor } from '../../../../hooks/useThemeColor';
+import { CreateButton } from '../../../UI/Button/CreateButton';
 
 
 
@@ -302,27 +303,10 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <Box sx={{
-                        width: "100%", display: "flex",
-                        justifyContent: "space-between", alignItems: "center",
-                    }}>
 
-
-                        <Box sx={{ width: "100%", display: "flex", m: 2 }}>
-
-                            <Typography variant='h5' color="green" sx={{ fontWeight: "bold" }}>Add New Clinic</Typography>
-
-                        </Box>
-
-                        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
-
-                            <CustomizedButton bgColor={themecolor} onClick={formik.handleSubmit}>Create Clinic</CustomizedButton >
-
-                            <CustomizedButton bgColor="black" onClick={() => router.push(`/${path}`)}>Cancel</CustomizedButton >
-
-                        </Box>
-
-                    </Box>
+                    <CreateButton title={path}
+                        onCreate={formik.handleSubmit}
+                    />
 
 
                     <form onSubmit={formik.handleSubmit}>
@@ -342,7 +326,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                                     {clincs.map((data, index) =>
 
-                                        <Box key={index} sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
                                             <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
@@ -387,13 +371,13 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                                 {clincs2.map((data, index) =>
 
-                                    <Grid key={index} lg={6}>
+                                    <Grid key={index} lg={4}>
 
-                                        <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
                                             <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                                <Typography>{data.title}</Typography>
+                                                <Typography sx={{ color: "#566573" }}>{data.title}</Typography>
 
                                             </Box>
 

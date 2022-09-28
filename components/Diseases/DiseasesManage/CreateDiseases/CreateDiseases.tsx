@@ -10,8 +10,9 @@ import { TextEditor } from '../TextEditor';
 import { TabHome } from './TabHome';
 import { ImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { PRIMARY_COLOR } from '../../../../utls/colors';
+import { CreateButton } from '../../../UI/Button/CreateButton';
 
-export const CreateDiseases = () => {
+export const CreateDiseases = ({ path = "diseases" }) => {
 
     const [image, setImage]: any = useState('')
 
@@ -194,30 +195,9 @@ export const CreateDiseases = () => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <Box sx={{
-                        width: "100%", display: "flex",
-                        justifyContent: "space-between", alignItems: "center",
-                    }}>
-
-
-                        <Box sx={{ width: "100%", display: "flex", m: 2 }}>
-
-                            <Typography variant='h5' color="green" sx={{ fontWeight: "bold" }}>Add New Diseases</Typography>
-
-                        </Box>
-
-
-                        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
-
-                            <CustomizedButton disabled={btnDisabled}  bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Diseases</CustomizedButton >
-
-                            <CustomizedButton bgColor="black" onClick={() => router.push('/diseases')}>Cancel</CustomizedButton >
-
-                        </Box>
-
-                    </Box>
-
-                    <Divider />
+                    <CreateButton title={path}
+                        onCreate={formik.handleSubmit}
+                    />
 
                     <form onSubmit={formik.handleSubmit}>
 
@@ -263,7 +243,7 @@ export const CreateDiseases = () => {
 
                                         <ImagePreview image={image} setImage={setImage} />
 
-                                       
+
 
                                     </Grid>
 

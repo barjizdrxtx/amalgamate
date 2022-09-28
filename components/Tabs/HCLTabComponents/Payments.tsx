@@ -34,8 +34,8 @@ export const Payments = (props: any) => {
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
             {payments.map((data: any, index: any) =>
-
-                <Grid key={index} lg={12}>
+            
+                <Grid key={index} lg={3}>
 
                     <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 

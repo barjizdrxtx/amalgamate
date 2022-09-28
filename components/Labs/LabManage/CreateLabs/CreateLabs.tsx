@@ -10,9 +10,10 @@ import { DropDown } from '../../../UI/DropDown/DropDown';
 import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { HCLTabHome } from '../../../MainTab/HCLTabHome';
 import { PRIMARY_COLOR } from '../../../../utls/colors';
+import { CreateButton } from '../../../UI/Button/CreateButton';
 
 
-export const CreateLabs = () => {
+export const CreateLabs = ({ path = 'lab' }) => {
 
     const [role, setRole] = useState("null");
 
@@ -298,27 +299,9 @@ export const CreateLabs = () => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <Box sx={{
-                        width: "100%", display: "flex",
-                        justifyContent: "space-between", alignItems: "center",
-                    }}>
-
-
-                        <Box sx={{ width: "100%", display: "flex", m: 2 }}>
-
-                            <Typography variant='h5' color="green" sx={{ fontWeight: "bold" }}>Add New Lab</Typography>
-
-                        </Box>
-
-                        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
-
-                            <CustomizedButton  bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Lab</CustomizedButton >
-
-                            <CustomizedButton bgColor="black" onClick={() => router.push('/labs')}>Cancel</CustomizedButton >
-
-                        </Box>
-
-                    </Box>
+                    <CreateButton title={path}
+                        onCreate={formik.handleSubmit}
+                    />
 
 
                     <form onSubmit={formik.handleSubmit}>

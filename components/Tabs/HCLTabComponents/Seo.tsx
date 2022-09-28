@@ -9,11 +9,11 @@ export const Seo = (props: any) => {
 
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-            { tabList.map((data: any,index:any) =>
+            {tabList.map((data: any, index: any) =>
 
                 <Grid key={index} lg={12}>
 
-                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 

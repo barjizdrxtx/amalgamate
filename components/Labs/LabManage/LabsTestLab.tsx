@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { TableUI } from '../../UI/TableUI/TableUI';
 import { PRIMARY_COLOR } from '../../../utls/colors';
+import { useThemeColor } from '../../../hooks/useThemeColor';
 
 export const LabsTestLab = () => {
 
@@ -12,6 +13,9 @@ export const LabsTestLab = () => {
     const { institution_id } = router.query;
 
     console.log("institution_id", institution_id)
+
+    const themecolor = useThemeColor();
+
 
     const tableHead = [
 
@@ -49,7 +53,7 @@ export const LabsTestLab = () => {
 
                 router.push({ pathname: `/lab/add-test/create`, query: { institution_id: institution_id } })}
 
-                 bgColor={PRIMARY_COLOR}>Add LabTest to Lab</CustomizedButton>
+                 bgColor={themecolor}>Add LabTest to Lab</CustomizedButton>
 
             <TableUI tableName="labs" tableHead={tableHead} element={element} name={`lab-labtests/${institution_id}`} actions={actions} />
 

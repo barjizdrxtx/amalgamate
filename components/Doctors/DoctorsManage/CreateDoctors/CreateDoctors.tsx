@@ -14,8 +14,9 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 import { PRIMARY_COLOR } from '../../../../utls/colors';
+import { CreateButton } from '../../../UI/Button/CreateButton';
 
-export const CreateDoctors = () => {
+export const CreateDoctors = ({ path = 'doctors' }) => {
 
     const [role, setRole] = useState("null");
 
@@ -80,7 +81,7 @@ export const CreateDoctors = () => {
             academic_achievments: '',
             professional_contributions: '',
             affliation: '',
-            success_stories:'',
+            success_stories: '',
 
             practice: '',
             consulation_fee: '',
@@ -284,7 +285,7 @@ export const CreateDoctors = () => {
 
         },
     ]
-    
+
 
     const tabData8 = [
 
@@ -329,30 +330,9 @@ export const CreateDoctors = () => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <Box sx={{
-                        width: "100%", display: "flex",
-                        justifyContent: "space-between", alignItems: "center",
-                    }}>
-
-
-                        <Box sx={{ width: "100%", display: "flex", m: 2 }}>
-
-                            <Typography variant='h5' color="green" sx={{ fontWeight: "bold" }}>Add New Doctors</Typography>
-
-                        </Box>
-
-
-                        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
-
-                            <CustomizedButton  bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Doctors</CustomizedButton >
-
-                            <CustomizedButton bgColor="black" onClick={() => router.push('/clinics')}>Cancel</CustomizedButton >
-
-                        </Box>
-
-
-                    </Box>
-
+                    <CreateButton title={path}
+                        onCreate={formik.handleSubmit}
+                    />
 
                     <form onSubmit={formik.handleSubmit}>
 
