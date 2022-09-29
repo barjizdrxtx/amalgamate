@@ -1,60 +1,62 @@
 import React, { useState } from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import EmailIcon from '@mui/icons-material/Email';
-import { Badge, Box, Divider, Grid, IconButton, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Badge, Box, Button, Divider, Grid, IconButton, OutlinedInput, Typography } from '@mui/material';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Image from "next/image"
-import { ToggleMui } from '../ToggleMui/ToggleMui';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setDarkTheme, setThemeColor } from '../../../redux/featuresSlice';
 import { useDarkmode } from '../../../hooks/useDarkmode';
-import { PRIMARY_COLOR, PRIMARY_SHADOW } from '../../../utls/colors';
+import { PRIMARY_SHADOW } from '../../../utls/colors';
 import TuneIcon from '@mui/icons-material/Tune';
 import CloseIcon from '@mui/icons-material/Close';
 import { useThemeColor } from '../../../hooks/useThemeColor';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import NightlightIcon from '@mui/icons-material/Nightlight';
+import { CustomizedButton } from '../Button/CustomizedButton';
 
-const primaryColor = [
 
-    {
-        id: 1,
-        primary_color: "#229954",
-        secondary_color: "#EAFAF1"
-    },
-
-    {
-        id: 2,
-        primary_color: "dodgerblue",
-        secondary_color: "#EAFAF1"
-    },
-
-    {
-        id: 3,
-        primary_color: "#FF6347	",
-        secondary_color: "#EAFAF1"
-    },
-
-    {
-        id: 4,
-        primary_color: "#6A5ACD",
-        secondary_color: "#EAFAF1"
-    },
-    {
-        id: 5,
-        primary_color: "#2F4F4F	",
-        secondary_color: "#EAFAF1"
-    },
-
-    {
-        id: 6,
-        primary_color: "#800080	",
-        secondary_color: "#EAFAF1"
-    },
-
-]
 
 export const NavBar = () => {
+
+    const [primaryColor, setPrimaryColor]: any = useState([
+
+        {
+            id: 1,
+            primary_color: "#229954",
+            secondary_color: "#EAFAF1"
+        },
+
+        {
+            id: 2,
+            primary_color: "dodgerblue",
+            secondary_color: "#EAFAF1"
+        },
+
+        {
+            id: 3,
+            primary_color: "#FF6347	",
+            secondary_color: "#EAFAF1"
+        },
+
+        {
+            id: 4,
+            primary_color: "#6A5ACD",
+            secondary_color: "#EAFAF1"
+        },
+        {
+            id: 5,
+            primary_color: "#2F4F4F	",
+            secondary_color: "#EAFAF1"
+        },
+
+        {
+            id: 6,
+            primary_color: "#800080	",
+            secondary_color: "#EAFAF1"
+        },
+
+    ])
 
     const dispatch = useDispatch();
 
@@ -67,6 +69,21 @@ export const NavBar = () => {
     const [customize, setCustomize] = useState(false)
 
     const [tab, setTab] = useState(0);
+
+    const [state, setState]: any = useState("#229954");
+
+    console.log("state", state)
+
+
+    const AddColor = () => {
+
+        setPrimaryColor([...primaryColor, {
+            id: 1,
+            primary_color: state,
+            secondary_color: "#EAFAF1"
+        },])
+
+    }
 
 
     return (
@@ -233,6 +250,19 @@ export const NavBar = () => {
                     </Grid>
 
                 </Box>
+                
+
+                <Typography sx={{ mt: 3 }}>Color Picker</Typography>
+
+
+                <Box sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+
+                    <input style={{ width: "100%", height: "50px" }} type="color" id="favcolor" name="favcolor" value={state} onChange={(e: any) => setState(e.target.value)} />
+
+                    <CustomizedButton bgColor="black" onClick={AddColor}>Submit</CustomizedButton>
+
+                </Box>
+
 
 
                 <Box sx={{
