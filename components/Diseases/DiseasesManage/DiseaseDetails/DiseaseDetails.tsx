@@ -10,19 +10,10 @@ export const DiseaseDetails = () => {
     const router = useRouter();
     const { id } = router.query;
 
-
     const { fetchedData: fetchedData } = useQueryFetchId('diseases', id)
 
 
-
     const data = fetchedData?.description
-
-
-    console.log("fetchedData", fetchedData?.description)
-
-
-    console.log("data", data)
-
 
 
     return (

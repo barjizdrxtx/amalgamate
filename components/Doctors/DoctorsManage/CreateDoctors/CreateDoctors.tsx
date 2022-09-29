@@ -34,8 +34,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
     const [gender, setGender] = useState("null");
 
 
-    console.log("documents", documents)
-
 
     const router = useRouter();
 
@@ -126,8 +124,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
-                console.log(res1);
-                console.log(res2);
+
                 alert("submit success")
                 router.push('/doctors')
             }));

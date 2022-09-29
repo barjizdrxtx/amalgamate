@@ -51,9 +51,6 @@ export const Timing = (props: any) => {
     const [tab, seTab] = useState(0);
 
 
-    console.log("timing", timing)
-
-
     const handleChangeInput = (index: any, event: any) => {
         const values = [...timing]
         values[index][event.target.name] = !timing[index].checked
@@ -65,8 +62,7 @@ export const Timing = (props: any) => {
 
         setTiming([...timing, { start: '', end: '', }])
 
-        console.log(timing)
-
+   
     }
 
     const handleRemoveFields = () => {

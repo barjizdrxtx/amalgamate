@@ -6,8 +6,8 @@ import { Procedures } from '../Tabs/HCLTabComponents/Procedures';
 import { Specialisation } from '../Tabs/HCLTabComponents/Specialisation';
 import { Payments } from '../Tabs/HCLTabComponents/Payments';
 import { Timing } from '../Tabs/HCLTabComponents/Timing';
-import { MainTab } from './MainTab';
 import Images from '../Tabs/HCLTabComponents/Images';
+import { MainTab } from './MainTab';
 
 export const HCLTabHome = (props: any) => {
 

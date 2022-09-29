@@ -74,8 +74,7 @@ export const CreateLabTest = () => {
 
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
-                console.log(res1);
-                console.log(res2);
+
                 alert("submit success")
                 router.push('/lab')
             }));

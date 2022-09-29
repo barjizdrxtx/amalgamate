@@ -19,10 +19,6 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
     const [description, setDescription] = useState("");
 
-
-    console.log("description", description)
-
-
     const [overview, setOverView]: any = useState([{ id: 1 }]);
 
     const [symptoms, setSymptoms]: any = useState([{ id: 1 }]);
@@ -101,8 +97,6 @@ export const CreateDiseases = ({ path = "diseases" }) => {
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest1, axiosrequest2])
                 .then(axios.spread(function (res1, res2) {
-                    console.log(res1);
-                    console.log(res2);
                     alert("submit success")
                     router.push('/diseases')
                     setOverView([{ id: 1 }])

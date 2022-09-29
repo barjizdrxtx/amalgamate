@@ -173,8 +173,6 @@ export const Timing = (props: any) => {
     }
 
 
-    console.log("days1", days)
-
 
 
     return (

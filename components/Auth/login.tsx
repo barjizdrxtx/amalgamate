@@ -43,7 +43,7 @@ export const Login = () => {
 
                 else {
 
-                    console.log("response", response)
+ 
 
                     alert("please check your username or password")
 

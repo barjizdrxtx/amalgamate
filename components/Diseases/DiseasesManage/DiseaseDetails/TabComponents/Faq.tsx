@@ -6,7 +6,6 @@ export const Faq = (props: any) => {
 
     const { fetchedData } = props;
 
-    console.log("faq", fetchedData)
 
     return (
 

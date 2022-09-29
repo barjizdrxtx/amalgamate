@@ -12,7 +12,6 @@ export const LabsTestLab = () => {
 
     const { institution_id } = router.query;
 
-    console.log("institution_id", institution_id)
 
     const themecolor = useThemeColor();
 

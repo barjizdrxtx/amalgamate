@@ -21,7 +21,6 @@ export const CreateCategory = () => {
 
     const [documents, setDocuments]: any = useState();
 
-    console.log("image", image)
 
 
     const router = useRouter();
@@ -52,11 +51,10 @@ export const CreateCategory = () => {
 
             axios.post(`diseases-categories`, formData).then((response) => {
 
-                console.log(response);
                 alert("submit success")
                 router.push('/diseases')
             }).catch((error) => {
-                console.log(error)
+       
             }
             )
 
@@ -123,8 +121,6 @@ export const CreateCategory = () => {
     ]
 
 
-
-    console.log("image", image)
 
     return (
 

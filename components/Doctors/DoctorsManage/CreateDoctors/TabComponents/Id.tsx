@@ -9,8 +9,6 @@ export const Id = (props: any) => {
 
     const { documents, setDocuments } = props;
 
-    console.log("documents", documents)
-
     const AddImages = (index: any, event: any) => {
 
         if (event.target.files[0] === undefined) return;
@@ -38,7 +36,7 @@ export const Id = (props: any) => {
     const handleAddFields = () => {
 
         setDocuments([...documents, { id: documents.length + 1 }])
-        console.log(documents)
+
     }
 
     const handleRemoveFields = () => {

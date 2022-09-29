@@ -9,8 +9,6 @@ export const ProtectedRoutes = (props: { children: string | number | boolean | R
 
     const [token, setToken]: any = useState(false);
 
-    console.log("token", token)
-
 
     useEffect(() => {
 

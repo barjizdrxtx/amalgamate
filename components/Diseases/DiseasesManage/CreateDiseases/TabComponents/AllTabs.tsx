@@ -9,8 +9,6 @@ export const AllTabs = (props: any) => {
 
     const { inputfield, setInputField } = props;
 
-    console.log("inputfield", inputfield)
-
 
     const AddImages = (index: any, event: any) => {
 
@@ -52,7 +50,7 @@ export const AllTabs = (props: any) => {
     const handleAddFields = () => {
 
         setInputField([...inputfield, { id: inputfield.length + 1 }])
-        console.log(inputfield)
+
     }
 
     const handleRemoveFields = () => {

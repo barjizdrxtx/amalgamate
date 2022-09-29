@@ -6,9 +6,6 @@ export const Faq = (props: any) => {
 
   const { faq, setFaq } = props;
 
-
-  console.log("inputfield", faq)
-
   const handleChangeInput = (index: any, event: any) => {
     const values = [...faq]
     values[index][event.target.name] = event.target.value
@@ -19,7 +16,7 @@ export const Faq = (props: any) => {
   const handleAddFields = () => {
 
     setFaq([...faq, { id: faq.length + 1, title: "", description: "" }])
-    console.log(faq)
+ 
 
   }
 

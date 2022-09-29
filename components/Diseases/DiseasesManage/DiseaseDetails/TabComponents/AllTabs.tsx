@@ -6,8 +6,7 @@ export const AllTabs = (props: any) => {
 
     const { fetchedData } = props;
 
-    console.log("fetchedDataaaa", fetchedData)
-
+    
     return (
 
         <Grid container lg={12} sx={{ justifyContent: "center", height: "100vh" }}>

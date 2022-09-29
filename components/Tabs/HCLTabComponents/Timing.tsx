@@ -84,7 +84,7 @@ export const Timing = (props: any) => {
         setDays(values)
     }
 
-    console.log("days", days)
+   
 
     return (
 

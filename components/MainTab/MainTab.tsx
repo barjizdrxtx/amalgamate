@@ -1,52 +1,46 @@
-import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { Box, Grid, Tab } from '@mui/material'
-import React from 'react'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { Typography } from '@mui/material';
+import { useThemeColor } from '../../hooks/useThemeColor';
 
 export const MainTab = (props: any) => {
 
   const { tabData } = props;
 
-  const [value, setValue] = React.useState('0');
+  const [tab, setTab] = React.useState(0)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  }
+  const themecolor = useThemeColor();
+
 
   return (
-    <Grid>
 
-      <Box sx={{ width: '100%', typography: 'body1' }}>
+    <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }} >
 
-        <TabContext value={value}>
+      <Box sx={{ width: "fit-content", display: "flex", p: 0.5, alignItems: "center", backgroundColor: "#F6F6F6", borderRadius: "10px" }} >
 
-          <Box sx={{ backgroundColor: "white" }}>
+        {tabData.map((data: any, index: any) =>
 
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <Box sx={{ backgroundColor: tab === index ? themecolor : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
 
-              {tabData?.map((data: any, index: any) =>
-
-                <Tab label={data.label} value={JSON.stringify(index)} />
-
-              )}
-
-            </TabList>
+            <Typography sx={{ color: tab === index ? "white" : "#696969", fontWeight: "bold" }}>{data.label}</Typography>
 
           </Box>
 
-
-          {tabData?.map((data: any, index: any) =>
-
-            <TabPanel value={JSON.stringify(index)}>
-              {data.component}
-            </TabPanel>
-
-          )}
-
-        </TabContext>
+        )}
 
       </Box>
 
-    </Grid >
-  )
-}
+      {tabData.map((data: any, index: any) =>
 
+        <Box sx={{ mt: 3 }}>
+
+          {tab === index && <Box>{data.component}</Box>}
+
+        </Box>
+
+      )}
+
+    </Box >
+
+  );
+}

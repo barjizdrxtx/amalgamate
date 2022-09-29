@@ -8,8 +8,6 @@ export const Info = (props: any) => {
 
     const { tabList, formik, documents, setDocuments } = props;
 
-    console.log("documents", documents)
-
 
     const AddImages = (index: any, event: any) => {
 
@@ -38,7 +36,7 @@ export const Info = (props: any) => {
     const handleAddFields = () => {
 
         setDocuments([...documents, { id: documents.length + 1 }])
-        console.log(documents)
+   
     }
 
     const handleRemoveFields = () => {

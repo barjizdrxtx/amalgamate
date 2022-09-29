@@ -17,8 +17,6 @@ export const TabHome = (props: any) => {
   const { fetchedData } = props;
 
 
-  console.log("fetchedDatass", fetchedData)
-
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   }

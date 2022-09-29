@@ -1,7 +1,6 @@
 import { Box, Divider, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { subRoutes } from '../../../config/Routes/subRoutes';
 import { useDarkmode } from '../../../hooks/useDarkmode';
@@ -10,8 +9,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { GREY_COLOR, LIGHT_COLOR, LIGHT_GREY_COLOR } from '../../../utls/colors';
 import { useThemeColor } from '../../../hooks/useThemeColor';
-import { da } from 'date-fns/locale';
-
 
 export const SubSidebar = () => {
 
@@ -42,9 +39,6 @@ export const SubSidebar = () => {
         setBool(newArray)
 
     }
-
-    console.log("route", subRoutes.map((data: any, index) => data.children[0].path === router.asPath))
-
 
 
     return (
@@ -102,7 +96,6 @@ export const SubSidebar = () => {
                                     }}>{data.name}</Typography>
 
                                 {bool[index] === true ? <KeyboardArrowDownIcon sx={{ color: 'gray', fontSize: "1.2rem" }} /> : <KeyboardArrowRightIcon sx={{ color: 'gray', fontSize: "1.2rem" }} />}
-                                {console.log("childdd", data.children.filter((fil: any) => router.asPath === fil.path).length > 0)}
 
                             </>}
 

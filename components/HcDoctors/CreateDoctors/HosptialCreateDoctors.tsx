@@ -36,9 +36,6 @@ export const HosptialCreateDoctors = () => {
 
     const { institution_id } = router.query
 
-    console.log("documents", documents)
-
-
     const [dateOfBirth, setDateofBirth] = React.useState<Date | null>(
         new Date(''),
     );
@@ -57,7 +54,6 @@ export const HosptialCreateDoctors = () => {
 
         axios.post(`images`, formData).then((response) => {
 
-            console.log(response);
             setDoctor_img(response.data.result.file_location)
 
         })
@@ -150,8 +146,7 @@ export const HosptialCreateDoctors = () => {
 
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
-                console.log(res1);
-                console.log(res2);
+
                 alert("submit success")
                 router.push(`/clinics/doctors?institution_id=${institution_id}`)
             }));

@@ -8,8 +8,6 @@ export const Procedures = (props: any) => {
 
   const { tabList, formik, procedures, setProcedures } = props;
 
-  console.log("procedures", procedures)
-
 
   const handleChangeInput = (index: any, event: any) => {
     const values = [...procedures]
@@ -20,7 +18,7 @@ export const Procedures = (props: any) => {
 
   const handleAddFields = () => {
     setProcedures([...procedures, { id: procedures.length + 1 }])
-    console.log(procedures)
+    
   }
 
   const handleRemoveFields = () => {

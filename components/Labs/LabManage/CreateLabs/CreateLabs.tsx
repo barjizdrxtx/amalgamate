@@ -22,8 +22,6 @@ export const CreateLabs = ({ path = 'lab' }) => {
     const [image, setImage] = useState([{ id: 1 }]);
 
 
-    console.log("image", image)
-
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
     const [procedures, setProcedures] = useState([{ id: 1 }]);
@@ -131,8 +129,7 @@ export const CreateLabs = ({ path = 'lab' }) => {
 
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
-                console.log(res1);
-                console.log(res2);
+   
                 alert("submit success")
                 router.push('/lab')
             }));

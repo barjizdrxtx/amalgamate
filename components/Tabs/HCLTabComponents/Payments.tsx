@@ -8,9 +8,7 @@ export const Payments = (props: any) => {
 
     const [data, setData] = useState();
 
-    console.log("payments", payments)
-
-
+  
     const handleChangeInput = (index: any, event: any) => {
         const values = [...payments]
         values[index][event.target.name] = !payments[index].checked
@@ -21,7 +19,7 @@ export const Payments = (props: any) => {
     const handleAddFields = () => {
 
         setPayments([...payments, { title: data, checked: true, }])
-        console.log(payments)
+    
 
     }
 

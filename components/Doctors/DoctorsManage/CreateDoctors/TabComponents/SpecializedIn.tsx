@@ -19,7 +19,7 @@ export const SpecializedIn = (props: any) => {
     const handleAddFields = () => {
 
         setInputfield([...inputfield, { id: inputfield.length + 1 }])
-        console.log(inputfield)
+
     }
 
     const handleRemoveFields = () => {

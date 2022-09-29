@@ -64,7 +64,6 @@ export const NavBar = () => {
 
     const themecolor = useThemeColor();
 
-    console.log("themecolor", themecolor)
 
     const [customize, setCustomize] = useState(false)
 
@@ -72,7 +71,7 @@ export const NavBar = () => {
 
     const [state, setState]: any = useState("#229954");
 
-    console.log("state", state)
+   
 
 
     const AddColor = () => {
@@ -109,9 +108,13 @@ export const NavBar = () => {
 
             </Box>
 
-            <Box sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", width: "50px", height: "50px", borderRadius: "10px", backgroundColor: "white", boxShadow: "rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px" }} onClick={() => setCustomize(!customize)}>
+            <Box sx={{
+                bgcolor: themecolor, cursor: "pointer", display: "flex", justifyContent: "center",
+                alignItems: "center", width: "50px", height: "50px", borderRadius: "10px",
+                boxShadow: PRIMARY_SHADOW
+            }} onClick={() => setCustomize(!customize)}>
 
-                <TuneIcon sx={{ color: "grey" }} />
+                <TuneIcon sx={{ color: "white" }} />
 
             </Box>
 
@@ -150,133 +153,134 @@ export const NavBar = () => {
 
 
 
-            {customize && <Box sx={{
-                position: "fixed", width: "17%", height: "100vh",
-                top: "0", right: "0", zIndex: 1,
-                display: "flex", alignItems: "start", px: 2,
-                flexDirection: "column",
-                ml: 2, cursor: "pointer", bgcolor: darkmode ? "black" : "#FAFAFA",
-                boxShadow: "rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px"
-            }}>
-
-                <Box sx={{
-                    width: "100%", display: "flex", justifyContent: "space-between",
-                    alignItems: "center", py: 2,
+            {
+                customize && <Box sx={{
+                    position: "fixed", width: "14%", height: "100vh",
+                    top: "0", right: "0", zIndex: 1,
+                    display: "flex", alignItems: "start", px: 2,
+                    flexDirection: "column",
+                    ml: 2, cursor: "pointer", bgcolor: darkmode ? "black" : "white",
+                    boxShadow: PRIMARY_SHADOW
                 }}>
 
-                    <Typography sx={{ fontWeight: "bold" }}>Customize</Typography>
+                    <Box sx={{
+                        width: "100%", display: "flex", justifyContent: "space-between",
+                        alignItems: "center", py: 2,
+                    }}>
+
+                        <Typography sx={{ fontWeight: "bold" }}>Customize</Typography>
 
 
-                    <IconButton>
+                        <IconButton>
 
-                        <CloseIcon sx={{ color: "gray" }} onClick={() => setCustomize(!customize)} />
+                            <CloseIcon sx={{ color: "gray" }} onClick={() => setCustomize(!customize)} />
 
-                    </IconButton>
+                        </IconButton>
 
-
-                </Box>
-
-
-                <Divider />
-
-
-                <Typography sx={{ mt: 3 }}>Mode</Typography>
-
-
-                <Box sx={{ display: "flex" }}>
-
-                    <Box onClick={() => dispatch(setDarkTheme({ payload: false }))}
-
-                        sx={{
-                            boxShadow: PRIMARY_SHADOW,
-                            backgroundColor: "white",
-                            width: "100px", height: "60px",
-                            display: "flex", justifyContent: "center", alignItems: "center",
-                            p: 1.5, borderRadius: "10px", m: 1
-                        }}>
-
-                        <WbSunnyIcon sx={{ color: themecolor }} />
 
                     </Box>
 
-                    <Box onClick={() => dispatch(setDarkTheme({ payload: true }))}
 
-                        sx={{
-                            boxShadow: PRIMARY_SHADOW,
-                            backgroundColor: "black",
-                            width: "100px", height: "60px",
-                            display: "flex", justifyContent: "center", alignItems: "center",
-                            p: 1.5, borderRadius: "10px", m: 1
-                        }}>
+                    <Divider />
 
-                        <NightlightIcon sx={{ color: themecolor, transform: "rotate(-30deg)" }} />
+
+                    <Typography sx={{ mt: 3 }}>Mode</Typography>
+
+
+                    <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
+
+                        <Box onClick={() => dispatch(setDarkTheme({ payload: false }))}
+
+                            sx={{
+                                boxShadow: PRIMARY_SHADOW,
+                                backgroundColor: "white",
+                                width: "100px", height: "60px",
+                                display: "flex", justifyContent: "center", alignItems: "center",
+                                p: 1.5, borderRadius: "10px", m: 1
+                            }}>
+
+                            <WbSunnyIcon sx={{ color: themecolor }} />
+
+                        </Box>
+
+                        <Box onClick={() => dispatch(setDarkTheme({ payload: true }))}
+
+                            sx={{
+                                boxShadow: PRIMARY_SHADOW,
+                                backgroundColor: "black",
+                                width: "100px", height: "60px",
+                                display: "flex", justifyContent: "center", alignItems: "center",
+                                p: 1.5, borderRadius: "10px", m: 1
+                            }}>
+
+                            <NightlightIcon sx={{ color: themecolor, transform: "rotate(-30deg)" }} />
+
+                        </Box>
 
                     </Box>
 
-                </Box>
 
-
-                <Typography sx={{ mt: 3 }}>Colors</Typography>
+                    <Typography sx={{ mt: 3 }}>Colors</Typography>
 
 
 
-                <Box sx={{ display: "flex" }}>
+                    <Box sx={{ display: "flex" }}>
 
-                    <Grid container lg={12}>
+                        <Grid container lg={12}>
 
-                        {primaryColor.map((data: any, index: any) =>
+                            {primaryColor.map((data: any, index: any) =>
 
-                            <Grid lg={4}>
+                                <Grid lg={4}>
 
-                                <Box onClick={() => {
-                                    setTab(index)
-                                    dispatch(setThemeColor({ payload: data.primary_color }))
-                                }} sx={{
-                                    boxShadow: PRIMARY_SHADOW, width: "70px",
-                                    height: "50px", p: 1.5, borderRadius: "10px", m: 1, display: "flex", justifyContent: "center",
-                                    alignItems: "center", border: tab === index ? `2px solid ${data.primary_color}` : null
-                                }}>
+                                    <Box onClick={() => {
+                                        setTab(index)
+                                        dispatch(setThemeColor({ payload: data.primary_color }))
+                                    }} sx={{
+                                        boxShadow: PRIMARY_SHADOW, width: "70px",
+                                        height: "50px", p: 1.5, borderRadius: "10px", m: 1, display: "flex", justifyContent: "center",
+                                        alignItems: "center", border: tab === index ? `2px solid ${data.primary_color}` : null
+                                    }}>
 
-                                    <Box sx={{ width: "50%", height: "100%", borderRadius: "100%", backgroundColor: data.primary_color }}>
+                                        <Box sx={{ width: "50%", height: "100%", borderRadius: "100%", backgroundColor: data.primary_color }}>
+
+                                        </Box>
 
                                     </Box>
 
-                                </Box>
+                                </Grid>
 
-                            </Grid>
+                            )}
 
-                        )}
+                        </Grid>
 
-                    </Grid>
-
-                </Box>
-                
-
-                <Typography sx={{ mt: 3 }}>Color Picker</Typography>
+                    </Box>
 
 
-                <Box sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                    <Typography sx={{ mt: 3 }}>Color Picker</Typography>
 
-                    <input style={{ width: "100%", height: "50px" }} type="color" id="favcolor" name="favcolor" value={state} onChange={(e: any) => setState(e.target.value)} />
 
-                    <CustomizedButton bgColor="black" onClick={AddColor}>Submit</CustomizedButton>
+                    <Box sx={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
 
-                </Box>
+                        <input style={{ width: "100%", height: "40px", cursor: "pointer" }} type="color" id="favcolor" name="favcolor" value={state} onChange={(e: any) => setState(e.target.value)} />
+
+                        <CustomizedButton bgColor="dodgerblue" onClick={AddColor}>Submit</CustomizedButton>
+
+                    </Box>
 
 
 
-                <Box sx={{
-                    display: "flex", justifyContent: "center",
-                    p: 1, mt: 3,
-                    width: "100%", border: "1px solid lightgray"
-                }}>
+                    <Box sx={{
+                        display: "flex", justifyContent: "center",
+                        p: 1, mt: 3,
+                        width: "100%", border: "1px solid lightgray"
+                    }}>
 
-                    <Typography>Full Screen</Typography>
+                        <Typography>Full Screen</Typography>
 
-                </Box>
+                    </Box>
 
 
-            </Box >
+                </Box >
 
             }
 

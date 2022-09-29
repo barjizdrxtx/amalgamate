@@ -8,8 +8,6 @@ export const Amenities = (props: any) => {
 
     const [data, setData] = useState();
 
-    console.log("amineties", amineties)
-
 
     const handleChangeInput = (index: any, event: any) => {
         const values = [...amineties]
@@ -21,7 +19,7 @@ export const Amenities = (props: any) => {
     const handleAddFields = () => {
 
         setAmenities([...amineties, { title: data, checked: true, }])
-        console.log(amineties)
+     
 
     }
 

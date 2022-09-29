@@ -9,8 +9,6 @@ export const ImagePreview = (props: any) => {
 
     const { image, setImage } = props;
 
-    console.log("image", image)
-
 
     const AddImages = (event: any) => {
 
@@ -25,7 +23,6 @@ export const ImagePreview = (props: any) => {
             setImage(response.data.result.file_location)
 
         }).catch((response) => {
-            console.log("response", response.response.data.error)
             alert(response.response.data.error)
         })
     }
@@ -84,9 +81,6 @@ export const MultiImagePreview = (props: any) => {
 
     const { image, setImage } = props;
 
-    console.log("image", image)
-
-
     const AddImages = (index: any, event: any) => {
 
         if (event.target.files[0] === undefined) return;
@@ -109,7 +103,7 @@ export const MultiImagePreview = (props: any) => {
     const handleAddFields = () => {
 
         setImage([...image, { id: image.length + 1 }])
-        console.log(image)
+    
     }
 
     const handleRemoveFields = () => {

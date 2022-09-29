@@ -20,7 +20,6 @@ export const Actions = (props: any) => {
 
         axios.delete(`${name}/${id}`)
             .then((response) => {
-                console.log(response);
                 Open(index);
                 refetch();
             })

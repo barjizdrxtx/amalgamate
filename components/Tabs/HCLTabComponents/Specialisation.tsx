@@ -8,8 +8,7 @@ export const Specialisation = (props: any) => {
 
   const { tabList, formik, specialities, setSpecialities } = props;
 
-  console.log("procedures", specialities)
-
+  
 
   const handleChangeInput = (index: any, event: any) => {
     const values = [...specialities]
@@ -20,7 +19,7 @@ export const Specialisation = (props: any) => {
 
   const handleAddFields = () => {
     setSpecialities([...specialities, { id: specialities.length + 1 }])
-    console.log(specialities)
+
   }
 
   const handleRemoveFields = () => {
