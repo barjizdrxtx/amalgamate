@@ -24,6 +24,62 @@ export const CreateHospitals = ({ path = 'hospitals' }) => {
 
     const [specialities, setSpecialities] = useState([{ id: 1 }]);
 
+    const [days, setDays]: any = useState([
+
+        {
+            day: "Monday",
+            isOpen: false,
+            start: "5:00 Am",
+            end: "12:00 Pm",
+            day_id: 1,
+        },
+        {
+            day: "TuesDay",
+            isOpen: false,
+            start: "5:00 Am",
+            end: "12:00 Pm",
+            day_id: 2,
+        },
+        {
+            day: "Wednesday",
+            isOpen: false,
+            start: "5:00 Am",
+            end: "12:00 Pm",
+            day_id: 3,
+        },
+
+        {
+            day: "Thursday",
+            isOpen: false,
+            start: "5:00 Am",
+            end: "12:00 Pm",
+            day_id: 4,
+        },
+        {
+            day: "Friday",
+            isOpen: false,
+            start: "5:00 Am",
+            end: "12:00 Pm",
+            day_id: 5,
+        },
+        {
+            day: "Saturday",
+            isOpen: false,
+            start: "5:00 Am",
+            end: "12:00 Pm",
+            day_id: 6,
+        },
+
+        {
+            day: "Sunday",
+            isOpen: false,
+            start: "5:00 Am",
+            end: "12:00 Pm",
+            day_id: 7,
+        },
+
+    ]);
+
     const [amineties, setAmenities] = useState([
 
         {
@@ -95,6 +151,7 @@ export const CreateHospitals = ({ path = 'hospitals' }) => {
             const axiosrequest1 = axios.post(path, {
 
                 name: values.name,
+                timings: days,
                 role: role,
                 profile: values.profile,
                 website: values.website,
@@ -350,6 +407,9 @@ export const CreateHospitals = ({ path = 'hospitals' }) => {
 
                         image={image}
                         setImage={setImage}
+
+                        days={days}
+                        setDays={setDays}
 
                         tabData1={tabData1}
                         tabData2={tabData2}
