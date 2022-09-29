@@ -20,7 +20,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
     const [role, setRole] = useState("null");
 
-    const [doctor_img, setDoctor_img] = useState(null);
+    const [image, setImage] = useState([{ id: 1 }]);
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
@@ -46,22 +46,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
     const handleChange = (newValue: Date | null) => {
         setValue(newValue);
     };
-
-
-
-    const AddImages = (event: any) => {
-
-        const formData = new FormData();
-
-        formData.append('file_location', event.target.files[0]);
-
-        axios.post(`images`, formData).then((response) => {
-
-            console.log(response);
-            setDoctor_img(response.data.result.file_location)
-
-        })
-    }
 
 
 
@@ -113,7 +97,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                 },
                 gender: gender,
                 image_id: "string",
-                image_location: doctor_img,
+                image_location: image,
                 years_of_experience: values.years_of_experience,
                 dateOfBirth: "2022-09-13T18:41:40.248Z",
                 qualificaton: values.qualificaton,
@@ -152,7 +136,8 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
     });
 
 
-    const doctors = [
+
+    const doctors2 = [
 
         {
             title: "Mr / Mrs",
@@ -163,10 +148,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
             errors: formik.errors.name,
         },
 
-    ]
-
-
-    const doctors2 = [
 
         {
             title: "Mobile Number",
@@ -336,181 +317,85 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
                     <form onSubmit={formik.handleSubmit}>
 
-                        <Grid container lg={12}>
+                        <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+                            <Grid lg={4}>
 
-                                <Grid lg={6}>
-
-                                    <DropDown
-                                        text="Role"
-                                        dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                        value={role}
-                                        setValue={setRole}
-                                    />
-
-                                    {doctors.map(data =>
-
-                                        <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                                <Typography>{data.title}</Typography>
-
-                                            </Box>
-
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
-
-                                        </Box>
-
-                                    )}
-
-
-
-
-                                </Grid>
-
-
-                                <Grid container lg={6} >
-
-                                    <Grid container lg={6} >
-
-                                        <Grid lg={8}>
-
-                                            <Box sx={{
-                                                display: "flex", flexDirection: "column", justifyContent: "end",
-                                                alignItems: "end",
-                                            }}>
-
-                                                <Box sx={{ width: "50%" }}>
-
-                                                    <Box sx={{
-                                                        backgroundColor: "lightgray", width: "150px", mb: 2,
-                                                        height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
-                                                    }}>
-
-                                                        {doctor_img === null ? <ImageIcon sx={{ fontSize: "4rem" }} />
-
-                                                            :
-
-                                                            <img src={doctor_img} width="100%" />
-
-                                                        }
-
-                                                    </Box>
-
-                                                </Box>
-
-                                                <Box sx={{ display: "flex", width: "50%" }}>
-
-                                                    <Stack direction="row" alignItems="center" spacing={2}>
-
-                                                        <Button variant="contained" component="label">
-                                                            Upload
-
-                                                            <input hidden type='file' key="image" id="outlined-basic"
-
-                                                                onChange={(event: any) => AddImages(event)} />
-
-                                                        </Button>
-
-                                                    </Stack>
-
-                                                </Box>
-
-                                            </Box>
-
-                                        </Grid>
-
-                                    </Grid>
-
-
-                                </Grid>
+                                <DropDown
+                                    text="Role"
+                                    dropData={["Doctor", "Admin", "Nurse", "Staff"]}
+                                    value={role}
+                                    setValue={setRole}
+                                />
 
                             </Grid>
 
+                            {doctors2.map((data: any, index: any) =>
 
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+                                <Grid lg={4}>
 
-                                {doctors2.map(data =>
-
-                                    <Grid lg={6}>
-
-                                        <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                                <Typography>{data.title}</Typography>
-
-                                            </Box>
-
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
-
-                                        </Box>
-
-                                    </Grid>
-                                )}
-
-                                <Grid lg={6}>
-
-                                    <DropDown
-                                        text="Gender"
-                                        dropData={["Male", "Female", "Other"]}
-                                        value={gender}
-                                        setValue={setGender}
-                                    />
-
-
-                                </Grid>
-
-
-                                <Grid lg={6}>
-
-                                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
                                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                            <Typography>Date of Birth</Typography>
+                                            <Typography>{data.title}</Typography>
 
                                         </Box>
 
-                                        <LocalizationProvider dateAdapter={AdapterDateFns} sx={{ flex: 2, width: "100%", mb: 2 }}>
-
-                                            <Stack sx={{ flex: 2, width: "100%", mb: 2 }}>
-                                                <DesktopDatePicker
-                                                    // label="Date desktop"
-                                                    inputFormat="MM/dd/yyyy"
-                                                    value={value}
-                                                    onChange={handleChange}
-                                                    renderInput={(params) => <TextField {...params} />}
-                                                />
-                                            </Stack>
-                                        </LocalizationProvider>
+                                        < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
+                                            fullWidth
+                                            id={data.label}
+                                            name={data.label}
+                                            // label={data.label}
+                                            value={data.value}
+                                            type={data.type}
+                                            onChange={formik.handleChange}
+                                            error={data.touched && Boolean(data.errors)}
+                                            helperText={data.touched && data.errors}
+                                        />
 
                                     </Box>
 
                                 </Grid>
+                            )}
 
+                            <Grid lg={4}>
+
+                                <DropDown
+                                    text="Gender"
+                                    dropData={["Male", "Female", "Other"]}
+                                    value={gender}
+                                    setValue={setGender}
+                                />
+
+                            </Grid>
+
+
+                            <Grid lg={4}>
+
+                                <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+
+                                    <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                                        <Typography>Date of Birth</Typography>
+
+                                    </Box>
+
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+
+                                        <Stack sx={{ flex: 2, width: "100%", mb: 2 }}>
+                                            <DesktopDatePicker
+                                                // label="Date desktop"
+                                                inputFormat="MM/dd/yyyy"
+                                                value={value}
+                                                onChange={handleChange}
+                                                renderInput={(params) => <TextField {...params} />}
+                                            />
+                                        </Stack>
+
+                                    </LocalizationProvider>
+
+                                </Box>
 
                             </Grid>
 
@@ -519,11 +404,17 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                     </form>
 
                     <TabHome formik={formik}
+
                         tabData1={tabData1}
                         tabData3={tabData3}
+
                         tabData8={tabData8}
+
                         documents={documents}
                         setDocuments={setDocuments}
+
+                        image={image}
+                        setImage={setImage}
 
                         certificates={certificates}
                         setCertificates={setCertificates}
@@ -537,9 +428,9 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                     />
 
 
-                </Box>
+                </Box >
 
-            </Grid>
+            </Grid >
 
         </Grid >
 

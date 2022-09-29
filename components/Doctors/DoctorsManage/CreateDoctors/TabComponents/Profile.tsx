@@ -14,7 +14,7 @@ export const Profile = (props: any) => {
 
                 <Grid lg={12}>
 
-                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 

@@ -140,7 +140,8 @@ export const CreateLabs = ({ path = 'lab' }) => {
         },
     });
 
-    const clincs = [
+
+    const clincs2 = [
 
         {
             title: "Lab Name",
@@ -150,11 +151,6 @@ export const CreateLabs = ({ path = 'lab' }) => {
             touched: formik.touched.name,
             errors: formik.errors.name,
         },
-
-    ]
-
-
-    const clincs2 = [
 
         {
             title: "Lab Reg no",
@@ -306,93 +302,49 @@ export const CreateLabs = ({ path = 'lab' }) => {
 
                     <form onSubmit={formik.handleSubmit}>
 
-                        <Grid container lg={12}>
 
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+                        <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-                                <Grid lg={6}>
+                            <Grid lg={4}>
 
-                                    <DropDown
-                                        text="Role"
-                                        dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                        value={role}
-                                        setValue={setRole}
-                                    />
-
-                                    {clincs.map((data, index) =>
-
-                                        <Box key={index} sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                                <Typography>{data.title}</Typography>
-
-                                            </Box>
-
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
-
-                                        </Box>
-
-                                    )}
-
-                                </Grid>
-
-
-                                <Grid container lg={6} >
-
-                                    <Grid lg={8}>
-
-                                        <MultiImagePreview image={image} setImage={setImage} />
-
-                                    </Grid>
-
-                                </Grid>
+                                <DropDown
+                                    text="Role"
+                                    dropData={["Doctor", "Admin", "Nurse", "Staff"]}
+                                    value={role}
+                                    setValue={setRole}
+                                />
 
                             </Grid>
 
 
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+                            {clincs2.map((data, index) =>
 
-                                {clincs2.map((data, index) =>
+                                <Grid key={index} lg={4}>
 
-                                    <Grid key={index} lg={6}>
+                                    <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
-                                        <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                                <Typography>{data.title}</Typography>
-
-                                            </Box>
-
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
+                                            <Typography>{data.title}</Typography>
 
                                         </Box>
 
-                                    </Grid>
-                                )}
+                                        < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
+                                            fullWidth
+                                            id={data.label}
+                                            name={data.label}
+                                            // label={data.label}
+                                            value={data.value}
+                                            type={data.type}
+                                            onChange={formik.handleChange}
+                                            error={data.touched && Boolean(data.errors)}
+                                            helperText={data.touched && data.errors}
+                                        />
 
-                            </Grid>
+                                    </Box>
+
+                                </Grid>
+                            )}
 
                         </Grid>
 

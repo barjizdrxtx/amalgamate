@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { MultiImagePreview } from '../../UI/ImagePreview/ImagePreview'
+import { MultiImagePreview } from '../../../../UI/ImagePreview/ImagePreview';
+
 
 const Images = (props: any) => {
 
