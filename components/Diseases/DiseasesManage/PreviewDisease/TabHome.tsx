@@ -13,7 +13,7 @@ export const TabHome = (props: any) => {
 
   const [value, setValue] = React.useState('0');
 
-  const { fetchedData } = props;
+  const { fetchedData, overview } = props;
 
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -55,7 +55,7 @@ export const TabHome = (props: any) => {
             <Box sx={{ flex: 2 }}>
 
               <TabPanel value="0">
-                <AllTabs fetchedData={fetchedData?.result?.overview} />
+                <AllTabs fetchedData={overview} />
               </TabPanel>
 
               <TabPanel value="1">

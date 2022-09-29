@@ -9,6 +9,9 @@ export const Timing = (props: any) => {
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
+    const { days, setDays } = props;
+
+
     const timeSlot = [
 
         "5:00 Am", "5:30 Am", "6:00 Am", "6:30 Am",
@@ -20,66 +23,6 @@ export const Timing = (props: any) => {
         "5:00 Pm", "5:30 Pm", "6:00 Pm", "6:30 Pm",
         "7:00 Pm", "7:30 Pm", "8:00 Pm", "8:30 Pm",
     ]
-
-
-
-    const [days, setDays]: any = useState([
-
-        {
-            day: "Monday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm",
-            day_id: 1,
-        },
-        {
-            day: "TuesDay",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm",
-            day_id: 2,
-        },
-        {
-            day: "Wednesday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm",
-            day_id: 3,
-        },
-
-        {
-            day: "Thursday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm",
-            day_id: 4,
-        },
-        {
-            day: "Friday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm",
-            day_id: 5,
-        },
-        {
-            day: "Saturday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm",
-            day_id: 6,
-        },
-
-        {
-            day: "Sunday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm",
-            day_id: 7,
-        },
-
-    ]);
-
-    console.log("days", days)
 
 
     const handleChangeInput = (index: any, event: any) => {

@@ -4,10 +4,11 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useThemeColor } from '../../../hooks/useThemeColor'
 import { CustomizedButton } from './CustomizedButton'
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 export const CreateButton = (props: any) => {
 
-    const { title, onCreate } = props;
+    const { title, onCreate, preview, isPreview, setPreview } = props;
 
     const themecolor = useThemeColor();
 
@@ -28,7 +29,20 @@ export const CreateButton = (props: any) => {
 
                 </Box>
 
+                {isPreview && <Box onClick={() => setPreview(!preview)} sx={{
+                    width: "500px", display: "flex", justifyContent: "center",
+                    alignItems: "center", backgroundColor: preview ? "black" : "purple", borderRadius: "10px", p: 1.5, cursor: "pointer"
+                }}>
+
+                    <RemoveRedEyeIcon sx={{ mr: 1, color: "white" }} />
+
+                    <Typography
+                        sx={{ color: "white", textTransform: "capitalize" }}>{preview ? "Cancel Preview" : title + "Preview"}</Typography>
+
+                </Box>}
+
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+
 
                     <CustomizedButton bgColor={themecolor} onClick={onCreate}>Create {title}</CustomizedButton >
 

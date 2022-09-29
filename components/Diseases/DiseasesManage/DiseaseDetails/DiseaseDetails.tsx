@@ -8,12 +8,10 @@ import { useQueryFetchId } from '../../../../hooks/useQueryFetch';
 export const DiseaseDetails = () => {
 
     const router = useRouter();
+
     const { id } = router.query;
 
     const { fetchedData: fetchedData } = useQueryFetchId('diseases', id)
-
-
-    const data = fetchedData?.description
 
 
     return (

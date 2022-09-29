@@ -12,7 +12,7 @@ import { MainTab } from './MainTab';
 export const HCLTabHome = (props: any) => {
 
   const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities, payments, setPayments,
-    documents, setDocuments, specialities, setSpecialities, image, setImage } = props;
+    documents, setDocuments, specialities, setSpecialities, image, setImage, days, setDays } = props;
 
   const tabData = [
 
@@ -47,7 +47,7 @@ export const HCLTabHome = (props: any) => {
     },
     {
       label: "Timing",
-      component: <Timing />
+      component: <Timing days={days} setDays={setDays} />
 
     },
     {

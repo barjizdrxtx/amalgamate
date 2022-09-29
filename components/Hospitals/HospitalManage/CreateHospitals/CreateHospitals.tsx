@@ -1,16 +1,11 @@
-import { Button, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import ImageIcon from '@mui/icons-material/Image';
 import { useFormik } from 'formik';
-
-import { Box, Stack } from '@mui/system';
-import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
+import { Box } from '@mui/system';
 import { DropDown } from '../../../UI/DropDown/DropDown';
-import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { HCLTabHome } from '../../../MainTab/HCLTabHome';
-import { PRIMARY_COLOR } from '../../../../utls/colors';
 import { CreateButton } from '../../../UI/Button/CreateButton';
 
 
@@ -132,7 +127,7 @@ export const CreateHospitals = ({ path = 'hospitals' }) => {
 
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
-   
+
                 alert("submit success")
                 router.push(`/${path}`)
             }));

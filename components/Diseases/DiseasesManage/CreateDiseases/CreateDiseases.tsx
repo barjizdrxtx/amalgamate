@@ -11,6 +11,8 @@ import { TabHome } from './TabHome';
 import { ImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { PRIMARY_COLOR } from '../../../../utls/colors';
 import { CreateButton } from '../../../UI/Button/CreateButton';
+import { DiseaseDetails } from '../DiseaseDetails/DiseaseDetails';
+import { PreviewDisease } from '../PreviewDisease/PreviewDisease';
 
 export const CreateDiseases = ({ path = "diseases" }) => {
 
@@ -18,6 +20,8 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
 
     const [description, setDescription] = useState("");
+
+    const [preview, setPreview] = useState(false);
 
     const [overview, setOverView]: any = useState([{ id: 1 }]);
 
@@ -189,121 +193,159 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <CreateButton title={path}
+                    <CreateButton isPreview={true} preview={preview} setPreview={setPreview} title={path}
                         onCreate={formik.handleSubmit}
                     />
 
-                    <form onSubmit={formik.handleSubmit}>
 
-                        <Grid container lg={12}>
+                    {!preview ?
 
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+                        <>
 
-                                <Grid lg={6}>
+                            <form onSubmit={formik.handleSubmit}>
+
+                                <Grid container lg={12}>
+
+                                    <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+
+                                        <Grid lg={6}>
 
 
-                                    {diseases.map((data, index) =>
+                                            {diseases.map((data, index) =>
 
-                                        <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+                                                <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+                                                    <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                                <Typography>{data.title}</Typography>
+                                                        <Typography>{data.title}</Typography>
+
+                                                    </Box>
+
+                                                    <TextField sx={{ flex: 2, width: "100%", mb: 2 }}
+                                                        fullWidth
+                                                        id={data.label}
+                                                        name={data.label}
+                                                        // label={data.label}
+                                                        value={data.value}
+                                                        type={data.type}
+                                                        onChange={formik.handleChange}
+                                                        error={data.touched && Boolean(data.errors)}
+                                                        helperText={data.touched && data.errors}
+                                                    />
+
+                                                </Box>
+
+                                            )}
+
+                                        </Grid>
+
+
+                                        <Grid container lg={6} >
+
+                                            <Grid lg={8}>
+
+                                                <ImagePreview image={image} setImage={setImage} />
+
+                                            </Grid>
+
+                                        </Grid>
+
+                                    </Grid>
+
+
+                                    <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+
+                                        <Grid lg={6}>
+
+                                            <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+
+                                                <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                                                    <Typography>Description</Typography>
+
+                                                </Box>
+
+                                                <Box sx={{ mb: 1, flex: 2, display: "flex", justifyContent: "center" }}>
+
+                                                    <TextEditor onChange={handleChangeInput} />
+
+                                                </Box>
 
                                             </Box>
 
-                                            <TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
-
-                                        </Box>
-
-                                    )}
-
-                                </Grid>
-
-
-                                <Grid container lg={6} >
-
-                                    <Grid lg={8}>
-
-                                        <ImagePreview image={image} setImage={setImage} />
+                                        </Grid>
 
                                     </Grid>
 
                                 </Grid>
 
-                            </Grid>
+                            </form>
+
+                            <TabHome
+
+                                formik={formik}
+
+                                tabData7={tabData7}
+                                tabData8={tabData8}
+
+                                faq={faq}
+                                setFaq={setFaq}
+
+                                overview={overview}
+                                setOverView={setOverView}
+
+                                symptoms={symptoms}
+                                setSymptoms={setSymptoms}
+
+                                causes={causes}
+                                setCauses={setCauses}
+
+                                complications={complications}
+                                setComplications={setComplications}
+
+                                home_remadies={home_remadies}
+                                setHome_remadies={setHome_remadies}
+
+                                diet_and_nutrition={diet_and_nutrition}
+                                setDiet_and_nutrition={setDiet_and_nutrition}
 
 
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+                            />
 
-                                <Grid lg={6}>
+                        </>
 
-                                    <Box  sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+                        :
 
-                                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+                        <PreviewDisease
 
-                                            <Typography>Description</Typography>
+                            overview={overview}
+                            setOverView={setOverView}
 
-                                        </Box>
+                            symptoms={symptoms}
+                            setSymptoms={setSymptoms}
 
-                                        <Box sx={{ mb: 1, flex: 2, display: "flex", justifyContent: "center" }}>
+                            causes={causes}
+                            setCauses={setCauses}
 
-                                            <TextEditor onChange={handleChangeInput} />
+                            complications={complications}
+                            setComplications={setComplications}
 
-                                        </Box>
+                            home_remadies={home_remadies}
+                            setHome_remadies={setHome_remadies}
 
-                                    </Box>
+                            diet_and_nutrition={diet_and_nutrition}
+                            setDiet_and_nutrition={setDiet_and_nutrition}
 
-                                </Grid>
+                            faq={faq}
+                            setFaq={setFaq}
 
-                            </Grid>
-
-                        </Grid>
-
-                    </form>
-
-                    <TabHome
-
-                        formik={formik}
-
-                        tabData7={tabData7}
-                        tabData8={tabData8}
-
-                        faq={faq}
-                        setFaq={setFaq}
-
-                        overview={overview}
-                        setOverView={setOverView}
-
-                        symptoms={symptoms}
-                        setSymptoms={setSymptoms}
-
-                        causes={causes}
-                        setCauses={setCauses}
-
-                        complications={complications}
-                        setComplications={setComplications}
-
-                        home_remadies={home_remadies}
-                        setHome_remadies={setHome_remadies}
-
-                        diet_and_nutrition={diet_and_nutrition}
-                        setDiet_and_nutrition={setDiet_and_nutrition}
+                        />
 
 
-                    />
+                    }
 
                 </Box>
+
 
             </Grid>
 
