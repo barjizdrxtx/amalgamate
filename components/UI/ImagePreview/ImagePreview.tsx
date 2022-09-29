@@ -134,7 +134,7 @@ export const MultiImagePreview = (props: any) => {
 
                                         :
 
-                                        <img src={image[index].image} style={{ width: "100px", height: "100px", borderRadius: "10px" }} />
+                                        <img src={image[index].image} style={{ width: "150px", height: "150px", borderRadius: "10px" }} />
 
                                     }
 
