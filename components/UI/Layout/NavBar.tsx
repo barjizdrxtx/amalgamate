@@ -71,7 +71,7 @@ export const NavBar = () => {
 
     const [state, setState]: any = useState("#229954");
 
-   
+
 
 
     const AddColor = () => {
@@ -90,6 +90,7 @@ export const NavBar = () => {
 
         <Box sx={{
             display: "flex",
+            height: "7vh",
             justifyContent: "space-between", alignItems: "center",
             backgroundColor: darkmode ? "#17202A" : "white"
         }}>
@@ -98,7 +99,7 @@ export const NavBar = () => {
 
                 <Image src="/assets/logo/logo.png" width="120px" height="40px" />
 
-                <Typography variant="h5" fontWeight="bold" sx={{ color: themecolor, p: 2 }}>CMS</Typography>
+                <Typography variant="h5" fontWeight="bold" sx={{ color: themecolor }}>CMS</Typography>
 
             </Box>
 

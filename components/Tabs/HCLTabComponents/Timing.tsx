@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, Switch, TextField, Typography } from '@mui/material';
+import { Box, Checkbox, Divider, Grid, Switch, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import { DropDown2 } from '../../UI/DropDown/DropDown';
 
@@ -102,9 +102,75 @@ export const Timing = (props: any) => {
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
 
-            <Grid container lg={12} sx={{ justifyContent: "center", alignItems: 'center' }}>
+            <Grid container lg={12} sx={{ justifyContent: "center", alignItems: 'center', bgcolor: "white" }}>
 
-                <Box sx={{ width: "60%" }}>
+                <Box sx={{ width: "100%" }}>
+
+                    <Box sx={{
+                        width: "100%",
+                        height: "70px",
+                        cursor: "pointer",
+                        mb: 1, flex: 1, display: "flex", justifyContent: "start", alignItems: "center",
+                        m: 1, p: 1, borderRadius: "10px"
+
+                    }}>
+
+                        <Box sx={{ flex: 1 }}>
+
+                            <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >All Day</Typography>
+
+                        </Box>
+
+
+                        <Box sx={{ flex: 1, display: "flex", justifyContent: "start", alignItems: "center", }}>
+
+                            <Switch  {...label}
+                                name="isOpen"
+                                onChange={(event: any) => handleChangeChecked(0, event)}
+
+                            />
+
+                            <Typography >{days[0].isOpen ? "Open" : "Closed"}</Typography>
+
+
+                        </Box>
+
+
+
+                        <Box sx={{ flex: 5, display: "flex", alignItems: "center" }}>
+
+                            {days[0].isOpen &&
+
+                                <>
+
+                                    <DropDown2
+                                        dropData={timeSlot}
+                                        value={days[0].start}
+                                        name="start"
+                                        onChange={(event: any) => handleChangeInput(0, event)} />
+
+
+                                    <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
+
+
+                                    <DropDown2
+                                        dropData={timeSlot}
+                                        value={days[0].end}
+                                        name="end"
+                                        onChange={(event: any) => handleChangeInput(0, event)} />
+
+
+                                </>
+
+                            }
+
+
+                        </Box>
+
+
+                    </Box>
+
+                    <Divider />
 
                     {days.map((data: any, index: any) =>
 
@@ -139,7 +205,7 @@ export const Timing = (props: any) => {
 
 
 
-                            <Box sx={{ flex: 1, display: "flex", alignItems: "center" }}>
+                            <Box sx={{ flex: 5, display: "flex", alignItems: "center" }}>
 
                                 {days[index].isOpen &&
 
