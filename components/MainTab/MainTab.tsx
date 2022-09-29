@@ -14,9 +14,12 @@ export const MainTab = (props: any) => {
 
   return (
 
-    <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }} >
+    <Box sx={{
+      width: "100%", display: "flex", flexDirection: "column", backgroundColor: "white"
+    }} >
 
-      <Box sx={{ width: "fit-content", display: "flex", p: 0.5, alignItems: "center", backgroundColor: "#F6F6F6", borderRadius: "10px" }} >
+      <Box sx={{ width: "fit-content", display: "flex", p: 0.5, alignItems: "center", backgroundColor: "#F6F6F6", borderRadius: "10px" }
+      } >
 
         {tabData.map((data: any, index: any) =>
 
@@ -26,19 +29,21 @@ export const MainTab = (props: any) => {
 
           </Box>
 
-        )}
+        )
+        }
 
-      </Box>
+      </Box >
 
-      {tabData.map((data: any, index: any) =>
+      {tabData.filter((fil: any, ind: any) => ind === tab).map((data: any, index: any) =>
 
         <Box sx={{ mt: 3 }}>
 
-          {tab === index && <Box>{data.component}</Box>}
+          <Box>{data.component}</Box>
 
         </Box>
 
-      )}
+      )
+      }
 
     </Box >
 

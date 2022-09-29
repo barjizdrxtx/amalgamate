@@ -3,7 +3,6 @@ import { Grid } from '@mui/material'
 import { useRouter } from 'next/router';
 import { CustomizedButton } from '../../UI/Button/CustomizedButton';
 import { TableUI } from '../../UI/TableUI/TableUI';
-import { PRIMARY_COLOR } from '../../../utls/colors';
 import { useThemeColor } from '../../../hooks/useThemeColor';
 
 export const Doctors = () => {

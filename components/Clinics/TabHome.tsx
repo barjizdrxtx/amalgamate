@@ -10,7 +10,7 @@ export const TabHome = () => {
 
   const tabData = [
     {
-      label: "Create Clinic",
+      label: "All Clinics",
       component: <Clinics />
     },
     {

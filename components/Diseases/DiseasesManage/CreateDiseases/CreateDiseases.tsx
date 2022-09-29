@@ -204,7 +204,7 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
                                     {diseases.map((data, index) =>
 
-                                        <Box key={index} sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
                                             <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
@@ -237,8 +237,6 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
                                         <ImagePreview image={image} setImage={setImage} />
 
-
-
                                     </Grid>
 
                                 </Grid>
@@ -250,7 +248,7 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
                                 <Grid lg={6}>
 
-                                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <Box  sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
                                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 

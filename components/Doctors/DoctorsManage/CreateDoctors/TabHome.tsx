@@ -83,7 +83,3 @@ export const TabHome = (props: any) => {
   return <MainTab tabData={tabData} />
 
 }
-
-
-
-

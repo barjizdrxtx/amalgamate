@@ -8,7 +8,7 @@ export const Payments = (props: any) => {
 
     const [data, setData] = useState();
 
-  
+
     const handleChangeInput = (index: any, event: any) => {
         const values = [...payments]
         values[index][event.target.name] = !payments[index].checked
@@ -19,7 +19,7 @@ export const Payments = (props: any) => {
     const handleAddFields = () => {
 
         setPayments([...payments, { title: data, checked: true, }])
-    
+
 
     }
 
@@ -32,16 +32,13 @@ export const Payments = (props: any) => {
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
             {payments.map((data: any, index: any) =>
-            
-                <Grid key={index} lg={3}>
+
+
+                <Grid key={index} lg={2}>
 
                     <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                            <Typography>{data.title}</Typography>
-
-                        </Box>
+                        <Typography>{data.title}</Typography>
 
                         <Checkbox name="checked" defaultChecked={data.checked} onChange={(event: any) => handleChangeInput(index, event)} />
 
@@ -53,17 +50,15 @@ export const Payments = (props: any) => {
 
             <Grid lg={12}>
 
-                <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
-                    <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                        <Typography>Add More</Typography>
+                    <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Add More</Typography>
 
-                    </Box>
-
-                    < TextField sx={{ flex: 2, width: "100%", mb: 2 }} onChange={(e: any) => setData(e.target.value)} />
+                    < TextField onChange={(e: any) => setData(e.target.value)} />
 
                 </Box>
+
 
             </Grid>
 

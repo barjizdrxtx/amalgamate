@@ -16,7 +16,7 @@ export const Faq = (props: any) => {
   const handleAddFields = () => {
 
     setFaq([...faq, { id: faq.length + 1, title: "", description: "" }])
- 
+
 
   }
 
@@ -36,17 +36,15 @@ export const Faq = (props: any) => {
 
           <Box sx={{
             width: "100%", display: "flex", flexDirection: "column",
-            justifyContent: "center", alignItems: "center"
+            justifyContent: "center", alignItems: "center", backgroundColor: "white"
           }}>
 
-            <Box sx={{
-              width: "100%", display: "flex", justifyContent: "center", alignItems: "center"
-            }}>
+            <Box sx={{ width: "100%", m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
 
-              <Typography sx={{ flex: 1 }}>Faq Title {index + 1}</Typography>
+              <Typography >Faq Title {index + 1}</Typography>
 
-              < TextField sx={{ flex: 4, width: "100%", mb: 2 }}
+              < TextField sx={{ width: "50%", my: 2 }}
                 id="name"
                 name="title"
                 onChange={(event) => handleChangeInput(index, event)} />
@@ -55,14 +53,12 @@ export const Faq = (props: any) => {
 
 
 
-            <Box sx={{
-              width: "100%", display: "flex", justifyContent: "center", alignItems: "center"
-            }}>
+            <Box sx={{ width: "100%", m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+
 
               <Typography sx={{ flex: 1 }}>Faq Description {index + 1}</Typography>
 
-
-              < TextField sx={{ flex: 4, width: "100%", mb: 2 }}
+              < TextField sx={{ width: "50%", my: 2 }}
                 id="outlined-multiline-static"
                 multiline
                 rows={6}

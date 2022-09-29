@@ -9,6 +9,8 @@ export const AllTabs = (props: any) => {
 
     const { inputfield, setInputField } = props;
 
+    console.log("inputfield", inputfield)
+
 
     const AddImages = (index: any, event: any) => {
 
@@ -70,16 +72,13 @@ export const AllTabs = (props: any) => {
                         justifyContent: "start", alignItems: "center", mb: 4
                     }}>
 
-
-                        <Box sx={{
-                            width: "100%", display: "flex", justifyContent: "center", alignItems: "center"
-                        }}>
+                        <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
 
                             <Typography sx={{ flex: 1 }}>Title</Typography>
 
 
-                            <Box sx={{ flex: 5, width: "100%", mb: 2 }}>
+                            <Box sx={{ flex: 7, width: "100%", mb: 2 }}>
 
                                 <TextEditor defaultValue={inputfield[index].title}
                                     onChange={(content: any) => handleChangeInput(index, content, 'title')} />
@@ -89,9 +88,7 @@ export const AllTabs = (props: any) => {
                         </Box>
 
 
-                        <Box sx={{
-                            width: "100%", display: "flex", justifyContent: "center", alignItems: "center"
-                        }}>
+                        <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
 
                             <Typography sx={{ flex: 1 }}>Description</Typography>

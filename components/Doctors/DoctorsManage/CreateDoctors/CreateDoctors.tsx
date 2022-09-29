@@ -1,19 +1,12 @@
 import React, { useState } from 'react'
-import { Box, TextField, Grid, Button, Typography, Select, MenuItem, Stack, IconButton } from '@mui/material';
+import { Box, TextField, Grid, Typography, Stack } from '@mui/material';
 import { useFormik } from 'formik';
-import { clinicSchemea } from './validation';
 import axios from 'axios';
-
 import { useRouter } from 'next/router';
-import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { TabHome } from './TabHome';
-import { PhotoCamera } from '@mui/icons-material';
-
-import ImageIcon from '@mui/icons-material/Image';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DropDown } from '../../../UI/DropDown/DropDown';
-import { PRIMARY_COLOR } from '../../../../utls/colors';
 import { CreateButton } from '../../../UI/Button/CreateButton';
 
 export const CreateDoctors = ({ path = 'doctors' }) => {
@@ -24,7 +17,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
-
     const [certificates, setCertificates] = useState([{ id: 1 }]);
 
     const [specialisedIn, setSpecialisedIn] = useState([{ id: 1 }]);
@@ -32,7 +24,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
     const [idProof, setIdProof] = useState([{ id: 1 }]);
 
     const [gender, setGender] = useState("null");
-
 
 
     const router = useRouter();

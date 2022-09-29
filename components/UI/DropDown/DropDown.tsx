@@ -11,11 +11,11 @@ export const DropDown = (props: any) => {
 
     return (
 
-        <Box  sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+        <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
             <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                <Typography>{text}</Typography>
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{text}</Typography>
 
             </Box>
 

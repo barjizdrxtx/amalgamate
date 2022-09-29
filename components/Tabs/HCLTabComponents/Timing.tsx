@@ -21,54 +21,65 @@ export const Timing = (props: any) => {
         "7:00 Pm", "7:30 Pm", "8:00 Pm", "8:30 Pm",
     ]
 
+
+
     const [days, setDays]: any = useState([
 
         {
-            title: "Sunday",
+            day: "Monday",
             isOpen: false,
             start: "5:00 Am",
-            end: "12:00 Pm"
+            end: "12:00 Pm",
+            day_id: 1,
         },
         {
-            title: "Monday",
+            day: "TuesDay",
             isOpen: false,
             start: "5:00 Am",
-            end: "12:00 Pm"
+            end: "12:00 Pm",
+            day_id: 2,
         },
         {
-            title: "TuesDay",
+            day: "Wednesday",
             isOpen: false,
             start: "5:00 Am",
-            end: "12:00 Pm"
-        },
-        {
-            title: "Wednesday",
-            isOpen: false,
-            start: "5:00 Am",
-            end: "12:00 Pm"
+            end: "12:00 Pm",
+            day_id: 3,
         },
 
         {
-            title: "Thursday",
+            day: "Thursday",
             isOpen: false,
             start: "5:00 Am",
-            end: "12:00 Pm"
+            end: "12:00 Pm",
+            day_id: 4,
         },
         {
-            title: "Friday",
+            day: "Friday",
             isOpen: false,
             start: "5:00 Am",
-            end: "12:00 Pm"
+            end: "12:00 Pm",
+            day_id: 5,
         },
         {
-            title: "Saturday",
+            day: "Saturday",
             isOpen: false,
             start: "5:00 Am",
-            end: "12:00 Pm"
+            end: "12:00 Pm",
+            day_id: 6,
+        },
+
+        {
+            day: "Sunday",
+            isOpen: false,
+            start: "5:00 Am",
+            end: "12:00 Pm",
+            day_id: 7,
         },
 
     ]);
 
+    console.log("days", days)
 
 
     const handleChangeInput = (index: any, event: any) => {
@@ -84,7 +95,7 @@ export const Timing = (props: any) => {
         setDays(values)
     }
 
-   
+
 
     return (
 
@@ -108,7 +119,7 @@ export const Timing = (props: any) => {
 
                             <Box sx={{ flex: 1 }}>
 
-                                <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >{data.title}</Typography>
+                                <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >{data.day}</Typography>
 
                             </Box>
 

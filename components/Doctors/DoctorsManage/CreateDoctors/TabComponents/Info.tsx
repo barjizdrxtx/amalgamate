@@ -1,6 +1,5 @@
-import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react'
-import ImageIcon from '@mui/icons-material/Image';
+import { Box, Grid, TextField, Typography } from '@mui/material';
+import React from 'react'
 import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
 import axios from 'axios';
 
