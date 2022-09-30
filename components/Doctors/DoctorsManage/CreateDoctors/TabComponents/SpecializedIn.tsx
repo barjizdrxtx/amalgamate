@@ -45,7 +45,8 @@ export const SpecializedIn = (props: any) => {
 
                             <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                <Typography>Specialized In</Typography>
+                                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Specialized In</Typography>
+
 
                             </Box>
 

@@ -326,7 +326,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
                                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                            <Typography>{data.title}</Typography>
+                                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
 
                                         </Box>
 
@@ -365,7 +365,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
                                     <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                        <Typography>Date of Birth</Typography>
+                                        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Date of Birth</Typography>
 
                                     </Box>
 
@@ -415,13 +415,11 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
                     />
 
-
                 </Box >
 
             </Grid >
 
         </Grid >
-
 
     )
 }

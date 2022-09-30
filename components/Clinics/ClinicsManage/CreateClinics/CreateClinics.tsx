@@ -19,7 +19,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
     const router = useRouter();
 
-    const [image, setImage] = useState([{ id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }, { id: 1 }]);
+    const [image, setImage] = useState([{ id: 1 }]);
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
 

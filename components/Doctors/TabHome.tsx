@@ -1,17 +1,18 @@
 import * as React from 'react';
-import { Labs } from '../Labs/LabManage/Labs';
 import { MainTab } from '../MainTab/MainTab';
+import { CreateSchedule } from './DoctorsManage/CreateSchedule/CreateSchedule';
+import { Doctors } from './DoctorsManage/Doctors';
 
 export const TabHome = () => {
 
   const tabData = [
     {
       label: "All Doctors",
-      component: <Labs />
+      component: <Doctors />
     },
     {
-      label: "Health Packages",
-      component: ""
+      label: "Schedule",
+      component: <CreateSchedule />
     },
   ]
 

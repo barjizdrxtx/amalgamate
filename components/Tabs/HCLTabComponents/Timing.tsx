@@ -141,7 +141,7 @@ export const Timing = (props: any) => {
 
                                 />
 
-                                <Typography >{days[index].isOpen ? "Open" : "Closed"}</Typography>
+                                <Typography sx={{ color: "#566573", fontWeight: "bold" }} >{days[index].isOpen ? "Open" : "Closed"}</Typography>
 
 
                             </Box>

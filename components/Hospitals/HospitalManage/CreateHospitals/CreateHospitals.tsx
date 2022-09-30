@@ -375,7 +375,7 @@ export const CreateHospitals = ({ path = 'hospitals' }) => {
 
                                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                            <Typography>{data.title}</Typography>
+                                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
 
                                         </Box>
 

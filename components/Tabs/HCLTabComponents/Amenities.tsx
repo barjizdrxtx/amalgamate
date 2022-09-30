@@ -37,7 +37,7 @@ export const Amenities = (props: any) => {
 
                     <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-                        <Typography>{data.title}</Typography>
+                        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
 
                         <Checkbox name="checked" defaultChecked={data.checked} onChange={(event: any) => handleChangeInput(index, event)} />
 

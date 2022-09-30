@@ -36,7 +36,7 @@ export const Info = (props: any) => {
     const handleAddFields = () => {
 
         setDocuments([...documents, { id: documents.length + 1 }])
-   
+
     }
 
     const handleRemoveFields = () => {
@@ -55,7 +55,7 @@ export const Info = (props: any) => {
 
                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                            <Typography>{data.title}</Typography>
+                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
 
                         </Box>
 
@@ -82,37 +82,30 @@ export const Info = (props: any) => {
 
                 {documents.map((add: any, index: any) =>
 
-                    <Box sx={{
-                        width: "100%", display: "flex", flexDirection: "column",
-                        justifyContent: "start", alignItems: "center", mb: 4
-                    }}>
+                    <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+
+                        <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Documents</Typography>
+
+                        </Box>
 
 
-                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <Box sx={{ flex: 4, width: "100%", mb: 2, display: "flex", justifyContent: "center", alignItems: "center" }}>
 
+                            <TextField sx={{ flex: 1, width: "100%" }} defaultValue={documents[index].document_name}
+                                name="document_name"
+                                onChange={(event: any) => handleChangeInput(index, event)} />
 
-                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+                            <TextField sx={{ flex: 1, width: "100%" }} type='file' key="image" id="outlined-basic"
 
-                                <Typography>Documents</Typography>
-
-                            </Box>
-
-
-                            <Box sx={{ flex: 4, width: "100%", mb: 2, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                <TextField sx={{ flex: 1, width: "100%" }} defaultValue={documents[index].document_name}
-                                    name="document_name"
-                                    onChange={(event: any) => handleChangeInput(index, event)} />
-
-                                <TextField sx={{ flex: 1, width: "100%" }} type='file' key="image" id="outlined-basic"
-
-                                    onChange={(event: any) => AddImages(index, event)} />
-
-                            </Box>
+                                onChange={(event: any) => AddImages(index, event)} />
 
                         </Box>
 
                     </Box>
+
+
 
                 )}
 
@@ -129,6 +122,6 @@ export const Info = (props: any) => {
                 </Box>
             </Grid>
 
-        </Grid>
+        </Grid >
     )
 }

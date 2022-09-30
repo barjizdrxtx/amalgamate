@@ -8,7 +8,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import ScienceIcon from '@mui/icons-material/Science';
-import { LIGHT_COLOR, LIGHT_GREY_COLOR } from '../../../utls/colors';
+import { LIGHT_GREY_COLOR } from '../../../utls/colors';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 export const Actions = (props: any) => {
 
@@ -24,6 +25,15 @@ export const Actions = (props: any) => {
                 refetch();
             })
     }
+
+
+
+    const handleSchedule = () => {
+
+        router.push(`${name}/schedule/${id}`)
+
+    }
+
 
     const handleEdit = () => {
 
@@ -55,6 +65,12 @@ export const Actions = (props: any) => {
             icon: RemoveRedEyeOutlinedIcon,
             color: "purple",
             onClick: handleDetails
+        },
+        {
+            text: "Schedule",
+            icon: CalendarMonthIcon,
+            color: "dodgerblue",
+            onClick: handleSchedule
         },
         {
             text: "Doctors",

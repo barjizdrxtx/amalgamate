@@ -18,7 +18,7 @@ export const Procedures = (props: any) => {
 
   const handleAddFields = () => {
     setProcedures([...procedures, { id: procedures.length + 1 }])
-    
+
   }
 
   const handleRemoveFields = () => {
@@ -40,7 +40,7 @@ export const Procedures = (props: any) => {
 
               <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                <Typography>Procedures {index + 1}</Typography>
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Procedures {index + 1}</Typography>
 
               </Box>
 

@@ -33,11 +33,12 @@ export const Doctors = () => {
 
     const actions = [
         "OverView",
+        "Schedule",
         "Edit",
         "Delete"
     ];
 
-    
+
     return (
 
         <Grid>

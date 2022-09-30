@@ -8,7 +8,7 @@ export const Specialisation = (props: any) => {
 
   const { tabList, formik, specialities, setSpecialities } = props;
 
-  
+
 
   const handleChangeInput = (index: any, event: any) => {
     const values = [...specialities]
@@ -40,7 +40,7 @@ export const Specialisation = (props: any) => {
 
               <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                <Typography>Specialities {index + 1}</Typography>
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Specialities {index + 1}</Typography>
 
               </Box>
 

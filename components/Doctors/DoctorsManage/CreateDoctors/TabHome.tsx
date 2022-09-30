@@ -3,7 +3,6 @@ import { Info } from './TabComponents/Info';
 import { Id } from './TabComponents/Id';
 import { Profile } from './TabComponents/Profile';
 import { SpecializedIn } from './TabComponents/SpecializedIn';
-import { Timing } from './TabComponents/Timing';
 import { MainTab } from '../../../MainTab/MainTab';
 import { Seo } from '../../../Seo/Seo';
 import Images from './TabComponents/Images';
@@ -33,13 +32,6 @@ export const TabHome = (props: any) => {
 
     },
     {
-      label: "Info",
-      component: <Info tabData1={tabData1} formik={formik}
-        documents={certificates}
-        setDocuments={setCertificates} />
-
-    },
-    {
       label: "Id",
       component: <Id tabData2={tabData2} formik={formik}
         documents={idProof}
@@ -48,11 +40,6 @@ export const TabHome = (props: any) => {
     {
       label: "Profile",
       component: <Profile tabData3={tabData3} formik={formik} />
-
-    },
-    {
-      label: "Schedule",
-      component: <Timing />
 
     },
     {

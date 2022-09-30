@@ -1,11 +1,20 @@
 import { Box, Checkbox, Divider, Grid, Switch, TextField, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
-import { DropDown2 } from '../../../../UI/DropDown/DropDown';
+import { useQueryFetchId } from '../../../../hooks/useQueryFetch';
+import { DropDown, DropDown2, DropDownApi } from '../../../UI/DropDown/DropDown';
 
-export const Timing = (props: any) => {
+
+export const CreateSchedule = (props: any) => {
 
 
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
+    const router = useRouter();
+
+    const { id } = router.query;
+
+    console.log("id", id)
 
 
     const timeSlot1 = [
@@ -172,19 +181,28 @@ export const Timing = (props: any) => {
         setDays(values)
     }
 
+    const { fetchedData: fetchedData } = useQueryFetchId(`doctors/institutions`, id);
 
+    console.log("fetchedData", fetchedData)
+
+    const [institution_id, setInstitutionId] = useState();
 
 
     return (
 
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-
             <Grid container lg={12} sx={{ justifyContent: "center", alignItems: 'center' }}>
 
-
-
                 <Box sx={{ width: "100%" }}>
+
+
+                    {/* <DropDownApi
+                        text="Test"
+                        dropData={fetchedData?.result}
+                        value={institution_id}
+                        setValue={setInstitutionId}
+                    /> */}
 
 
                     <Box sx={{
@@ -244,7 +262,7 @@ export const Timing = (props: any) => {
                     </Box>
 
 
-                    <Divider/>
+                    <Divider />
 
 
                     {days.map((data: any, index: any) =>
@@ -300,14 +318,11 @@ export const Timing = (props: any) => {
 
                                 </Box>
 
-
                             )}
 
                         </Box>
 
-
-                    )
-                    }
+                    )}
 
                 </Box>
 

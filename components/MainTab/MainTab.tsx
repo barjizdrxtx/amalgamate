@@ -15,7 +15,7 @@ export const MainTab = (props: any) => {
   return (
 
     <Box sx={{
-      width: "100%", display: "flex", flexDirection: "column", backgroundColor: "white"
+      width: "100%", display: "flex", flexDirection: "column", backgroundColor: "white", m: 1,
     }} >
 
       <Box sx={{ width: "fit-content", display: "flex", p: 0.5, alignItems: "center", backgroundColor: "#F6F6F6", borderRadius: "10px" }

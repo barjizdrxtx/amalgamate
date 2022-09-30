@@ -61,7 +61,7 @@ export const Info = (props: any) => {
 
                             <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                <Typography>Certificates</Typography>
+                                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Certificates</Typography>
 
                             </Box>
 
