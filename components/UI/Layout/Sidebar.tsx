@@ -24,7 +24,7 @@ export const Sidebar = () => {
     return (
 
         <Box sx={{
-            backgroundColor: darkmode ? "#17202A" : "white",
+            backgroundColor: darkmode,
             display: "flex",
             height: "100vh",
             flexDirection: "column", justifyContent: "space-between", alignItems: "center",
@@ -43,7 +43,7 @@ export const Sidebar = () => {
                         flexDirection: "row", justifyContent: "center", alignItems: "center",
                         p: 1.5, cursor: "pointer", color: GREY_COLOR, transition: '0.5s',
                         mb: 1,
-                        backgroundColor: (router.asPath === data.path && LIGHT_COLOR),
+                        backgroundColor: router.asPath === data.path ? LIGHT_COLOR : "",
                         '&:hover': { color: themecolor },
                         borderRadius: "10px"
 

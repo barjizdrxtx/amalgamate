@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import EmailIcon from '@mui/icons-material/Email';
-import { Badge, Box, Button, Divider, Grid, IconButton, OutlinedInput, Typography } from '@mui/material';
+import { Badge, Box, Divider, Grid, IconButton, OutlinedInput, Typography } from '@mui/material';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import Image from "next/image"
 import { useDispatch } from 'react-redux';
@@ -14,7 +14,6 @@ import { useThemeColor } from '../../../hooks/useThemeColor';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import NightlightIcon from '@mui/icons-material/Nightlight';
 import { CustomizedButton } from '../Button/CustomizedButton';
-
 
 
 export const NavBar = () => {
@@ -55,16 +54,7 @@ export const NavBar = () => {
             primary_color: "#800080	",
             secondary_color: "#EAFAF1"
         },
-        {
-            id: 6,
-            primary_color: "#800080	",
-            secondary_color: "#EAFAF1"
-        },
-        {
-            id: 6,
-            primary_color: "#800080	",
-            secondary_color: "#EAFAF1"
-        },
+
     ])
 
     const dispatch = useDispatch();
@@ -101,7 +91,7 @@ export const NavBar = () => {
             display: "flex",
             height: "7vh",
             justifyContent: "space-between", alignItems: "center",
-            backgroundColor: darkmode ? "#17202A" : "white"
+            backgroundColor: darkmode
         }}>
 
             <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center", ml: 1 }}>
@@ -169,7 +159,7 @@ export const NavBar = () => {
                     top: "0", right: "0", zIndex: 1,
                     display: "flex", alignItems: "start", px: 2,
                     flexDirection: "column",
-                    ml: 2, cursor: "pointer", bgcolor: darkmode ? "black" : "white",
+                    ml: 2, cursor: "pointer", bgcolor: darkmode,
                     boxShadow: PRIMARY_SHADOW
                 }}>
 
@@ -196,10 +186,9 @@ export const NavBar = () => {
 
                     <Typography sx={{ mt: 3 }}>Mode</Typography>
 
-
                     <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
 
-                        <Box onClick={() => dispatch(setDarkTheme({ payload: false }))}
+                        <Box onClick={() => dispatch(setDarkTheme({ payload: "white" }))}
 
                             sx={{
                                 boxShadow: PRIMARY_SHADOW,
@@ -213,7 +202,7 @@ export const NavBar = () => {
 
                         </Box>
 
-                        <Box onClick={() => dispatch(setDarkTheme({ payload: true }))}
+                        <Box onClick={() => dispatch(setDarkTheme({ payload: "#17202A" }))}
 
                             sx={{
                                 boxShadow: PRIMARY_SHADOW,

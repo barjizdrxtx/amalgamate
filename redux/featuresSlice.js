@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 
-    darkmode: { payload: false },
+    darkmode: { payload: "white" },
 
     themeColor: { payload: "#229954" },
 

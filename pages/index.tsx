@@ -76,7 +76,7 @@ function index() {
             <Box sx={{
               m: 2, display: 'flex', alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "white", borderRadius: "10px",
+              borderRadius: "10px",
               boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px"
             }}>
 

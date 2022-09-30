@@ -22,7 +22,7 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
 
     return (
 
-        <Box sx={{ width: "100%", display: "flex", backgroundColor: darkmode ? "#1B2631" : "white" }}>
+        <Box sx={{ width: "100%", display: "flex", backgroundColor: darkmode }}>
 
 
             <Box sx={{ width: "fit-content" }}>

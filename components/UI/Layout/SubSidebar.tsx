@@ -46,7 +46,7 @@ export const SubSidebar = () => {
         <Box sx={{
             overflow: "hidden", width: 'fit-content',
             px: 1,
-            backgroundColor: darkmode ? "#17202A" : "white", borderRight: "1px solid #EAEDED"
+            backgroundColor: darkmode, borderRight: "1px solid #EAEDED"
         }}>
 
             <Box onClick={Expand} sx={{ cursor: "pointer", display: "flex", justifyContent: 'center', alignItems: "center", p: 2 }}>

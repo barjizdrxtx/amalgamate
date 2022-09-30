@@ -7,6 +7,7 @@ import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
 import { Actions } from './Actions';
 import { useRouter } from 'next/router';
+import { useDarkmode } from '../../../hooks/useDarkmode';
 
 
 export const TableUI = (props: any) => {
@@ -31,6 +32,8 @@ export const TableUI = (props: any) => {
   const totalLength = tableData?.result?.length
 
   let totalPages = totalLength === limit ? page + 1 : page;
+
+  const darkmode = useDarkmode();
 
 
 
@@ -57,7 +60,7 @@ export const TableUI = (props: any) => {
     <Grid>
 
       <Box sx={{
-        backgroundColor: "white",
+        bgcolor: darkmode,
         boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
         borderRadius: "20px", p: 2
       }}>
