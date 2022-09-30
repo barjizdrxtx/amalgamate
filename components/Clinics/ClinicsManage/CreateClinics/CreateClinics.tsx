@@ -12,7 +12,6 @@ import { useThemeColor } from '../../../../hooks/useThemeColor';
 import { CreateButton } from '../../../UI/Button/CreateButton';
 
 
-
 export const CreateClinics = ({ path = 'clinics' }) => {
 
     const [role, setRole] = useState("null");

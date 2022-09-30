@@ -73,7 +73,7 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
 
         onSubmit: (values: any) => {
 
-            const axiosrequest1 = axios.post(`doctors`, {
+            const axiosrequest1 = axios.post(`doctors/institution-doctors`, {
 
                 name: values.name,
                 role: role,
@@ -93,6 +93,8 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
                 years_of_experience: values.years_of_experience,
                 dateOfBirth: "2022-09-13T18:41:40.248Z",
                 qualificaton: values.qualificaton,
+                institution: "clinics",
+                institution_id: institution_id,
                 certificates: certificates,
                 profileText: {
                     short_profile: values.short_profile,

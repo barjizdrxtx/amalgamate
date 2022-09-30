@@ -85,8 +85,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                     state: "string"
                 },
                 gender: gender,
-                image_id: "string",
-                image_location: image,
+                images: image,
                 years_of_experience: values.years_of_experience,
                 dateOfBirth: "2022-09-13T18:41:40.248Z",
                 qualificaton: values.qualificaton,
