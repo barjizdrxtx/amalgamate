@@ -55,7 +55,16 @@ export const NavBar = () => {
             primary_color: "#800080	",
             secondary_color: "#EAFAF1"
         },
-
+        {
+            id: 6,
+            primary_color: "#800080	",
+            secondary_color: "#EAFAF1"
+        },
+        {
+            id: 6,
+            primary_color: "#800080	",
+            secondary_color: "#EAFAF1"
+        },
     ])
 
     const dispatch = useDispatch();
@@ -156,7 +165,7 @@ export const NavBar = () => {
 
             {
                 customize && <Box sx={{
-                    position: "fixed", width: "14%", height: "100vh",
+                    position: "fixed", height: "100vh",
                     top: "0", right: "0", zIndex: 1,
                     display: "flex", alignItems: "start", px: 2,
                     flexDirection: "column",
@@ -225,7 +234,7 @@ export const NavBar = () => {
 
 
 
-                    <Box sx={{ display: "flex" }}>
+                    <Box sx={{ display: "flex", bgcolor: "white" }}>
 
                         <Grid container lg={12}>
 
@@ -237,7 +246,7 @@ export const NavBar = () => {
                                         setTab(index)
                                         dispatch(setThemeColor({ payload: data.primary_color }))
                                     }} sx={{
-                                        boxShadow: PRIMARY_SHADOW, width: "70px",
+                                        boxShadow: PRIMARY_SHADOW,
                                         height: "50px", p: 1.5, borderRadius: "10px", m: 1, display: "flex", justifyContent: "center",
                                         alignItems: "center", border: tab === index ? `2px solid ${data.primary_color}` : null
                                     }}>

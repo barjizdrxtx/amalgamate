@@ -6,50 +6,30 @@ import { TableUI } from '../../UI/TableUI/TableUI';
 import { PRIMARY_COLOR } from '../../../utls/colors';
 import { useThemeColor } from '../../../hooks/useThemeColor';
 
-export const Clinics = () => {
+
+
+
+export const Clinics = ({ data }: any) => {
 
     const router = useRouter();
 
+    console.log("Data", data)
 
-    const themecolor = useThemeColor();
-
-    const tableHead = [
-
-        "Name",
-        "Website",
-        "Admin",
-        "Location",
-        "Contact",
-
-    ];
-
-    const element = [
-
-        "name",
-        "website",
-        "clinic_admin_name",
-        "location",
-        "clinic_contact_no"
-
-    ]
-
-    const actions = [
-        "OverView",
-        "Doctors",
-        "Edit",
-        "Delete"
-    ];
 
 
     return (
 
-        <Grid>
-
-            <CustomizedButton onClick={() => router.push("/clinics/create")} bgColor={themecolor}>Create Clinic</CustomizedButton>
-
-            <TableUI tableName="clinics" tableHead={tableHead} element={element} name="clinics" actions={actions} />
-
-        </Grid>
+        <></>
 
     )
+}
+
+
+export const getServerSideProps = async () => {
+    // Fetch data from external API
+    const res = await fetch(`https://jsonplaceholder.typicode.com/todos`)
+    const data = await res.json()
+
+    // Pass data to the page via props
+    return { props: { data } }
 }

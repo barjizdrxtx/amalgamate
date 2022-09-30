@@ -43,9 +43,9 @@ export const Sidebar = () => {
                         flexDirection: "row", justifyContent: "center", alignItems: "center",
                         p: 1.5, cursor: "pointer", color: GREY_COLOR, transition: '0.5s',
                         mb: 1,
-                        backgroundColor: index === 1 ? subRoutes.filter(fil => fil.children.map(pa => pa.path === router.asPath)).length > 0 ? LIGHT_COLOR : 'transparent'
-                            : router.asPath === data.path ? LIGHT_COLOR : ""
-                        , borderRadius: "10px"
+                        backgroundColor: (router.asPath === data.path && LIGHT_COLOR),
+                        '&:hover': { color: themecolor },
+                        borderRadius: "10px"
 
                     }}
                         onClick={() => {
@@ -53,10 +53,8 @@ export const Sidebar = () => {
                         }}>
 
                         <data.icon sx={{
-                            color: index === 1 ? subRoutes.filter(fil => fil.children.map(pa => pa.path === router.asPath)).length > 0 ? themecolor : GREY_COLOR
-                                : router.asPath === data.path ? themecolor : GREY_COLOR
-                            ,
-                            '&:hover': { color: themecolor }
+                            color: router.asPath === data.path && themecolor,
+                            '&:hover': { color: router.asPath === data.path && themecolor }
                         }} />
 
                     </Box>
@@ -77,7 +75,7 @@ export const Sidebar = () => {
                 onClick={() => router.push('/settings')}>
                 <SettingsIcon sx={{
                     color: router.asPath === "/settings" ? themecolor : GREY_COLOR,
-                    '&:hover': { color: router.asPath === "/settings" ? themecolor : themecolor }
+                    '&:hover': { color: themecolor }
                 }} />
 
 
