@@ -3,17 +3,16 @@ import React from 'react'
 
 export const CustomizedButton = (props: any) => {
 
-    const { children, onClick, bgColor, width, disabled } = props;
-
+    const { children, onClick, bgColor, type, m } = props;
 
     return (
-        <Button disabled={disabled} style={{ margin: "10px" }} sx={{
-            width: width,
-            boxShadow: "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px",
-            backgroundColor: bgColor, border: `1px solid ${bgColor}`, "&:hover": {
+        <Button type={type} sx={{
+            width: props.width,
+            boxShadow: "none", m: 1, backgroundColor: bgColor, border: `1px solid ${bgColor}`, "&:hover": {
                 backgroundColor: "transparent", boxShadow: "none",
-                color: bgColor, border: `1px solid ${bgColor}`
-            }
+                color: bgColor, border: `1px solid ${bgColor}`,
+
+            },
         }}
             variant="contained"
             onClick={onClick}
