@@ -1,5 +1,6 @@
-import { Box, Grid, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { Box, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
+import React from 'react'
+import * as moment from 'moment'
 
 export const DropDown = (props: any) => {
 
@@ -100,7 +101,7 @@ export const DropDown2 = (props: any) => {
 
             {dropData.map((data: any, index: any) =>
 
-                <MenuItem key={index} value={data}>{data}</MenuItem>
+                <MenuItem key={index} value={data}>{moment.utc(data).format('LT')}</MenuItem>
 
             )}
 
