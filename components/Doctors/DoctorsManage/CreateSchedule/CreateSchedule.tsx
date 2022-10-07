@@ -341,6 +341,7 @@ import { useQueryFetchId } from '../../../../hooks/useQueryFetch';
 import { useThemeColor } from '../../../../hooks/useThemeColor';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown, DropDown2, DropDownApi } from '../../../UI/DropDown/DropDown';
+import * as moment from 'moment'
 
 
 export const CreateSchedule = (props: any) => {
@@ -381,6 +382,8 @@ export const CreateSchedule = (props: any) => {
         "10:30 Pm", "11:00 Pm", "11:30 Pm", "12:00 Am"
     ]
 
+
+    console.log("moment", moment)
 
     const [days, setDays]: any = useState([
 
