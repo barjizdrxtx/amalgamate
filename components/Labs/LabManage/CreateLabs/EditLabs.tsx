@@ -134,18 +134,18 @@ export default function EditLabs({ path = 'labs' }) {
       name: labs?.result?.name,
       profile: labs?.result?.profile,
       website: labs?.result?.website,
-      lab_admin_name: '',
-      lab_admin_mobile: '',
-      longitude_latitude: '',
-      lab_contact_no: '',
-      lab_email: '',
-      lab_reg_no: '',
-      description: '',
-      location: '',
-      address: '',
-      meta_title: '',
-      meta_tag_description: '',
-      meta_tag_keyword: '',
+      lab_admin_name: labs?.result?.lab_admin_name,
+      lab_admin_mobile: labs?.result?.lab_admin_mobile,
+      longitude_latitude: labs?.result?.longitude_latitude,
+      lab_contact_no: labs?.result?.lab_contact_no,
+      lab_email: labs?.result?.lab_email,
+      lab_reg_no: labs?.result?.lab_reg_no,
+      description: labs?.result?.description,
+      location: labs?.result?.location,
+      address: labs?.result?.address,
+      meta_title: labs?.result?.meta_title,
+      meta_tag_description: labs?.result?.meta_tag_description,
+      meta_tag_keyword: labs?.result?.meta_tag_keyword,
     },
     enableReinitialize: true,
 
@@ -192,13 +192,14 @@ export default function EditLabs({ path = 'labs' }) {
 
         alert("submit success")
         router.push('/lab')
+        
       }));
 
     },
   });
 
 
-  const clincs2 = [
+  const labs2 = [
 
     {
       title: "Lab Name",
@@ -374,7 +375,7 @@ export default function EditLabs({ path = 'labs' }) {
               </Grid>
 
 
-              {clincs2.map((data, index) =>
+              {labs2.map((data, index) =>
 
                 <Grid key={index} lg={4}>
 
