@@ -26,8 +26,6 @@ export const Actions = (props: any) => {
             })
     }
 
-
-
     const handleSchedule = () => {
 
         router.push(`${name}/schedule/${id}`)
