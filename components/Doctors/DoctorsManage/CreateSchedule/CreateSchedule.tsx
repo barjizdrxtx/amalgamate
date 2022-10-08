@@ -85,15 +85,15 @@ export const CreateSchedule = (props: any) => {
 
     const handleChangeAllSession = (event: any, session: any) => {
 
-        // const values = [...days]
+        const values = [...days]
 
-        // for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 7; i++) {
 
-        //     values[i][event.target.name] = !days[i][session]
+            values[i][event.target.name] = !days[i][session]
 
-        // }
+        }
 
-        // setDays(values)
+        setDays(values)
 
     }
 
@@ -152,7 +152,7 @@ export const CreateSchedule = (props: any) => {
 
                                 <CustomizedButton bgColor={themecolor} onClick={onCreate}>Create Schedule</CustomizedButton >
 
-                                <CustomizedButton bgColor="black" onClick={() => router.push(``)}>Cancel</CustomizedButton >
+                                <CustomizedButton bgColor="black" onClick={() => router.push(`/doctors`)}>Cancel</CustomizedButton >
 
 
                             </Box>
@@ -280,6 +280,7 @@ export const CreateSchedule = (props: any) => {
                                                 onChange={(event: any) => handleChangeTime(index, event, numbers)} />
 
                                             <TextField label="slot"
+                                                defaultValue={1}
                                                 name='slot_count'
                                                 type="number"
                                                 onChange={(event: any) => handleChangeTime(index, event, numbers)} />
