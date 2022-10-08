@@ -1,11 +1,12 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { EditClinic } from '../../../components/Clinics/ClinicsManage/CreateClinics/EditClinic'
+import { EditClinics } from '../../../components/Clinics/ClinicsManage/CreateClinics/EditClinics'
+
 
 const index = () => {
   return (
     <Grid>
-      <EditClinic />
+      <EditClinics/>
     </Grid>
   )
 }
