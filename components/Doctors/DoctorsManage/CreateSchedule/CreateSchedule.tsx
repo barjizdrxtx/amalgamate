@@ -69,8 +69,8 @@ export const CreateSchedule = (props: any) => {
 
 
     const handleChangeInput2 = (event: any) => {
-        const values = [...days]
 
+        const values = [...days]
 
         for (let i = 0; i < 7; i++) {
 
@@ -79,20 +79,21 @@ export const CreateSchedule = (props: any) => {
         }
 
         setDays(values)
+
     }
 
 
     const handleChangeAllSession = (event: any, session: any) => {
 
-        const values = [...days]
+        // const values = [...days]
 
-        for (let i = 0; i < 7; i++) {
+        // for (let i = 0; i < 7; i++) {
 
-            values[i][event.target.name] = !days[i][session]
+        //     values[i][event.target.name] = !days[i][session]
 
-        }
+        // }
 
-        setDays(values)
+        // setDays(values)
 
     }
 
@@ -107,16 +108,14 @@ export const CreateSchedule = (props: any) => {
     }
 
 
-
     const handleChangeTime = (index: any, event: any, numbers: any) => {
 
         const values = [...days]
 
-        values[index][`session_${numbers}`][event.target.name] = event.target.value
+        values[index][`session_${numbers}`][event.target.name] = event.target.name === "slot_count" ?
+            JSON.parse(event.target.value) : event.target.value
 
         setDays(values)
-
-        console.log("values", values)
 
     }
 
