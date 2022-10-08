@@ -88,13 +88,14 @@ export const DropDownApi = (props: any) => {
 
 export const DropDown2 = (props: any) => {
 
-    const { name, onChange, dropData, value } = props;
+    const { name, onChange, dropData, value, defaultValue } = props;
 
 
     return (
 
         <Select sx={{ m: 1, fontWeight: "bold", color: "#34495E" }}
             value={value}
+            defaultValue={defaultValue}
             onChange={onChange}
             name={name}
         >

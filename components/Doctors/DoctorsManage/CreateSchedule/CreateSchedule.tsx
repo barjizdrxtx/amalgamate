@@ -267,7 +267,7 @@ export const CreateSchedule = (props: any) => {
 
                                             <DropDown2
                                                 dropData={timeSlot1}
-                                                value={days[index][`session${numbers}_start`] === null ? "5:00 Am" : days[index][`session${numbers}_start`]}
+                                                defaultValue={"2022-10-04T05:00:00.127Z"}
                                                 name='starting_time'
                                                 onChange={(event: any) => handleChangeTime(index, event, numbers)} />
 
@@ -275,7 +275,7 @@ export const CreateSchedule = (props: any) => {
 
                                             <DropDown2
                                                 dropData={timeSlot1}
-                                                value={days[index][`session${numbers}_end`] === null ? "11:30 Am" : days[index][`session${numbers}_end`]}
+                                                defaultValue={"2022-10-04T12:00:00.127Z"}
                                                 name='ending_time'
                                                 onChange={(event: any) => handleChangeTime(index, event, numbers)} />
 
@@ -287,7 +287,6 @@ export const CreateSchedule = (props: any) => {
                                         </Box>
 
                                     }
-
 
 
                                 </Box>
