@@ -10,10 +10,6 @@ export const TabHome = () => {
       label: "All Doctors",
       component: <Doctors />
     },
-    {
-      label: "Schedule",
-      component: <CreateSchedule />
-    },
   ]
 
 

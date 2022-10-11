@@ -9,14 +9,6 @@ export const TabHome = () => {
       label: "All Hospitals",
       component: <Hospitals />
     },
-    {
-      label: "Schedule",
-      component: ""
-    },
-    {
-      label: "Health Packages",
-      component: ""
-    }
   ]
 
 

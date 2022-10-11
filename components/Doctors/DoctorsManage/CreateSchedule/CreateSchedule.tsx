@@ -1,351 +1,14 @@
-// import { Box, Checkbox, Divider, Grid, Switch, TextField, Typography } from '@mui/material';
-// import { useRouter } from 'next/router';
-// import React, { useState } from 'react'
-// import { useQueryFetchId } from '../../../../hooks/useQueryFetch';
-// import { DropDown, DropDown2, DropDownApi } from '../../../UI/DropDown/DropDown';
-
-
-// export const CreateSchedule = (props: any) => {
-
-
-//     const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
-//     const router = useRouter();
-
-//     const { id } = router.query;
-
-//     console.log("id", id)
-
-
-//     const timeSlot1 = [
-
-//         "12:00 Am", "12:30 Am", "1:00 Am", "1:30 Am",
-//         "2:00 Am", "2:30 Am", "3:00 Am", "4:00 Am",
-//         "4:30 Am", "5:00 Am", "5:30 Am", "6:00 Am",
-//         "6:30 Am", "7:00 Am", "7:30 Am", "8:00 Am",
-//         "8:30 Am", "9:00 Am", "9:30 Am", "10:00 Am",
-//         "10:30 Am", "11:00 Am", "11:30 Am", "12:00 Pm"]
-
-//     const timeSlot2 = [
-
-//         "12:00 Pm", "12:30 Pm",
-//         "1:00 Pm", "1:30 Pm", "2:00 Pm", "2:30 Pm",
-//         "3:00 Pm", "3:30 Pm", "4:00 Pm"
-//     ]
-
-//     const timeSlot3 = [
-
-//         "4:00 Pm", "4:30 Pm", "5:00 Pm", "5:30 Pm",
-//         "6:00 Pm", "6:30 Pm", "7:00 Pm", "7:30 Pm",
-//         "8:00 Pm", "8:30 Pm", "8:30 Pm", "9:00 Pm", "9:30 Pm", "10:00 Pm",
-//         "10:30 Pm", "11:00 Pm", "11:30 Pm", "12:00 Am"
-//     ]
-
-
-//     const [days, setDays]: any = useState([
-
-//         {
-//             title: "Sunday",
-//             session1: false,
-//             session2: false,
-//             session3: false,
-//             session1_start: null,
-//             session1_end: null,
-//             session2_start: null,
-//             session2_end: null,
-//             session3_start: null,
-//             session3_end: null
-//         },
-//         {
-//             title: "Monday",
-//             session1: false,
-//             session2: false,
-//             session3: false,
-//             session1_start: null,
-//             session1_end: null,
-//             session2_start: null,
-//             session2_end: null,
-//             session3_start: null,
-//             session3_end: null
-//         },
-//         {
-//             title: "TuesDay",
-//             session1: false,
-//             session2: false,
-//             session3: false,
-//             session1_start: null,
-//             session1_end: null,
-//             session2_start: null,
-//             session2_end: null,
-//             session3_start: null,
-//             session3_end: null
-//         },
-//         {
-//             title: "Wednesday",
-//             session1: false,
-//             session2: false,
-//             session3: false,
-//             session1_start: null,
-//             session1_end: null,
-//             session2_start: null,
-//             session2_end: null,
-//             session3_start: null,
-//             session3_end: null
-//         },
-
-//         {
-//             title: "Thursday",
-//             session1: false,
-//             session2: false,
-//             session3: false,
-//             session1_start: null,
-//             session1_end: null,
-//             session2_start: null,
-//             session2_end: null,
-//             session3_start: null,
-//             session3_end: null
-//         },
-//         {
-//             title: "Friday",
-//             session1: false,
-//             session2: false,
-//             session3: false,
-//             session1_start: null,
-//             session1_end: null,
-//             session2_start: null,
-//             session2_end: null,
-//             session3_start: null,
-//             session3_end: null
-//         },
-//         {
-//             title: "Saturday",
-//             session1: false,
-//             session2: false,
-//             session3: false,
-//             session1_start: null,
-//             session1_end: null,
-//             session2_start: null,
-//             session2_end: null,
-//             session3_start: null,
-//             session3_end: null
-//         },
-
-//     ]);
-
-
-
-//     const handleChangeInput = (index: any, event: any) => {
-//         const values = [...days]
-//         values[index][event.target.name] = event.target.value
-//         setDays(values)
-//     }
-
-
-
-//     const handleChangeInput2 = (event: any) => {
-//         const values = [...days]
-
-
-//         for (let i = 0; i < 7; i++) {
-
-//             values[i][event.target.name] = event.target.value
-
-//         }
-
-//         setDays(values)
-//     }
-
-
-
-//     const handleChangeAllSession = (event: any, session: any) => {
-
-//         const values = [...days]
-
-//         for (let i = 0; i < 7; i++) {
-
-//             values[i][event.target.name] = !days[i][session]
-
-//         }
-
-//         setDays(values)
-
-//     }
-
-
-//     const handleChangeSession = (index: any, event: any, session: any) => {
-
-//         const values = [...days]
-
-//         values[index][event.target.name] = !days[index][session]
-
-//         setDays(values)
-//     }
-
-//     const { fetchedData: fetchedData } = useQueryFetchId(`doctors/institutions`, id);
-
-//     console.log("fetchedData", fetchedData)
-
-//     const [institution_id, setInstitutionId] = useState();
-
-
-//     return (
-
-//         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
-
-//             <Grid container lg={12} sx={{ justifyContent: "center", alignItems: 'center' }}>
-
-//                 <Box sx={{ width: "100%" }}>
-
-
-//                     {/* <DropDownApi
-//                         text="Test"
-//                         dropData={fetchedData?.result}
-//                         value={institution_id}
-//                         setValue={setInstitutionId}
-//                     /> */}
-
-
-//                     <Box sx={{
-//                         width: "100%", height: "100px", flex: 1, display: "flex",
-//                         justifyContent: "start", alignItems: "center",
-//                     }}>
-
-//                         <Box sx={{ flex: 1 }}>
-
-//                             <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >Session Controll</Typography>
-
-//                         </Box>
-
-
-//                         {[1, 2, 3].map((numbers: any) =>
-
-
-//                             <Box sx={{ flex: 2, display: "flex", justifyContent: "start", alignItems: "center" }}>
-
-//                                 <Typography sx={{ fontWeight: "bold" }}>All Session {numbers}</Typography>
-
-//                                 <Switch   {...label}
-
-//                                     name={`session${numbers}`}
-
-//                                     onChange={(event: any) => handleChangeAllSession(event, `session${numbers}`)}
-
-//                                 />
-
-
-//                                 {days[0][`session${numbers}`] &&
-
-//                                     <Box sx={{ ml: 4, display: "flex", alignItems: "center" }}>
-
-//                                         <DropDown2
-//                                             dropData={timeSlot1}
-//                                             value={days[0][`session${numbers}_start`] === null ? "5:00 Am" : days[0][`session${numbers}_start`]}
-//                                             name={`session${numbers}_start`}
-//                                             onChange={(event: any) => handleChangeInput2(event)} />
-
-//                                         <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
-
-//                                         <DropDown2
-//                                             dropData={timeSlot1}
-//                                             value={days[0][`session${numbers}_end`] === null ? "11:30 Am" : days[0][`session${numbers}_end`]}
-//                                             name={`session${numbers}_end`}
-//                                             onChange={(event: any) => handleChangeInput2(event)} />
-
-//                                     </Box>
-
-//                                 }
-
-//                             </Box>
-
-//                         )}
-
-//                     </Box>
-
-
-//                     <Divider />
-
-
-//                     {days.map((data: any, index: any) =>
-
-
-//                         <Box sx={{
-//                             width: "100%", height: "100px", flex: 1, display: "flex",
-//                             justifyContent: "start", alignItems: "center",
-//                         }}>
-
-//                             <Box sx={{ flex: 1 }}>
-
-//                                 <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >{data.title}</Typography>
-
-//                             </Box>
-
-//                             {[1, 2, 3].map((numbers: any) =>
-
-
-//                                 <Box sx={{ flex: 2, display: "flex", justifyContent: "start", alignItems: "center" }}>
-
-//                                     <Typography sx={{ fontWeight: "bold" }}>Session {numbers}</Typography>
-
-//                                     <Switch checked={days[index][`session${numbers}`]}  {...label}
-
-//                                         name={`session${numbers}`}
-
-//                                         onChange={(event: any) => handleChangeSession(index, event, `session${numbers}`)}
-
-//                                     />
-
-//                                     {days[index][`session${numbers}`] &&
-
-//                                         <Box sx={{ ml: 4, display: "flex", alignItems: "center" }}>
-
-//                                             <DropDown2
-//                                                 dropData={timeSlot1}
-//                                                 value={days[index][`session${numbers}_start`] === null ? "5:00 Am" : days[index][`session${numbers}_start`]}
-//                                                 name={`session${numbers}_start`}
-//                                                 onChange={(event: any) => handleChangeInput(index, event)} />
-
-//                                             <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
-
-//                                             <DropDown2
-//                                                 dropData={timeSlot1}
-//                                                 value={days[index][`session${numbers}_end`] === null ? "11:30 Am" : days[index][`session${numbers}_end`]}
-//                                                 name={`session${numbers}_end`}
-//                                                 onChange={(event: any) => handleChangeInput(index, event)} />
-
-//                                         </Box>
-
-//                                     }
-
-//                                 </Box>
-
-//                             )}
-
-//                         </Box>
-
-//                     )}
-
-//                 </Box>
-
-//             </Grid >
-
-//         </Grid >
-//     )
-
-
-
-import { Box, Checkbox, Divider, Grid, Switch, TextField, Typography } from '@mui/material';
+import { Box, Divider, Grid, Switch, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { useQueryFetchId } from '../../../../hooks/useQueryFetch';
 import { useThemeColor } from '../../../../hooks/useThemeColor';
 import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
-import { DropDown, DropDown2, DropDownApi } from '../../../UI/DropDown/DropDown';
-import * as moment from 'moment'
-
+import { DropDown2 } from '../../../UI/DropDown/DropDown';
+import { allDays } from './helper'
 
 export const CreateSchedule = (props: any) => {
-
 
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -357,298 +20,35 @@ export const CreateSchedule = (props: any) => {
 
     const themecolor = useThemeColor();
 
-
     const timeSlot1 = [
 
-        "12:00 Am", "12:30 Am", "1:00 Am", "1:30 Am",
-        "2:00 Am", "2:30 Am", "3:00 Am", "4:00 Am",
-        "4:30 Am", "5:00 Am", "5:30 Am", "6:00 Am",
-        "6:30 Am", "7:00 Am", "7:30 Am", "8:00 Am",
-        "8:30 Am", "9:00 Am", "9:30 Am", "10:00 Am",
-        "10:30 Am", "11:00 Am", "11:30 Am", "12:00 Pm"]
+
+        "2022-10-04T05:00:00.127Z", "2022-10-04T05:30:00.127Z", "2022-10-04T06:00:00.127Z", "2022-10-04T06:30:00.127Z",
+        "2022-10-04T07:00:00.127Z", "2022-10-04T07:30:00.127Z", "2022-10-04T08:00:00.127Z", "2022-10-04T08:30:00.127Z",
+        "2022-10-04T09:00:00.127Z", "2022-10-04T09:30:00.127Z", "2022-10-04T10:00:00.127Z", "2022-10-04T11:30:00.127Z",
+
+        "2022-10-04T12:00:00.127Z", "2022-10-04T12:30:00.127Z", "2022-10-04T13:00:00.127Z", "2022-10-04T13:30:00.127Z",
+        "2022-10-04T14:00:00.127Z", "2022-10-04T14:30:00.127Z", "2022-10-04T15:00:00.127Z", "2022-10-04T15:30:00.127Z",
+
+    ]
 
     const timeSlot2 = [
 
-        "12:00 Pm", "12:30 Pm",
-        "1:00 Pm", "1:30 Pm", "2:00 Pm", "2:30 Pm",
-        "3:00 Pm", "3:30 Pm", "4:00 Pm"
-    ]
 
-    const timeSlot3 = [
+        "2022-10-04T05:00:00.127Z", "2022-10-04T05:30:00.127Z", "2022-10-04T06:00:00.127Z", "2022-10-04T06:30:00.127Z",
+        "2022-10-04T07:00:00.127Z", "2022-10-04T07:30:00.127Z", "2022-10-04T08:00:00.127Z", "2022-10-04T08:30:00.127Z",
+        "2022-10-04T09:00:00.127Z", "2022-10-04T09:30:00.127Z", "2022-10-04T10:00:00.127Z", "2022-10-04T11:30:00.127Z",
 
-        "4:00 Pm", "4:30 Pm", "5:00 Pm", "5:30 Pm",
-        "6:00 Pm", "6:30 Pm", "7:00 Pm", "7:30 Pm",
-        "8:00 Pm", "8:30 Pm", "8:30 Pm", "9:00 Pm", "9:30 Pm", "10:00 Pm",
-        "10:30 Pm", "11:00 Pm", "11:30 Pm", "12:00 Am"
+        "2022-10-04T12:00:00.127Z", "2022-10-04T12:30:00.127Z", "2022-10-04T13:00:00.127Z", "2022-10-04T13:30:00.127Z",
+        "2022-10-04T14:00:00.127Z", "2022-10-04T14:30:00.127Z", "2022-10-04T15:00:00.127Z", "2022-10-04T15:30:00.127Z",
+
     ]
 
 
-    console.log("moment", moment)
 
-    const [days, setDays]: any = useState([
+    const [days, setDays]: any = useState(allDays)
 
-        {
-            day_id: 1,
-            day_name: "Sunday",
-            session_1: {
-                session_name: "Morning",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_2: {
-                session_name: "After Noon",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_3: {
-                session_name: "Evening",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            }
-        },
-        {
-            day_id: 2,
-            day_name: "Monday",
-            session_1: {
-                session_name: "Morning",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_2: {
-                session_name: "After Noon",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_3: {
-                session_name: "Evening",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            }
-        },
-        {
-            day_id: 3,
-            day_name: "Wednesday",
-            session_1: {
-                session_name: "Morning",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_2: {
-                session_name: "After Noon",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_3: {
-                session_name: "Evening",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            }
-        },
-        {
-            day_id: 4,
-            day_name: "Thursday",
-            session_1: {
-                session_name: "Morning",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_2: {
-                session_name: "After Noon",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_3: {
-                session_name: "Evening",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            }
-        },
-        {
-            day_id: 5,
-            day_name: "Friday",
-            session_1: {
-                session_name: "Morning",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_2: {
-                session_name: "After Noon",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_3: {
-                session_name: "Evening",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            }
-        },
-        {
-            day_id: 6,
-            day_name: "Saturday",
-            session_1: {
-                session_name: "Morning",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_2: {
-                session_name: "After Noon",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_3: {
-                session_name: "Evening",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            }
-        },
-        {
-            day_id: 7,
-            day_name: "Sunday",
-            session_1: {
-                session_name: "Morning",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_2: {
-                session_name: "After Noon",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            },
-            session_3: {
-                session_name: "Evening",
-                starting_time: null,
-                ending_time: null,
-                cancel_flag: false,
-                cancel_remarks: "string",
-                cancelled_by: "string",
-                cancelled_at: "string",
-                is_active: true,
-                slot_count: 0
-            }
-        },
-    ])
-
-    console.log("days", days)
+    console.log("days", allDays)
 
 
     const onCreate = () => {
@@ -667,12 +67,10 @@ export const CreateSchedule = (props: any) => {
 
     }
 
-    console.log("date", new Date())
-
 
     const handleChangeInput2 = (event: any) => {
-        const values = [...days]
 
+        const values = [...days]
 
         for (let i = 0; i < 7; i++) {
 
@@ -681,6 +79,7 @@ export const CreateSchedule = (props: any) => {
         }
 
         setDays(values)
+
     }
 
 
@@ -709,16 +108,14 @@ export const CreateSchedule = (props: any) => {
     }
 
 
-
     const handleChangeTime = (index: any, event: any, numbers: any) => {
 
         const values = [...days]
 
-        values[index][`session_${numbers}`][event.target.name] = event.target.value
+        values[index][`session_${numbers}`][event.target.name] = event.target.name === "slot_count" ?
+            JSON.parse(event.target.value) : event.target.value
 
         setDays(values)
-
-        console.log("numbers", numbers)
 
     }
 
@@ -755,7 +152,7 @@ export const CreateSchedule = (props: any) => {
 
                                 <CustomizedButton bgColor={themecolor} onClick={onCreate}>Create Schedule</CustomizedButton >
 
-                                <CustomizedButton bgColor="black" onClick={() => router.push(``)}>Cancel</CustomizedButton >
+                                <CustomizedButton bgColor="black" onClick={() => router.push(`/doctors`)}>Cancel</CustomizedButton >
 
 
                             </Box>
@@ -870,7 +267,7 @@ export const CreateSchedule = (props: any) => {
 
                                             <DropDown2
                                                 dropData={timeSlot1}
-                                                value={days[index][`session${numbers}_start`] === null ? "5:00 Am" : days[index][`session${numbers}_start`]}
+                                                defaultValue={"2022-10-04T05:00:00.127Z"}
                                                 name='starting_time'
                                                 onChange={(event: any) => handleChangeTime(index, event, numbers)} />
 
@@ -878,18 +275,19 @@ export const CreateSchedule = (props: any) => {
 
                                             <DropDown2
                                                 dropData={timeSlot1}
-                                                value={days[index][`session${numbers}_end`] === null ? "11:30 Am" : days[index][`session${numbers}_end`]}
+                                                defaultValue={"2022-10-04T12:00:00.127Z"}
                                                 name='ending_time'
                                                 onChange={(event: any) => handleChangeTime(index, event, numbers)} />
 
                                             <TextField label="slot"
+                                                defaultValue={1}
                                                 name='slot_count'
+                                                type="number"
                                                 onChange={(event: any) => handleChangeTime(index, event, numbers)} />
 
                                         </Box>
 
                                     }
-
 
 
                                 </Box>
