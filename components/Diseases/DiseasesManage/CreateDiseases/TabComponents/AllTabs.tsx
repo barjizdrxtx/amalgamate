@@ -4,6 +4,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
 import axios from 'axios';
 import { TextEditor } from '../../TextEditor';
+import { ImagePreview } from '../../../../UI/ImagePreview/ImagePreview';
 
 export const AllTabs = (props: any) => {
 
@@ -72,10 +73,14 @@ export const AllTabs = (props: any) => {
                         justifyContent: "start", alignItems: "center", mb: 4
                     }}>
 
-                        <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+                        <Box sx={{
+                            width: "100%",
+                            m: 1, display: "flex", flexDirection: "column",
+                            justifyContent: "start", alignItems: "start",
+                        }}>
 
 
-                            <Typography sx={{ flex: 1 }}>Title</Typography>
+                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Title</Typography>
 
 
                             <Box sx={{ flex: 7, width: "100%", mb: 2 }}>
@@ -88,10 +93,10 @@ export const AllTabs = (props: any) => {
                         </Box>
 
 
-                        <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+                        <Box sx={{ width: "100%", m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
 
-                            <Typography sx={{ flex: 1 }}>Description</Typography>
+                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Description</Typography>
 
 
                             <Box sx={{ flex: 5, width: "100%", mb: 2 }}>
@@ -104,74 +109,72 @@ export const AllTabs = (props: any) => {
                         </Box>
 
 
-
-                        <Box sx={{
-                            width: "100%", display: "flex", justifyContent: "center", alignItems: "center"
-                        }}>
+                        <Box sx={{ width: "100%", m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
 
-                            <Typography sx={{ flex: 1 }}>Image</Typography>
+                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Image</Typography>
 
 
                             <Box sx={{ flex: 5, width: "100%", mb: 2 }}>
 
+                                <Box sx={{ flex: 5, width: "100%", mb: 2 }}>
 
-                                <Box sx={{
-                                    backgroundColor: "lightgray", width: "150px", mb: 2,
-                                    height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
-                                }}>
+                                    <Box sx={{
+                                        backgroundColor: "lightgray", width: "150px", mb: 2,
+                                        height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
+                                    }}>
 
-                                    {inputfield[index].image === undefined ? <ImageIcon sx={{ fontSize: "4rem" }} />
+                                        {inputfield[index].image === undefined ? <ImageIcon sx={{ fontSize: "4rem" }} />
+
+                                            :
+
+                                            <img src={inputfield[index].image} width="100%" />
+
+                                        }
+
+
+                                    </Box>
+
+
+                                    {inputfield[index].image === undefined ?
+
+                                        <Box sx={{ display: "flex", width: "50%" }}>
+
+                                            <Stack direction="row" alignItems="center" spacing={2}>
+
+                                                <Button variant="contained" component="label">
+                                                    Upload
+
+                                                    <input hidden type='file' key="image" id="outlined-basic"
+
+                                                        onChange={(event: any) => AddImages(index, event)} />
+
+                                                </Button>
+
+                                            </Stack>
+
+                                        </Box>
 
                                         :
 
-                                        <img src={inputfield[index].image} width="100%" />
+                                        <Box sx={{ display: "flex", width: "50%" }}>
+
+                                            <Stack direction="row" alignItems="center" spacing={2}>
+
+                                                <Button sx={{ mt: 2 }} variant="contained" color="error" onClick={(event: any) => RemoveImage(index, event)}>remove</Button>
+
+                                            </Stack>
+
+                                        </Box>
 
                                     }
 
-
                                 </Box>
-
-
-                                {inputfield[index].image === undefined ?
-
-                                    <Box sx={{ display: "flex", width: "50%" }}>
-
-                                        <Stack direction="row" alignItems="center" spacing={2}>
-
-                                            <Button variant="contained" component="label">
-                                                Upload
-
-                                                <input hidden type='file' key="image" id="outlined-basic"
-
-                                                    onChange={(event: any) => AddImages(index, event)} />
-
-                                            </Button>
-
-                                        </Stack>
-
-                                    </Box>
-
-                                    :
-
-
-                                    <Box sx={{ display: "flex", width: "50%" }}>
-
-                                        <Stack direction="row" alignItems="center" spacing={2}>
-
-                                            <Button sx={{ mt: 2 }} variant="contained" color="error" onClick={(event: any) => RemoveImage(index, event)}>remove</Button>
-
-                                        </Stack>
-
-                                    </Box>
-
-
-                                }
-
 
                             </Box>
 
                         </Box>
+
 
                     </Box>
 
@@ -184,7 +187,7 @@ export const AllTabs = (props: any) => {
                 width: "100%", display: "flex", justifyContent: "center", alignItems: "center"
             }}>
 
-                <Typography sx={{ flex: 1 }}></Typography>
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}></Typography>
 
 
                 <Box sx={{ flex: 5, width: "100%" }}>
@@ -196,6 +199,6 @@ export const AllTabs = (props: any) => {
 
             </Box>
 
-        </Grid>
+        </Grid >
     )
 }

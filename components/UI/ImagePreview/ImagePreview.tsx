@@ -1,9 +1,9 @@
-import { Box, Button, Grid, IconButton, Stack } from '@mui/material'
+import { Box, Button, Grid,} from '@mui/material'
 import React from 'react'
 import ImageIcon from '@mui/icons-material/Image';
 import axios from 'axios';
 import { CustomizedButton } from '../Button/CustomizedButton';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+
 
 export const ImagePreview = (props: any) => {
 
@@ -35,38 +35,34 @@ export const ImagePreview = (props: any) => {
             alignItems: "end", m: 1
         }}>
 
-            <Box sx={{ width: "50%" }}>
+            <Box sx={{ width: "100%", position: "relative" }}>
 
                 <Box sx={{
-                    backgroundColor: "lightgray", width: "120px", mb: 2,
-                    height: "120px", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px"
+                    backgroundColor: "lightgray", width: "150px", mb: 2,
+                    height: "150px", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px"
                 }}>
 
-                    {image === '' ? <ImageIcon sx={{ fontSize: "3rem" }} />
+                    {image === null ? <ImageIcon sx={{ fontSize: "2.5rem" }} />
 
                         :
 
-                        <img src={image} style={{ width: "120px", height: "120px", borderRadius: "10px" }} />
+                        <img src={image} style={{ width: "150px", height: "150px", borderRadius: "10px" }} />
 
                     }
 
                 </Box>
 
-            </Box>
+                <Button component="label" sx={{
+                    width: "150px", height: "150px",
+                    bgcolor: "transparent", position: "absolute", top: "0"
+                    , left: "0"
+                }}>
 
-            <Box sx={{ display: "flex", width: "50%" }}>
+                    <input hidden type='file' key="image" id="outlined-basic"
 
-                <Stack direction="row" alignItems="center" spacing={2}>
+                        onChange={(event: any) => AddImages(event)} />
 
-                    <Button variant="contained" component="label">
-                        Upload
-
-                        <input hidden type='file' key="image" id="outlined-basic"
-                            onChange={(event) => AddImages(event)} />
-
-                    </Button>
-
-                </Stack>
+                </Button>
 
             </Box>
 
@@ -103,7 +99,7 @@ export const MultiImagePreview = (props: any) => {
     const handleAddFields = () => {
 
         setImage([...image, { id: image.length + 1 }])
-    
+
     }
 
     const handleRemoveFields = () => {

@@ -1,23 +1,18 @@
-import React, { useState, useRef } from 'react'
-import { Box, TextField, Grid, Button, Typography, Stack, Divider } from '@mui/material';
+import React, { useState, } from 'react'
+import { Box, TextField, Grid, Typography, } from '@mui/material';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
-import ImageIcon from '@mui/icons-material/Image';
 import { diseaseSchema } from './validation';
 import { TextEditor } from '../TextEditor';
 import { TabHome } from './TabHome';
 import { ImagePreview } from '../../../UI/ImagePreview/ImagePreview';
-import { PRIMARY_COLOR } from '../../../../utls/colors';
 import { CreateButton } from '../../../UI/Button/CreateButton';
-import { DiseaseDetails } from '../DiseaseDetails/DiseaseDetails';
 import { PreviewDisease } from '../PreviewDisease/PreviewDisease';
 
 export const CreateDiseases = ({ path = "diseases" }) => {
 
-    const [image, setImage]: any = useState('')
-
+    const [image, setImage]: any = useState(null)
 
     const [description, setDescription] = useState("");
 
@@ -41,14 +36,12 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
     const [btnDisabled, setBtnDisabled] = useState(false);
 
-
-
+    
     const handleChangeInput = (content: any) => {
 
         setDescription(content)
 
     }
-
 
 
     const formik = useFormik({
@@ -217,7 +210,7 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
                                                     <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                                        <Typography>{data.title}</Typography>
+                                                        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
 
                                                     </Box>
 
@@ -261,7 +254,7 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
                                                 <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                                    <Typography>Description</Typography>
+                                                    <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Description</Typography>
 
                                                 </Box>
 
