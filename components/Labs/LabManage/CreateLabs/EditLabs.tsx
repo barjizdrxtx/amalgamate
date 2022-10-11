@@ -396,7 +396,7 @@ export default function EditLabs({ path = 'labs' }) {
                       type={data.type}
                       onChange={formik.handleChange}
                       error={data.touched && Boolean(data.errors)}
-                      helperText={data.touched && data.errors}
+                      // helperText={data.touched && data.errors}
                     />
 
                   </Box>

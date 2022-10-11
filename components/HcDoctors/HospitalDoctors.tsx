@@ -3,11 +3,16 @@ import { Grid } from '@mui/material'
 import { useRouter } from 'next/router';
 import { TableUI } from '../UI/TableUI/TableUI';
 import { CustomizedButton } from '../UI/Button/CustomizedButton';
+import { useThemeColor } from '../../hooks/useThemeColor';
 
 
 export const HospitalDoctors = () => {
 
     const router = useRouter();
+
+
+    const themecolor = useThemeColor();
+
 
     const { institution_id } = router.query
 
@@ -37,12 +42,12 @@ export const HospitalDoctors = () => {
         "Delete"
     ];
 
-    
+
     return (
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push({ pathname: `/hospitals/doctors/create`, query: { institution_id: institution_id } })} bgColor={PRIMARY_COLOR}>Create Doctors</CustomizedButton>
+            <CustomizedButton onClick={() => router.push({ pathname: `/hospitals/doctors/create`, query: { institution_id: institution_id } })} bgColor={themecolor}>Create Doctors</CustomizedButton>
 
             <TableUI tableName="doctors" tableHead={tableHead} element={element} name={`clinics/doctors-list/${institution_id}`} actions={actions} />
 
