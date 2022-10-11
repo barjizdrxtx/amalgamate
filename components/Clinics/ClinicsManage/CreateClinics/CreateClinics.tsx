@@ -1,15 +1,14 @@
-import { Divider, Grid, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { Box } from '@mui/system';
-import { CustomizedButton } from '../../../UI/Button/CustomizedButton';
 import { DropDown } from '../../../UI/DropDown/DropDown';
-import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { HCLTabHome } from '../../../MainTab/HCLTabHome';
-import { useThemeColor } from '../../../../hooks/useThemeColor';
 import { CreateButton } from '../../../UI/Button/CreateButton';
+import { Google } from '@mui/icons-material';
+import { GoogleApi } from './GoogleApi';
 
 
 export const CreateClinics = ({ path = 'clinics' }) => {
@@ -154,26 +153,27 @@ export const CreateClinics = ({ path = 'clinics' }) => {
             const axiosrequest1 = axios.post(path, {
 
                 name: values.name,
-                timings: days,
                 role: role,
                 profile: values.profile,
                 website: values.website,
                 clinic_admin_name: values.clinic_admin_name,
                 clinic_admin_mobile: values.clinic_admin_mobile,
-                images: image,
                 address: values.address,
                 location: values.location,
-                langtitude_altitude: values.langtitude_altitude,
+                latitude_longitude: "11.247017, 75.832354",
                 clinic_contact_no: values.clinic_contact_no,
                 clinic_email: values.clinic_email,
                 clinic_reg_no: values.clinic_reg_no,
-                description: values.description,
-                add_more: values.add_more,
-                active: true,
-                amineties: amineties,
                 documents: documents,
+                description: values.description,
+                images: image,
+                remarks: "string",
+                active: true,
                 procedures: procedures,
-                specialities: specialities
+                amineties: amineties,
+                specialities: specialities,
+                payment_modes: payments,
+                timings: days,
 
             })
 
@@ -355,7 +355,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
                         onCreate={formik.handleSubmit}
                     />
 
-
+                    
                     <form onSubmit={formik.handleSubmit}>
 
                         <Grid container lg={12} sx={{ backgroundColor: "white" }}>

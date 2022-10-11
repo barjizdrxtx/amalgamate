@@ -65,7 +65,6 @@ export const Info = (props: any) => {
                             multiline
                             rows={data.rows}
                             name={data.label}
-                            // label={data.label}
                             value={data.value}
                             type={data.type}
                             onChange={formik.handleChange}

@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Diseases/DiseasesManage/TextEditor.js", "components/Diseases/DiseasesManage/Table.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Diseases/DiseasesManage/TextEditor.js", "components/Diseases/DiseasesManage/Table.tsx", "components/Clinics/ClinicsManage/CreateClinics/GoogleApi.js"],
   "exclude": ["node_modules"]
 }
