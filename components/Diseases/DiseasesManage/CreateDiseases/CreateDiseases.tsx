@@ -18,9 +18,9 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
     const [preview, setPreview] = useState(false);
 
-    const [overview, setOverView]: any = useState([{ id: 1 }]);
+    const [overview, setOverView]: any = useState([{ id: 1 }, { id: 2 }]);
 
-    const [symptoms, setSymptoms]: any = useState([{ id: 1 }]);
+    const [symptoms, setSymptoms]: any = useState([{ id: 1 }, { id: 2 }, { id: 3 }]);
 
     const [causes, setCauses]: any = useState([{ id: 1 }]);
 
@@ -36,7 +36,7 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
     const [btnDisabled, setBtnDisabled] = useState(false);
 
-    
+
     const handleChangeInput = (content: any) => {
 
         setDescription(content)
@@ -260,7 +260,7 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
                                                 <Box sx={{ mb: 1, flex: 2, display: "flex", justifyContent: "center" }}>
 
-                                                    <TextEditor onChange={handleChangeInput} />
+                                                    <TextEditor  />
 
                                                 </Box>
 

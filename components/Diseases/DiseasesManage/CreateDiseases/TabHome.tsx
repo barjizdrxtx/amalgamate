@@ -9,8 +9,7 @@ export const TabHome = (props: any) => {
   const { tabData7, tabData8, formik, faq, setFaq,
     overview, setOverView, symptoms, setSymptoms, causes, setCauses, complications,
     setComplications, home_remadies, setHome_remadies, diet_and_nutrition, setDiet_and_nutrition } = props;
-
-
+    
 
   const tabData = [
     {
