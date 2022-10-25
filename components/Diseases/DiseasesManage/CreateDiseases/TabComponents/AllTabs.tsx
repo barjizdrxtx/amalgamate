@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import ImageIcon from '@mui/icons-material/Image';
 import { CustomizedButton } from '../../../../UI/Button/CustomizedButton';
 import axios from 'axios';
-import { TextEditor } from '../../TextEditor';
-import { ImagePreview } from '../../../../UI/ImagePreview/ImagePreview';
+// import { TextEditor } from '../../TextEditor';
 
 export const AllTabs = (props: any) => {
 
@@ -85,7 +84,7 @@ export const AllTabs = (props: any) => {
 
                             <Box sx={{ flex: 7, width: "100%", mb: 2 }}>
 
-                                <TextEditor />
+                                {/* <TextEditor /> */}
 
                             </Box>
 
@@ -99,8 +98,8 @@ export const AllTabs = (props: any) => {
 
 
                             <Box sx={{ flex: 5, width: "100%", mb: 2 }}>
-
-                                <TextEditor />
+{/* 
+                                <TextEditor /> */}
 
                             </Box>
 

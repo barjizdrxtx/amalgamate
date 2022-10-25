@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { diseaseSchema } from './validation';
-import { TextEditor } from '../TextEditor';
+// import { TextEditor } from '../TextEditor';
 import { TabHome } from './TabHome';
 import { ImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 import { CreateButton } from '../../../UI/Button/CreateButton';
@@ -260,7 +260,7 @@ export const CreateDiseases = ({ path = "diseases" }) => {
 
                                                 <Box sx={{ mb: 1, flex: 2, display: "flex", justifyContent: "center" }}>
 
-                                                    <TextEditor  />
+                                                    {/* <TextEditor  /> */}
 
                                                 </Box>
 

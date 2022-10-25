@@ -160,7 +160,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
                 clinic_admin_mobile: values.clinic_admin_mobile,
                 address: values.address,
                 location: values.location,
-                latitude_longitude: "11.247017, 75.832354",
+                latitude_longitude: "string",
                 clinic_contact_no: values.clinic_contact_no,
                 clinic_email: values.clinic_email,
                 clinic_reg_no: values.clinic_reg_no,
