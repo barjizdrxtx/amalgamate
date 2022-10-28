@@ -6,6 +6,7 @@ import { SpecializedIn } from './TabComponents/SpecializedIn';
 import { MainTab } from '../../../MainTab/MainTab';
 import { Seo } from '../../../Seo/Seo';
 import Images from './TabComponents/Images';
+import { Languages } from './TabComponents/Languages';
 
 
 export const TabHome = (props: any) => {
@@ -13,7 +14,7 @@ export const TabHome = (props: any) => {
   const { tabData1, tabData2, tabData3, tabData8, formik,
     certificates, setCertificates,
     idProof, setIdProof, specialisedIn, setSpecialisedIn,
-    image, setImage
+    image, setImage, language, setLanguage
   } = props;
 
   const tabData = [
@@ -42,6 +43,12 @@ export const TabHome = (props: any) => {
       component: <Profile tabData3={tabData3} formik={formik} />
 
     },
+    {
+      label: "Language",
+      component: <Languages tabData3={tabData3} formik={formik} language={language} setLanguage={setLanguage} />
+
+    },
+
     {
       label: "SpecializedIn",
       component: <SpecializedIn

@@ -37,6 +37,27 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
     };
 
 
+    const [language, setLanguage] = useState([
+
+        {
+            title: "English",
+            checked: false,
+        },
+        {
+            title: "Malayalam",
+            checked: false,
+        },
+        {
+            title: "Hindi",
+            checked: false,
+        },
+
+        {
+            title: "Tamil",
+            checked: false,
+        },
+    ]);
+
 
     const formik = useFormik({
 
@@ -49,6 +70,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
             years_of_experience: '',
             qualificaton: '',
             profile: '',
+            latitude_longitude: '',
 
             short_profile: '',
             academic_achievments: '',
@@ -86,6 +108,8 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                 },
                 gender: gender,
                 images: image,
+                language: language,
+                latitude_longitude: values.latitude_longitude,
                 years_of_experience: values.years_of_experience,
                 dateOfBirth: "2022-09-13T18:41:40.248Z",
                 qualificaton: values.qualificaton,
@@ -157,39 +181,36 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
         {
             title: "Registration Number",
             label: "registration_number",
-            type: "registration_number",
+            type: "number",
             value: formik.values.registration_number,
             touched: formik.touched.registration_number,
             errors: formik.errors.registration_number,
 
         },
-
-
-    ]
-
-    const tabData1 = [
         {
-            title: "Registration Number",
-            label: "registration_number",
-            type: "text",
-            rows: 6,
-            value: formik.values.registration_number,
-            touched: formik.touched.registration_number,
-            errors: formik.errors.registration_number,
-        },
-        {
-            title: "consulation_fee",
-            label: "registration_number",
-            type: "text",
-            rows: 5,
+            title: "Consulation Fee",
+            label: "consulation_fee",
+            type: "number",
             value: formik.values.consulation_fee,
             touched: formik.touched.consulation_fee,
             errors: formik.errors.consulation_fee,
         },
-
-
     ]
 
+
+
+    const tabData1 = [
+
+        {
+            title: "Latitude Longitude",
+            label: "latitude_longitude",
+            type: "number",
+            value: formik.values.latitude_longitude,
+            touched: formik.touched.latitude_longitude,
+            errors: formik.errors.latitude_longitude,
+        },
+
+    ]
 
 
     const tabData3 = [
@@ -207,7 +228,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
         {
             title: "Profile",
             label: "profile",
-            type: "number",
+            type: "text",
             rows: 6,
             value: formik.values.profile,
             touched: formik.touched.profile,
@@ -317,6 +338,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
                             </Grid>
 
+
                             {doctors2.map((data: any, index: any) =>
 
                                 <Grid lg={4}>
@@ -393,9 +415,13 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                     <TabHome formik={formik}
 
                         tabData1={tabData1}
+
                         tabData3={tabData3}
 
                         tabData8={tabData8}
+
+                        language={language}
+                        setLanguage={setLanguage}
 
                         documents={documents}
                         setDocuments={setDocuments}

@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export const Info = (props: any) => {
 
-    const { documents, setDocuments } = props;
+    const { tabData1, formik, documents, setDocuments } = props;
 
 
     const AddImages = (index: any, event: any) => {
@@ -45,6 +45,40 @@ export const Info = (props: any) => {
     return (
 
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+
+            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
+
+                {tabData1.map((data: any) =>
+
+                    <Grid lg={12}>
+
+                        <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+
+                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
+
+                            </Box>
+
+                            < TextField sx={{ flex: 4, width: "100%", mb: 2 }}
+                                fullWidth
+                                id="outlined-multiline-static"
+                                multiline
+                                rows={data.rows}
+                                name={data.label}
+                                // label={data.label}
+                                value={data.value}
+                                type={data.type}
+                                onChange={formik.handleChange}
+                                error={data.touched && Boolean(data.errors)}
+                                helperText={data.touched && data.errors}
+                            />
+
+                        </Box>
+
+                    </Grid>
+                )}
+            </Grid >
 
             <Grid lg={12}>
 
