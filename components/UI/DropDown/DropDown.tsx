@@ -111,3 +111,30 @@ export const DropDown2 = (props: any) => {
     )
 }
 
+
+
+export const DropDown3 = (props: any) => {
+
+    const { name, onChange, dropData, value, defaultValue } = props;
+
+
+    return (
+
+        <Select sx={{ m: 1, fontWeight: "bold", color: "#34495E" }}
+            value={value}
+            defaultValue={defaultValue}
+            onChange={onChange}
+            name={name}
+        >
+
+            {dropData.map((data: any, index: any) =>
+
+                <MenuItem key={index} value={data}>{data}</MenuItem>
+
+            )}
+
+        </Select>
+
+    )
+}
+
