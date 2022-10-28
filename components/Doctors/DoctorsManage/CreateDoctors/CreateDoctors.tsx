@@ -86,6 +86,10 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
             meta_tag_description: '',
             meta_tag_keyword: '',
 
+            address1: '',
+            address2: '',
+            city: '',
+            state: '',
 
         },
         // validationSchema: doctorSchemea,
@@ -101,14 +105,14 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                 email: values.email,
                 mobile: values.mobile,
                 address: {
-                    address1: "string",
-                    address2: "string",
-                    city: "string",
-                    state: "string"
+                    address1: values.address1,
+                    address2: values.address2,
+                    city: values.city,
+                    state: values.state
                 },
                 gender: gender,
                 images: image,
-                language: language,
+                languages_spoken: language,
                 latitude_longitude: values.latitude_longitude,
                 years_of_experience: values.years_of_experience,
                 dateOfBirth: "2022-09-13T18:41:40.248Z",
@@ -195,11 +199,47 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
             touched: formik.touched.consulation_fee,
             errors: formik.errors.consulation_fee,
         },
+
     ]
 
 
-
     const tabData1 = [
+
+        {
+            title: "address1",
+            label: "address1",
+            type: "number",
+            value: formik.values.address1,
+            touched: formik.touched.address1,
+            errors: formik.errors.address1,
+        },
+
+        {
+            title: "address2",
+            label: "address2",
+            type: "number",
+            value: formik.values.address2,
+            touched: formik.touched.address2,
+            errors: formik.errors.address2,
+        },
+
+        {
+            title: "City",
+            label: "city",
+            type: "number",
+            value: formik.values.city,
+            touched: formik.touched.city,
+            errors: formik.errors.city,
+        },
+
+        {
+            title: "State",
+            label: "state",
+            type: "number",
+            value: formik.values.state,
+            touched: formik.touched.state,
+            errors: formik.errors.state,
+        },
 
         {
             title: "Latitude Longitude",

@@ -94,8 +94,7 @@ export const MultiImagePreview = (props: any) => {
         })
     }
 
-
-
+    
     const handleAddFields = () => {
 
         setImage([...image, { id: image.length + 1 }])
