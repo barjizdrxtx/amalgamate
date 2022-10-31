@@ -15,20 +15,18 @@ export const Doctors = () => {
 
         "Name",
         "Registration Number",
-        "Qualification",
         "Email",
         "Mobile",
-
+        "Create Time",
     ];
 
     const element = [
 
         "name",
         "registration_number",
-        "qualification",
         "email",
-        "mobile"
-
+        "mobile",
+        "createdAt",
     ]
 
     const actions = [

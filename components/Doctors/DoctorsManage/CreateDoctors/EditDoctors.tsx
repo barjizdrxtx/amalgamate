@@ -8,8 +8,9 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DropDown } from '../../../UI/DropDown/DropDown';
 import { CreateButton } from '../../../UI/Button/CreateButton';
+import { useQueryFetch, useQueryFetchId } from '../../../../hooks/useQueryFetch';
 
-export const CreateDoctors = ({ path = 'doctors' }) => {
+export const EditDoctors = ({ path = 'doctors' }) => {
 
     const [role, setRole] = useState("null");
 
@@ -25,8 +26,10 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
     const [gender, setGender] = useState("null");
 
-
     const router = useRouter();
+
+    const { id } = router.query
+
 
     const [value, setValue] = React.useState<Date | null>(
         new Date(''),
@@ -59,46 +62,50 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
     ]);
 
 
+
+    const { fetchedData: doctors } = useQueryFetchId('doctors', id)
+
+    console.log("doctors", doctors?.result?.email)
+
+
     const formik = useFormik({
 
         initialValues: {
-            name: '',
-            registration_number: '',
-            email: '',
-            mobile: '',
-            image_location: '',
-            years_of_experience: '',
-            qualificaton: '',
-            profile: '',
-            latitude_longitude: '',
+            name: doctors?.result?.name,
+            registration_number: doctors?.result?.registration_number,
+            email: doctors?.result?.email,
+            mobile: doctors?.result?.mobile,
+            years_of_experience: doctors?.result?.years_of_experience,
+            qualificaton: doctors?.result?.qualificaton,
+            profile: doctors?.result?.profile,
+            latitude_longitude: doctors?.result?.latitude_longitude,
 
-            district: '',
-
-            short_profile: '',
-            academic_achievments: '',
-            professional_contributions: '',
-            affliation: '',
-            success_stories: '',
+            short_profile: doctors?.result?.short_profile,
+            academic_achievments: doctors?.result?.academic_achievments,
+            professional_contributions: doctors?.result?.professional_contributions,
+            affliation: doctors?.result?.affliation,
+            success_stories: doctors?.result?.success_stories,
 
             practice: '',
-            consulation_fee: '',
-            specilized_tag: '',
+            consulation_fee: doctors?.result?.consulation_fee,
+            specilized_tag: doctors?.result?.specilized_tag,
 
             meta_title: '',
             meta_tag_description: '',
             meta_tag_keyword: '',
 
-            address1: '',
-            address2: '',
-            city: '',
-            state: '',
+            address1: doctors?.result?.address1,
+            address2: doctors?.result?.address2,
+            city: doctors?.result?.city,
+            state: doctors?.result?.state,
 
         },
         // validationSchema: doctorSchemea,
+        enableReinitialize: true,
 
         onSubmit: (values: any) => {
 
-            const axiosrequest1 = axios.post(`doctors`, {
+            const axiosrequest1 = axios.patch(`doctors/${id}`, {
 
                 name: values.name,
                 role: role,
@@ -110,8 +117,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                     address1: values.address1,
                     address2: values.address2,
                     city: values.city,
-                    state: values.state,
-                    district: values.district,
+                    state: values.state
                 },
                 gender: gender,
                 images: image,
@@ -245,15 +251,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
         },
 
         {
-            title: "District",
-            label: "district",
-            type: "number",
-            value: formik.values.district,
-            touched: formik.touched.district,
-            errors: formik.errors.district,
-        },
-
-        {
             title: "Latitude Longitude",
             label: "latitude_longitude",
             type: "number",
@@ -371,7 +368,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <CreateButton buttonName="Create" title={path}
+                    <CreateButton buttonName="Edit" title={path}
                         onCreate={formik.handleSubmit}
                     />
 

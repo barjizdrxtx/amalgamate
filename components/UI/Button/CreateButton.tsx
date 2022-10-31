@@ -1,4 +1,4 @@
-import { Divider, Typography } from '@mui/material'
+import { Button, Divider, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -8,7 +8,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 export const CreateButton = (props: any) => {
 
-    const { title, onCreate, preview, isPreview, setPreview } = props;
+    const { buttonName, title, onCreate, preview, isPreview, setPreview } = props;
 
     const themecolor = useThemeColor();
 
@@ -44,7 +44,7 @@ export const CreateButton = (props: any) => {
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
 
-                    <CustomizedButton bgColor={themecolor} onClick={onCreate}>Create {title}</CustomizedButton >
+                    <CustomizedButton bgColor={themecolor} onClick={onCreate}>{buttonName + " " + title}</CustomizedButton >
 
                     <CustomizedButton bgColor="black" onClick={() => router.push(`/${title}`)}>Cancel</CustomizedButton >
 
