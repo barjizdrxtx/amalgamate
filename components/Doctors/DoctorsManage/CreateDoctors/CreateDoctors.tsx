@@ -72,6 +72,8 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
             profile: '',
             latitude_longitude: '',
 
+            district: '',
+
             short_profile: '',
             academic_achievments: '',
             professional_contributions: '',
@@ -108,7 +110,8 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                     address1: values.address1,
                     address2: values.address2,
                     city: values.city,
-                    state: values.state
+                    state: values.state,
+                    district: values.district,
                 },
                 gender: gender,
                 images: image,
@@ -239,6 +242,15 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
             value: formik.values.state,
             touched: formik.touched.state,
             errors: formik.errors.state,
+        },
+
+        {
+            title: "District",
+            label: "district",
+            type: "number",
+            value: formik.values.district,
+            touched: formik.touched.district,
+            errors: formik.errors.district,
         },
 
         {
