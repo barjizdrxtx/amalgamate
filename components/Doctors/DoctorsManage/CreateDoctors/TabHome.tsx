@@ -14,7 +14,7 @@ export const TabHome = (props: any) => {
   const { tabData1, tabData2, tabData3, tabData8, formik,
     certificates, setCertificates,
     idProof, setIdProof, specialisedIn, setSpecialisedIn,
-    image, setImage, language, setLanguage
+    image, setImage, language, setLanguage, alternate_mobile_numbers, setAlternate_mobile_numbers
   } = props;
 
   const tabData = [
@@ -24,7 +24,11 @@ export const TabHome = (props: any) => {
       label: "Info",
       component: <Info tabData1={tabData1} formik={formik}
         documents={certificates}
-        setDocuments={setCertificates} />
+        setDocuments={setCertificates}
+        alternate_mobile_numbers={alternate_mobile_numbers}
+        setAlternate_mobile_numbers={setAlternate_mobile_numbers}
+
+      />
 
     },
     {

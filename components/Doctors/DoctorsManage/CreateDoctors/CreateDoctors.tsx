@@ -25,6 +25,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
     const [gender, setGender] = useState("null");
 
+    const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState([{ id: 1 }]);
 
     const router = useRouter();
 
@@ -127,6 +128,7 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                     professional_contributions: values.professional_contributions,
                     affliation: values.affliation
                 },
+                alternate_mobile_numbers: alternate_mobile_numbers,
                 practice: values.practice,
                 is_authorized: true,
                 id_proof: idProof,
@@ -477,6 +479,9 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
 
                         documents={documents}
                         setDocuments={setDocuments}
+
+                        alternate_mobile_numbers={alternate_mobile_numbers}
+                        setAlternate_mobile_numbers={setAlternate_mobile_numbers}
 
                         image={image}
                         setImage={setImage}

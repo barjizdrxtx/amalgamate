@@ -35,7 +35,7 @@ export const Doctors = () => {
         "Edit",
         "Delete"
     ];
-
+    
 
     return (
 
@@ -44,7 +44,7 @@ export const Doctors = () => {
             <CustomizedButton onClick={() => router.push("/doctors/create")} bgColor={themecolor}>Create Doctors</CustomizedButton>
 
             <TableUI tableName="doctors" tableHead={tableHead} element={element} name="doctors" actions={actions} />
-
+ 
         </Grid>
     )
 }
