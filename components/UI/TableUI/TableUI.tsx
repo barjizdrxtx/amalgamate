@@ -119,12 +119,12 @@ export const TableUI = (props: any) => {
 
               <tr style={{ cursor: "pointer" }}>
 
-                <td onClick={() => router.push(`/diseases/details/${data._id}`)} style={{ fontWeight: "bold" }}>
+                <td onClick={() => router.push(`/doctors/details/${data._id}`)} style={{ fontWeight: "bold" }}>
                   {index + 1 + (page - 1) * limit}
                 </td>
 
 
-                {!disableImage && <td onClick={() => router.push(`/diseases/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
+                {!disableImage && <td onClick={() => router.push(`/doctors/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
 
                   <img style={{ width: "50px", height: "50px", borderRadius: "30%" }} src={data.image_location} />
 
@@ -133,7 +133,7 @@ export const TableUI = (props: any) => {
                 {element.map((el: any) =>
 
 
-                  <td onClick={() => router.push(`/diseases/details/${data._id}`)}>
+                  <td onClick={() => router.push(`/doctors/details/${data._id}`)}>
 
                     {nestedArray ? data["data"][el] : data[el]}
 
