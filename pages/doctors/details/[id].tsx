@@ -13,8 +13,6 @@ const index = () => {
 
     const doctors = data?.result
 
-    console.log("doctors", data?.result?.images.map(img => img.image    ``))
-
 
 
     const doctorsDetails = [
@@ -50,13 +48,6 @@ const index = () => {
         "latitude_longitude",
 
         "gender",
-
-        // "images": [
-        //     {
-        //         "image_id": "string",
-        //         "image_location": "string"
-        //     }
-        // ],
 
         "years_of_experience",
 
@@ -107,7 +98,13 @@ const index = () => {
 
         <Grid>
 
-            <img />
+            {doctors?.images.map((img: any) =>
+
+                <img src={img.image} />
+
+            )}
+
+
 
             {doctorsDetails.map(data =>
 
