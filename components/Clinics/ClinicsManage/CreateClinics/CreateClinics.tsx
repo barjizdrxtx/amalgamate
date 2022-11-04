@@ -13,8 +13,6 @@ import { GoogleApi } from './GoogleApi';
 
 export const CreateClinics = ({ path = 'clinics' }) => {
 
-    const [role, setRole] = useState("null");
-
     const router = useRouter();
 
     const [image, setImage] = useState([{ id: 1 }]);
@@ -24,6 +22,9 @@ export const CreateClinics = ({ path = 'clinics' }) => {
     const [procedures, setProcedures] = useState([{ id: 1 }]);
 
     const [specialities, setSpecialities] = useState([{ id: 1 }]);
+
+
+    const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState([{ id: 1 }]);
 
 
     const [days, setDays]: any = useState([
@@ -153,7 +154,6 @@ export const CreateClinics = ({ path = 'clinics' }) => {
             const axiosrequest1 = axios.post(path, {
 
                 name: values.name,
-                role: role,
                 profile: values.profile,
                 website: values.website,
                 clinic_admin_name: values.clinic_admin_name,
@@ -351,25 +351,14 @@ export const CreateClinics = ({ path = 'clinics' }) => {
                 <Box sx={{ width: "100%", }}>
 
 
-                    <CreateButton title={path}
+                    <CreateButton buttonName="Create" title={path}
                         onCreate={formik.handleSubmit}
                     />
 
-                    
                     <form onSubmit={formik.handleSubmit}>
 
                         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-                            <Grid lg={4}>
-
-                                <DropDown
-                                    text="Role"
-                                    dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                    value={role}
-                                    setValue={setRole}
-                                />
-
-                            </Grid>
 
                             {clincs2.map((data, index) =>
 
@@ -425,6 +414,9 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
                         documents={documents}
                         setDocuments={setDocuments}
+
+                        alternate_mobile_numbers={alternate_mobile_numbers}
+                        setAlternate_mobile_numbers={setAlternate_mobile_numbers}
 
                         procedures={procedures}
                         setProcedures={setProcedures}

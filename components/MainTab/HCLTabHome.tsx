@@ -12,7 +12,8 @@ import { MainTab } from './MainTab';
 export const HCLTabHome = (props: any) => {
 
   const { tabData1, tabData2, procedures, setProcedures, formik, amineties, setAmenities, payments, setPayments,
-    documents, setDocuments, specialities, setSpecialities, image, setImage, days, setDays } = props;
+
+    documents, setDocuments, specialities, setSpecialities, image, setImage, days, setDays, alternate_mobile_numbers, setAlternate_mobile_numbers } = props;
 
   const tabData = [
 
@@ -22,7 +23,10 @@ export const HCLTabHome = (props: any) => {
         tabList={tabData1}
         formik={formik}
         documents={documents}
-        setDocuments={setDocuments} />
+        setDocuments={setDocuments}
+        alternate_mobile_numbers={alternate_mobile_numbers}
+        setAlternate_mobile_numbers={setAlternate_mobile_numbers}
+      />
     },
 
     {

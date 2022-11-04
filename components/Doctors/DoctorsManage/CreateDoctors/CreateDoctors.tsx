@@ -11,7 +11,7 @@ import { CreateButton } from '../../../UI/Button/CreateButton';
 
 export const CreateDoctors = ({ path = 'doctors' }) => {
 
-    const [role, setRole] = useState("null");
+
 
     const [image, setImage] = useState([{ id: 1 }]);
 
@@ -102,7 +102,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
             const axiosrequest1 = axios.post(`doctors`, {
 
                 name: values.name,
-                role: role,
                 specialisedIn: specialisedIn,
                 registration_number: values.registration_number,
                 email: values.email,
@@ -380,18 +379,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
                     <form onSubmit={formik.handleSubmit}>
 
                         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
-
-                            <Grid lg={4}>
-
-                                <DropDown
-                                    text="Role"
-                                    dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                    value={role}
-                                    setValue={setRole}
-                                />
-
-                            </Grid>
-
 
                             {doctors2.map((data: any, index: any) =>
 

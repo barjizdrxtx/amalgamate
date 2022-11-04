@@ -104,8 +104,6 @@ const index = () => {
 
             )}
 
-
-
             {doctorsDetails.map(data =>
 
                 <Box sx={{ display: "flex", justifyContent: "start", m: 1 }}>
@@ -114,16 +112,15 @@ const index = () => {
 
                     <Typography sx={{ flex: 1 }}> {doctors?.[data]}</Typography>
 
+
                 </Box>
 
-            )
-            }
+            )}
 
 
         </Grid >
 
 
-    )
-}
+    )}
 
 export default index

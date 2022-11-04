@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export const Info = (props: any) => {
 
-    const { tabList, formik, documents, setDocuments } = props;
+    const { tabList, formik, documents, setDocuments, alternate_mobile_numbers, setAlternate_mobile_numbers } = props;
 
 
     const AddImages = (index: any, event: any) => {
@@ -41,6 +41,24 @@ export const Info = (props: any) => {
 
     const handleRemoveFields = () => {
         setDocuments((documents: any) => documents.filter((_: any, i: any) => i !== documents.length - 1))
+    }
+
+
+    const handleChangeInput2 = (index: any, event: any) => {
+        const values = [...alternate_mobile_numbers]
+        values[index][event.target.name] = event.target.value
+        setAlternate_mobile_numbers(values)
+    }
+
+
+    const handleAddFields2 = () => {
+
+        setAlternate_mobile_numbers([...alternate_mobile_numbers, { id: alternate_mobile_numbers.length + 1 }])
+
+    }
+
+    const handleRemoveFields2 = () => {
+        setAlternate_mobile_numbers((alternate_mobile_numbers: any) => alternate_mobile_numbers.filter((_: any, i: any) => i !== alternate_mobile_numbers.length - 1))
     }
 
     return (
@@ -105,7 +123,6 @@ export const Info = (props: any) => {
                     </Box>
 
 
-
                 )}
 
 
@@ -116,6 +133,57 @@ export const Info = (props: any) => {
                 <Box sx={{ display: "flex" }}>
                     <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{documents.length > 1
                         && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
+                    }
+
+                </Box>
+            </Grid>
+
+
+
+
+            <Grid lg={12}>
+
+                {alternate_mobile_numbers.map((add: any, index: any) =>
+
+                    <Box sx={{
+                        width: "100%", display: "flex", flexDirection: "column",
+                        justifyContent: "start", alignItems: "center", mb: 4
+                    }}>
+
+
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+
+                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Alternative Phone Number</Typography>
+
+                            </Box>
+
+
+                            <Box sx={{ flex: 4, width: "100%", mb: 2, display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+                                <TextField sx={{ flex: 1, width: "100%" }} defaultValue={alternate_mobile_numbers[index].alternate_mobile_numbers}
+                                    name="phone_number"
+                                    onChange={(event: any) => handleChangeInput2(index, event)} />
+
+                            </Box>
+
+                        </Box>
+
+                    </Box>
+
+                )}
+
+
+            </Grid>
+
+
+            <Grid>
+
+                <Box sx={{ display: "flex" }}>
+                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields2}>add</CustomizedButton>{alternate_mobile_numbers.length > 1
+                        && <CustomizedButton bgColor="black" onClick={handleRemoveFields2}>remove</CustomizedButton>
                     }
 
                 </Box>

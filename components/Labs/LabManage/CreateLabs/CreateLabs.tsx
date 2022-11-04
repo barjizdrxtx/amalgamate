@@ -15,18 +15,21 @@ import { CreateButton } from '../../../UI/Button/CreateButton';
 
 export const CreateLabs = ({ path = 'lab' }) => {
 
-    const [role, setRole] = useState("null");
 
     const router = useRouter();
 
     const [image, setImage] = useState([{ id: 1 }]);
 
 
+    const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState([{ id: 1 }]);
+
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
     const [procedures, setProcedures] = useState([{ id: 1 }]);
 
     const [specialities, setSpecialities] = useState([{ id: 1 }]);
+
+    const [payment_modes, setPaymentModes] = useState([{ id: 1 }]);
 
 
     const [days, setDays]: any = useState([
@@ -135,7 +138,7 @@ export const CreateLabs = ({ path = 'lab' }) => {
             website: '',
             lab_admin_name: '',
             lab_admin_mobile: '',
-            longitude_latitude: '',
+            latitude_longitude: '',
             lab_contact_no: '',
             lab_email: '',
             lab_reg_no: '',
@@ -152,28 +155,29 @@ export const CreateLabs = ({ path = 'lab' }) => {
         onSubmit: (values: any) => {
 
             const axiosrequest1 = axios.post(`lab`, {
-
+                role: "string",
                 name: values.name,
-                timings: days,
-                role: role,
                 profile: values.profile,
                 website: values.website,
                 lab_admin_name: values.lab_admin_name,
                 lab_admin_mobile: values.lab_admin_mobile,
-                images: image,
                 address: values.address,
                 location: values.location,
-                langtitude_altitude: values.langtitude_altitude,
+                latitude_longitude: values.latitude_longitude,
                 lab_contact_no: values.lab_contact_no,
+                alternate_mobile_numbers: alternate_mobile_numbers,
                 lab_email: values.lab_email,
                 lab_reg_no: values.lab_reg_no,
-                description: values.description,
-                add_more: values.add_more,
-                active: true,
-                amineties: amineties,
                 documents: documents,
+                description: values.description,
+                images: image,
+                remarks: "string",
+                active: true,
                 procedures: procedures,
-                specialities: specialities
+                amineties: amineties,
+                specialities: specialities,
+                payment_modes: payment_modes,
+                timings: days
 
             })
 
@@ -281,13 +285,13 @@ export const CreateLabs = ({ path = 'lab' }) => {
             errors: formik.errors.address,
         },
         {
-            title: "Longitude Latitude",
-            label: "longitude_latitude",
+            title: "Latitude Longitude",
+            label: "latitude_longitude",
             type: "number",
             rows: 4,
-            value: formik.values.longitude_latitude,
-            touched: formik.touched.longitude_latitude,
-            errors: formik.errors.longitude_latitude,
+            value: formik.values.latitude_longitude,
+            touched: formik.touched.latitude_longitude,
+            errors: formik.errors.latitude_longitude,
         },
         {
             title: "Profile",
@@ -350,27 +354,14 @@ export const CreateLabs = ({ path = 'lab' }) => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <CreateButton title={path}
+                    <CreateButton buttonName="Create" title={path}
                         onCreate={formik.handleSubmit}
                     />
-
 
                     <form onSubmit={formik.handleSubmit}>
 
 
                         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
-
-                            <Grid lg={4}>
-
-                                <DropDown
-                                    text="Role"
-                                    dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                    value={role}
-                                    setValue={setRole}
-                                />
-
-                            </Grid>
-
 
                             {clincs2.map((data, index) =>
 
@@ -381,7 +372,7 @@ export const CreateLabs = ({ path = 'lab' }) => {
                                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
                                             <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
-                                            
+
                                         </Box>
 
                                         < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
@@ -415,6 +406,9 @@ export const CreateLabs = ({ path = 'lab' }) => {
 
                         days={days}
                         setDays={setDays}
+
+                        alternate_mobile_numbers={alternate_mobile_numbers}
+                        setAlternate_mobile_numbers={setAlternate_mobile_numbers}
 
                         tabData1={tabData1}
                         tabData2={tabData2}

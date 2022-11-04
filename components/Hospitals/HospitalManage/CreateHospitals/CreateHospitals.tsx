@@ -11,18 +11,18 @@ import { CreateButton } from '../../../UI/Button/CreateButton';
 
 export const CreateHospitals = ({ path = 'hospitals' }) => {
 
-    const [role, setRole] = useState("null");
-
     const router = useRouter();
 
     const [image, setImage] = useState([{ id: 1 }]);
-
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
     const [procedures, setProcedures] = useState([{ id: 1 }]);
 
     const [specialities, setSpecialities] = useState([{ id: 1 }]);
+
+
+    const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState([{ id: 1 }]);
 
     const [days, setDays]: any = useState([
 
@@ -150,27 +150,29 @@ export const CreateHospitals = ({ path = 'hospitals' }) => {
 
             const axiosrequest1 = axios.post(path, {
 
-                name: values.name,
-                timings: days,
-                role: role,
+                role: "string",
                 profile: values.profile,
+                name: values.name,
                 website: values.website,
                 hospital_admin_name: values.hospital_admin_name,
-                hospital_admin_mobile: values.hospital_admin_mobile,
-                images: image,
+                hospital_admin_number: values.hospital_admin_number,
                 address: values.address,
                 location: values.location,
-                langtitude_altitude: values.langtitude_altitude,
+                latitude_longitude: "string",
                 hospital_contact_no: values.hospital_contact_no,
+                alternate_mobile_numbers: alternate_mobile_numbers,
                 hospital_email: values.hospital_email,
                 hospital_reg_no: values.hospital_reg_no,
                 description: values.description,
-                add_more: values.add_more,
-                active: true,
-                amineties: amineties,
+                images: image,
                 documents: documents,
+                active: true,
+                remarks: "string",
                 procedures: procedures,
-                specialities: specialities
+                amineties: amineties,
+                specialities: specialities,
+                payment_modes: payments,
+                timings: days
 
             })
 
@@ -347,25 +349,13 @@ export const CreateHospitals = ({ path = 'hospitals' }) => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <CreateButton title={path}
+                    <CreateButton buttonName="Create" title={path}
                         onCreate={formik.handleSubmit}
                     />
-
 
                     <form onSubmit={formik.handleSubmit}>
 
                         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
-
-                            <Grid lg={4}>
-
-                                <DropDown
-                                    text="Role"
-                                    dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                    value={role}
-                                    setValue={setRole}
-                                />
-
-                            </Grid>
 
                             {clincs2.map((data, index) =>
 
@@ -419,6 +409,9 @@ export const CreateHospitals = ({ path = 'hospitals' }) => {
 
                         payments={payments}
                         setPayments={setPayments}
+
+                        alternate_mobile_numbers={alternate_mobile_numbers}
+                        setAlternate_mobile_numbers={setAlternate_mobile_numbers}
 
                         documents={documents}
                         setDocuments={setDocuments}
