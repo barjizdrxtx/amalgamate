@@ -97,7 +97,7 @@ export const Info = (props: any) => {
 
             <Grid lg={12}>
 
-                {documents.map((add: any, index: any) =>
+                {documents?.map((add: any, index: any) =>
 
                     <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
@@ -131,7 +131,7 @@ export const Info = (props: any) => {
             <Grid>
 
                 <Box sx={{ display: "flex" }}>
-                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{documents.length > 1
+                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{documents?.length > 1
                         && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
                     }
 
@@ -143,7 +143,7 @@ export const Info = (props: any) => {
 
             <Grid lg={12}>
 
-                {alternate_mobile_numbers.map((add: any, index: any) =>
+                {alternate_mobile_numbers?.map((add: any, index: any) =>
 
                     <Box sx={{
                         width: "100%", display: "flex", flexDirection: "column",
@@ -182,7 +182,7 @@ export const Info = (props: any) => {
             <Grid>
 
                 <Box sx={{ display: "flex" }}>
-                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields2}>add</CustomizedButton>{alternate_mobile_numbers.length > 1
+                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields2}>add</CustomizedButton>{alternate_mobile_numbers?.length > 1
                         && <CustomizedButton bgColor="black" onClick={handleRemoveFields2}>remove</CustomizedButton>
                     }
 

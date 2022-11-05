@@ -13,13 +13,14 @@ import { TabHome } from '../../Doctors/DoctorsManage/CreateDoctors/TabHome';
 
 export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
 
-    const [role, setRole] = useState("null");
-
     const [image, setImage] = useState([{ id: 1 }]);
 
     const router = useRouter();
 
     const { institution_id } = router.query
+
+    const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState([{ id: 1 }]);
+
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
@@ -76,37 +77,56 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
             const axiosrequest1 = axios.post(`doctors/institution-doctors`, {
 
                 name: values.name,
-                role: role,
                 specialisedIn: specialisedIn,
                 registration_number: values.registration_number,
                 email: values.email,
                 mobile: values.mobile,
+                alternate_mobile_numbers: alternate_mobile_numbers,
                 address: {
                     address1: "string",
                     address2: "string",
                     city: "string",
+                    district: "string",
                     state: "string"
                 },
+
+                location: "string",
+                latitude_longitude: "string",
                 gender: gender,
-                image_id: "string",
-                image_location: image,
+                images: image,
                 years_of_experience: values.years_of_experience,
-                dateOfBirth: "2022-09-13T18:41:40.248Z",
+                dateOfBirth: "2022-11-05T07:56:46.926Z",
                 qualificaton: values.qualificaton,
-                institution: "clinics",
-                institution_id: institution_id,
                 certificates: certificates,
                 profileText: {
                     short_profile: values.short_profile,
                     academic_architecture: values.academic_achievments,
                     professional_contributions: values.professional_contributions,
-                    affliation: values.affliation
+                    affliation: values.affliation,
+                    badge: "string",
+                    success_stories: "string"
                 },
                 practice: values.practice,
                 is_authorized: true,
-                id_proof: idProof,
-                consulation_fee: values.consulation_fee,
+                id_proof: "id_proof",
                 specilized_tag: values.specilized_tag,
+                languages_spoken: [
+                    "string"
+                ],
+                consultation_fee: values.consultation_fee,
+                institution: "clinics",
+                institution_id: institution_id,
+                department_id: "string",
+                doctor_id: "string",
+                role: "string",
+                serial_number: "string",
+                branch_id: "string",
+                available_time: "string",
+                concession_fee: 0,
+                notes: "string",
+                remarks: "string",
+                attributes: "string"
+
             })
 
 
@@ -121,8 +141,10 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
 
-                alert("submit success")
-                router.push('/doctors')
+                // alert("submit success")
+
+                // router.push(`/clinics/doctors?institution_id=${institution_id}`)
+
             }));
 
         },
@@ -304,7 +326,8 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <CreateButton title={path}
+
+                    <CreateButton buttonName="Create Clinic" title={path}
                         onCreate={formik.handleSubmit}
                     />
 
@@ -312,17 +335,7 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
 
                         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-                            <Grid lg={4}>
-
-                                <DropDown
-                                    text="Role"
-                                    dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                    value={role}
-                                    setValue={setRole}
-                                />
-
-                            </Grid>
-
+    
                             {doctors2.map((data: any, index: any) =>
 
                                 <Grid lg={4}>
@@ -402,6 +415,9 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
                         tabData3={tabData3}
 
                         tabData8={tabData8}
+
+                        alternate_mobile_numbers={alternate_mobile_numbers}
+                        setAlternate_mobile_numbers={setAlternate_mobile_numbers}
 
                         documents={documents}
                         setDocuments={setDocuments}

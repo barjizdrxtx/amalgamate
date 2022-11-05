@@ -31,7 +31,7 @@ export const Procedures = (props: any) => {
 
       <Grid container lg={12}>
 
-        {procedures.map((add: any, index: any) =>
+        {procedures?.map((add: any, index: any) =>
 
 
           <Grid key={index} lg={6}>
@@ -61,7 +61,7 @@ export const Procedures = (props: any) => {
       <Grid>
 
         <Box sx={{ display: "flex" }}>
-          <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{procedures.length > 1
+          <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{procedures?.length > 1
             && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
           }
 

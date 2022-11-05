@@ -31,7 +31,7 @@ export const Amenities = (props: any) => {
 
         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-            {amineties.map((data: any, index: any) =>
+            {amineties?.map((data: any, index: any) =>
 
                 <Grid key={index} lg={2}>
 
@@ -62,7 +62,7 @@ export const Amenities = (props: any) => {
             </Grid>
 
             <Box sx={{ display: "flex" }}>
-                <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{amineties.length > 4
+                <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{amineties?.length > 4
                     && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
                 }
 

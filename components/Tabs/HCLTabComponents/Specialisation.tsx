@@ -32,7 +32,7 @@ export const Specialisation = (props: any) => {
 
       <Grid container lg={12}>
 
-        {specialities.map((add: any, index: any) =>
+        {specialities?.map((add: any, index: any) =>
 
           <Grid key={index} lg={6}>
 
@@ -61,7 +61,7 @@ export const Specialisation = (props: any) => {
       <Grid>
 
         <Box sx={{ display: "flex" }}>
-          <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{specialities.length > 1
+          <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>add</CustomizedButton>{specialities?.length > 1
             && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>remove</CustomizedButton>
           }
 

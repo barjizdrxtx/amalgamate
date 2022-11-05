@@ -1,4 +1,4 @@
-import { Box, Button, Grid,} from '@mui/material'
+import { Box, Button, Grid, } from '@mui/material'
 import React from 'react'
 import ImageIcon from '@mui/icons-material/Image';
 import axios from 'axios';
@@ -94,7 +94,10 @@ export const MultiImagePreview = (props: any) => {
         })
     }
 
-    
+
+    console.log("image", image)
+
+
     const handleAddFields = () => {
 
         setImage([...image, { id: image.length + 1 }])
@@ -114,7 +117,7 @@ export const MultiImagePreview = (props: any) => {
 
                 <Grid container lg={12}>
 
-                    {image.map((data: any, index: any) =>
+                    {image?.map((data: any, index: any) =>
 
                         <Grid lg={2}>
 
@@ -158,7 +161,7 @@ export const MultiImagePreview = (props: any) => {
 
                 <Box sx={{ display: "flex" }}>
 
-                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>Add New</CustomizedButton>{image.length > 1
+                    <CustomizedButton bgColor="dodgerblue" onClick={handleAddFields}>Add New</CustomizedButton>{image?.length > 1
                         && <CustomizedButton bgColor="black" onClick={handleRemoveFields}>Remove</CustomizedButton>
                     }
 

@@ -1,27 +1,54 @@
 import { Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { Box } from '@mui/system';
 import { HCLTabHome } from '../../../MainTab/HCLTabHome';
 import { CreateButton } from '../../../UI/Button/CreateButton';
+import { useQueryFetchId } from '../../../../hooks/useQueryFetch';
 
 
-export const CreateClinics = ({ path = 'clinics' }) => {
+export const EditClinics = ({ path = 'clinics' }) => {
 
     const router = useRouter();
 
-    const [image, setImage] = useState([{ id: 1 }]);
+    const [documents, setDocuments] = useState();
 
-    const [documents, setDocuments] = useState([{ id: 1 }]);
-
-    const [procedures, setProcedures] = useState([{ id: 1 }]);
-
-    const [specialities, setSpecialities] = useState([{ id: 1 }]);
+    const [procedures, setProcedures] = useState();
 
 
-    const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState([{ id: 1 }]);
+    const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState();
+
+
+    const { id } = router.query;
+
+
+    const { fetchedData: fetchedData } = useQueryFetchId('clinics', id)
+
+    const clinics = fetchedData?.result;
+
+    console.log("clinics", clinics)
+
+
+    const [specialities, setSpecialities] = useState();
+
+    const [image, setImage] = useState();
+
+
+    useEffect(() => {
+
+        setDocuments(clinics?.documents)
+
+        setProcedures(clinics?.procedures)
+
+        setAlternate_mobile_numbers(clinics?.alternate_mobile_numbers)
+
+        setSpecialities(clinics?.specialities)
+
+        setImage(clinics?.images)
+
+    }, [])
 
 
     const [days, setDays]: any = useState([
@@ -80,26 +107,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
     ]);
 
-    const [amineties, setAmenities] = useState([
-
-        {
-            title: "Ac",
-            checked: false,
-        },
-        {
-            title: "Parking",
-            checked: false,
-        },
-        {
-            title: "Ambulance",
-            checked: false,
-        },
-
-        {
-            title: "Internet/wifi",
-            checked: false,
-        },
-    ]);
+    const [amineties, setAmenities] = useState(clinics?.amineties);
 
     const [payments, setPayments] = useState([
 
@@ -127,28 +135,28 @@ export const CreateClinics = ({ path = 'clinics' }) => {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            profile: '',
-            website: '',
-            clinic_admin_name: '',
-            clinic_admin_mobile: '',
-            longitude_latitude: '',
-            clinic_contact_no: '',
-            clinic_email: '',
-            clinic_reg_no: '',
-            description: '',
-            location: '',
-            address: '',
+            name: clinics?.name,
+            profile: clinics?.profile,
+            website: clinics?.website,
+            clinic_admin_name: clinics?.clinic_admin_name,
+            clinic_admin_mobile: clinics?.clinic_admin_mobile,
+            longitude_latitude: clinics?.longitude_latitude,
+            clinic_contact_no: clinics?.clinic_contact_no,
+            clinic_email: clinics?.clinic_email,
+            clinic_reg_no: clinics?.clinic_reg_no,
+            description: clinics?.description,
+            location: clinics?.location,
+            address: clinics?.address,
             meta_title: '',
             meta_tag_description: '',
             meta_tag_keyword: '',
         },
 
-        // validationSchema: clinicSchemea,
+        enableReinitialize: true,
 
         onSubmit: (values: any) => {
 
-            const axiosrequest1 = axios.post(path, {
+            const axiosrequest1 = axios.patch(`${path}/${id}`, {
 
                 name: values.name,
                 profile: values.profile,
@@ -348,7 +356,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
                 <Box sx={{ width: "100%", }}>
 
 
-                    <CreateButton buttonName="Create" title={path}
+                    <CreateButton buttonName="Edit" title={path}
                         onCreate={formik.handleSubmit}
                     />
 
@@ -378,7 +386,7 @@ export const CreateClinics = ({ path = 'clinics' }) => {
                                             type={data.type}
                                             onChange={formik.handleChange}
                                             error={data.touched && Boolean(data.errors)}
-                                            helperText={data.touched && data.errors}
+                                        // helperText={data.touched && data.errors}
                                         />
 
                                     </Box>

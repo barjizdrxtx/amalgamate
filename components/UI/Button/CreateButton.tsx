@@ -25,7 +25,7 @@ export const CreateButton = (props: any) => {
 
                 <Box sx={{ width: "100%", display: "flex", m: 2 }}>
 
-                    <Typography variant='h5' color={themecolor} sx={{ fontWeight: "bold" }}>Add New {title}</Typography>
+                    <Typography variant='h5' color={themecolor} sx={{ fontWeight: "bold" }}>{buttonName} {title}</Typography>
 
                 </Box>
 

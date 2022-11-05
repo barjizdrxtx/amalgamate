@@ -43,19 +43,11 @@ export const Login = () => {
 
                 else {
 
- 
 
                     alert("please check your username or password")
 
 
-
                 }
-
-
-
-
-
-
             })
 
         },

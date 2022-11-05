@@ -12,7 +12,6 @@ import { CreateButton } from '../../../UI/Button/CreateButton';
 export const CreateDoctors = ({ path = 'doctors' }) => {
 
 
-
     const [image, setImage] = useState([{ id: 1 }]);
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
