@@ -114,10 +114,9 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
                     "string"
                 ],
                 consultation_fee: values.consultation_fee,
-                institution: "clinics",
+                institution: "clinic",
                 institution_id: institution_id,
                 department_id: "string",
-                doctor_id: "string",
                 role: "string",
                 serial_number: "string",
                 branch_id: "string",
@@ -141,7 +140,7 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
 
-                // alert("submit success")
+                alert("submit success")
 
                 // router.push(`/clinics/doctors?institution_id=${institution_id}`)
 
