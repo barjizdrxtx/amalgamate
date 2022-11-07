@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import featuresSlice from '../redux/featuresSlice'
 import { ProtectedRoutes } from '../components/ProtectedRoutes/ProtectedRoutes'
+import { Login } from '@mui/icons-material'
 
 const queryClient = new QueryClient()
 
@@ -27,16 +28,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <Provider store={store}>
 
+        <Layout>
 
+          <Component {...pageProps} />
+
+        </Layout>
+
+
+      
    
-          <Layout>
-
-            <Component {...pageProps} />
-
-          </Layout>
-
-  
-
 
       </Provider>
 

@@ -13,9 +13,7 @@ function index() {
 
         router.push('/')
 
-
         window.location.reload();
-
 
     }
 
