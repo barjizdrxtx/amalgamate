@@ -27,3 +27,15 @@ export const useQueryFetchId = (url: any, id: any) => {
     return { fetchedData }
 }
 
+export const useQueryFetchParams = (url: any, id: any) => {
+
+    const { isLoading, error, data: fetchedData } = useQuery([url, id], () =>
+
+        fetch(`${BASE_URL + url + id}`).then(res =>
+
+            res.json()
+        )
+    )
+
+    return { fetchedData }
+}
