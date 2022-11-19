@@ -5,8 +5,6 @@ import { DropDown } from '../UI/DropDown/DropDown';
 
 export const Timing = (props: any) => {
 
-
-
     const days = [
 
         {

@@ -4,6 +4,8 @@ import VaccinesIcon from '@mui/icons-material/Vaccines';
 import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import PersonIcon from '@mui/icons-material/Person';
+import FeaturedVideoIcon from '@mui/icons-material/FeaturedVideo';
+import ReviewsIcon from '@mui/icons-material/Reviews';
 
 export const subRoutes = [
 
@@ -85,6 +87,35 @@ export const subRoutes = [
             {
                 text: "Enquiry List",
                 path: '/enquiry'
+            },
+        ]
+    },
+    {
+        name: 'Advertisement',
+        icon: FeaturedVideoIcon,
+        children: [
+            {
+                text: "Advertisement List",
+                path: '/advertisement'
+            },
+            {
+                text: "Create Advertisement",
+                path: '/advertisement/create'
+            },
+        ]
+    },
+
+    {
+        name: 'Testimonials',
+        icon: ReviewsIcon,
+        children: [
+            {
+                text: "Testimonials List",
+                path: '/testimonials'
+            },
+            {
+                text: "Create Testimonials",
+                path: '/testimonials/create'
             },
         ]
     },
