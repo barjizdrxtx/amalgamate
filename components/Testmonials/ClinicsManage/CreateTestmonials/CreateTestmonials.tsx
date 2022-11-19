@@ -6,10 +6,10 @@ import { useFormik } from 'formik';
 import { Box } from '@mui/system';
 import { HCLTabHome } from '../../../MainTab/HCLTabHome';
 import { CreateButton } from '../../../UI/Button/CreateButton';
-import { ImagePreview, MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
+import { MultiImagePreview } from '../../../UI/ImagePreview/ImagePreview';
 
 
-export const CreateAdvertisement = ({ path = 'advertisement' }) => {
+export const CreateTestmonials = ({ path = 'testmonials' }) => {
 
     const router = useRouter();
 
@@ -17,14 +17,14 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
 
 
     const formik = useFormik({
+
         initialValues: {
-            heading: '',
-            sub_heading: '',
-            description: '',
-            url: '',
-            valid_from: '',
-            valid_upto: '',
-            latitude_longitude: '',
+            name: '',
+            content: '',
+            image: '',
+            patient_id: '',
+            type: '',
+            icon: '',
             meta_title: '',
             meta_tag_description: '',
             meta_tag_keyword: '',
@@ -36,26 +36,12 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
 
             const axiosrequest1 = axios.post(path, {
 
-                mode: "big",
-                heading: values.heading,
-                sub_heading: "string",
-                description: "string",
-                url: "string",
-                valid_from: "2022-11-19T06:22:22.742Z",
-                valid_upto: "2022-11-19T06:22:22.742Z",
-                latitude_longitude: "string",
-                web_images: [
-                    {
-                        "image_id": "string",
-                        "image_location": "string"
-                    }
-                ],
-                mobile_images: [
-                    {
-                        "image_id": "string",
-                        "image_location": "string"
-                    }
-                ]
+                name: "string",
+                content: "string",
+                image: "string",
+                patient_id: "string",
+                type: "string",
+                icon: "string"
 
             })
 
@@ -78,68 +64,27 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
 
 
 
-    const advertisement = [
+    const testmonials = [
 
         {
-            title: "Heading",
+            title: "Name",
             label: "name",
             type: "text",
-            value: formik.values.heading,
-            touched: formik.touched.heading,
-            errors: formik.errors.heading,
+            value: formik.values.name,
+            touched: formik.touched.name,
+            errors: formik.errors.name,
         },
 
         {
-            title: "Sub Heading",
-            label: "sub_heading",
+            title: "Content",
+            label: "content",
             type: "number",
-            value: formik.values.sub_heading,
-            touched: formik.touched.sub_heading,
-            errors: formik.errors.sub_heading,
+            value: formik.values.content,
+            touched: formik.touched.content,
+            errors: formik.errors.content,
         },
-        {
-            title: "Description",
-            label: "description",
-            type: "number",
-            value: formik.values.description,
-            touched: formik.touched.description,
-            errors: formik.errors.description,
-        },
-        {
-            title: "URL",
-            label: "url",
-            type: "text",
-            value: formik.values.url,
-            touched: formik.touched.url,
-            errors: formik.errors.url,
-        },
-        {
-            title: "Valid From",
-            label: "valid_from",
-            type: "email",
-            value: formik.values.valid_from,
-            touched: formik.touched.valid_from,
-            errors: formik.errors.valid_from,
-        },
-
-        {
-            title: "Valid Upto",
-            label: "valid_upto",
-            type: "number",
-            value: formik.values.valid_upto,
-            touched: formik.touched.valid_upto,
-            errors: formik.errors.valid_upto,
-        },
-        {
-            title: "Latitude_longitude",
-            label: "latitude_longitude",
-            type: "text",
-            value: formik.values.latitude_longitude,
-            touched: formik.touched.latitude_longitude,
-            errors: formik.errors.latitude_longitude,
-        },
-
     ]
+
 
 
     return (
@@ -160,7 +105,7 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
                         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
 
-                            {advertisement.map((data, index) =>
+                            {testmonials.map((data, index) =>
 
                                 <Grid key={index} lg={4}>
 
