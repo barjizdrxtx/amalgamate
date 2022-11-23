@@ -1,9 +1,5 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import { Clinics } from './ClinicsManage/Clinics';
-import { Typography } from '@mui/material';
-import { CreateClinics } from './ClinicsManage/CreateClinics/CreateClinics';
-import { useThemeColor } from '../../hooks/useThemeColor';
 import { MainTab } from '../MainTab/MainTab';
 
 export const TabHome = () => {
