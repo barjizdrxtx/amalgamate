@@ -3,12 +3,15 @@ import React from 'react'
 import { EditDoctors } from '../../../components/Doctors/DoctorsManage/CreateDoctors/EditDoctors'
 
 const index = () => {
+
   return (
+
     <Grid>
 
-      <EditDoctors />
+      {/* <EditDoctors /> */}
 
     </Grid>
+
   )
 }
 

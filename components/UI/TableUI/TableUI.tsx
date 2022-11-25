@@ -53,8 +53,6 @@ export const TableUI = (props: any) => {
 
   }
 
-  console.log("time", new Date("2022-11-22T14:37:59.821Z"))
-
 
   return (
 

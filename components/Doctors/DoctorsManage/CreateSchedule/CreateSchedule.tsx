@@ -35,8 +35,6 @@ export const CreateSchedule = (props: any) => {
     const [days, setDays]: any = useState(allDays)
 
 
-    console.log("days", days)
-
     const onCreate = () => {
 
         axios.post("/schedule", {
