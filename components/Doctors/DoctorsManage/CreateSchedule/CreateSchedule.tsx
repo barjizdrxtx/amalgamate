@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Switch, TextField, Typography } from '@mui/material';
+import { Box, Checkbox, Divider, FormControlLabel, Grid, Switch, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
@@ -16,7 +16,6 @@ export const CreateSchedule = (props: any) => {
 
     const { id } = router.query;
 
-    console.log("id", id)
 
     const themecolor = useThemeColor();
 
@@ -32,24 +31,11 @@ export const CreateSchedule = (props: any) => {
 
     ]
 
-    const timeSlot2 = [
-
-
-        "2022-10-04T05:00:00.127Z", "2022-10-04T05:30:00.127Z", "2022-10-04T06:00:00.127Z", "2022-10-04T06:30:00.127Z",
-        "2022-10-04T07:00:00.127Z", "2022-10-04T07:30:00.127Z", "2022-10-04T08:00:00.127Z", "2022-10-04T08:30:00.127Z",
-        "2022-10-04T09:00:00.127Z", "2022-10-04T09:30:00.127Z", "2022-10-04T10:00:00.127Z", "2022-10-04T11:30:00.127Z",
-
-        "2022-10-04T12:00:00.127Z", "2022-10-04T12:30:00.127Z", "2022-10-04T13:00:00.127Z", "2022-10-04T13:30:00.127Z",
-        "2022-10-04T14:00:00.127Z", "2022-10-04T14:30:00.127Z", "2022-10-04T15:00:00.127Z", "2022-10-04T15:30:00.127Z",
-
-    ]
-
-
 
     const [days, setDays]: any = useState(allDays)
 
-    console.log("days", allDays)
 
+    console.log("days", days)
 
     const onCreate = () => {
 
@@ -87,6 +73,8 @@ export const CreateSchedule = (props: any) => {
 
         const values = [...days]
 
+
+
         for (let i = 0; i < 7; i++) {
 
             values[i][event.target.name] = !days[i][session]
@@ -120,179 +108,99 @@ export const CreateSchedule = (props: any) => {
     }
 
 
-    const { fetchedData: fetchedData } = useQueryFetchId(`doctors/institutions`, id);
-
-    console.log("fetchedData", fetchedData)
-
 
     return (
 
-        <Grid container lg={12} sx={{ backgroundColor: "white" }}>
-
-            <Grid container lg={12} sx={{ justifyContent: "center", alignItems: 'center' }}>
-
-                <Box sx={{ width: "100%" }}>
-
-                    <Box>
-
-                        <Box sx={{
-                            width: "100%", display: "flex",
-                            justifyContent: "space-between", alignItems: "center",
-                        }}>
-
-                            <Box sx={{ width: "100%", display: "flex", m: 2 }}>
-
-                                <Typography variant='h5' color={themecolor} sx={{ fontWeight: "bold" }}>Add New Schedule</Typography>
-
-                            </Box>
+        <Grid container sx={{ backgroundColor: "white" }}>
 
 
-                            <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+            <Box sx={{ width: "100%" }}>
 
-
-                                <CustomizedButton bgColor={themecolor} onClick={onCreate}>Create Schedule</CustomizedButton >
-
-                                <CustomizedButton bgColor="black" onClick={() => router.push(`/doctors`)}>Cancel</CustomizedButton >
-
-
-                            </Box>
-
-                        </Box>
-
-                        <Divider />
-
-                    </Box >
-
+                <Box>
 
                     <Box sx={{
-                        width: "100%", height: "100px", flex: 1, display: "flex",
-                        justifyContent: "start", alignItems: "center",
+                        width: "100%", display: "flex",
+                        justifyContent: "space-between", alignItems: "center",
                     }}>
 
-                        <Box sx={{ flex: 1 }}>
+                        <Box sx={{ width: "100%", display: "flex", m: 2 }}>
 
-                            <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >Session Controll</Typography>
+                            <Typography variant='h5' color={themecolor} sx={{ fontWeight: "bold" }}>Add New Schedule</Typography>
 
                         </Box>
 
 
-                        {[1, 2, 3].map((numbers: any) =>
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
 
 
-                            <Box sx={{ flex: 2, display: "flex", justifyContent: "start", alignItems: "center" }}>
+                            <CustomizedButton bgColor={themecolor} onClick={onCreate}>Create Schedule</CustomizedButton >
 
-                                <Typography sx={{ fontWeight: "bold" }}>All Session {numbers}</Typography>
-
-                                <Switch   {...label}
-
-                                    name={`session${numbers}`}
-
-                                    onChange={(event: any) => handleChangeAllSession(event, `session${numbers}`)}
-
-                                />
+                            <CustomizedButton bgColor="black" onClick={() => router.push(`/doctors`)}>Cancel</CustomizedButton >
 
 
-                                {days[0][`session${numbers}`] &&
-
-                                    <Box sx={{ ml: 4, display: "flex", alignItems: "center" }}>
-
-                                        <DropDown2
-                                            dropData={timeSlot1}
-                                            value={days[0][`session${numbers}_start`] === null ? "5:00 Am" : days[0][`session${numbers}_start`]}
-                                            name={`session${numbers}_start`}
-                                            onChange={(event: any) => handleChangeInput2(event)} />
-
-                                        <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
-
-                                        <DropDown2
-                                            dropData={timeSlot1}
-                                            value={days[0][`session${numbers}_end`] === null ? "11:30 Am" : days[0][`session${numbers}_end`]}
-                                            name={`session${numbers}_end`}
-                                            onChange={(event: any) => handleChangeInput2(event)} />
-
-                                    </Box>
-
-                                }
-
-                            </Box>
-
-                        )}
+                        </Box>
 
                     </Box>
 
-
                     <Divider />
 
+                </Box >
 
-                    {days.map((data: any, index: any) =>
+
+                <Box sx={{
+                    width: "100%", height: "100px", flex: 1, display: "flex",
+                    justifyContent: "start", alignItems: "center",
+                }}>
 
 
-                        <Box sx={{
-                            width: "100%", height: "100px", flex: 1, display: "flex",
-                            justifyContent: "start", alignItems: "center",
+                    {[1, 2, 3].map((numbers: any, index: any) =>
+
+
+                        <Box key={index} sx={{
+                            flex: 5, display: "flex",
+                            justifyContent: "start", alignItems: "start"
                         }}>
 
-                            <Box sx={{ flex: 1 }}>
-
-                                <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >{data.day_name}</Typography>
-
-                            </Box>
-
-                            {[1, 2, 3].map((numbers: any) =>
 
 
-                                <Box sx={{ flex: 2, display: "flex", justifyContent: "start", alignItems: "center" }}>
+                            <Typography sx={{ fontWeight: "bold", p: 1 }}>All Session {numbers}</Typography>
 
-                                    <Box sx={{
-                                        flex: 1,
-                                        display: "flex", flexDirection: "column",
-                                        justifyContent: "center", alignItems: "center"
-                                    }}>
+                            <Checkbox {...label} name={`session${numbers}`}
+                                // checked={true}
+                                // indeterminate={datas}
+                                onChange={(event: any) => handleChangeAllSession(event, `session${numbers}`)} />
 
-                                        <Typography sx={{ fontWeight: "bold" }}>Session {numbers}</Typography>
 
-                                        <Switch checked={days[index][`session${numbers}`]}  {...label}
+                            {
+                                days[0][`session${numbers}`] &&
 
-                                            name={`session${numbers}`}
+                                <Box sx={{ display: "flex", alignItems: "center" }}>
 
-                                            onChange={(event: any) => handleChangeSession(index, event, `session${numbers}`)}
+                                    <DropDown2
+                                        dropData={timeSlot1}
+                                        defaultValue={"2022-10-04T05:00:00.127Z"}
+                                        name={`session${numbers}_start`}
+                                        onChange={(event: any) => handleChangeInput2(event)} />
 
-                                        />
+                                    <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
 
-                                    </Box>
+                                    <DropDown2
+                                        dropData={timeSlot1}
+                                        defaultValue={"2022-10-04T12:00:00.127Z"}
+                                        name={`session${numbers}_end`}
+                                        onChange={(event: any) => handleChangeInput2(event)} />
 
-                                    {days[index][`session${numbers}`] &&
 
-                                        <Box sx={{ ml: 4, display: "flex", alignItems: "center" }}>
-
-                                            <DropDown2
-                                                dropData={timeSlot1}
-                                                defaultValue={"2022-10-04T05:00:00.127Z"}
-                                                name='starting_time'
-                                                onChange={(event: any) => handleChangeTime(index, event, numbers)} />
-
-                                            <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
-
-                                            <DropDown2
-                                                dropData={timeSlot1}
-                                                defaultValue={"2022-10-04T12:00:00.127Z"}
-                                                name='ending_time'
-                                                onChange={(event: any) => handleChangeTime(index, event, numbers)} />
-
-                                            <TextField label="slot"
-                                                defaultValue={1}
-                                                name='slot_count'
-                                                type="number"
-                                                onChange={(event: any) => handleChangeTime(index, event, numbers)} />
-
-                                        </Box>
-
-                                    }
+                                    <TextField label="slot"
+                                        defaultValue={1}
+                                        name='slot_count'
+                                        type="number"
+                                        onChange={(event: any) => handleChangeInput2(event)} />
 
 
                                 </Box>
 
-                            )}
+                            }
 
                         </Box>
 
@@ -300,7 +208,88 @@ export const CreateSchedule = (props: any) => {
 
                 </Box>
 
-            </Grid >
+
+                <Divider />
+
+
+                {days.map((data: any, index: any) =>
+
+
+                    <Box key={index} sx={{
+                        width: "100%", height: "100px", flex: 1, display: "flex",
+                        justifyContent: "start", alignItems: "center",
+                    }}>
+
+                        <Box sx={{ flex: 1 }}>
+
+                            <Typography sx={{ fontWeight: "bold", color: "#2C3E50" }} >{data.day_name}</Typography>
+
+                        </Box>
+
+                        {[1, 2, 3].map((numbers: any) =>
+
+
+                            <Box sx={{ flex: 2, display: "flex", justifyContent: "start", alignItems: "center" }}>
+
+                                <Box sx={{
+                                    flex: 1,
+                                    display: "flex", flexDirection: "column",
+                                    justifyContent: "center", alignItems: "center"
+                                }}>
+
+                                    <Typography sx={{ fontWeight: "bold" }}>Session {numbers}</Typography>
+
+
+
+                                    <Checkbox checked={days[index][`session${numbers}`] === true}  {...label}
+
+                                        name={`session${numbers}`}
+
+                                        onChange={(event: any) => handleChangeSession(index, event, `session${numbers}`)} />
+
+                                </Box>
+
+                                {days[index][`session${numbers}`] &&
+
+                                    <Box sx={{ ml: 4, display: "flex", alignItems: "center" }}>
+
+                                        <DropDown2
+                                            dropData={timeSlot1}
+                                            defaultValue={"2022-10-04T05:00:00.127Z"}
+                                            name='starting_time'
+                                            onChange={(event: any) => handleChangeTime(index, event, numbers)} />
+
+                                        <Typography sx={{ m: 1, fontWeight: "bold", color: "#2C3E50" }}>To</Typography>
+
+                                        <DropDown2
+                                            dropData={timeSlot1}
+                                            defaultValue={"2022-10-04T12:00:00.127Z"}
+                                            name='ending_time'
+                                            onChange={(event: any) => handleChangeTime(index, event, numbers)} />
+
+                                        <TextField label="slot"
+                                            defaultValue={1}
+                                            name='slot_count'
+                                            type="number"
+                                            onChange={(event: any) => handleChangeTime(index, event, numbers)} />
+
+                                    </Box>
+
+                                }
+
+
+                            </Box>
+
+                        )}
+
+                    </Box>
+
+                )
+                }
+
+            </Box>
+
+
 
         </Grid >
     )

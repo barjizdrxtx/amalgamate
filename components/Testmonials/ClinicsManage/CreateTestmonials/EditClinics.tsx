@@ -28,7 +28,6 @@ export const EditClinics = ({ path = 'clinics' }) => {
 
     const clinics = fetchedData?.result;
 
-    console.log("clinics", clinics)
 
 
     const [specialities, setSpecialities] = useState();

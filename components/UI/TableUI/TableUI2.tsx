@@ -36,7 +36,7 @@ export const TableUI2 = (props: any) => {
   const darkmode = useDarkmode();
 
 
-  console.log("tableData", tableData)
+
 
 
   const Open = (index: any) => {

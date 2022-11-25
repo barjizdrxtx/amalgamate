@@ -9,7 +9,6 @@ export const AllTabs = (props: any) => {
 
     const { inputfield, setInputField } = props;
 
-    console.log("inputfield", inputfield)
 
 
     const AddImages = (index: any, event: any) => {

@@ -65,8 +65,6 @@ export const EditDoctors = ({ path = 'doctors' }) => {
 
     const { fetchedData: doctors } = useQueryFetchId('doctors', id)
 
-    console.log("doctors", doctors?.result?.email)
-
 
     const formik = useFormik({
 

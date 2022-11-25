@@ -95,8 +95,6 @@ export const MultiImagePreview = (props: any) => {
     }
 
 
-    console.log("image", image)
-
 
     const handleAddFields = () => {
 

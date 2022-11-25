@@ -8,6 +8,7 @@ import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
 import { Actions } from './Actions';
 import { useRouter } from 'next/router';
 import { useDarkmode } from '../../../hooks/useDarkmode';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 export const TableUI = (props: any) => {
@@ -34,9 +35,6 @@ export const TableUI = (props: any) => {
   let totalPages = totalLength === limit ? page + 1 : page;
 
   const darkmode = useDarkmode();
-
-
-  console.log("tableData", tableData)
 
 
   const Open = (index: any) => {
@@ -127,7 +125,14 @@ export const TableUI = (props: any) => {
 
                 {!disableImage && <td onClick={() => router.push(`/doctors/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
 
-                  <img style={{ width: "50px", height: "50px", borderRadius: "30%" }} src={data.image_location} />
+
+                  {data.images[0].image === undefined ?
+                    <AccountCircleIcon sx={{ fontSize: "3.8rem", color: "#AEAEAE" }} /> :
+
+                    <img src={data.images[0].image} width="55px" height="55px"
+                      style={{ borderRadius: "100%" }} />
+                  }
+
 
                 </td>}
 
