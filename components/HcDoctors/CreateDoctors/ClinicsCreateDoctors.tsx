@@ -142,7 +142,7 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
 
                 alert("submit success")
 
-                // router.push(`/clinics/doctors?institution_id=${institution_id}`)
+                router.push(`/clinics/doctors?institution_id=${institution_id}`)
 
             }));
 
@@ -334,7 +334,7 @@ export const ClinicsCreateDoctors = ({ path = 'doctors' }) => {
 
                         <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
-    
+
                             {doctors2.map((data: any, index: any) =>
 
                                 <Grid lg={4}>

@@ -1,28 +1,28 @@
 import React, { useState } from 'react'
-import { Box, TextField, Grid, Button, Typography, Select, MenuItem, Stack, IconButton } from '@mui/material';
+import { Box, TextField, Grid, Typography, Stack } from '@mui/material';
 import { useFormik } from 'formik';
 import axios from 'axios';
-
 import { useRouter } from 'next/router';
 
-import ImageIcon from '@mui/icons-material/Image';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { CustomizedButton } from '../../UI/Button/CustomizedButton';
+import { CreateButton } from '../../UI/Button/CreateButton';
 import { DropDown } from '../../UI/DropDown/DropDown';
 import { TabHome } from '../../Doctors/DoctorsManage/CreateDoctors/TabHome';
-import { PRIMARY_COLOR } from '../../../utls/colors';
 
 
-export const HosptialCreateDoctors = () => {
+export const HosptialCreateDoctors = ({ path = 'doctors' }) => {
 
+    const [image, setImage] = useState([{ id: 1 }]);
 
-    const [role, setRole] = useState("null");
+    const router = useRouter();
 
-    const [doctor_img, setDoctor_img] = useState(null);
+    const { institution_id } = router.query
+
+    const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState([{ id: 1 }]);
+
 
     const [documents, setDocuments] = useState([{ id: 1 }]);
-
 
     const [certificates, setCertificates] = useState([{ id: 1 }]);
 
@@ -32,36 +32,18 @@ export const HosptialCreateDoctors = () => {
 
     const [gender, setGender] = useState("null");
 
-    const router = useRouter();
-
-    const { institution_id } = router.query
-
-    const [dateOfBirth, setDateofBirth] = React.useState<Date | null>(
+    const [value, setValue] = React.useState<Date | null>(
         new Date(''),
     );
 
     const handleChange = (newValue: Date | null) => {
-        setDateofBirth(newValue);
+        setValue(newValue);
     };
 
 
 
-    const AddImages = (event: any) => {
-
-        const formData = new FormData();
-
-        formData.append('file_location', event.target.files[0]);
-
-        axios.post(`images`, formData).then((response) => {
-
-            setDoctor_img(response.data.result.file_location)
-
-        })
-    }
-
-
-
     const formik = useFormik({
+
         initialValues: {
             name: '',
             registration_number: '',
@@ -76,6 +58,7 @@ export const HosptialCreateDoctors = () => {
             academic_achievments: '',
             professional_contributions: '',
             affliation: '',
+            success_stories: '',
 
             practice: '',
             consulation_fee: '',
@@ -85,53 +68,63 @@ export const HosptialCreateDoctors = () => {
             meta_tag_description: '',
             meta_tag_keyword: '',
 
+
         },
         // validationSchema: doctorSchemea,
 
         onSubmit: (values: any) => {
 
-            const axiosrequest1 = axios.post(`doctors/clinic-doctors`, {
+            const axiosrequest1 = axios.post(`doctors/institution-doctors`, {
 
                 name: values.name,
                 specialisedIn: specialisedIn,
                 registration_number: values.registration_number,
                 email: values.email,
                 mobile: values.mobile,
+                alternate_mobile_numbers: alternate_mobile_numbers,
                 address: {
                     address1: "string",
                     address2: "string",
                     city: "string",
-                    state: "string",
+                    district: "string",
+                    state: "string"
                 },
+
+                location: "string",
+                latitude_longitude: "string",
                 gender: gender,
-                image_id: "string",
-                image_location: doctor_img,
+                images: image,
                 years_of_experience: values.years_of_experience,
-                dateOfBirth: dateOfBirth,
+                dateOfBirth: "2022-11-05T07:56:46.926Z",
                 qualificaton: values.qualificaton,
                 certificates: certificates,
                 profileText: {
                     short_profile: values.short_profile,
                     academic_architecture: values.academic_achievments,
                     professional_contributions: values.professional_contributions,
-                    affliation: values.affliation
+                    affliation: values.affliation,
+                    badge: "string",
+                    success_stories: "string"
                 },
                 practice: values.practice,
                 is_authorized: true,
-                id_proof: idProof,
+                id_proof: "id_proof",
                 specilized_tag: values.specilized_tag,
-                institution: "hospitals",
+                languages_spoken: [
+                    "string"
+                ],
+                consultation_fee: values.consultation_fee,
+                institution: "hospital",
                 institution_id: institution_id,
                 department_id: "string",
-                role: role,
+                role: "string",
                 serial_number: "string",
                 branch_id: "string",
                 available_time: "string",
-                concession_fee: values.consulation_fee,
+                concession_fee: 0,
                 notes: "string",
                 remarks: "string",
                 attributes: "string"
-
 
             })
 
@@ -148,14 +141,17 @@ export const HosptialCreateDoctors = () => {
             axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function (res1, res2) {
 
                 alert("submit success")
-                router.push(`/clinics/doctors?institution_id=${institution_id}`)
+
+                router.push(`/hospitals/doctors?institution_id=${institution_id}`)
+
             }));
 
         },
     });
 
 
-    const doctors = [
+
+    const doctors2 = [
 
         {
             title: "Mr / Mrs",
@@ -166,10 +162,6 @@ export const HosptialCreateDoctors = () => {
             errors: formik.errors.name,
         },
 
-    ]
-
-
-    const doctors2 = [
 
         {
             title: "Mobile Number",
@@ -212,6 +204,17 @@ export const HosptialCreateDoctors = () => {
             touched: formik.touched.registration_number,
             errors: formik.errors.registration_number,
         },
+        {
+            title: "consulation_fee",
+            label: "registration_number",
+            type: "text",
+            rows: 5,
+            value: formik.values.consulation_fee,
+            touched: formik.touched.consulation_fee,
+            errors: formik.errors.consulation_fee,
+        },
+
+
     ]
 
 
@@ -267,18 +270,16 @@ export const HosptialCreateDoctors = () => {
             errors: formik.errors.affliation,
         },
         {
-            title: "Qualificaton",
-            label: "qualificaton",
+            title: "Success Stories",
+            label: "success_stories",
             type: "text",
-            rows: 2,
-            value: formik.values.qualificaton,
-            touched: formik.touched.qualificaton,
-            errors: formik.errors.qualificaton,
+            rows: 6,
+            value: formik.values.success_stories,
+            touched: formik.touched.success_stories,
+            errors: formik.errors.success_stories,
+
         },
-
-
     ]
-
 
 
     const tabData8 = [
@@ -324,208 +325,82 @@ export const HosptialCreateDoctors = () => {
 
                 <Box sx={{ width: "100%", }}>
 
-                    <Box sx={{
-                        width: "100%", display: "flex",
-                        justifyContent: "space-between", alignItems: "center",
-                    }}>
 
-
-                        <Box sx={{ width: "100%", display: "flex", m: 2 }}>
-
-                            <Typography variant='h5' color="green" sx={{ fontWeight: "bold" }}>Add New Doctors</Typography>
-
-                        </Box>
-
-
-                        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
-
-                            <CustomizedButton bgColor={PRIMARY_COLOR} onClick={formik.handleSubmit}>Create Doctors</CustomizedButton >
-
-                            <CustomizedButton bgColor="black" onClick={() => router.push('/clinics')}>Cancel</CustomizedButton >
-
-                        </Box>
-
-
-                    </Box>
-
+                    <CreateButton buttonName="Create Hospital" title={path}
+                        onCreate={formik.handleSubmit}
+                    />
 
                     <form onSubmit={formik.handleSubmit}>
 
-                        <Grid container lg={12}>
-
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
-
-                                <Grid lg={6}>
-
-                                    <DropDown
-                                        text="Role"
-                                        dropData={["Doctor", "Admin", "Nurse", "Staff"]}
-                                        value={role}
-                                        setValue={setRole}
-                                    />
-
-                                    {doctors.map(data =>
-
-                                        <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                                <Typography>{data.title}</Typography>
-
-                                            </Box>
-
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
-
-                                        </Box>
-
-                                    )}
+                        <Grid container lg={12} sx={{ backgroundColor: "white" }}>
 
 
+                            {doctors2.map((data: any, index: any) =>
 
+                                <Grid lg={4}>
 
-                                </Grid>
-
-
-                                <Grid container lg={6} >
-
-                                    <Grid container lg={6} >
-
-                                        <Grid lg={8}>
-
-                                            <Box sx={{
-                                                display: "flex", flexDirection: "column", justifyContent: "end",
-                                                alignItems: "end",
-                                            }}>
-
-                                                <Box sx={{ width: "50%" }}>
-
-                                                    <Box sx={{
-                                                        backgroundColor: "lightgray", width: "150px", mb: 2,
-                                                        height: "100px", display: "flex", justifyContent: "center", alignItems: "center"
-                                                    }}>
-
-                                                        {doctor_img === null ? <ImageIcon sx={{ fontSize: "4rem" }} />
-
-                                                            :
-
-                                                            <img src={doctor_img} width="100%" />
-
-                                                        }
-
-                                                    </Box>
-
-                                                </Box>
-
-                                                <Box sx={{ display: "flex", width: "50%" }}>
-
-                                                    <Stack direction="row" alignItems="center" spacing={2}>
-
-                                                        <Button variant="contained" component="label">
-                                                            Upload
-
-                                                            <input hidden type='file' key="image" id="outlined-basic"
-
-                                                                onChange={(event: any) => AddImages(event)} />
-
-                                                        </Button>
-
-                                                    </Stack>
-
-                                                </Box>
-
-                                            </Box>
-
-                                        </Grid>
-
-                                    </Grid>
-
-
-                                </Grid>
-
-                            </Grid>
-
-
-                            <Grid container lg={12} sx={{ backgroundColor: "white" }}>
-
-                                {doctors2.map(data =>
-
-                                    <Grid lg={6}>
-
-                                        <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-                                            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                                                <Typography>{data.title}</Typography>
-
-                                            </Box>
-
-                                            < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
-                                                fullWidth
-                                                id={data.label}
-                                                name={data.label}
-                                                // label={data.label}
-                                                value={data.value}
-                                                type={data.type}
-                                                onChange={formik.handleChange}
-                                                error={data.touched && Boolean(data.errors)}
-                                                helperText={data.touched && data.errors}
-                                            />
-
-                                        </Box>
-
-                                    </Grid>
-                                )}
-
-                                <Grid lg={6}>
-
-                                    <DropDown
-                                        text="Gender"
-                                        dropData={["Male", "Female", "Other"]}
-                                        value={gender}
-                                        setValue={setGender}
-                                    />
-
-
-                                </Grid>
-
-
-                                <Grid lg={6}>
-
-                                    <Box sx={{ m: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
 
                                         <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                                            <Typography>Date of Birth</Typography>
+                                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
 
                                         </Box>
 
-                                        <LocalizationProvider dateAdapter={AdapterDateFns} sx={{ flex: 2, width: "100%", mb: 2 }}>
-
-                                            <Stack sx={{ flex: 2, width: "100%", mb: 2 }}>
-                                                <DesktopDatePicker
-                                                    // label="Date desktop"
-                                                    inputFormat="MM/dd/yyyy"
-                                                    value={dateOfBirth}
-                                                    onChange={handleChange}
-                                                    renderInput={(params) => <TextField {...params} />}
-                                                />
-                                            </Stack>
-                                        </LocalizationProvider>
+                                        < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
+                                            fullWidth
+                                            id={data.label}
+                                            name={data.label}
+                                            // label={data.label}
+                                            value={data.value}
+                                            type={data.type}
+                                            onChange={formik.handleChange}
+                                            error={data.touched && Boolean(data.errors)}
+                                            helperText={data.touched && data.errors}
+                                        />
 
                                     </Box>
 
                                 </Grid>
+                            )}
 
+                            <Grid lg={4}>
+
+                                <DropDown
+                                    text="Gender"
+                                    dropData={["Male", "Female", "Other"]}
+                                    value={gender}
+                                    setValue={setGender}
+                                />
+
+                            </Grid>
+
+
+                            <Grid lg={4}>
+
+                                <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+
+                                    <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                                        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Date of Birth</Typography>
+
+                                    </Box>
+
+                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+
+                                        <Stack sx={{ flex: 2, width: "100%", mb: 2 }}>
+                                            <DesktopDatePicker
+                                                // label="Date desktop"
+                                                inputFormat="MM/dd/yyyy"
+                                                value={value}
+                                                onChange={handleChange}
+                                                renderInput={(params) => <TextField {...params} />}
+                                            />
+                                        </Stack>
+
+                                    </LocalizationProvider>
+
+                                </Box>
 
                             </Grid>
 
@@ -534,11 +409,20 @@ export const HosptialCreateDoctors = () => {
                     </form>
 
                     <TabHome formik={formik}
+
                         tabData1={tabData1}
                         tabData3={tabData3}
+
                         tabData8={tabData8}
+
+                        alternate_mobile_numbers={alternate_mobile_numbers}
+                        setAlternate_mobile_numbers={setAlternate_mobile_numbers}
+
                         documents={documents}
                         setDocuments={setDocuments}
+
+                        image={image}
+                        setImage={setImage}
 
                         certificates={certificates}
                         setCertificates={setCertificates}
@@ -551,13 +435,11 @@ export const HosptialCreateDoctors = () => {
 
                     />
 
+                </Box >
 
-                </Box>
-
-            </Grid>
+            </Grid >
 
         </Grid >
-
 
     )
 }

@@ -9,7 +9,7 @@ import { Actions } from './Actions';
 import { useRouter } from 'next/router';
 import { useDarkmode } from '../../../hooks/useDarkmode';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import * as moment from 'moment'
 
 export const TableUI = (props: any) => {
 
@@ -52,6 +52,8 @@ export const TableUI = (props: any) => {
     setPage(p)
 
   }
+
+  console.log("time", new Date("2022-11-22T14:37:59.821Z"))
 
 
   return (
@@ -146,6 +148,16 @@ export const TableUI = (props: any) => {
                   </td>
 
                 )}
+
+
+                <td>
+
+                  {moment.utc(data.createdAt).format("MMM Do YY")}
+
+                </td>
+
+
+
 
                 {!disableActions && <td>
 

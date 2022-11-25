@@ -4,17 +4,17 @@ import { useRouter } from 'next/router';
 import { TableUI } from '../UI/TableUI/TableUI';
 import { CustomizedButton } from '../UI/Button/CustomizedButton';
 import { useThemeColor } from '../../hooks/useThemeColor';
+import { TableUI2 } from '../UI/TableUI/TableUI2';
 
 
 export const HospitalDoctors = () => {
 
     const router = useRouter();
 
+    const { institution_id } = router.query
 
     const themecolor = useThemeColor();
 
-
-    const { institution_id } = router.query
 
     const tableHead = [
 
@@ -49,7 +49,7 @@ export const HospitalDoctors = () => {
 
             <CustomizedButton onClick={() => router.push({ pathname: `/hospitals/doctors/create`, query: { institution_id: institution_id } })} bgColor={themecolor}>Create Doctors</CustomizedButton>
 
-            <TableUI tableName="doctors" tableHead={tableHead} element={element} name={`clinics/doctors-list/${institution_id}`} actions={actions} />
+            <TableUI2 tableName="doctors" tableHead={tableHead} element={element} name={`doctor-institution/doctors-list?institution=hospitals&institution_id=${institution_id}`} actions={actions} />
 
         </Grid>
     )

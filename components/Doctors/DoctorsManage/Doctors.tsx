@@ -26,7 +26,6 @@ export const Doctors = () => {
         "registration_number",
         "email",
         "mobile",
-        "createdAt",
     ]
 
     const actions = [

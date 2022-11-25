@@ -73,8 +73,6 @@ export const CreateSchedule = (props: any) => {
 
         const values = [...days]
 
-
-
         for (let i = 0; i < 7; i++) {
 
             values[i][event.target.name] = !days[i][session]
