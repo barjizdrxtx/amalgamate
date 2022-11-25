@@ -21,7 +21,6 @@ export const HosptialCreateDoctors = ({ path = 'doctors' }) => {
 
     const [alternate_mobile_numbers, setAlternate_mobile_numbers] = useState([{ id: 1 }]);
 
-
     const [documents, setDocuments] = useState([{ id: 1 }]);
 
     const [certificates, setCertificates] = useState([{ id: 1 }]);
