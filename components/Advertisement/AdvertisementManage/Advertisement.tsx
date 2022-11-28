@@ -13,27 +13,20 @@ export const Advertisement = () => {
 
     const tableHead = [
 
-        "Name",
-        "Website",
-        "Admin",
-        "Location",
-        "Contact",
+        "heading",
+        "sub_heading",
+        "url",
 
     ];
 
     const element = [
 
-        "name",
-        "website",
-        "clinic_admin_name",
-        "location",
-        "clinic_contact_no"
-
+        "heading",
+        "sub_heading",
+        "url",
     ]
 
     const actions = [
-        "OverView",
-        "Doctors",
         "Edit",
         "Delete"
     ];
@@ -45,7 +38,8 @@ export const Advertisement = () => {
 
             <CustomizedButton onClick={() => router.push("/advertisement/create")} bgColor={themecolor}>Create Advertisement</CustomizedButton>
 
-            <TableUI tableName="advertisement" tableHead={tableHead} element={element} name="advertisement" actions={actions} />
+            <TableUI tableName="advertisement" tableHead={tableHead} element={element} name="advertisement"
+                actions={actions} disableImage={true} />
 
         </Grid>
 

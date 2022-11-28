@@ -156,7 +156,6 @@ export const TableUI = (props: any) => {
 
 
 
-
                 {!disableActions && <td>
 
                   <Actions

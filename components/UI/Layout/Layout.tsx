@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { Box, Divider } from '@mui/material'
 import { useDarkmode } from '../../../hooks/useDarkmode'
 import axios from 'axios'
-import { BASE_URL } from '../../../utls/url'
+import { BASE_URL } from '../../../url'
 
 export const Layout = (props: { children: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined }) => {
 

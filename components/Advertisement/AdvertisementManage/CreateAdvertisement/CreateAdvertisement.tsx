@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from '@mui/material';
+import { Divider, Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -13,7 +13,12 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
 
     const router = useRouter();
 
-    const [image, setImage] = useState([{ id: 1 }]);
+    const [web_image, setWebImage] = useState([{ id: 1 }]);
+
+    const [mobile_image, setMobileImage] = useState([{ id: 1 }]);
+
+
+    console.log("web_image", web_image)
 
 
     const formik = useFormik({
@@ -38,24 +43,14 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
 
                 mode: "big",
                 heading: values.heading,
-                sub_heading: "string",
-                description: "string",
-                url: "string",
+                sub_heading: values.sub_heading,
+                description: values.description,
+                url: values.url,
                 valid_from: "2022-11-19T06:22:22.742Z",
                 valid_upto: "2022-11-19T06:22:22.742Z",
                 latitude_longitude: "string",
-                web_images: [
-                    {
-                        "image_id": "string",
-                        "image_location": "string"
-                    }
-                ],
-                mobile_images: [
-                    {
-                        "image_id": "string",
-                        "image_location": "string"
-                    }
-                ]
+                web_images: web_image,
+                mobile_images: mobile_image
 
             })
 
@@ -82,7 +77,7 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
 
         {
             title: "Heading",
-            label: "name",
+            label: "heading",
             type: "text",
             value: formik.values.heading,
             touched: formik.touched.heading,
@@ -92,7 +87,7 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
         {
             title: "Sub Heading",
             label: "sub_heading",
-            type: "number",
+            type: "text",
             value: formik.values.sub_heading,
             touched: formik.touched.sub_heading,
             errors: formik.errors.sub_heading,
@@ -100,7 +95,7 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
         {
             title: "Description",
             label: "description",
-            type: "number",
+            type: "text",
             value: formik.values.description,
             touched: formik.touched.description,
             errors: formik.errors.description,
@@ -193,9 +188,21 @@ export const CreateAdvertisement = ({ path = 'advertisement' }) => {
 
                         <Grid>
 
+                            <Typography sx={{ fontWeight: "bold", m: 1 }}>Web Image</Typography>
 
-                            <MultiImagePreview image={image} setImage={setImage} />
+                            <MultiImagePreview image={web_image} setImage={setWebImage} />
 
+                        </Grid>
+
+
+                        <Divider />
+
+
+                        <Grid>
+
+                            <Typography sx={{ fontWeight: "bold", m: 1 }}>Mobile Image</Typography>
+
+                            <MultiImagePreview image={mobile_image} setImage={setMobileImage} />
 
                         </Grid>
 

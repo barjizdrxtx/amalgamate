@@ -166,7 +166,6 @@ export const CreateDoctors = ({ path = 'doctors' }) => {
             errors: formik.errors.name,
         },
 
-
         {
             title: "Mobile Number",
             label: "mobile",
