@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavBar } from './NavBar'
 import { Sidebar } from './Sidebar'
-import { SubSidebar } from './SubSidebar'
 import { useRouter } from 'next/router'
 import { Box, Divider } from '@mui/material'
 import { useDarkmode } from '../../../hooks/useDarkmode'
@@ -25,13 +24,6 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
         <Box sx={{ width: "100%", display: "flex", backgroundColor: darkmode }}>
 
 
-            <Box sx={{ width: "fit-content" }}>
-
-                <Sidebar />
-
-            </Box>
-
-
             <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
 
                 <Box>
@@ -46,7 +38,7 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
 
                     <Box>
 
-                        {router.asPath === '/' ? null : <SubSidebar />}
+                        {router.asPath === '/' ? null : <Sidebar />}
 
                     </Box>
 

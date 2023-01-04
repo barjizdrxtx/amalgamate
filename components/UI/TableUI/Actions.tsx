@@ -65,24 +65,6 @@ export const Actions = (props: any) => {
             onClick: handleDetails
         },
         {
-            text: "Schedule",
-            icon: CalendarMonthIcon,
-            color: "dodgerblue",
-            onClick: handleSchedule
-        },
-        {
-            text: "Doctors",
-            icon: AccountCircleOutlinedIcon,
-            color: "dodgerblue",
-            onClick: handleDoctors
-        },
-        {
-            text: "LabTest",
-            icon: ScienceIcon,
-            color: "orange",
-            onClick: handleLabTest
-        },
-        {
             text: "Edit",
             icon: ModeEditOutlineOutlinedIcon,
             color: "green",

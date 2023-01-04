@@ -96,8 +96,6 @@ export const NavBar = () => {
 
             <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "center", ml: 1 }}>
 
-                <Image src="/assets/logo/logo.png" width="120px" height="40px" />
-
                 <Typography variant="h5" fontWeight="bold" sx={{ color: themecolor }}>CMS</Typography>
 
             </Box>
