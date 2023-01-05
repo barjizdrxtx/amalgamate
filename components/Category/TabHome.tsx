@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { MainTab } from '../MainTab/MainTab';
-import { Products } from './ProductsManage/Products';
+import { Categories } from './CategoryManage/Categories';
+
 
 export const TabHome = () => {
 
   const tabData = [
     {
-      label: "All Products",
-      component: <Products />
+      label: "Categories",
+      component: <Categories />
     },
   ]
 

@@ -5,31 +5,19 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { Box } from '@mui/system';
 import { CreateButton } from '../../../UI/Button/CreateButton';
-import { DropDown } from '../../../UI/DropDown/DropDown';
-import { useQueryFetch } from '../../../../hooks/useQueryFetch';
 
-export const CreateProducts = ({ path = 'products' }) => {
+export const CreateCategory = ({ path = 'categories' }) => {
 
     const router = useRouter();
 
 
     const [value, setValue] = useState("null");
 
-    const { fetchedData: fetchedData } = useQueryFetch('categories')
-
-    const products = fetchedData?.result
-
-    console.log("products", products)
-
-
     const formik = useFormik({
 
         initialValues: {
 
-            name: '',
-            price: '',
             category: '',
-            aboutProduct: ''
 
         },
 
@@ -39,11 +27,7 @@ export const CreateProducts = ({ path = 'products' }) => {
 
             const axiosrequest = axios.post(path, {
 
-                name: values.name,
-                price: values.price,
-                category: value,
-                aboutProduct: values.aboutProduct,
-
+                category: values.category,
 
             })
 
@@ -61,29 +45,14 @@ export const CreateProducts = ({ path = 'products' }) => {
     const list = [
 
         {
-            title: "Product Name",
-            label: "name",
+            title: "Category",
+            label: "category",
             type: "text",
-            value: formik.values.name,
-            touched: formik.touched.name,
-            errors: formik.errors.name,
+            value: formik.values.category,
+            touched: formik.touched.category,
+            errors: formik.errors.category,
         },
-        {
-            title: "Price",
-            label: "price",
-            type: "number",
-            value: formik.values.price,
-            touched: formik.touched.price,
-            errors: formik.errors.price,
-        },
-        {
-            title: "About Product",
-            label: "aboutProduct",
-            type: "text",
-            value: formik.values.aboutProduct,
-            touched: formik.touched.aboutProduct,
-            errors: formik.errors.aboutProduct,
-        },
+
 
     ]
 
@@ -131,17 +100,8 @@ export const CreateProducts = ({ path = 'products' }) => {
                                     </Box>
 
                                 </Grid>
+
                             )}
-
-                            <Grid lg={4}>
-
-                                <DropDown
-                                    text="Category"
-                                    dropData={products}
-                                    value={value}
-                                    setValue={setValue} />
-
-                            </Grid>
 
                         </Grid>
 

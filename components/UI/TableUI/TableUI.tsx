@@ -104,6 +104,9 @@ export const TableUI = (props: any) => {
 
               <th>No</th>
 
+
+
+
               {!disableImage && <th>Image</th>}
 
               {tableHead.map((data: any) =>
@@ -111,6 +114,8 @@ export const TableUI = (props: any) => {
                 <th>{data}</th>
 
               )}
+
+              <th>Created At</th>
 
               {!disableActions && <th>Actions</th>}
 
@@ -151,6 +156,8 @@ export const TableUI = (props: any) => {
 
 
                 <td>
+
+
 
                   {moment.utc(data.createdAt).format("MMM Do YY")}
 
