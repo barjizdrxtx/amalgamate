@@ -3,9 +3,9 @@ import { NavBar } from './NavBar'
 import { Sidebar } from './Sidebar'
 import { useRouter } from 'next/router'
 import { Box, Divider } from '@mui/material'
-import { useDarkmode } from '../../../hooks/useDarkmode'
 import axios from 'axios'
 import { BASE_URL } from '../../../url'
+import { PRIMARY_COLOR } from '../../../utls/colors'
 
 export const Layout = (props: { children: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined }) => {
 
@@ -13,15 +13,9 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
     axios.defaults.baseURL = BASE_URL;
 
 
-    const router = useRouter();
-
-    const darkmode = useDarkmode();
-
-
-
     return (
 
-        <Box sx={{ width: "100%", display: "flex", backgroundColor: darkmode }}>
+        <Box sx={{ width: "100%", display: "flex", bgcolor: "white" }}>
 
 
             <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
@@ -36,9 +30,14 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
 
                 <Box sx={{ display: "flex" }} >
 
-                    <Box>
+                    <Box sx={{
+                        display: {
+                            xs: "none", sm: "none",
+                            md: "flex", lg: "flex", xl: "flex"
+                        }
+                    }}>
 
-                        {router.asPath === '/' ? null : <Sidebar />}
+                        <Sidebar />
 
                     </Box>
 

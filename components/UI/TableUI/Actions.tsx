@@ -3,35 +3,36 @@ import React from 'react'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import ScienceIcon from '@mui/icons-material/Science';
 import { LIGHT_GREY_COLOR } from '../../../utls/colors';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { useJwt } from '../../../hooks/useJwt';
 
 export const Actions = (props: any) => {
 
     const { name, id, index, bool, Open, refetch, actions } = props;
 
-    const router = useRouter()
+    const router = useRouter();
+
+    const token = useJwt();
 
     const handleDelete = () => {
 
-        axios.delete(`${name}/${id}`)
+        axios.delete(`${name}/${id}`,
+
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            }
+
+        )
             .then((response) => {
                 Open(index);
                 refetch();
             })
     }
-
-    const handleSchedule = () => {
-
-        router.push(`${name}/schedule/${id}`)
-
-    }
-
 
     const handleEdit = () => {
 
@@ -39,31 +40,9 @@ export const Actions = (props: any) => {
 
     }
 
-    const handleDetails = () => {
-
-        router.push(`${name}/details/${id}`)
-
-    }
-    const handleDoctors = () => {
-
-        router.push({ pathname: `${name}/doctors`, query: { institution_id: id } })
-
-    }
-
-    const handleLabTest = () => {
-
-        router.push({ pathname: `${name}/add-test`, query: { institution_id: id } })
-
-    }
 
     const actionButtons = [
 
-        {
-            text: "OverView",
-            icon: RemoveRedEyeOutlinedIcon,
-            color: "purple",
-            onClick: handleDetails
-        },
         {
             text: "Edit",
             icon: ModeEditOutlineOutlinedIcon,

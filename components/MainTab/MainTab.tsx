@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
-import { useThemeColor } from '../../hooks/useThemeColor';
+import { PRIMARY_COLOR } from '../../utls/colors';
+
 
 export const MainTab = (props: any) => {
 
@@ -9,28 +10,24 @@ export const MainTab = (props: any) => {
 
   const [tab, setTab] = React.useState(0)
 
-  const themecolor = useThemeColor();
-
-
   return (
 
     <Box sx={{
-      width: "100%", display: "flex", flexDirection: "column", backgroundColor: "white", m: 1,
+      width: "100%", display: "flex", flexDirection: "column", backgroundColor: "white"
     }} >
 
-      <Box sx={{ width: "fit-content", display: "flex", p: 0.5, alignItems: "center", backgroundColor: "#F6F6F6", borderRadius: "10px" }
+      <Box sx={{ width: "fit-content", display: "flex", m: 1, p: 0.5, alignItems: "center", backgroundColor: "#F6F6F6", borderRadius: "10px" }
       } >
 
         {tabData.map((data: any, index: any) =>
 
-          <Box sx={{ backgroundColor: tab === index ? themecolor : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
+          <Box sx={{ backgroundColor: tab === index ? PRIMARY_COLOR : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
 
             <Typography sx={{ color: tab === index ? "white" : "#696969", fontWeight: "bold" }}>{data.label}</Typography>
 
           </Box>
 
-        )
-        }
+        )}
 
       </Box >
 
@@ -42,8 +39,7 @@ export const MainTab = (props: any) => {
 
         </Box>
 
-      )
-      }
+      )}
 
     </Box >
 

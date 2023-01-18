@@ -1,35 +1,22 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { Login } from "../Auth/login"
+import jwt_decode from 'jwt-decode';
+import { useJwt } from '../../hooks/useJwt';
 
 export const ProtectedRoutes = (props: { children: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined }) => {
 
-    const ISSERVER = typeof window === "undefined";
+    const token = useJwt();
 
+    var dateNow = new Date();
 
-    const [token, setToken]: any = useState(false);
-
-
-    useEffect(() => {
-
-
-        if (!ISSERVER) {
-
-            setToken(localStorage.getItem("authToken"))
-
-        }
-
-    }, [])
-
+    const decoded: any = token === null ? null : jwt_decode(token)
 
     return (
 
         <div>
 
-
-            {token != null ? props.children : < Login />}
-
-
+            {decoded?.exp * 1000 > dateNow.getTime() === false || token === null ? < Login /> : props.children}
 
         </div>
 

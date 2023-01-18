@@ -1,59 +1,45 @@
-import { Button, Divider, Typography } from '@mui/material'
+import { Button, Divider, Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useThemeColor } from '../../../hooks/useThemeColor'
 import { CustomizedButton } from './CustomizedButton'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { PRIMARY_COLOR } from '../../../utls/colors'
 
 export const CreateButton = (props: any) => {
 
     const { buttonName, title, onCreate, preview, isPreview, setPreview } = props;
 
-    const themecolor = useThemeColor();
-
     const router = useRouter();
 
     return (
 
-        <Box>
+        <Grid container>
 
-            <Box sx={{
-                width: "100%", display: "flex",
-                justifyContent: "space-between", alignItems: "center",
-            }}>
+            <Grid container sm={6} md={6} lg={6}
+                sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex", xl: "flex" } }}>
 
-                <Box sx={{ width: "100%", display: "flex", m: 2 }}>
+                <Typography variant='h5' color={PRIMARY_COLOR} sx={{ fontWeight: "bold", m: 1 }}>{buttonName} {title}</Typography>
 
-                    <Typography variant='h5' color={themecolor} sx={{ fontWeight: "bold" }}>{buttonName} {title}</Typography>
+            </Grid>
 
-                </Box>
+            <Grid container sm={6} md={6} lg={6}>
 
-                {isPreview && <Box onClick={() => setPreview(!preview)} sx={{
-                    width: "500px", display: "flex", justifyContent: "center",
-                    alignItems: "center", backgroundColor: preview ? "black" : "purple", borderRadius: "10px", p: 1.5, cursor: "pointer"
-                }}>
+                <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
 
-                    <RemoveRedEyeIcon sx={{ mr: 1, color: "white" }} />
+                    <CustomizedButton bgColor={PRIMARY_COLOR} onClick={onCreate}>{buttonName + " " + title}</CustomizedButton >
 
-                    <Typography
-                        sx={{ color: "white", textTransform: "capitalize" }}>{preview ? "Cancel Preview" : title + "Preview"}</Typography>
+                    <Box sx={{ m: 1 }}></Box>
 
-                </Box>}
-
-                <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
-
-
-                    <CustomizedButton bgColor={themecolor} onClick={onCreate}>{buttonName + " " + title}</CustomizedButton >
-
-                    <CustomizedButton bgColor="black" onClick={() => router.push(`/${title}`)}>Cancel</CustomizedButton >
+                    <CustomizedButton bgColor="black" onClick={() => router.push(`/`)}>Cancel</CustomizedButton >
 
                 </Box>
 
-            </Box>
+
+            </Grid>
 
             <Divider />
 
-        </Box >
+        </Grid >
     )
 }

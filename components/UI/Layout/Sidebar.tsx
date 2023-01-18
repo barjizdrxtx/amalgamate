@@ -3,22 +3,13 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import { siderbar } from './helper';
-import { useDarkmode } from '../../../hooks/useDarkmode';
-import { GREY_COLOR, LIGHT_COLOR, LIGHT_GREY_COLOR } from '../../../utls/colors';
-import { useThemeColor } from '../../../hooks/useThemeColor';
+import { GREY_COLOR, LIGHT_COLOR, LIGHT_GREY_COLOR, PRIMARY_COLOR } from '../../../utls/colors';
 
 export const Sidebar = () => {
 
     const [isExpand, setIsExpand] = useState(true)
 
     const router = useRouter()
-
-    const darkmode = useDarkmode();
-
-    const themecolor = useThemeColor();
-
-    const [bool, setBool] = useState([]);
-
 
     const Expand = () => {
 
@@ -30,13 +21,13 @@ export const Sidebar = () => {
         <Box sx={{
             overflow: "hidden", width: 'fit-content',
             px: 1,
-            backgroundColor: darkmode, borderRight: "1px solid #EAEDED"
+            backgroundColor: "white", borderRight: "1px solid #EAEDED"
         }}>
 
             <Box onClick={Expand} sx={{ cursor: "pointer", display: "flex", justifyContent: 'center', alignItems: "center", p: 2 }}>
 
                 <KeyboardDoubleArrowLeftIcon
-                    sx={{ color: themecolor, fontSize: "2rem", transform: isExpand ? "rotate(0deg)" : "rotate(180deg)" }} />
+                    sx={{ color: PRIMARY_COLOR, fontSize: "2rem", transform: isExpand ? "rotate(0deg)" : "rotate(180deg)" }} />
 
             </Box>
 
@@ -65,7 +56,7 @@ export const Sidebar = () => {
                             },
                         }}>
 
-                        <data.icon sx={{ color: data.path === router.asPath ? themecolor : GREY_COLOR, }} />
+                        <data.icon sx={{ color: data.path === router.asPath ? PRIMARY_COLOR : GREY_COLOR, }} />
 
 
                         {isExpand &&
@@ -75,7 +66,7 @@ export const Sidebar = () => {
                                     sx={{
                                         ml: 2,
                                         width: "150px",
-                                        color: data.path === router.asPath ? themecolor : GREY_COLOR,
+                                        color: data.path === router.asPath ? PRIMARY_COLOR : GREY_COLOR,
                                         fontWeight: data.path === router.asPath ? "bold" : "normal",
 
                                     }}>{data.name}</Typography>

@@ -1,11 +1,15 @@
-import { Box, Grid, TextField } from '@mui/material'
+import { Box, Button, Grid, TextField } from '@mui/material'
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { CustomizedButton } from '../UI/Button/CustomizedButton'
 import { loginSchemea } from './validation';
 
 export const Login = () => {
+
+
+    const router = useRouter();
 
 
     const formik = useFormik({
@@ -14,19 +18,17 @@ export const Login = () => {
 
             username: '',
             password: '',
-
         },
 
         validationSchema: loginSchemea,
 
         onSubmit: (values: any) => {
 
-            axios.post(`auth/login`,
+            axios.post(`http://192.168.1.27:3000/auth/login`,
 
                 {
                     username: values.username,
                     password: values.password,
-                    mode: 'user'
 
                 },
 
@@ -35,7 +37,9 @@ export const Login = () => {
 
                 if (response.data.success) {
 
-                    localStorage.setItem('authToken', response.data.access_token)
+                    localStorage.setItem('authToken', response.data.accessTocken)
+
+                    router.push("/")
 
                     window.location.reload();
 
@@ -59,19 +63,19 @@ export const Login = () => {
 
         <Grid container alignItems="center" >
 
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap", p: 1 }}>
 
 
-                <Box sx={{ width: "50%", display: "flex", flexDirection: "column" }}>
+                <Grid lg={6} >
 
 
                     <img width="100%" src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-135.jpg?w=2000" />
 
 
-                </Box>
+                </Grid>
 
 
-                <Box sx={{ width: "50%", display: "flex", flexDirection: "column" }}>
+                <Grid lg={6}>
 
 
                     < TextField sx={{ width: "100%", mb: 2 }}
@@ -100,13 +104,13 @@ export const Login = () => {
                         helperText={formik.touched.password && formik.errors.password}
                     />
 
-                    <CustomizedButton bgColor="dodgerblue" onClick={formik.handleSubmit}>Login</CustomizedButton>
+                    <CustomizedButton width="100%" bgColor="dodgerblue" onClick={formik.handleSubmit}>Login</CustomizedButton>
 
-                </Box>
+                </Grid>
 
             </Box>
 
-        </Grid>
+        </Grid >
 
     )
 }

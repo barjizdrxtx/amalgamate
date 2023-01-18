@@ -1,8 +1,23 @@
-import React from 'react'
+import { Grid } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 
 export const useJwt = () => {
 
-    const token = localStorage.getItem("authToken");
+    const ISSERVER = typeof window === "undefined";
 
-    return token
+    const [token, setToken]: any = useState(null);
+
+    useEffect(() => {
+
+
+        if (!ISSERVER) {
+
+            setToken(localStorage.getItem("authToken"))
+
+        }
+
+
+    }, [])
+
+    return token;
 }

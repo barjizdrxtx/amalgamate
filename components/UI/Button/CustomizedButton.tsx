@@ -8,7 +8,7 @@ export const CustomizedButton = (props: any) => {
     return (
         <Button type={type} sx={{
             width: props.width,
-            boxShadow: "none", m: 1, backgroundColor: bgColor, border: `1px solid ${bgColor}`, "&:hover": {
+            boxShadow: "none", my: 1, backgroundColor: bgColor, border: `1px solid ${bgColor}`, "&:hover": {
                 backgroundColor: "transparent", boxShadow: "none",
                 color: bgColor, border: `1px solid ${bgColor}`,
 

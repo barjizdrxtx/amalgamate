@@ -7,7 +7,6 @@ import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
 import { Actions } from './Actions';
 import { useRouter } from 'next/router';
-import { useDarkmode } from '../../../hooks/useDarkmode';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import * as moment from 'moment'
 
@@ -34,10 +33,6 @@ export const TableUI = (props: any) => {
 
   let totalPages = totalLength === limit ? page + 1 : page;
 
-  const darkmode = useDarkmode();
-
-  console.log("tableData", tableData)
-
 
   const Open = (index: any) => {
 
@@ -58,10 +53,11 @@ export const TableUI = (props: any) => {
 
   return (
 
-    <Grid>
+    <Grid container>
 
       <Box sx={{
-        bgcolor: darkmode,
+        width: "100%",
+        bgcolor: "white",
         boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
         borderRadius: "20px", p: 2
       }}>
@@ -105,9 +101,8 @@ export const TableUI = (props: any) => {
               <th>No</th>
 
 
-
-
               {!disableImage && <th>Image</th>}
+
 
               {tableHead.map((data: any) =>
 
@@ -117,6 +112,7 @@ export const TableUI = (props: any) => {
 
               <th>Created At</th>
 
+
               {!disableActions && <th>Actions</th>}
 
             </tr>
@@ -125,12 +121,12 @@ export const TableUI = (props: any) => {
 
               <tr style={{ cursor: "pointer" }}>
 
-                <td onClick={() => router.push(`/doctors/details/${data._id}`)} style={{ fontWeight: "bold" }}>
+                <td onClick={() => router.push(`/request/details/${data._id}`)} style={{ fontWeight: "bold" }}>
                   {index + 1 + (page - 1) * limit}
                 </td>
 
 
-                {!disableImage && <td onClick={() => router.push(`/doctors/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
+                {!disableImage && <td onClick={() => router.push(`request/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
 
 
                   {data.images[0].image === undefined ?
@@ -146,7 +142,7 @@ export const TableUI = (props: any) => {
                 {element.map((el: any) =>
 
 
-                  <td onClick={() => router.push(`/doctors/details/${data._id}`)}>
+                  <td onClick={() => router.push(`/request/details/${data.id}`)}>
 
                     {nestedArray ? data["data"][el] : data[el]}
 
@@ -157,12 +153,9 @@ export const TableUI = (props: any) => {
 
                 <td>
 
-
-
                   {moment.utc(data.createdAt).format("MMM Do YY")}
 
                 </td>
-
 
 
                 {!disableActions && <td>
@@ -173,7 +166,7 @@ export const TableUI = (props: any) => {
                     index={index}
                     Open={Open}
                     refetch={refetch}
-                    id={data._id}
+                    id={data.id}
                     name={name}
                     actions={actions}
                   />
