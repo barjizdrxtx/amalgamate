@@ -2,6 +2,9 @@ import React from 'react'
 import { Box, Grid, Typography } from '@mui/material'
 import { useRouter } from 'next/router';
 import { useQueryFetchId } from '../../hooks/useQueryFetch';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 
 export const RequestDetails = () => {
 
@@ -63,14 +66,7 @@ export const RequestDetails = () => {
             title: "Shop Category",
             data: "shop_category",
         },
-        {
-            title: "Erp",
-            data: "erp",
-        },
-        {
-            title: "Erp Pos",
-            data: "erp_pos",
-        },
+
         {
             title: "Erp System Count",
             data: "erp_system_count",
@@ -97,18 +93,7 @@ export const RequestDetails = () => {
             title: "Amc",
             data: "amc",
         },
-        {
-            title: "Software Support",
-            data: "software_support",
-        },
-        {
-            title: "Hardware Support",
-            data: "hardware_support",
-        },
-        {
-            title: "Network Support",
-            data: "network_support",
-        },
+
 
         {
             title: "Server Password",
@@ -129,6 +114,36 @@ export const RequestDetails = () => {
         {
             title: "Next Amc Date",
             data: "next_amc_date",
+        },
+
+    ]
+
+    const checkbox = [
+
+        {
+            title: "Erp",
+            data: "erp",
+        },
+        {
+            title: "Pos",
+            data: "pos",
+        },
+        {
+            title: "Erp Pos",
+            data: "erp_pos",
+        },
+
+        {
+            title: "Software Support",
+            data: "software_support",
+        },
+        {
+            title: "Hardware Support",
+            data: "hardware_support",
+        },
+        {
+            title: "Network Support",
+            data: "network_support",
         },
 
     ]
@@ -163,6 +178,33 @@ export const RequestDetails = () => {
 
 
             )}
+
+            {checkbox.map((data: any) =>
+
+                <Box sx={{
+                    width: "100%", bgcolor: "white", p: 1,
+                    borderBottom: "1px solid lightgrey",
+                    display: "flex", justifyContent: "space-around", alignItems: "center"
+                }}>
+
+                    <Box sx={{ flex: 1 }}>
+
+                        <Typography sx={{ fontWeight: "bold" }}>{data.title}</Typography>
+
+                    </Box>
+
+                    <Box sx={{ flex: 1 }}>
+
+                        <Checkbox checked={request?.[data.data]} />
+
+                    </Box>
+
+
+                </Box>
+
+            )}
+
+
 
         </Grid >
 
