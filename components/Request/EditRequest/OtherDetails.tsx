@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/lab';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import { DateSelector } from '../../UI/DatePicker/DatePicker';
+import { DateSelector } from '../../UI/DateSelector/DateSelector';
 
 export const OtherDetails = (props: any) => {
 
@@ -74,7 +74,8 @@ export const OtherDetails = (props: any) => {
 
                     <Grid container xs={12} sm={6} lg={4}>
 
-                        <DateSelector />
+                        <DateSelector next_amc_date={next_amc_date}
+                            setNextAmcDate={setNextAmcDate} />
 
                     </Grid>
 

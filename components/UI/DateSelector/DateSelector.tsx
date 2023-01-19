@@ -8,7 +8,11 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 
-export const DateSelector = () => {
+export const DateSelector = (props: any) => {
+
+    const { next_amc_date, setNextAmcDate } = props;
+
+    console.log("dateeee", next_amc_date?.$d)
 
     const [value, setValue] = React.useState<Dayjs | null>(null);
 
@@ -29,9 +33,9 @@ export const DateSelector = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
 
                 <DatePicker
-                    value={value}
+                    value={next_amc_date}
                     onChange={(newValue) => {
-                        setValue(newValue);
+                        setNextAmcDate(newValue);
                     }}
                     renderInput={(params) => <TextField sx={{ width: "100%" }} {...params} />}
                 />

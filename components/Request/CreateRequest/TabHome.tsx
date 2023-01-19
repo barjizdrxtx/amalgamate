@@ -31,7 +31,7 @@ export const TabHome = () => {
   const [hardware_support, setHardwareSupport] = React.useState(false);
   const [network_support, setNetworkSupport] = React.useState(false);
 
-  const [next_amc_date, setNextAmcDate] = React.useState();
+  const [next_amc_date, setNextAmcDate]: any = React.useState();
 
   const formik = useFormik({
 
@@ -86,10 +86,10 @@ export const TabHome = () => {
         pos: pos,
         erp_pos: erp_pos,
         erp_system_count: values.erp_system_count,
-        pos_system_count:  values.pos_system_count,
-        user_limit:  values.user_limit,
-        active_erp:  values.active_erp,
-        active_pos:  values.active_pos,
+        pos_system_count: values.pos_system_count,
+        user_limit: values.user_limit,
+        active_erp: values.active_erp,
+        active_pos: values.active_pos,
 
         amc: values.amc,
         software_support: software_support,
@@ -99,7 +99,7 @@ export const TabHome = () => {
         anydesk_password: values.anydesk_password,
         server_configuration: values.server_configuration,
         sql_password: values.sql_password,
-        next_amc_date: next_amc_date,
+        next_amc_date: next_amc_date?.$d,
         file_location: file_upload
       },
         {

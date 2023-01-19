@@ -14,6 +14,8 @@ export const RequestDetails = () => {
     const request = fetchedData?.result
 
 
+    console.log("request", request)
+
     const details = [
 
 
@@ -134,7 +136,14 @@ export const RequestDetails = () => {
 
     return (
 
-        <Grid container sx={{ bgcolor: "red" }}>
+        <Grid container>
+
+
+            <Box>
+
+                <img width="100%" src={request?.file_location} alt="" />
+
+            </Box>
 
 
             {details.map(data =>
