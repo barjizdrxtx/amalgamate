@@ -23,7 +23,6 @@ export const TabHome = () => {
   const [file_upload, setFileUpload] = React.useState();
 
 
-
   const [erp, setErp] = React.useState(false);
   const [pos, setPos] = React.useState(false);
   const [erp_pos, setErpPos] = React.useState(false);
@@ -33,10 +32,6 @@ export const TabHome = () => {
   const [network_support, setNetworkSupport] = React.useState(false);
 
   const [next_amc_date, setNextAmcDate] = React.useState();
-
-
-  console.log("software_support", software_support)
-
 
   const formik = useFormik({
 
@@ -193,7 +188,7 @@ export const TabHome = () => {
     },
 
     {
-      title: "owner Contact Number",
+      title: "Owner Contact Number",
       label: "owner_contact_no",
       type: "number",
       value: formik.values.owner_contact_no,
@@ -309,8 +304,6 @@ export const TabHome = () => {
     },
   ]
 
-
-  console.log("next_amc_date", next_amc_date)
 
   const tabData = [
     {

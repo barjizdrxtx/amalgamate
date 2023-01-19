@@ -20,13 +20,15 @@ export const TabHome = () => {
 
   const { id } = router.query;
 
-  const [file_upload, setFileUpload] = React.useState();
 
   const { fetchedData: fetchedData } = useQueryFetchId(`request`, id);
 
   const request = fetchedData?.result
 
   const token = useJwt();
+
+
+  const [file_upload, setFileUpload] = React.useState();
 
   const [erp, setErp] = React.useState(false);
   const [pos, setPos] = React.useState(false);
@@ -37,6 +39,22 @@ export const TabHome = () => {
   const [network_support, setNetworkSupport] = React.useState(false);
 
   const [next_amc_date, setNextAmcDate] = React.useState();
+
+
+  React.useEffect(() => {
+
+    setErp(request?.erp)
+    setPos(request?.pos)
+    setErpPos(request?.erp_pos)
+
+    setSoftWareSupport(request?.software_support)
+    setHardwareSupport(request?.hardware_support)
+    setNetworkSupport(request?.network_support)
+
+
+  })
+
+
 
   const formik = useFormik({
 
@@ -54,8 +72,6 @@ export const TabHome = () => {
 
       software_name: request?.software_name,
       shop_category: request?.shop_category,
-      erp: request?.erp,
-      erp_pos: request?.erp_pos,
       erp_system_count: request?.erp_system_count,
       pos_system_count: request?.pos_system_count,
       user_limit: request?.user_limit,
@@ -63,9 +79,6 @@ export const TabHome = () => {
       active_pos: request?.active_pos,
 
       amc: request?.amc,
-      software_support: request?.software_support,
-      hardware_support: request?.hardware_support,
-      network_support: request?.network_support,
       server_password: request?.server_password,
       anydesk_password: request?.anydesk_password,
       server_configuration: request?.server_configuration,
@@ -127,7 +140,7 @@ export const TabHome = () => {
       // you could also use destructuring to have an array of responses
       axios.all([axiosrequest]).then(axios.spread(function (res) {
         alert("submit success")
-        router.push(`/request`)
+        router.push(`/`)
       }));
 
     },
@@ -202,7 +215,7 @@ export const TabHome = () => {
     },
 
     {
-      title: "owner Contact Number",
+      title: "Owner Contact Number",
       label: "owner_contact_no",
       type: "number",
       value: formik.values.owner_contact_no,
@@ -229,22 +242,6 @@ export const TabHome = () => {
       value: formik.values.shop_category,
       touched: formik.touched.shop_category,
       errors: formik.errors.shop_category,
-    },
-    {
-      title: "Erp",
-      label: "erp",
-      type: "text",
-      value: formik.values.erp,
-      touched: formik.touched.erp,
-      errors: formik.errors.erp,
-    },
-    {
-      title: "Erp Pos",
-      label: "erp_pos",
-      type: "text",
-      value: formik.values.erp_pos,
-      touched: formik.touched.erp_pos,
-      errors: formik.errors.erp_pos,
     },
     {
       title: "Erp System Count",
@@ -301,30 +298,6 @@ export const TabHome = () => {
       errors: formik.errors.amc,
     },
     {
-      title: "Software Support",
-      label: "software_support",
-      type: "number",
-      value: formik.values.software_support,
-      touched: formik.touched.software_support,
-      errors: formik.errors.software_support,
-    },
-    {
-      title: "Hardware Support",
-      label: "hardware_support",
-      type: "text",
-      value: formik.values.hardware_support,
-      touched: formik.touched.hardware_support,
-      errors: formik.errors.hardware_support,
-    },
-    {
-      title: "Network Support",
-      label: "network_support",
-      type: "text",
-      value: formik.values.network_support,
-      touched: formik.touched.network_support,
-      errors: formik.errors.network_support,
-    },
-    {
       title: "Server Password",
       label: "server_password",
       type: "text",
@@ -356,17 +329,7 @@ export const TabHome = () => {
       touched: formik.touched.sql_password,
       errors: formik.errors.sql_password,
     },
-
-    {
-      title: "Next Amc Date",
-      label: "next_amc_date",
-      type: "number",
-      value: formik.values.next_amc_date,
-      touched: formik.touched.next_amc_date,
-      errors: formik.errors.next_amc_date,
-    },
   ]
-
 
 
   const tabData = [
@@ -384,6 +347,8 @@ export const TabHome = () => {
       label: "Installion Details",
       component: <InstallionDetails
 
+        request={request}
+
         erp={erp}
         setErp={setErp}
 
@@ -398,6 +363,8 @@ export const TabHome = () => {
     {
       label: "Other Details",
       component: <OtherDetails
+
+        request={request}
 
         software_support={software_support}
         setSoftWareSupport={setSoftWareSupport}
@@ -424,7 +391,7 @@ export const TabHome = () => {
         onCreate={formik.handleSubmit}
       />
 
-      <MainTab tabData={tabData} />
+      <MainTab tabData={tabData} request={request} />
 
     </Grid>
 

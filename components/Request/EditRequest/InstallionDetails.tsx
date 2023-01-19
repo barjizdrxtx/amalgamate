@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 export const InstallionDetails = (props: any) => {
 
-    const { list, formik,
+    const { list, formik, request,
         erp,
         setErp,
 
@@ -57,7 +57,7 @@ export const InstallionDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox onClick={() => setErp(!erp)} />} label="Erp" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} defaultChecked={request?.erp} onClick={() => setErp(!erp)} />} label="Erp" />
 
                         </FormGroup>
 
@@ -67,7 +67,7 @@ export const InstallionDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox onClick={() => setPos(!pos)} />} label="Pos" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} defaultChecked={request?.pos} onClick={() => setPos(!pos)} />} label="Pos" />
 
                         </FormGroup>
 
@@ -77,7 +77,7 @@ export const InstallionDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox onClick={() => setErpPos(!erp_pos)} />} label="Erp/Pos" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} defaultChecked={request?.erp_pos} onClick={() => setErpPos(!erp_pos)} />} label="Erp/Pos" />
 
                         </FormGroup>
 

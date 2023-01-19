@@ -1,13 +1,14 @@
 import { Box, Button, Grid, } from '@mui/material'
 import React from 'react'
-import ImageIcon from '@mui/icons-material/Image';
-import axios from 'axios';
-import { CustomizedButton } from '../Button/CustomizedButton';
 
+import axios from 'axios';
+import { useJwt } from '../../../hooks/useJwt';
 
 export const FileUpload = (props: any) => {
 
     const { file_upload, setFileUpload } = props;
+
+    const token = useJwt();
 
 
     const onFileUpload = (event: any) => {
@@ -18,11 +19,16 @@ export const FileUpload = (props: any) => {
 
         formData.append('file_location', event.target.files[0]);
 
-        axios.post(`file/upload`, formData).then((response) => {
+        axios.post(`file/upload`, formData, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            }
+        }).then((response: any) => {
 
             setFileUpload(response.data.result.file_path)
 
-        }).catch((response) => {
+        }).catch((response: any) => {
             alert(response)
         })
     }

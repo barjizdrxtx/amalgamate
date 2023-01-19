@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
+import { BASE_URL } from '../../url';
 import { CustomizedButton } from '../UI/Button/CustomizedButton'
 import { loginSchemea } from './validation';
 
@@ -24,11 +25,13 @@ export const Login = () => {
 
         onSubmit: (values: any) => {
 
-            axios.post(`http://192.168.1.27:3000/auth/login`,
+            axios.post(`${BASE_URL}auth/login`,
 
                 {
                     username: values.username,
                     password: values.password,
+                    // role: "user",
+                    // is_active: true
 
                 },
 

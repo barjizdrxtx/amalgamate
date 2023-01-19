@@ -13,8 +13,6 @@ export const RequestDetails = () => {
 
     const request = fetchedData?.result
 
-    console.log("request", request)
-
 
     const details = [
 
@@ -140,6 +138,7 @@ export const RequestDetails = () => {
 
 
             {details.map(data =>
+
 
                 <Box sx={{
                     width: "100%", bgcolor: "white", p: 1,

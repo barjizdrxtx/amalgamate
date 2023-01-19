@@ -5,6 +5,7 @@ import { LocalizationProvider } from '@mui/lab';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import { DateSelector } from '../../UI/DatePicker/DatePicker';
 
 export const OtherDetails = (props: any) => {
 
@@ -72,23 +73,7 @@ export const OtherDetails = (props: any) => {
 
                     <Grid container lg={4}>
 
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-
-                            <DesktopDatePicker
-                                label="Date desktop"
-                                inputFormat="MM/DD/YYYY"
-                                value={value}
-
-                                renderInput={(params: any) => <TextField {...params} />}
-                            />
-
-                        </LocalizationProvider>
-
-                        <input
-                            style={{ width: "100%", marginBottom: "10px", height: "50px" }}
-                            type="date"
-                            onChange={(e) => setNextAmcDate(e.target.value)}
-                        />
+                        <DateSelector />
 
                     </Grid>
 
@@ -96,7 +81,7 @@ export const OtherDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox onClick={() => setSoftWareSupport(!software_support)} />} label="Software Support" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setSoftWareSupport(!software_support)} />} label="Software Support" />
 
                         </FormGroup>
 
@@ -106,7 +91,7 @@ export const OtherDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox onClick={() => setHardwareSupport(!hardware_support)} />} label="Hardware Support" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setHardwareSupport(!hardware_support)} />} label="Hardware Support" />
 
                         </FormGroup>
 
@@ -116,7 +101,7 @@ export const OtherDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox onClick={() => setNetworkSupport(!network_support)} />} label="Network Support" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setNetworkSupport(!network_support)} />} label="Network Support" />
 
                         </FormGroup>
 
