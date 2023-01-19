@@ -57,7 +57,7 @@ export const TabHome = () => {
     setNetworkSupport(request?.network_support)
 
 
-  },[])
+  }, [])
 
 
 
@@ -112,19 +112,19 @@ export const TabHome = () => {
 
         software_name: values.software_name,
         shop_category: values.shop_category,
-        erp: true,
-        pos: true,
-        erp_pos: true,
-        erp_system_count: 0,
-        pos_system_count: 0,
-        user_limit: 0,
-        active_erp: 0,
-        active_pos: 0,
+        erp: erp,
+        pos: pos,
+        erp_pos: erp_pos,
+        erp_system_count: values.erp_system_count,
+        pos_system_count: values.pos_system_count,
+        user_limit: values.user_limit,
+        active_erp: values.active_erp,
+        active_pos: values.active_pos,
 
         amc: values.amc,
-        software_support: true,
-        hardware_support: true,
-        network_support: true,
+        software_support: software_support,
+        hardware_support: hardware_support,
+        network_support: network_support,
         server_password: values.server_password,
         anydesk_password: values.anydesk_password,
         server_configuration: values.server_configuration,

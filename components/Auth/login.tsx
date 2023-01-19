@@ -42,9 +42,7 @@ export const Login = () => {
 
                     localStorage.setItem('authToken', response.data.accessTocken)
 
-                    router.push("/")
-
-                    window.location.reload();
+                    router.push('/').then(() => router.reload())
 
                 }
 

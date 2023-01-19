@@ -18,8 +18,6 @@ export const ProtectedRoutes = (props: { children: string | number | boolean | R
 
             {decoded?.exp * 1000 > dateNow.getTime() === false || token === null ? < Login /> : props.children}
 
-            {/* {token === null ? < Login /> : props.children} */}
-
 
         </div>
 
