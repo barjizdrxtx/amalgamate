@@ -41,6 +41,11 @@ export const TabHome = () => {
   const [next_amc_date, setNextAmcDate]: any = React.useState();
 
 
+  console.log("erp", erp)
+  console.log("erp", pos)
+  console.log("erp", erp_pos)
+
+
   React.useEffect(() => {
 
     setErp(request?.erp)
@@ -52,7 +57,7 @@ export const TabHome = () => {
     setNetworkSupport(request?.network_support)
 
 
-  })
+  },[])
 
 
 
@@ -128,274 +133,274 @@ export const TabHome = () => {
         file_location: file_upload
 
 
-    },
+      },
         {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
-      }
-    }
-  )
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token
+          }
+        }
+      )
 
-  // you could also use destructuring to have an array of responses
-  axios.all([axiosrequest]).then(axios.spread(function (res) {
-    alert("submit success")
-    router.push(`/`)
-  }));
+      // you could also use destructuring to have an array of responses
+      axios.all([axiosrequest]).then(axios.spread(function (res) {
+        alert("submit success")
+        router.push(`/`)
+      }));
 
-},
+    },
   });
 
 
-const personaldetails = [
+  const personaldetails = [
 
-  {
-    title: "Client Id",
-    label: "client_id",
-    type: "text",
-    value: formik.values.client_id,
-    touched: formik.touched.client_id,
-    errors: formik.errors.client_id,
-  },
-  {
-    title: "Customer Name",
-    label: "customer_name",
-    type: "text",
-    value: formik.values.customer_name,
-    touched: formik.touched.customer_name,
-    errors: formik.errors.customer_name,
-  },
-  {
-    title: "Shop Name",
-    label: "shop_name",
-    type: "text",
-    value: formik.values.shop_name,
-    touched: formik.touched.shop_name,
-    errors: formik.errors.shop_name,
-  },
-  {
-    title: "Shop Name",
-    label: "shop_address",
-    type: "text",
-    value: formik.values.shop_address,
-    touched: formik.touched.shop_address,
-    errors: formik.errors.shop_address,
-  },
-  {
-    title: "Contact Number",
-    label: "contact_number",
-    type: "text",
-    value: formik.values.contact_number,
-    touched: formik.touched.contact_number,
-    errors: formik.errors.contact_number,
-  },
-  {
-    title: "Contact Person",
-    label: "contact_person",
-    type: "text",
-    value: formik.values.contact_person,
-    touched: formik.touched.contact_person,
-    errors: formik.errors.contact_person,
-  },
-  {
-    title: "Cr No",
-    label: "cr_no",
-    type: "number",
-    value: formik.values.cr_no,
-    touched: formik.touched.cr_no,
-    errors: formik.errors.cr_no,
-  },
-  {
-    title: "Email",
-    label: "email",
-    type: "email",
-    value: formik.values.email,
-    touched: formik.touched.email,
-    errors: formik.errors.email,
-  },
+    {
+      title: "Client Id",
+      label: "client_id",
+      type: "text",
+      value: formik.values.client_id,
+      touched: formik.touched.client_id,
+      errors: formik.errors.client_id,
+    },
+    {
+      title: "Customer Name",
+      label: "customer_name",
+      type: "text",
+      value: formik.values.customer_name,
+      touched: formik.touched.customer_name,
+      errors: formik.errors.customer_name,
+    },
+    {
+      title: "Shop Name",
+      label: "shop_name",
+      type: "text",
+      value: formik.values.shop_name,
+      touched: formik.touched.shop_name,
+      errors: formik.errors.shop_name,
+    },
+    {
+      title: "Shop Name",
+      label: "shop_address",
+      type: "text",
+      value: formik.values.shop_address,
+      touched: formik.touched.shop_address,
+      errors: formik.errors.shop_address,
+    },
+    {
+      title: "Contact Number",
+      label: "contact_number",
+      type: "text",
+      value: formik.values.contact_number,
+      touched: formik.touched.contact_number,
+      errors: formik.errors.contact_number,
+    },
+    {
+      title: "Contact Person",
+      label: "contact_person",
+      type: "text",
+      value: formik.values.contact_person,
+      touched: formik.touched.contact_person,
+      errors: formik.errors.contact_person,
+    },
+    {
+      title: "Cr No",
+      label: "cr_no",
+      type: "number",
+      value: formik.values.cr_no,
+      touched: formik.touched.cr_no,
+      errors: formik.errors.cr_no,
+    },
+    {
+      title: "Email",
+      label: "email",
+      type: "email",
+      value: formik.values.email,
+      touched: formik.touched.email,
+      errors: formik.errors.email,
+    },
 
-  {
-    title: "Owner Contact Number",
-    label: "owner_contact_no",
-    type: "number",
-    value: formik.values.owner_contact_no,
-    touched: formik.touched.owner_contact_no,
-    errors: formik.errors.owner_contact_no,
-  },
-]
-
-
-const installiondetails = [
-
-  {
-    title: "Software  Name",
-    label: "software_name",
-    type: "text",
-    value: formik.values.software_name,
-    touched: formik.touched.software_name,
-    errors: formik.errors.software_name,
-  },
-  {
-    title: "Shop Category",
-    label: "shop_category",
-    type: "number",
-    value: formik.values.shop_category,
-    touched: formik.touched.shop_category,
-    errors: formik.errors.shop_category,
-  },
-  {
-    title: "Erp System Count",
-    label: "erp_system_count",
-    type: "text",
-    value: formik.values.erp_system_count,
-    touched: formik.touched.erp_system_count,
-    errors: formik.errors.erp_system_count,
-  },
-  {
-    title: "Pos System Count",
-    label: "pos_system_count",
-    type: "text",
-    value: formik.values.pos_system_count,
-    touched: formik.touched.pos_system_count,
-    errors: formik.errors.pos_system_count,
-  },
-  {
-    title: "User Limit",
-    label: "user_limit",
-    type: "number",
-    value: formik.values.user_limit,
-    touched: formik.touched.user_limit,
-    errors: formik.errors.user_limit,
-  },
-  {
-    title: "Active Erp",
-    label: "active_erp",
-    type: "text",
-    value: formik.values.active_erp,
-    touched: formik.touched.active_erp,
-    errors: formik.errors.active_erp,
-  },
-
-  {
-    title: "Active Pos",
-    label: "active_pos",
-    type: "text",
-    value: formik.values.active_pos,
-    touched: formik.touched.active_pos,
-    errors: formik.errors.active_pos,
-  },
-]
+    {
+      title: "Owner Contact Number",
+      label: "owner_contact_no",
+      type: "number",
+      value: formik.values.owner_contact_no,
+      touched: formik.touched.owner_contact_no,
+      errors: formik.errors.owner_contact_no,
+    },
+  ]
 
 
-const otherdetails = [
+  const installiondetails = [
 
-  {
-    title: "Amc",
-    label: "amc",
-    type: "text",
-    value: formik.values.amc,
-    touched: formik.touched.amc,
-    errors: formik.errors.amc,
-  },
-  {
-    title: "Server Password",
-    label: "server_password",
-    type: "text",
-    value: formik.values.server_password,
-    touched: formik.touched.server_password,
-    errors: formik.errors.server_password,
-  },
-  {
-    title: "Anydesk Password",
-    label: "anydesk_password",
-    type: "text",
-    value: formik.values.anydesk_password,
-    touched: formik.touched.anydesk_password,
-    errors: formik.errors.anydesk_password,
-  },
-  {
-    title: "Server Configuration",
-    label: "server_configuration",
-    type: "number",
-    value: formik.values.server_configuration,
-    touched: formik.touched.server_configuration,
-    errors: formik.errors.server_configuration,
-  },
-  {
-    title: "Sql Password",
-    label: "sql_password",
-    type: "email",
-    value: formik.values.sql_password,
-    touched: formik.touched.sql_password,
-    errors: formik.errors.sql_password,
-  },
-]
+    {
+      title: "Software  Name",
+      label: "software_name",
+      type: "text",
+      value: formik.values.software_name,
+      touched: formik.touched.software_name,
+      errors: formik.errors.software_name,
+    },
+    {
+      title: "Shop Category",
+      label: "shop_category",
+      type: "text",
+      value: formik.values.shop_category,
+      touched: formik.touched.shop_category,
+      errors: formik.errors.shop_category,
+    },
+    {
+      title: "Erp System Count",
+      label: "erp_system_count",
+      type: "text",
+      value: formik.values.erp_system_count,
+      touched: formik.touched.erp_system_count,
+      errors: formik.errors.erp_system_count,
+    },
+    {
+      title: "Pos System Count",
+      label: "pos_system_count",
+      type: "text",
+      value: formik.values.pos_system_count,
+      touched: formik.touched.pos_system_count,
+      errors: formik.errors.pos_system_count,
+    },
+    {
+      title: "User Limit",
+      label: "user_limit",
+      type: "number",
+      value: formik.values.user_limit,
+      touched: formik.touched.user_limit,
+      errors: formik.errors.user_limit,
+    },
+    {
+      title: "Active Erp",
+      label: "active_erp",
+      type: "text",
+      value: formik.values.active_erp,
+      touched: formik.touched.active_erp,
+      errors: formik.errors.active_erp,
+    },
 
-
-const tabData = [
-  {
-    label: "Personal Details",
-    component: <PersonalDetails
-
-      software_support={software_support}
-      setSoftWareSupport={setSoftWareSupport}
-
-
-      list={personaldetails} formik={formik} file_upload={file_upload} setFileUpload={setFileUpload} />
-  },
-  {
-    label: "Installion Details",
-    component: <InstallionDetails
-
-      request={request}
-
-      erp={erp}
-      setErp={setErp}
-
-      pos={pos}
-      setPos={setPos}
-
-      erp_pos={erp_pos}
-      setErpPos={setErpPos}
-
-      list={installiondetails} formik={formik} />
-  },
-  {
-    label: "Other Details",
-    component: <OtherDetails
-
-      request={request}
-
-      software_support={software_support}
-      setSoftWareSupport={setSoftWareSupport}
-
-      hardware_support={hardware_support}
-      setHardwareSupport={setHardwareSupport}
-
-      network_support={network_support}
-      setNetworkSupport={setNetworkSupport}
-
-      next_amc_date={next_amc_date}
-      setNextAmcDate={setNextAmcDate}
-
-      list={otherdetails} formik={formik} />
-  }
-]
+    {
+      title: "Active Pos",
+      label: "active_pos",
+      type: "text",
+      value: formik.values.active_pos,
+      touched: formik.touched.active_pos,
+      errors: formik.errors.active_pos,
+    },
+  ]
 
 
-return (
+  const otherdetails = [
 
-  <Grid>
+    {
+      title: "Amc",
+      label: "amc",
+      type: "text",
+      value: formik.values.amc,
+      touched: formik.touched.amc,
+      errors: formik.errors.amc,
+    },
+    {
+      title: "Server Password",
+      label: "server_password",
+      type: "text",
+      value: formik.values.server_password,
+      touched: formik.touched.server_password,
+      errors: formik.errors.server_password,
+    },
+    {
+      title: "Anydesk Password",
+      label: "anydesk_password",
+      type: "text",
+      value: formik.values.anydesk_password,
+      touched: formik.touched.anydesk_password,
+      errors: formik.errors.anydesk_password,
+    },
+    {
+      title: "Server Configuration",
+      label: "server_configuration",
+      type: "text",
+      value: formik.values.server_configuration,
+      touched: formik.touched.server_configuration,
+      errors: formik.errors.server_configuration,
+    },
+    {
+      title: "Sql Password",
+      label: "sql_password",
+      type: "email",
+      value: formik.values.sql_password,
+      touched: formik.touched.sql_password,
+      errors: formik.errors.sql_password,
+    },
+  ]
 
-    <CreateButton buttonName="Edit" title="request"
-      onCreate={formik.handleSubmit}
-    />
 
-    <MainTab tabData={tabData} request={request} />
+  const tabData = [
+    {
+      label: "Personal Details",
+      component: <PersonalDetails
 
-  </Grid>
+        software_support={software_support}
+        setSoftWareSupport={setSoftWareSupport}
 
-)
+
+        list={personaldetails} formik={formik} file_upload={file_upload} setFileUpload={setFileUpload} />
+    },
+    {
+      label: "Installion Details",
+      component: <InstallionDetails
+
+        request={request}
+
+        erp={erp}
+        setErp={setErp}
+
+        pos={pos}
+        setPos={setPos}
+
+        erp_pos={erp_pos}
+        setErpPos={setErpPos}
+
+        list={installiondetails} formik={formik} />
+    },
+    {
+      label: "Other Details",
+      component: <OtherDetails
+
+        request={request}
+
+        software_support={software_support}
+        setSoftWareSupport={setSoftWareSupport}
+
+        hardware_support={hardware_support}
+        setHardwareSupport={setHardwareSupport}
+
+        network_support={network_support}
+        setNetworkSupport={setNetworkSupport}
+
+        next_amc_date={next_amc_date}
+        setNextAmcDate={setNextAmcDate}
+
+        list={otherdetails} formik={formik} />
+    }
+  ]
+
+
+  return (
+
+    <Grid>
+
+      <CreateButton buttonName="Edit" title="request"
+        onCreate={formik.handleSubmit}
+      />
+
+      <MainTab tabData={tabData} request={request} />
+
+    </Grid>
+
+  )
 
 
 }
