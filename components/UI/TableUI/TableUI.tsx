@@ -1,14 +1,12 @@
-import { Box, Grid, IconButton, OutlinedInput, Pagination, Stack, Typography } from '@mui/material'
+import { Box, Grid, Pagination, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import style from "../../../styles/TableUI.module.css"
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
 import { Actions } from './Actions';
 import { useRouter } from 'next/router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import * as moment from 'moment'
+import { SearchBar } from '../SearchBar/SearchBar';
 
 export const TableUI = (props: any) => {
 
@@ -24,8 +22,20 @@ export const TableUI = (props: any) => {
 
   const router = useRouter();
 
+  const [request, setRequest]: any = useState();
+
+
+  const [searchResult, setSearchResult]: any = useState()
+
 
   const { fetchedData: tableData, refetch: refetch } = useQueryFetch(`${name}?page=${page}&limit=${limit}`);
+
+
+  const { fetchedData: search } = useQueryFetch(`request/search?query=${searchResult}`);
+
+  console.log("request", request)
+
+
 
   const [bool, setBool] = useState([]);
 
@@ -44,11 +54,34 @@ export const TableUI = (props: any) => {
 
   }
 
+
+  React.useEffect(() => {
+
+
+    if (search?.result.length > 0) {
+
+      setRequest(search)
+
+    }
+    
+    else {
+
+
+      setRequest(tableData)
+
+    }
+
+  })
+
+
+
+
   const handleChange = (e: any, p: any) => {
 
     setPage(p)
 
   }
+
 
 
   return (
@@ -69,21 +102,7 @@ export const TableUI = (props: any) => {
 
         <Box sx={{ py: 3, display: "flex", justifyContent: "start", alignItems: "center" }}>
 
-          <OutlinedInput placeholder="Search" />
-
-          {/* <IconButton>
-
-            <FileUploadIcon />
-
-          </IconButton>
-
-
-          <IconButton>
-
-            <FilterListIcon />
-
-          </IconButton> */}
-
+          <SearchBar setSearchResult={setSearchResult} />
 
         </Box>
 
@@ -94,7 +113,6 @@ export const TableUI = (props: any) => {
         <table id={style.table}>
 
           <tbody>
-
 
             <tr>
 
@@ -117,7 +135,7 @@ export const TableUI = (props: any) => {
 
             </tr>
 
-            {tableData?.result?.map((data: any, index: any) =>
+            {request?.result?.map((data: any, index: any) =>
 
               <tr style={{ cursor: "pointer" }}>
 
@@ -128,12 +146,12 @@ export const TableUI = (props: any) => {
 
                 {!disableImage && <td onClick={() => router.push(`request/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
 
-
                   {data.images[0].image === undefined ?
                     <AccountCircleIcon sx={{ fontSize: "3.8rem", color: "#AEAEAE" }} /> :
 
                     <img src={data.images[0].image} width="55px" height="55px"
                       style={{ borderRadius: "100%" }} />
+
                   }
 
 
@@ -169,6 +187,7 @@ export const TableUI = (props: any) => {
                     id={data.id}
                     name={name}
                     actions={actions}
+
                   />
 
                 </td>}

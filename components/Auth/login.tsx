@@ -110,7 +110,7 @@ export const Login = () => {
 
                         <Box sx={{ my: 2 }}>
 
-                            <CustomizedButton width="100%" bgColor="black" onClick={formik.handleSubmit}>Login</CustomizedButton>
+                            <CustomizedButton width="100%" bgcolor="black" onClick={formik.handleSubmit}>Login</CustomizedButton>
 
                         </Box>
 

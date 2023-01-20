@@ -27,11 +27,11 @@ export const CreateButton = (props: any) => {
 
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
 
-                    <CustomizedButton bgColor={PRIMARY_COLOR} onClick={onCreate}>{buttonName + " " + title}</CustomizedButton >
+                    <CustomizedButton bgcolor={PRIMARY_COLOR} onClick={onCreate}>{buttonName + " " + title}</CustomizedButton >
 
                     <Box sx={{ m: 1 }}></Box>
 
-                    <CustomizedButton bgColor="black" onClick={() => router.push(`/`)}>Cancel</CustomizedButton >
+                    <CustomizedButton bgcolor="black" onClick={() => router.push(`/`)}>Cancel</CustomizedButton >
 
                 </Box>
 

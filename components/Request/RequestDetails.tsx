@@ -5,6 +5,7 @@ import { useQueryFetchId } from '../../hooks/useQueryFetch';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
+import { CustomizedButton } from '../UI/Button/CustomizedButton';
 
 export const RequestDetails = () => {
 
@@ -149,6 +150,13 @@ export const RequestDetails = () => {
     return (
 
         <Grid container justifyContent="center">
+
+
+            <Grid container>
+
+                <CustomizedButton onClick={() => router.push(`/request/edit/${id}`)} bgcolor="#32CD32">Edit Data</CustomizedButton>
+
+            </Grid>
 
             <Grid container lg={11} sx={{
                 height: "100vh",

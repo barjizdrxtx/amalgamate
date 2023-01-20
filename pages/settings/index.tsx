@@ -11,7 +11,7 @@ const index = () => {
 
         <Box sx={{ m: 1 }}>
 
-            <CustomizedButton bgColor="red" onClick={() => {
+            <CustomizedButton bgcolor="red" onClick={() => {
 
                 localStorage.removeItem("authToken")
 

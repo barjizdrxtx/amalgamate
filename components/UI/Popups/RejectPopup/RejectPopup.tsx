@@ -33,7 +33,7 @@ export const RejectPopup = (props: any) => {
 
                     <TextField sx={{ width: "50%" }} multiline rows={6} />
 
-                    <CustomizedButton width="50%" bgColor="dodgerblue">Submit</CustomizedButton>
+                    <CustomizedButton width="50%" bgcolor="dodgerblue">Submit</CustomizedButton>
 
                 </Box>
 
