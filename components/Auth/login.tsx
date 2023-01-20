@@ -1,10 +1,11 @@
-import { Box, Button, Grid, TextField } from '@mui/material'
+import { Box, Typography, Grid, TextField } from '@mui/material'
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { BASE_URL } from '../../url';
 import { CustomizedButton } from '../UI/Button/CustomizedButton'
+import { PasswordInput } from '../UI/PasswordInput/PasswordInput';
 import { loginSchemea } from './validation';
 
 export const Login = () => {
@@ -62,54 +63,62 @@ export const Login = () => {
     return (
 
 
-        <Grid container alignItems="center" >
+        <Grid container justifyContent="center" alignItems="center"
+            sx={{ bgcolor: "white", height: "100vh" }} >
 
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap", p: 1 }}>
+            <Grid container lg={10} justifyContent="center" alignItems="center">
 
-
-                <Grid lg={6} >
-
+                <Grid xs={12} lg={6} >
 
                     <img width="100%" src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-135.jpg?w=2000" />
 
-
                 </Grid>
 
 
-                <Grid lg={6}>
+                <Grid container xs={11.5} lg={6} justifyContent="center">
 
+                    <Grid xs={12} lg={11}>
 
-                    < TextField sx={{ width: "100%", mb: 2 }}
-                        fullWidth
-                        id='username'
-                        name='username'
-                        label='username'
-                        value={formik.values.username}
-                        type='text'
-                        onChange={formik.handleChange}
-                        error={formik.touched.username && Boolean(formik.errors.username)}
-                        helperText={formik.touched.username && formik.errors.username}
+                        <Box sx={{ mb: 3 }}>
 
-                    />
+                            <Typography sx={{
+                                color: "#566573", fontWeight: "bold",
+                                fontSize: { xs: "2rem", md: "2.3rem", lg: "2.5rem" }
+                            }}>Login to Amalgamate</Typography>
 
+                        </Box>
 
-                    < TextField sx={{ width: "100%", mb: 2 }}
-                        fullWidth
-                        id='password'
-                        name='password'
-                        label='password'
-                        value={formik.values.password}
-                        type='password'
-                        onChange={formik.handleChange}
-                        error={formik.touched.password && Boolean(formik.errors.password)}
-                        helperText={formik.touched.password && formik.errors.password}
-                    />
+                        <Box sx={{ mb: 0.5 }}>
 
-                    <CustomizedButton width="100%" bgColor="dodgerblue" onClick={formik.handleSubmit}>Login</CustomizedButton>
+                            <Typography sx={{ color: "#566573", fontWeight: "bold" }}>User Name</Typography>
 
-                </Grid>
+                        </Box>
 
-            </Box>
+                        < TextField sx={{ width: "100%", mb: 2 }}
+                            fullWidth
+                            id='username'
+                            name='username'
+                            value={formik.values.username}
+                            type='text'
+                            onChange={formik.handleChange}
+                            error={formik.touched.username && Boolean(formik.errors.username)}
+                            helperText={formik.touched.username && formik.errors.username}
+
+                        />
+
+                        <PasswordInput formik={formik} />
+
+                        <Box sx={{ my: 2 }}>
+
+                            <CustomizedButton width="100%" bgColor="black" onClick={formik.handleSubmit}>Login</CustomizedButton>
+
+                        </Box>
+
+                    </Grid>
+
+                </Grid >
+
+            </Grid >
 
         </Grid >
 

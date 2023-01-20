@@ -71,7 +71,7 @@ export const TableUI = (props: any) => {
 
           <OutlinedInput placeholder="Search" />
 
-          <IconButton>
+          {/* <IconButton>
 
             <FileUploadIcon />
 
@@ -82,7 +82,7 @@ export const TableUI = (props: any) => {
 
             <FilterListIcon />
 
-          </IconButton>
+          </IconButton> */}
 
 
         </Box>
@@ -110,7 +110,7 @@ export const TableUI = (props: any) => {
 
               )}
 
-              <th>Created At</th>
+              {/* <th>Created At</th> */}
 
 
               {!disableActions && <th>Actions</th>}
@@ -151,11 +151,11 @@ export const TableUI = (props: any) => {
                 )}
 
 
-                <td>
+                {/* <td>
 
                   {moment.utc(data.createdAt).format("MMM Do YY")}
 
-                </td>
+                </td> */}
 
 
                 {!disableActions && <td>

@@ -111,10 +111,7 @@ export const RequestDetails = () => {
             title: "Sql Password",
             data: "sql_password",
         },
-        {
-            title: "Next Amc Date",
-            data: "next_amc_date",
-        },
+
 
     ]
 
@@ -151,59 +148,76 @@ export const RequestDetails = () => {
 
     return (
 
-        <Grid container>
+        <Grid container justifyContent="center" sx={{ bgcolor: "#FEF9E7" }}>
 
+            <Grid container lg={9} sx={{
+                bgcolor: "white", my: 2, borderRadius: "20px",
+                boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px"
+            }}>
 
-            <Box>
+                <Box>
 
-                <img width="100%" src={request?.file_location} alt="" />
-
-            </Box>
-
-
-            {details.map(data =>
-
-
-                <Box sx={{
-                    width: "100%", bgcolor: "white", p: 1,
-                    borderBottom: "1px solid lightgrey",
-                    display: "flex", justifyContent: "space-around", alignItems: "center"
-                }}>
-
-                    <Typography sx={{ flex: 1, fontWeight: "bold" }}>{data.title}</Typography>
-
-                    <Typography sx={{ flex: 1 }}>{request?.[data.data]}</Typography>
+                    <img width="100%" src={request?.file_location} alt="" />
 
                 </Box>
 
 
-            )}
+                {details.map(data =>
 
-            {checkbox.map((data: any) =>
+
+                    <Box sx={{
+                        width: "100%", p: 1,
+                        borderBottom: "1px solid #E5E7E9",
+                        display: "flex", justifyContent: "space-around", alignItems: "center"
+                    }}>
+
+                        <Typography sx={{ flex: 1, fontWeight: "bold" }}>{data.title}</Typography>
+
+                        <Typography sx={{ flex: 1 }}>{request?.[data.data]}</Typography>
+
+                    </Box>
+
+
+                )}
 
                 <Box sx={{
-                    width: "100%", bgcolor: "white", p: 1,
-                    borderBottom: "1px solid lightgrey",
+                    width: "100%", p: 1,
+                    borderBottom: "1px solid #E5E7E9",
                     display: "flex", justifyContent: "space-around", alignItems: "center"
                 }}>
 
-                    <Box sx={{ flex: 1 }}>
+                    <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next Amc Date</Typography>
 
-                        <Typography sx={{ fontWeight: "bold" }}>{data.title}</Typography>
-
-                    </Box>
-
-                    <Box sx={{ flex: 1 }}>
-
-                        <Checkbox checked={request?.[data.data]} />
-
-                    </Box>
-
+                    <Typography sx={{ flex: 1 }}>{request?.next_amc_date}</Typography>
 
                 </Box>
 
-            )}
+                {checkbox.map((data: any) =>
 
+                    <Box sx={{
+                        width: "100%", px: 1,
+                        borderBottom: "1px solid #E5E7E9",
+                        display: "flex", justifyContent: "space-around", alignItems: "center"
+                    }}>
+
+                        <Box sx={{ flex: 1 }}>
+
+                            <Typography sx={{ fontWeight: "bold" }}>{data.title}</Typography>
+
+                        </Box>
+
+                        <Box sx={{ flex: 1 }}>
+
+                            <Checkbox checked={request?.[data.data]} />
+
+                        </Box>
+
+
+                    </Box>
+
+                )}
+
+            </Grid >
 
 
         </Grid >
