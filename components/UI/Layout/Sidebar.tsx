@@ -29,7 +29,7 @@ export const Sidebar = () => {
                 <KeyboardDoubleArrowLeftIcon
                     sx={{ color: PRIMARY_COLOR, fontSize: "2rem", transform: isExpand ? "rotate(0deg)" : "rotate(180deg)" }} />
 
-            </Box>
+            </Box>  
 
             <Divider />
 

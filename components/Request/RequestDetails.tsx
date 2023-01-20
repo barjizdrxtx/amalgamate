@@ -148,24 +148,25 @@ export const RequestDetails = () => {
 
     return (
 
-        <Grid container justifyContent="center" sx={{ bgcolor: "#FEF9E7" }}>
+        <Grid container justifyContent="center">
 
-            <Grid container lg={9} sx={{
+            <Grid container lg={11} sx={{
+                height: "100vh",
                 bgcolor: "white", my: 2, borderRadius: "20px",
                 boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px"
             }}>
 
-                <Box>
+                <Grid container md={6} lg={6}>
 
-                    <img width="100%" src={request?.file_location} alt="" />
+                    <Typography>{request?.file_location}</Typography>
 
-                </Box>
+                </Grid>
 
 
                 {details.map(data =>
 
 
-                    <Box sx={{
+                    <Grid container md={6} lg={6} sx={{
                         width: "100%", p: 1,
                         borderBottom: "1px solid #E5E7E9",
                         display: "flex", justifyContent: "space-around", alignItems: "center"
@@ -175,12 +176,12 @@ export const RequestDetails = () => {
 
                         <Typography sx={{ flex: 1 }}>{request?.[data.data]}</Typography>
 
-                    </Box>
+                    </Grid>
 
 
                 )}
 
-                <Box sx={{
+                <Grid container md={6} lg={6} sx={{
                     width: "100%", p: 1,
                     borderBottom: "1px solid #E5E7E9",
                     display: "flex", justifyContent: "space-around", alignItems: "center"
@@ -190,11 +191,11 @@ export const RequestDetails = () => {
 
                     <Typography sx={{ flex: 1 }}>{request?.next_amc_date}</Typography>
 
-                </Box>
+                </Grid>
 
                 {checkbox.map((data: any) =>
 
-                    <Box sx={{
+                    <Grid container md={6} lg={6} sx={{
                         width: "100%", px: 1,
                         borderBottom: "1px solid #E5E7E9",
                         display: "flex", justifyContent: "space-around", alignItems: "center"
@@ -213,7 +214,7 @@ export const RequestDetails = () => {
                         </Box>
 
 
-                    </Box>
+                    </Grid>
 
                 )}
 
