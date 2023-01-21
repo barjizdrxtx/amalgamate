@@ -12,8 +12,6 @@ export const DateSelector = (props: any) => {
 
     const { next_amc_date, setNextAmcDate } = props;
 
-    console.log("dateeee", next_amc_date?.$d)
-
     const [value, setValue] = React.useState<Dayjs | null>(null);
 
     return (

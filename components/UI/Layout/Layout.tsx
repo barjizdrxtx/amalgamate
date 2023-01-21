@@ -41,7 +41,7 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
 
                     </Box>
 
-                    <Box sx={{ width: "100%", overflowY: "scroll", height: "92vh" }}>
+                    <Box sx={{ width: "100%",  height: "92vh" }}>
 
                         {props.children}
 

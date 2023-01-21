@@ -3,9 +3,10 @@ import { Box, Grid, Typography } from '@mui/material'
 import { useRouter } from 'next/router';
 import { useQueryFetchId } from '../../hooks/useQueryFetch';
 import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
+import DownloadIcon from '@mui/icons-material/Download';
 import { CustomizedButton } from '../UI/Button/CustomizedButton';
+import axios from 'axios';
+import { useJwt } from '../../hooks/useJwt';
 
 export const RequestDetails = () => {
 
@@ -17,156 +18,92 @@ export const RequestDetails = () => {
 
     const request = fetchedData?.result
 
+    const token = useJwt();
 
-    console.log("request", request)
+    const handleDelete = () => {
 
-    const details = [
+        axios.delete(`request/${id}`,
 
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                }
+            }
 
-        {
-            title: "Client Id",
-            data: "client_id",
-        },
-        {
-            title: "Customer Name",
-            data: "customer_name",
-        },
-        {
-            title: "Shop Name",
-            data: "shop_name",
-        },
-        {
-            title: "Shop Address",
-            data: "shop_address",
-        },
-        {
-            title: "Contact Number",
-            data: "contact_number",
-        },
-        {
-            title: "Contact Person",
-            data: "contact_person",
-        },
-        {
-            title: "Cr No",
-            data: "cr_no",
-        },
-        {
-            title: "Email",
-            data: "email",
-        },
-        {
-            title: "Wwner Contact No",
-            data: "owner_contact_no",
-        },
-        {
-            title: "Software Name",
-            data: "software_name",
-        },
-        {
-            title: "Shop Category",
-            data: "shop_category",
-        },
+        )
+            .then((response) => {
 
-        {
-            title: "Erp System Count",
-            data: "erp_system_count",
-        },
-        {
-            title: "Pos System Count",
-            data: "pos_system_count",
-        },
-        {
-            title: "User Limit",
-            data: "user_limit",
-        },
-        {
-            title: "Active Erp",
-            data: "active_erp",
-        },
-        {
-            title: "Active Pos",
-            data: "active_pos",
-        },
+                router.push("/")
 
+            })
+    }
 
-        {
-            title: "Amc",
-            data: "amc",
-        },
+    const download = (e: any) => {
+        console.log(e.target.href);
+        fetch(e.target.href, {
+            method: "GET",
+            headers: {}
+        })
+            .then(response => {
+                response.arrayBuffer().then(function (buffer) {
+                    const url = window.URL.createObjectURL(new Blob([buffer]));
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.setAttribute("download", "image.png"); //or any other extension
+                    document.body.appendChild(link);
+                    link.click();
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
-
-        {
-            title: "Server Password",
-            data: "server_password",
-        },
-        {
-            title: "Anydesk Password",
-            data: "anydesk_password",
-        },
-        {
-            title: "Server Configuration",
-            data: "server_configuration",
-        },
-        {
-            title: "Sql Password",
-            data: "sql_password",
-        },
-
-
-    ]
-
-    const checkbox = [
-
-        {
-            title: "Erp",
-            data: "erp",
-        },
-        {
-            title: "Pos",
-            data: "pos",
-        },
-        {
-            title: "Erp Pos",
-            data: "erp_pos",
-        },
-
-        {
-            title: "Software Support",
-            data: "software_support",
-        },
-        {
-            title: "Hardware Support",
-            data: "hardware_support",
-        },
-        {
-            title: "Network Support",
-            data: "network_support",
-        },
-
-    ]
 
 
     return (
 
         <Grid container justifyContent="center">
 
-
-            <Grid container>
-
-                <CustomizedButton onClick={() => router.push(`/request/edit/${id}`)} bgcolor="#32CD32">Edit Data</CustomizedButton>
-
-            </Grid>
-
-            <Grid container lg={11} sx={{
-                height: "100vh",
-                bgcolor: "white", my: 2, borderRadius: "20px",
+            <Grid container lg={12} sx={{
+                height: "85vh", overflowY: "scroll",
+                bgcolor: "white", borderRadius: "20px",
                 boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px"
             }}>
 
-                <Grid container md={6} lg={6}>
+                <Grid container lg={11} justifyContent="end">
 
-                    <Typography>{request?.file_location}</Typography>
+                    <CustomizedButton mx={1} onClick={() => router.push(`/request/edit/${id}`)} bgcolor="#32CD32">Edit</CustomizedButton>
+
+                    <CustomizedButton mx={1} onClick={handleDelete} bgcolor="red">Delete</CustomizedButton>
+
+                </Grid>
+
+
+                <Grid container md={6} lg={6} alignItems="center">
+
+                    <Typography sx={{ mx: 1 }}>{request?.file_location}</Typography>
+
+                    <Box sx={{
+                        bgcolor: "dodgerblue", display: "flex",
+                        justifyContent: "center", alignItems: "center", p: 0.5, borderRadius: "10px"
+                    }}>
+
+
+                        <DownloadIcon sx={{ color: "white" }} />
+
+                        <a style={{ color: "white" }}
+                            href={request?.file_location}
+                            download
+                            onClick={e => download(e)}
+                        >
+                            Download File
+                        </a>
+
+
+                    </Box>
+
 
                 </Grid>
 
@@ -228,8 +165,134 @@ export const RequestDetails = () => {
 
             </Grid >
 
-
         </Grid >
 
     )
 }
+
+
+
+const details = [
+
+
+    {
+        title: "Client Id",
+        data: "client_id",
+    },
+    {
+        title: "Customer Name",
+        data: "customer_name",
+    },
+    {
+        title: "Shop Name",
+        data: "shop_name",
+    },
+    {
+        title: "Shop Address",
+        data: "shop_address",
+    },
+    {
+        title: "Contact Number",
+        data: "contact_number",
+    },
+    {
+        title: "Contact Person",
+        data: "contact_person",
+    },
+    {
+        title: "Cr No",
+        data: "cr_no",
+    },
+    {
+        title: "Email",
+        data: "email",
+    },
+    {
+        title: "Wwner Contact No",
+        data: "owner_contact_no",
+    },
+    {
+        title: "Software Name",
+        data: "software_name",
+    },
+    {
+        title: "Shop Category",
+        data: "shop_category",
+    },
+
+    {
+        title: "Erp System Count",
+        data: "erp_system_count",
+    },
+    {
+        title: "Pos System Count",
+        data: "pos_system_count",
+    },
+    {
+        title: "User Limit",
+        data: "user_limit",
+    },
+    {
+        title: "Active Erp",
+        data: "active_erp",
+    },
+    {
+        title: "Active Pos",
+        data: "active_pos",
+    },
+
+
+    {
+        title: "Amc",
+        data: "amc",
+    },
+
+
+    {
+        title: "Server Password",
+        data: "server_password",
+    },
+    {
+        title: "Anydesk Password",
+        data: "anydesk_password",
+    },
+    {
+        title: "Server Configuration",
+        data: "server_configuration",
+    },
+    {
+        title: "Sql Password",
+        data: "sql_password",
+    },
+
+]
+
+const checkbox = [
+
+    {
+        title: "Erp",
+        data: "erp",
+    },
+    {
+        title: "Pos",
+        data: "pos",
+    },
+    {
+        title: "Erp Pos",
+        data: "erp_pos",
+    },
+
+    {
+        title: "Software Support",
+        data: "software_support",
+    },
+    {
+        title: "Hardware Support",
+        data: "hardware_support",
+    },
+    {
+        title: "Network Support",
+        data: "network_support",
+    },
+
+]

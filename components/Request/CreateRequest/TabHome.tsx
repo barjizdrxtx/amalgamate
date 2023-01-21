@@ -7,6 +7,7 @@ import * as React from 'react';
 import { useJwt } from '../../../hooks/useJwt';
 import { MainTab } from '../../MainTab/MainTab';
 import { CreateButton } from '../../UI/Button/CreateButton';
+import { validationSchema } from '../validation';
 import { InstallionDetails } from './InstallionDetails';
 import { OtherDetails } from './OtherDetails';
 import { PersonalDetails } from './PersonalDetails';
@@ -64,7 +65,7 @@ export const TabHome = () => {
 
     },
 
-    // validationSchema: clinicSchemea,
+    validationSchema: validationSchema,
 
     onSubmit: (values: any) => {
 
@@ -112,7 +113,6 @@ export const TabHome = () => {
 
       // you could also use destructuring to have an array of responses
       axios.all([axiosrequest]).then(axios.spread(function (res) {
-        alert("submit success")
         router.push(`/`)
       }));
 
@@ -147,7 +147,7 @@ export const TabHome = () => {
       errors: formik.errors.shop_name,
     },
     {
-      title: "Shop Name",
+      title: "Shop Address",
       label: "shop_address",
       type: "text",
       value: formik.values.shop_address,

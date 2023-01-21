@@ -29,7 +29,7 @@ export const FileUpload = (props: any) => {
             setFileUpload(response.data.result.file_path)
 
         }).catch((response: any) => {
-            alert(response)
+    
         })
     }
 

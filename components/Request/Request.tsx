@@ -12,19 +12,19 @@ export const Request = () => {
     const tableHead = [
 
         "Customer Name",
-        // "Shop Name",
-        // "Shop Address",
-        // "Contact Number",
-        // "Email"
+        "Shop Name",
+        "Shop Address",
+        "Contact Number",
+        "Email"
     ];
 
     const element = [
 
         "customer_name",
-        // "shop_name",
-        // "shop_address",
-        // "contact_number",
-        // "email"
+        "shop_name",
+        "shop_address",
+        "contact_number",
+        "email"
     ]
 
     const actions = [

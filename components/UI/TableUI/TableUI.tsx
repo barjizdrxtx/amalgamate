@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import style from "../../../styles/TableUI.module.css"
 import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
-import { Actions } from './Actions';
 import { useRouter } from 'next/router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SearchBar } from '../SearchBar/SearchBar';
@@ -18,7 +17,7 @@ export const TableUI = (props: any) => {
 
   const [page, setPage] = useState(1);
 
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(15);
 
   const router = useRouter();
 
@@ -32,9 +31,6 @@ export const TableUI = (props: any) => {
 
 
   const { fetchedData: search } = useQueryFetch(`request/search?query=${searchResult}`);
-
-  console.log("request", request)
-
 
 
   const [bool, setBool] = useState([]);
@@ -63,7 +59,7 @@ export const TableUI = (props: any) => {
       setRequest(search)
 
     }
-    
+
     else {
 
 
@@ -89,7 +85,7 @@ export const TableUI = (props: any) => {
     <Grid container>
 
       <Box sx={{
-        width: "100%",
+        width: "100%", height: "80vh", overflowY: "scroll",
         bgcolor: "white",
         boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
         borderRadius: "20px", p: 2
@@ -128,11 +124,6 @@ export const TableUI = (props: any) => {
 
               )}
 
-              {/* <th>Created At</th> */}
-
-
-              {!disableActions && <th>Actions</th>}
-
             </tr>
 
             {request?.result?.map((data: any, index: any) =>
@@ -169,29 +160,6 @@ export const TableUI = (props: any) => {
                 )}
 
 
-                {/* <td>
-
-                  {moment.utc(data.createdAt).format("MMM Do YY")}
-
-                </td> */}
-
-
-                {!disableActions && <td>
-
-                  <Actions
-
-                    bool={bool}
-                    index={index}
-                    Open={Open}
-                    refetch={refetch}
-                    id={data.id}
-                    name={name}
-                    actions={actions}
-
-                  />
-
-                </td>}
-
               </tr>
 
             )}
@@ -202,8 +170,6 @@ export const TableUI = (props: any) => {
         </table>
 
         <Box sx={{ display: "flex", justifyContent: "end", py: 2 }}>
-          {/* 
-          <TextField onChange={(e: any) => setLimit(e.target.value)} /> */}
 
           <Stack spacing={2}>
             <Pagination onChange={handleChange} count={totalPages} color="primary" />
