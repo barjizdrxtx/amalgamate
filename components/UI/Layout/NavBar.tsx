@@ -38,7 +38,7 @@ export const NavBar = () => {
             <Grid container xs={6} lg={6} sx={{ py: 1, justifyContent: { xs: "center", lg: "center" } }} >
 
                 <MenuIcon onClick={() => setMenu(menu === "100%" ? "0" : "100%")}
-                    sx={{ display: { xs: "flex", sm: "flex", md: "none", lg: "none", xl: "none" }, fontSize: "2rem", position: "fixed", left: 0, ml: 1 }} />
+                    sx={{ display: { xs: "flex", sm: "flex", md: "none", lg: "none", xl: "none" }, fontSize: "2rem", position: "absolute", left: 0, ml: 1 }} />
 
                 <Typography variant="h5" fontWeight="bold" sx={{ color: PRIMARY_COLOR }}>AMALGAMATE</Typography>
 

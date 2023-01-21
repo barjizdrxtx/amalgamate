@@ -85,24 +85,29 @@ export const RequestDetails = () => {
 
                     <Typography sx={{ mx: 1 }}>{request?.file_location}</Typography>
 
-                    <Box sx={{
-                        bgcolor: "dodgerblue", display: "flex",
-                        justifyContent: "center", alignItems: "center", p: 0.5, borderRadius: "10px"
-                    }}>
+
+                    {request?.file_location != null &&
+
+                        < Box sx={{
+                            bgcolor: "dodgerblue", display: "flex",
+                            justifyContent: "center", alignItems: "center", p: 0.5, borderRadius: "10px"
+                        }}>
 
 
-                        <DownloadIcon sx={{ color: "white" }} />
+                            <DownloadIcon sx={{ color: "white" }} />
 
-                        <a style={{ color: "white" }}
-                            href={request?.file_location}
-                            download
-                            onClick={e => download(e)}
-                        >
-                            Download File
-                        </a>
+                            <a style={{ color: "white" }}
+                                href={request?.file_location}
+                                download
+                                onClick={e => download(e)}
+                            >
+                                Download File
+                            </a>
 
 
-                    </Box>
+                        </Box>
+
+                    }
 
 
                 </Grid>
