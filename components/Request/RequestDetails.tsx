@@ -7,6 +7,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { CustomizedButton } from '../UI/Button/CustomizedButton';
 import axios from 'axios';
 import { useJwt } from '../../hooks/useJwt';
+import * as moment from 'moment-timezone'
 
 export const RequestDetails = () => {
 
@@ -137,9 +138,9 @@ export const RequestDetails = () => {
                     display: "flex", justifyContent: "space-around", alignItems: "center"
                 }}>
 
-                    <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next Amc Date</Typography>
+                    <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
 
-                    <Typography sx={{ flex: 1 }}>{request?.next_amc_date}</Typography>
+                    <Typography sx={{ flex: 1 }}>{request.next_amc_date ? moment(request?.next_amc_date).format('DD-MM-YYYY') : null}</Typography>
 
                 </Grid>
 
@@ -205,7 +206,7 @@ const details = [
         data: "contact_person",
     },
     {
-        title: "Cr No",
+        title: "CR No",
         data: "cr_no",
     },
     {
@@ -213,7 +214,7 @@ const details = [
         data: "email",
     },
     {
-        title: "Wwner Contact No",
+        title: "Owner Contact No",
         data: "owner_contact_no",
     },
     {
@@ -226,11 +227,11 @@ const details = [
     },
 
     {
-        title: "Erp System Count",
+        title: "ERP System Count",
         data: "erp_system_count",
     },
     {
-        title: "Pos System Count",
+        title: "POS System Count",
         data: "pos_system_count",
     },
     {
@@ -238,17 +239,17 @@ const details = [
         data: "user_limit",
     },
     {
-        title: "Active Erp",
+        title: "Active ERP",
         data: "active_erp",
     },
     {
-        title: "Active Pos",
+        title: "Active POS",
         data: "active_pos",
     },
 
 
     {
-        title: "Amc",
+        title: "AMC",
         data: "amc",
     },
 
@@ -266,7 +267,7 @@ const details = [
         data: "server_configuration",
     },
     {
-        title: "Sql Password",
+        title: "SQL Password",
         data: "sql_password",
     },
 
@@ -275,15 +276,15 @@ const details = [
 const checkbox = [
 
     {
-        title: "Erp",
+        title: "ERP",
         data: "erp",
     },
     {
-        title: "Pos",
+        title: "POS",
         data: "pos",
     },
     {
-        title: "Erp Pos",
+        title: "ERP/POS",
         data: "erp_pos",
     },
 
