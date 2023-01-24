@@ -54,7 +54,7 @@ export const TableUI = (props: any) => {
   React.useEffect(() => {
 
 
-    if (search?.result.length > 0) {
+    if (search?.length > 0) {
 
       setRequest(search)
 

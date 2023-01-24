@@ -7,7 +7,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { CustomizedButton } from '../UI/Button/CustomizedButton';
 import axios from 'axios';
 import { useJwt } from '../../hooks/useJwt';
-import * as moment from 'moment-timezone'
+import * as moment from 'moment'
 
 export const RequestDetails = () => {
 
@@ -20,6 +20,13 @@ export const RequestDetails = () => {
     const request = fetchedData?.result
 
     const token = useJwt();
+
+    console.log("request", request)
+
+
+    console.log("moment", moment.utc(request?.next_amc_date).format('MMMM Do YYYY'))
+
+
 
     const handleDelete = () => {
 
@@ -140,7 +147,7 @@ export const RequestDetails = () => {
 
                     <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
 
-                    <Typography sx={{ flex: 1 }}>{request.next_amc_date ? moment(request?.next_amc_date).format('DD-MM-YYYY') : null}</Typography>
+                    <Typography sx={{ flex: 1 }}>{moment.utc(request?.next_amc_date).format('MMMM Do YYYY')}</Typography>
 
                 </Grid>
 
