@@ -15,12 +15,12 @@ export const validationSchema = yup.object({
         .required('Shop Name is required'),
 
     contact_number: yup
-        .string()
-        .min(10, 'Phone Number should be of minimum 10 characters length'),
+        .string(),
+        // .min(10, 'Phone Number should be of minimum 10 characters length'),
 
     owner_contact_no: yup
-        .string()
-        .min(10, 'Phone Number should be of minimum 10 characters length'),
+        .string(),
+        // .min(10, 'Phone Number should be of minimum 10 characters length'),
 
     email: yup
         .string()

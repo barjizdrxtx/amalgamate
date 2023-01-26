@@ -76,7 +76,7 @@ export const OtherDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setSoftWareSupport(!software_support)} />} label="Software Support" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} checked={software_support} onClick={() => setSoftWareSupport(!software_support)} />} label="Software Support" />
 
                         </FormGroup>
 
@@ -86,7 +86,7 @@ export const OtherDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setHardwareSupport(!hardware_support)} />} label="Hardware Support" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} checked={hardware_support} onClick={() => setHardwareSupport(!hardware_support)} />} label="Hardware Support" />
 
                         </FormGroup>
 
@@ -96,7 +96,7 @@ export const OtherDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setNetworkSupport(!network_support)} />} label="Network Support" />
+                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} checked={network_support} onClick={() => setNetworkSupport(!network_support)} />} label="Network Support" />
 
                         </FormGroup>
 

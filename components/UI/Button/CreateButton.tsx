@@ -27,7 +27,7 @@ export const CreateButton = (props: any) => {
 
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
 
-                    <CustomizedButton bgcolor={PRIMARY_COLOR} onClick={onCreate}>{buttonName + " " + title}</CustomizedButton >
+                    <CustomizedButton bgcolor={PRIMARY_COLOR} onClick={onCreate}>{buttonName}</CustomizedButton >
 
                     <Box sx={{ m: 1 }}></Box>
 

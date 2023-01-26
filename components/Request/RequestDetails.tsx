@@ -167,7 +167,7 @@ export const RequestDetails = () => {
 
                         <Box sx={{ flex: 1 }}>
 
-                            <Checkbox checked={request?.[data.data]} />
+                            <Checkbox defaultChecked={request?.[data.data]} />
 
                         </Box>
 

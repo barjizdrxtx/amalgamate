@@ -2,6 +2,8 @@ import { Checkbox, FormControlLabel, FormGroup, Grid, TextField, Typography } fr
 import React from 'react';
 import { Box } from '@mui/system';
 import { FileUpload } from '../../UI/FileUpload/FileUpload';
+
+
 export const PersonalDetails = (props: any) => {
 
     const { list, formik, file_upload, setFileUpload,

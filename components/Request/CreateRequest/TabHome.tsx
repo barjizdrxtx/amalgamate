@@ -12,16 +12,15 @@ import { InstallionDetails } from './InstallionDetails';
 import { OtherDetails } from './OtherDetails';
 import { PersonalDetails } from './PersonalDetails';
 
-
 export const TabHome = () => {
-
 
   const router = useRouter();
 
   const token = useJwt();
 
-
   const [file_upload, setFileUpload] = React.useState();
+
+  console.log("file_upload", file_upload)
 
 
   const [erp, setErp] = React.useState(false);
@@ -120,10 +119,22 @@ export const TabHome = () => {
   });
 
 
+  const [pop, setPop]: any = React.useState([])
+
+  React.useEffect(() => {
+
+    setPop([formik.errors])
+
+  }, [])
+
+
+  console.log("error", pop)
+
+
   const personaldetails = [
 
     {
-      title: "Client Id",
+      title: "Client ID",
       label: "client_id",
       type: "text",
       value: formik.values.client_id,
@@ -171,7 +182,7 @@ export const TabHome = () => {
       errors: formik.errors.contact_person,
     },
     {
-      title: "Cr No",
+      title: "CR NO",
       label: "cr_no",
       type: "number",
       value: formik.values.cr_no,
@@ -241,7 +252,7 @@ export const TabHome = () => {
       errors: formik.errors.user_limit,
     },
     {
-      title: "Active Erp",
+      title: "Active ERP",
       label: "active_erp",
       type: "number",
       value: formik.values.active_erp,
@@ -250,7 +261,7 @@ export const TabHome = () => {
     },
 
     {
-      title: "Active Pos",
+      title: "Active POS",
       label: "active_pos",
       type: "number",
       value: formik.values.active_pos,
@@ -362,7 +373,7 @@ export const TabHome = () => {
         flexDirection: { xs: "column-reverse", lg: "column" }
       }}>
 
-        <CreateButton buttonName="Create" title="request"
+        <CreateButton buttonName="Save" title="request"
           onCreate={formik.handleSubmit}
         />
 

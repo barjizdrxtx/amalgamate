@@ -2,13 +2,15 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import { PRIMARY_COLOR } from '../../utls/colors';
-
+import ErrorIcon from '@mui/icons-material/Error';
 
 export const MainTab = (props: any) => {
 
   const { tabData } = props;
 
   const [tab, setTab] = React.useState(0)
+
+
 
   return (
 
@@ -22,6 +24,8 @@ export const MainTab = (props: any) => {
         {tabData.map((data: any, index: any) =>
 
           <Box sx={{ backgroundColor: tab === index ? PRIMARY_COLOR : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
+
+            <ErrorIcon sx={{ color: "red" }} />
 
             <Typography sx={{ color: tab === index ? "white" : "#696969", fontWeight: "bold" }}>{data.label}</Typography>
 

@@ -57,7 +57,7 @@ export const InstallionDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setErp(!erp)} />} label="ERP" />
+                            <FormControlLabel control={<Checkbox checked={erp} sx={{ m: 1 }} onClick={() => setErp(!erp)} />} label="ERP" />
 
                         </FormGroup>
 
@@ -67,7 +67,7 @@ export const InstallionDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setPos(!pos)} />} label="POS" />
+                            <FormControlLabel control={<Checkbox checked={pos} sx={{ m: 1 }} onClick={() => setPos(!pos)} />} label="POS" />
 
                         </FormGroup>
 
@@ -77,7 +77,7 @@ export const InstallionDetails = (props: any) => {
 
                         <FormGroup>
 
-                            <FormControlLabel control={<Checkbox sx={{ m: 1 }} onClick={() => setErpPos(!erp_pos)} />} label="ERP/POS" />
+                            <FormControlLabel control={<Checkbox checked={erp_pos} sx={{ m: 1 }} onClick={() => setErpPos(!erp_pos)} />} label="ERP/POS" />
 
                         </FormGroup>
 

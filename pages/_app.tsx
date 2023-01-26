@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
 
       <Head>
-        <title>My page title</title>
+        <title>Amalgate</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Head>
 
