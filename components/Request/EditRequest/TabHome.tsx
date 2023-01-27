@@ -150,7 +150,7 @@ export const TabHome = () => {
   const personaldetails = [
 
     {
-      title: "Client Id",
+      title: "Client ID",
       label: "client_id",
       type: "text",
       value: formik.values.client_id,
@@ -198,7 +198,7 @@ export const TabHome = () => {
       errors: formik.errors.contact_person,
     },
     {
-      title: "Cr No",
+      title: "CR No",
       label: "cr_no",
       type: "number",
       value: formik.values.cr_no,
@@ -244,7 +244,7 @@ export const TabHome = () => {
       errors: formik.errors.shop_category,
     },
     {
-      title: "Erp System Count",
+      title: "ERP System Count",
       label: "erp_system_count",
       type: "text",
       value: formik.values.erp_system_count,
@@ -252,7 +252,7 @@ export const TabHome = () => {
       errors: formik.errors.erp_system_count,
     },
     {
-      title: "Pos System Count",
+      title: "POS System Count",
       label: "pos_system_count",
       type: "text",
       value: formik.values.pos_system_count,
@@ -268,7 +268,7 @@ export const TabHome = () => {
       errors: formik.errors.user_limit,
     },
     {
-      title: "Active Erp",
+      title: "Active ERP",
       label: "active_erp",
       type: "text",
       value: formik.values.active_erp,
@@ -277,7 +277,7 @@ export const TabHome = () => {
     },
 
     {
-      title: "Active Pos",
+      title: "Active POS",
       label: "active_pos",
       type: "text",
       value: formik.values.active_pos,
@@ -290,7 +290,7 @@ export const TabHome = () => {
   const otherdetails = [
 
     {
-      title: "Amc",
+      title: "AMC",
       label: "amc",
       type: "text",
       value: formik.values.amc,
@@ -322,7 +322,7 @@ export const TabHome = () => {
       errors: formik.errors.server_configuration,
     },
     {
-      title: "Sql Password",
+      title: "SQL Password",
       label: "sql_password",
       type: "email",
       value: formik.values.sql_password,

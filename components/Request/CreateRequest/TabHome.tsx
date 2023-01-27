@@ -241,7 +241,7 @@ export const TabHome = () => {
       errors: formik.errors.shop_category,
     },
     {
-      title: "Erp System Count",
+      title: "ERP System Count",
       label: "erp_system_count",
       type: "number",
       value: formik.values.erp_system_count,
@@ -249,7 +249,7 @@ export const TabHome = () => {
       errors: formik.errors.erp_system_count,
     },
     {
-      title: "Pos System Count",
+      title: "POS System Count",
       label: "pos_system_count",
       type: "number",
       value: formik.values.pos_system_count,
@@ -287,7 +287,7 @@ export const TabHome = () => {
   const otherdetails = [
 
     {
-      title: "Amc",
+      title: "AMC",
       label: "amc",
       type: "text",
       value: formik.values.amc,
@@ -319,7 +319,7 @@ export const TabHome = () => {
       errors: formik.errors.server_configuration,
     },
     {
-      title: "Sql Password",
+      title: "SQL Password",
       label: "sql_password",
       type: "text",
       value: formik.values.sql_password,
