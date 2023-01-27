@@ -23,9 +23,9 @@ export const MainTab = (props: any) => {
 
         {tabData.map((data: any, index: any) =>
 
-          <Box sx={{ backgroundColor: tab === index ? PRIMARY_COLOR : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
+          <Box sx={{ display: "flex", backgroundColor: tab === index ? PRIMARY_COLOR : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
 
-            {data.errors === false || pop > 0 && < ErrorIcon sx={{ color: "red" }} />}
+            {data.errors === false || pop > 0 && < ErrorIcon sx={{ color: "red", mr: 1 }} />}
 
             <Typography sx={{ color: tab === index ? "white" : "#696969", fontWeight: "bold" }}>{data.label}</Typography>
 

@@ -1,12 +1,12 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { TabHome } from '../../../components/Request/EditRequest/TabHome'
+import { EditTab } from '../../../components/Request/RequestManage/EditTab'
 
 const index = () => {
   return (
     <Grid>
 
-      <TabHome />
+      <EditTab />
 
     </Grid>
   )

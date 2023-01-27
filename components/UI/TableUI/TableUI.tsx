@@ -130,12 +130,12 @@ export const TableUI = (props: any) => {
 
               <tr style={{ cursor: "pointer" }}>
 
-                <td onClick={() => router.push(`/request/details/${data._id}`)} style={{ fontWeight: "bold" }}>
+                <td  style={{ fontWeight: "bold" }}>
                   {index + 1 + (page - 1) * limit}
                 </td>
 
 
-                {!disableImage && <td onClick={() => router.push(`request/details/${data._id}`)} style={{ display: "flex", alignItems: "center" }}>
+                {!disableImage && <td  style={{ display: "flex", alignItems: "center" }}>
 
                   {data.images[0].image === undefined ?
                     <AccountCircleIcon sx={{ fontSize: "3.8rem", color: "#AEAEAE" }} /> :

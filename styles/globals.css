@@ -10,3 +10,7 @@ a {
     list-style: none;
     text-decoration: none;
 }
+
+.load_anim {
+    background-color: red;
+}

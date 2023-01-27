@@ -1,11 +1,10 @@
 import { Grid } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { Box } from '@mui/system';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useJwt } from '../../../hooks/useJwt';
-import { useQueryFetch, useQueryFetchId } from '../../../hooks/useQueryFetch';
 import { MainTab } from '../../MainTab/MainTab';
 import { CreateButton } from '../../UI/Button/CreateButton';
 import { validationSchema } from '../validation';
@@ -13,23 +12,14 @@ import { InstallionDetails } from './InstallionDetails';
 import { OtherDetails } from './OtherDetails';
 import { PersonalDetails } from './PersonalDetails';
 
-
-export const TabHome = () => {
-
+export const CreateTab = () => {
 
   const router = useRouter();
 
-  const { id } = router.query;
-
-
-  const { fetchedData: fetchedData } = useQueryFetchId(`request`, id);
-
-  const request = fetchedData?.result
-
   const token = useJwt();
 
-
   const [file_upload, setFileUpload] = React.useState();
+
 
   const [erp, setErp] = React.useState(false);
   const [pos, setPos] = React.useState(false);
@@ -41,60 +31,42 @@ export const TabHome = () => {
 
   const [next_amc_date, setNextAmcDate]: any = React.useState();
 
-  
-  React.useEffect(() => {
-
-    setErp(request?.erp)
-    setPos(request?.pos)
-    setErpPos(request?.erp_pos)
-
-    setSoftWareSupport(request?.software_support)
-    setHardwareSupport(request?.hardware_support)
-    setNetworkSupport(request?.network_support)
-
-
-  }, [])
-
-
-
   const formik = useFormik({
 
     initialValues: {
 
-      client_id: request?.client_id,
-      customer_name: request?.customer_name,
-      shop_name: request?.shop_name,
-      shop_address: request?.shop_address,
-      contact_number: request?.contact_number,
-      contact_person: request?.contact_person,
-      cr_no: request?.cr_no,
-      email: request?.email,
-      owner_contact_no: request?.owner_contact_no,
+      client_id: '',
+      customer_name: '',
+      shop_name: '',
+      shop_address: '',
+      contact_number: '',
+      contact_person: '',
+      cr_no: '',
+      email: '',
+      owner_contact_no: '',
 
-      software_name: request?.software_name,
-      shop_category: request?.shop_category,
-      erp_system_count: request?.erp_system_count,
-      pos_system_count: request?.pos_system_count,
-      user_limit: request?.user_limit,
-      active_erp: request?.active_erp,
-      active_pos: request?.active_pos,
+      software_name: '',
+      shop_category: '',
 
-      amc: request?.amc,
-      server_password: request?.server_password,
-      anydesk_password: request?.anydesk_password,
-      server_configuration: request?.server_configuration,
-      sql_password: request?.sql_password,
-      next_amc_date: request?.next_amc_date,
+      erp_system_count: '',
+      pos_system_count: '',
+      user_limit: '',
+      active_erp: '',
+      active_pos: '',
+
+      amc: '',
+      server_password: '',
+      anydesk_password: '',
+      server_configuration: '',
+      sql_password: '',
 
     },
-
-    enableReinitialize: true,
 
     validationSchema: validationSchema,
 
     onSubmit: (values: any) => {
 
-      const axiosrequest = axios.patch(`request/${id}`, {
+      const axiosrequest = axios.post('request', {
 
         client_id: values.client_id,
         customer_name: values.customer_name,
@@ -127,8 +99,6 @@ export const TabHome = () => {
         sql_password: values.sql_password,
         next_amc_date: next_amc_date?.$d,
         file_location: file_upload
-
-
       },
         {
           headers: {
@@ -145,6 +115,28 @@ export const TabHome = () => {
 
     },
   });
+
+
+  const [pop, setPop]: any = React.useState([])
+
+
+  React.useEffect(() => {
+
+    if (formik.errors.client_id === "Client Id is required"
+      || formik.errors.customer_name === "Customer Name is required"
+      || formik.errors.shop_name === "Shop Name is required"
+    ) {
+
+      setPop(1);
+
+    } else {
+
+      setPop(0);
+
+    }
+
+
+  },[formik.errors])
 
 
   const personaldetails = [
@@ -184,7 +176,7 @@ export const TabHome = () => {
     {
       title: "Contact Number",
       label: "contact_number",
-      type: "text",
+      type: "number",
       value: formik.values.contact_number,
       touched: formik.touched.contact_number,
       errors: formik.errors.contact_number,
@@ -198,7 +190,7 @@ export const TabHome = () => {
       errors: formik.errors.contact_person,
     },
     {
-      title: "CR No",
+      title: "CR NO",
       label: "cr_no",
       type: "number",
       value: formik.values.cr_no,
@@ -246,7 +238,7 @@ export const TabHome = () => {
     {
       title: "ERP System Count",
       label: "erp_system_count",
-      type: "text",
+      type: "number",
       value: formik.values.erp_system_count,
       touched: formik.touched.erp_system_count,
       errors: formik.errors.erp_system_count,
@@ -254,7 +246,7 @@ export const TabHome = () => {
     {
       title: "POS System Count",
       label: "pos_system_count",
-      type: "text",
+      type: "number",
       value: formik.values.pos_system_count,
       touched: formik.touched.pos_system_count,
       errors: formik.errors.pos_system_count,
@@ -270,7 +262,7 @@ export const TabHome = () => {
     {
       title: "Active ERP",
       label: "active_erp",
-      type: "text",
+      type: "number",
       value: formik.values.active_erp,
       touched: formik.touched.active_erp,
       errors: formik.errors.active_erp,
@@ -279,7 +271,7 @@ export const TabHome = () => {
     {
       title: "Active POS",
       label: "active_pos",
-      type: "text",
+      type: "number",
       value: formik.values.active_pos,
       touched: formik.touched.active_pos,
       errors: formik.errors.active_pos,
@@ -324,7 +316,7 @@ export const TabHome = () => {
     {
       title: "SQL Password",
       label: "sql_password",
-      type: "email",
+      type: "text",
       value: formik.values.sql_password,
       touched: formik.touched.sql_password,
       errors: formik.errors.sql_password,
@@ -335,6 +327,7 @@ export const TabHome = () => {
   const tabData = [
     {
       label: "Personal Details",
+      errors: true,
       component: <PersonalDetails
 
         software_support={software_support}
@@ -345,9 +338,8 @@ export const TabHome = () => {
     },
     {
       label: "Installion Details",
+      errors: false,
       component: <InstallionDetails
-
-        request={request}
 
         erp={erp}
         setErp={setErp}
@@ -362,9 +354,8 @@ export const TabHome = () => {
     },
     {
       label: "Other Details",
+      errors: false,
       component: <OtherDetails
-
-        request={request}
 
         software_support={software_support}
         setSoftWareSupport={setSoftWareSupport}
@@ -383,15 +374,24 @@ export const TabHome = () => {
   ]
 
 
+
   return (
 
     <Grid>
 
-      <CreateButton buttonName="Edit" title="request"
-        onCreate={formik.handleSubmit}
-      />
+      <Box sx={{
+        width: "100%", display: "flex",
+        flexDirection: { xs: "column-reverse", lg: "column" }
+      }}>
 
-      <MainTab tabData={tabData} request={request} />
+        <CreateButton buttonName="Save" title="request"
+          onCreate={formik.handleSubmit}
+        />
+
+        <MainTab tabData={tabData} pop={pop} />
+
+
+      </Box>
 
     </Grid>
 

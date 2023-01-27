@@ -8,6 +8,7 @@ import { CustomizedButton } from '../UI/Button/CustomizedButton';
 import axios from 'axios';
 import { useJwt } from '../../hooks/useJwt';
 import * as moment from 'moment'
+import { LoadingPage } from '../UI/LoadingPage/LoadingPage';
 
 export const RequestDetails = () => {
 
@@ -20,12 +21,6 @@ export const RequestDetails = () => {
     const request = fetchedData?.result
 
     const token = useJwt();
-
-    console.log("request", request)
-
-
-    console.log("moment", moment.utc(request?.next_amc_date).format('MMMM Do YYYY'))
-
 
 
     const handleDelete = () => {
@@ -48,7 +43,7 @@ export const RequestDetails = () => {
     }
 
     const download = (e: any) => {
-        console.log(e.target.href);
+        // console.log(e.target.href);
         fetch(e.target.href, {
             method: "GET",
             headers: {}
@@ -64,64 +59,35 @@ export const RequestDetails = () => {
                 });
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
             });
     };
 
+
+
+    console.log("request", request)
 
 
     return (
 
         <Grid container justifyContent="center">
 
-            <Grid container lg={12} sx={{
-                height: "85vh", overflowY: "scroll",
-                bgcolor: "white", borderRadius: "20px",
-                boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px"
-            }}>
+            {request ?
 
-                <Grid container lg={11} justifyContent="end">
+                <Grid container lg={12} sx={{
+                    height: "85vh", overflowY: "scroll",
+                    bgcolor: "white", borderRadius: "20px",
+                    boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px"
+                }}>
 
-                    <CustomizedButton mx={1} onClick={() => router.push(`/request/edit/${id}`)} bgcolor="#32CD32">Edit</CustomizedButton>
+                    <Grid container lg={11} justifyContent="end">
 
-                    <CustomizedButton mx={1} onClick={handleDelete} bgcolor="red">Delete</CustomizedButton>
+                        <CustomizedButton mx={1} onClick={() => router.push(`/request/edit/${id}`)} bgcolor="#32CD32">Edit</CustomizedButton>
 
-                </Grid>
+                        <CustomizedButton mx={1} onClick={handleDelete} bgcolor="red">Delete</CustomizedButton>
 
+                    </Grid>
 
-                <Grid container md={6} lg={6} alignItems="center">
-
-                    <Typography sx={{ mx: 1 }}>{request?.file_location}</Typography>
-
-
-                    {request?.file_location != null &&
-
-                        < Box sx={{
-                            bgcolor: "dodgerblue", display: "flex",
-                            justifyContent: "center", alignItems: "center", p: 0.5, borderRadius: "10px"
-                        }}>
-
-
-                            <DownloadIcon sx={{ color: "white" }} />
-
-                            <a style={{ color: "white" }}
-                                href={request?.file_location}
-                                download
-                                onClick={e => download(e)}
-                            >
-                                Download File
-                            </a>
-
-
-                        </Box>
-
-                    }
-
-
-                </Grid>
-
-
-                {details.map(data =>
 
 
                     <Grid container md={6} lg={6} sx={{
@@ -130,53 +96,94 @@ export const RequestDetails = () => {
                         display: "flex", justifyContent: "space-around", alignItems: "center"
                     }}>
 
-                        <Typography sx={{ flex: 1, fontWeight: "bold" }}>{data.title}</Typography>
+                        <Typography sx={{ flex: 1, fontWeight: "bold" }}>Download File</Typography>
 
-                        <Typography sx={{ flex: 1 }}>{request?.[data.data]}</Typography>
+
+                        {request?.file_location != null &&
+
+                            < Box sx={{
+                                width: "30%",
+                                bgcolor: "dodgerblue", display: "flex",
+                                justifyContent: "center", alignItems: "center", p: 0.5, borderRadius: "10px"
+                            }}>
+
+                                <a style={{ color: "white" }}
+                                    href={request?.file_location}
+                                    onClick={e => download(e)}
+                                    target="_blank"
+                                >
+                                    <DownloadIcon sx={{ color: "white" }} />
+                                </a>
+
+                            </Box>
+
+                        }
+
 
                     </Grid>
 
 
-                )}
+                    {details.map(data =>
 
-                <Grid container md={6} lg={6} sx={{
-                    width: "100%", p: 1,
-                    borderBottom: "1px solid #E5E7E9",
-                    display: "flex", justifyContent: "space-around", alignItems: "center"
-                }}>
 
-                    <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
+                        <Grid container md={6} lg={6} sx={{
+                            width: "100%", p: 1,
+                            borderBottom: "1px solid #E5E7E9",
+                            display: "flex", justifyContent: "space-around", alignItems: "center"
+                        }}>
 
-                    <Typography sx={{ flex: 1 }}>{moment.utc(request?.next_amc_date).format('MMMM Do YYYY')}</Typography>
+                            <Typography sx={{ flex: 1, fontWeight: "bold" }}>{data.title}</Typography>
 
-                </Grid>
+                            <Typography sx={{ flex: 1 }}>{request?.[data.data]}</Typography>
 
-                {checkbox.map((data: any) =>
+                        </Grid>
+
+
+                    )}
 
                     <Grid container md={6} lg={6} sx={{
-                        width: "100%", px: 1,
+                        width: "100%", p: 1,
                         borderBottom: "1px solid #E5E7E9",
                         display: "flex", justifyContent: "space-around", alignItems: "center"
                     }}>
 
-                        <Box sx={{ flex: 1 }}>
+                        <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
 
-                            <Typography sx={{ fontWeight: "bold" }}>{data.title}</Typography>
-
-                        </Box>
-
-                        <Box sx={{ flex: 1 }}>
-
-                            <Checkbox defaultChecked={request?.[data.data]} />
-
-                        </Box>
-
+                        <Typography sx={{ flex: 1 }}>{moment.utc(request?.next_amc_date).format('MMMM Do YYYY')}</Typography>
 
                     </Grid>
 
-                )}
+                    {checkbox.map((data: any) =>
 
-            </Grid >
+                        <Grid container md={6} lg={6} sx={{
+                            width: "100%", px: 1,
+                            borderBottom: "1px solid #E5E7E9",
+                            display: "flex", justifyContent: "space-around", alignItems: "center"
+                        }}>
+
+                            <Box sx={{ flex: 1 }}>
+
+                                <Typography sx={{ fontWeight: "bold" }}>{data.title}</Typography>
+
+                            </Box>
+
+                            <Box sx={{ flex: 1 }}>
+
+                                <Checkbox defaultChecked={request?.[data.data]} />
+
+                            </Box>
+
+
+                        </Grid>
+
+                    )}
+
+                </Grid >
+
+                : <LoadingPage />
+
+
+            }
 
         </Grid >
 

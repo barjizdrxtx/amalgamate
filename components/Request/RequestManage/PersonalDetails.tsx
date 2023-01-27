@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { Box } from '@mui/system';
 import { FileUpload } from '../../UI/FileUpload/FileUpload';
@@ -11,7 +11,6 @@ export const PersonalDetails = (props: any) => {
     } = props;
 
 
-    
 
 
     return (
