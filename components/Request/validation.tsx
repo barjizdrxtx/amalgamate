@@ -4,7 +4,7 @@ export const validationSchema = yup.object({
 
     client_id: yup
         .string()
-        .required('Cliend Id is required'),
+        .required('Client Id is required'),
 
     customer_name: yup
         .string()

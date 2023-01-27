@@ -1,8 +1,9 @@
 import { Box, Button, Grid, } from '@mui/material'
 import React from 'react'
-
+import ImageIcon from '@mui/icons-material/Image';
 import axios from 'axios';
 import { useJwt } from '../../../hooks/useJwt';
+import Typography from '@mui/material/Typography';
 
 export const FileUpload = (props: any) => {
 
@@ -43,15 +44,44 @@ export const FileUpload = (props: any) => {
 
             <Box sx={{ width: "100%", position: "relative" }}>
 
-                <input type='file' key="image" id="outlined-basic"
+                <Box sx={{ mb: 1, flex: 1}}>
 
-                    onChange={(event: any) => onFileUpload(event)} />
+                    <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Upload File</Typography>
+
+                </Box>
+
+                <Box sx={{
+                    backgroundColor: "lightgray", width: "150px", mb: 2,
+                    height: "150px", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "10px"
+                }}>
+
+                    {file_upload === undefined ? <ImageIcon sx={{ fontSize: "2.5rem" }} />
+
+                        :
+
+                        <img src={file_upload} style={{ width: "150px", height: "150px", borderRadius: "10px" }} />
+
+                    }
+
+                </Box>
+
+                <Button component="label" sx={{
+                    width: "150px", height: "150px",
+                    bgcolor: "transparent", position: "absolute", top: "0"
+                    , left: "0"
+                }}>
+
+                    <input hidden type='file' key="image" id="outlined-basic"
+
+                        onChange={(event: any) => onFileUpload(event)} />
+
+                </Button>
 
             </Box>
 
         </Box >
 
+
+
     )
-}
-
-
+} 

@@ -11,6 +11,9 @@ export const PersonalDetails = (props: any) => {
     } = props;
 
 
+    
+
+
     return (
 
         <Grid container justifyContent="center" xl={12}>

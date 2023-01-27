@@ -6,7 +6,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 export const MainTab = (props: any) => {
 
-  const { tabData } = props;
+  const { tabData, pop } = props;
 
   const [tab, setTab] = React.useState(0)
 
@@ -25,7 +25,7 @@ export const MainTab = (props: any) => {
 
           <Box sx={{ backgroundColor: tab === index ? PRIMARY_COLOR : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
 
-            <ErrorIcon sx={{ color: "red" }} />
+            {data.errors === false || pop > 0 && < ErrorIcon sx={{ color: "red" }} />}
 
             <Typography sx={{ color: tab === index ? "white" : "#696969", fontWeight: "bold" }}>{data.label}</Typography>
 

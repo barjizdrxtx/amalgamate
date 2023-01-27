@@ -121,11 +121,24 @@ export const TabHome = () => {
 
   const [pop, setPop]: any = React.useState([])
 
+
   React.useEffect(() => {
 
-    setPop([formik.errors])
+    if (formik.errors.client_id === "Client Id is required"
+      || formik.errors.customer_name === "Customer Name is required"
+      || formik.errors.shop_name === "Shop Name is required"
+    ) {
 
-  }, [])
+      setPop(1);
+
+    } else {
+
+      setPop(0);
+
+    }
+
+
+  },[formik.errors])
 
 
   console.log("error", pop)
@@ -319,6 +332,7 @@ export const TabHome = () => {
   const tabData = [
     {
       label: "Personal Details",
+      errors: true,
       component: <PersonalDetails
 
         software_support={software_support}
@@ -329,6 +343,7 @@ export const TabHome = () => {
     },
     {
       label: "Installion Details",
+      errors: false,
       component: <InstallionDetails
 
         erp={erp}
@@ -344,6 +359,7 @@ export const TabHome = () => {
     },
     {
       label: "Other Details",
+      errors: false,
       component: <OtherDetails
 
         software_support={software_support}
@@ -377,7 +393,7 @@ export const TabHome = () => {
           onCreate={formik.handleSubmit}
         />
 
-        <MainTab tabData={tabData} />
+        <MainTab tabData={tabData} pop={pop} />
 
 
       </Box>
