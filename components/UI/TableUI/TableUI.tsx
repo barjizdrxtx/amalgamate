@@ -33,6 +33,10 @@ export const TableUI = (props: any) => {
   const { fetchedData: search } = useQueryFetch(`request/search?query=${searchResult}`);
 
 
+
+
+  console.log("request", search?.result)
+
   const [bool, setBool] = useState([]);
 
   const totalLength = tableData?.result?.length
@@ -54,7 +58,7 @@ export const TableUI = (props: any) => {
   React.useEffect(() => {
 
 
-    if (search?.length > 0) {
+    if (search?.result?.length > 0) {
 
       setRequest(search)
 
@@ -67,7 +71,7 @@ export const TableUI = (props: any) => {
 
     }
 
-  })
+  }, [search?.result?.length])
 
 
 
@@ -130,12 +134,12 @@ export const TableUI = (props: any) => {
 
               <tr style={{ cursor: "pointer" }}>
 
-                <td  style={{ fontWeight: "bold" }}>
+                <td style={{ fontWeight: "bold" }}>
                   {index + 1 + (page - 1) * limit}
                 </td>
 
 
-                {!disableImage && <td  style={{ display: "flex", alignItems: "center" }}>
+                {!disableImage && <td style={{ display: "flex", alignItems: "center" }}>
 
                   {data.images[0].image === undefined ?
                     <AccountCircleIcon sx={{ fontSize: "3.8rem", color: "#AEAEAE" }} /> :

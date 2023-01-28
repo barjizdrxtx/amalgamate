@@ -395,7 +395,7 @@ export const EditTab = () => {
 
     <Grid>
 
-      <CreateButton buttonName="Edit" title="request"
+      <CreateButton buttonName="Save" title="request"
         onCreate={formik.handleSubmit}
       />
 
