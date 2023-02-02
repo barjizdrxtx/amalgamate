@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Grid, Typography } from '@mui/material'
 import { useRouter } from 'next/router';
 import { useQueryFetchId } from '../../hooks/useQueryFetch';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useJwt } from '../../hooks/useJwt';
 import * as moment from 'moment'
 import { LoadingPage } from '../UI/LoadingPage/LoadingPage';
+import { AlertBox } from '../UI/AlertBox/AlertBox';
 
 export const RequestDetails = () => {
 
@@ -16,11 +17,22 @@ export const RequestDetails = () => {
 
     const { id } = router.query;
 
+    const [alertBox, setAlertBox] = useState(false)
+
     const { fetchedData: fetchedData } = useQueryFetchId(`request`, id);
 
     const request = fetchedData?.result
 
     const token = useJwt();
+
+    const onNo = () => {
+
+        setAlertBox(false)
+
+        // alert("hello")
+
+    }
+
 
 
     const handleDelete = () => {
@@ -37,7 +49,7 @@ export const RequestDetails = () => {
         )
             .then((response) => {
 
-                router.push("/")
+                router.push('/')
 
             })
     }
@@ -72,6 +84,10 @@ export const RequestDetails = () => {
 
         <Grid container justifyContent="center">
 
+            {alertBox === true ? <AlertBox title="Are You Sure you want to delete ?"
+                onYes={handleDelete} setAlertBox={setAlertBox} /> : null}
+
+
             {request ?
 
                 <Grid container lg={12} sx={{
@@ -84,7 +100,7 @@ export const RequestDetails = () => {
 
                         <CustomizedButton mx={1} onClick={() => router.push(`/request/edit/${id}`)} bgcolor="#32CD32">Edit</CustomizedButton>
 
-                        <CustomizedButton mx={1} onClick={handleDelete} bgcolor="red">Delete</CustomizedButton>
+                        <CustomizedButton mx={1} onClick={() => setAlertBox(true)} bgcolor="red">Delete</CustomizedButton>
 
                     </Grid>
 

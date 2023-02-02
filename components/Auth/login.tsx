@@ -64,9 +64,21 @@ export const Login = () => {
         <Grid container justifyContent="center" alignItems="center"
             sx={{ bgcolor: "white", height: "100vh" }} >
 
+            <Box sx={{
+                position: "fixed", top: 10, left: 10,
+                width: "100px", height: "100px", borderRadius: "100%",
+                display: "flex",
+                justifyContent: "center", p: 2,
+                alignItems: "center", bgcolor: "dodgerblue",
+            }}>
+
+                <img width="100%" src="https://www.amalgamatetechnologies.com/images/logo.png" alt="" />
+
+            </Box>
+
             <Grid container lg={10} justifyContent="center" alignItems="center">
 
-                <Grid xs={12} lg={6} >
+                <Grid xs={12} lg={6} justifyContent="center" alignItems="center">
 
                     <img width="100%" src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-135.jpg?w=2000" />
 
@@ -75,7 +87,9 @@ export const Login = () => {
 
                 <Grid container xs={11.5} lg={6} justifyContent="center">
 
-                    <Grid xs={12} lg={11}>
+                    <Grid xs={12} lg={11} justifyContent="center" >
+
+
 
                         <Box sx={{ mb: 3 }}>
 
@@ -108,7 +122,7 @@ export const Login = () => {
 
                         <Box sx={{ my: 2 }}>
 
-                            <CustomizedButton width="100%" bgcolor="black" onClick={formik.handleSubmit}>Login</CustomizedButton>
+                            <CustomizedButton width="100%" bgcolor="dodgerblue" onClick={formik.handleSubmit}>Login</CustomizedButton>
 
                         </Box>
 

@@ -34,7 +34,6 @@ export const TableUI = (props: any) => {
 
 
 
-
   console.log("request", search?.result)
 
   const [bool, setBool] = useState([]);

@@ -8,11 +8,14 @@ import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
 import FeedIcon from '@mui/icons-material/Feed';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import { AlertBox } from '../AlertBox/AlertBox';
 
 
 export const NavBar = () => {
 
     const [menu, setMenu] = useState("100%");
+
+    const [alertBox, setAlertBox] = useState(false)
 
     const router = useRouter();
 
@@ -31,11 +34,43 @@ export const NavBar = () => {
 
     ]
 
+    console.log("alertBox", alertBox)
+
+
+    const onLogout = () => {
+
+        localStorage.removeItem("authToken")
+
+        router.push('/auth/login').then(() => router.reload())
+
+    }
+
+
     return (
 
         <Grid container justifyContent="center" alignItems="center" sx={{ bgcolor: "white" }}>
 
-            <Grid container xs={6} lg={6} sx={{ py: 1, justifyContent: { xs: "center", lg: "center" } }} >
+
+            {alertBox === true ? <AlertBox title="Are You Sure Logout ?"
+                onYes={onLogout} setAlertBox={setAlertBox} /> : null}
+
+
+            <Grid container justifyContent="start" alignItems="center"
+                xs={6} lg={6} sx={{ py: 1 }} >
+
+
+                <Box sx={{
+                    mx: 1,
+                    width: "60px", height: "60px", borderRadius: "100%",
+                    display: "flex",
+                    justifyContent: "center", p: 1,
+                    alignItems: "center", bgcolor: "dodgerblue",
+                }}>
+
+                    <img width="100%" src="https://www.amalgamatetechnologies.com/images/logo.png" alt="" />
+
+                </Box>
+
 
                 <MenuIcon onClick={() => setMenu(menu === "100%" ? "0" : "100%")}
                     sx={{ display: { xs: "flex", sm: "flex", md: "none", lg: "none", xl: "none" }, fontSize: "2rem", position: "absolute", left: 0, ml: 1 }} />
@@ -47,10 +82,9 @@ export const NavBar = () => {
 
             <Grid container sx={{ display: { xs: "none", md: "flex" } }} xs={6} lg={6} justifyContent="end">
 
-                <Logout />
+                <Logout alertBox={alertBox} setAlertBox={setAlertBox} />
 
             </Grid>
-
 
 
             <Box sx={{
@@ -59,7 +93,7 @@ export const NavBar = () => {
                 transition: "0.5s",
                 width: "100%", height: "100vh",
                 bgcolor: "white", position: "fixed",
-                top: 57, right: menu, zIndex: 100
+                top: 70, right: menu, zIndex: 100
             }}>
 
 
@@ -75,7 +109,7 @@ export const NavBar = () => {
                 )}
 
 
-                <Logout />
+                <Logout alertBox={alertBox} setAlertBox={setAlertBox} />
 
 
             </Box>
@@ -87,19 +121,17 @@ export const NavBar = () => {
 
 
 
+const Logout = (props: any) => {
 
-const Logout = () => {
-
-    const router = useRouter();
+    const { setAlertBox } = props;
 
     return (
 
-        <Box sx={{ m: 1, width: "fit-content", bgcolor: "orange", display: "flex", borderRadius: "10px", cursor: "pointer" }} onClick={() => {
-
-            localStorage.removeItem("authToken")
-
-            router.push('/auth/login').then(() => router.reload())
-
+        <Box sx={{
+            m: 1, width: "fit-content", bgcolor: "orange", display: "flex",
+            borderRadius: "10px", cursor: "pointer"
+        }} onClick={() => {
+            setAlertBox(true)
         }}>
 
             <Typography sx={{ m: 1, color: "black" }}>Logout</Typography>

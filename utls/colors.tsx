@@ -1,7 +1,7 @@
 
-export const PRIMARY_COLOR = "#229954"
+export const PRIMARY_COLOR = "dodgerblue"
 
-export const LIGHT_COLOR = "#EAFAF1"
+export const LIGHT_COLOR = "#D7E4FF"
 
 export const GREY_COLOR = "#566573"
 

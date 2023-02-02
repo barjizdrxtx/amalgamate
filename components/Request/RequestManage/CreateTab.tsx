@@ -110,7 +110,10 @@ export const CreateTab = () => {
 
       // you could also use destructuring to have an array of responses
       axios.all([axiosrequest]).then(axios.spread(function (res) {
-        router.push(`/`)
+
+        router.push('/')
+
+
       }));
 
     },
@@ -136,7 +139,7 @@ export const CreateTab = () => {
     }
 
 
-  },[formik.errors])
+  }, [formik.errors])
 
 
   const personaldetails = [
