@@ -37,9 +37,9 @@ export const Request = () => {
 
         <Grid>
 
-            <CustomizedButton onClick={() => router.push("/request/create")} bgcolor={PRIMARY_COLOR}>Create Request</CustomizedButton>
+            <CustomizedButton onClick={() => router.push("/request/create")} bgcolor={PRIMARY_COLOR}>Registration</CustomizedButton>
 
-            <TableUI tableName="request" tableHead={tableHead}
+            <TableUI tableName="Registration" tableHead={tableHead}
                 element={element} name="request" actions={actions} disableImage={true} />
 
         </Grid>

@@ -19,7 +19,7 @@ export const CreateButton = (props: any) => {
             <Grid container sm={6} md={6} lg={6}
                 sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex", xl: "flex" } }}>
 
-                <Typography variant='h5' color={PRIMARY_COLOR} sx={{ fontWeight: "bold", m: 1 }}>{buttonName} {title}</Typography>
+                <Typography variant='h5' color={PRIMARY_COLOR} sx={{ fontWeight: "bold", m: 1 }}>{title}</Typography>
 
             </Grid>
 

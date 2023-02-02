@@ -147,7 +147,7 @@ export const EditTab = () => {
       axios.all([axiosrequest]).then(axios.spread(function (res) {
         router.push(`/`)
 
-        
+
 
       }));
 
@@ -395,7 +395,7 @@ export const EditTab = () => {
 
     <Grid>
 
-      <CreateButton buttonName="Save" title="request"
+      <CreateButton buttonName="Save" title="Edit Registartion"
         onCreate={formik.handleSubmit}
       />
 

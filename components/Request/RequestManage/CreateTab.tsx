@@ -113,7 +113,6 @@ export const CreateTab = () => {
 
         router.push('/')
 
-
       }));
 
     },
@@ -387,7 +386,7 @@ export const CreateTab = () => {
         flexDirection: { xs: "column-reverse", lg: "column" }
       }}>
 
-        <CreateButton buttonName="Save" title="request"
+        <CreateButton buttonName="Save" title="New Registartion"
           onCreate={formik.handleSubmit}
         />
 
