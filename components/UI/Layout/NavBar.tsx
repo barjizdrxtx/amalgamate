@@ -22,12 +22,12 @@ export const NavBar = () => {
     const mobileNavBar = [
 
         {
-            name: 'Request',
+            name: 'Search',
             icon: FeedIcon,
             path: '/'
         },
         {
-            name: 'Create Request',
+            name: 'Registration',
             icon: CreateNewFolderIcon,
             path: '/request/create'
         },

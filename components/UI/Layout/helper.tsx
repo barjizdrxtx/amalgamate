@@ -3,12 +3,12 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 
 export const siderbar = [
     {
-        name: 'Request',
+        name: 'Search',
         icon: FeedIcon,
         path: '/'
     },
     {
-        name: 'Create Request',
+        name: 'Registration',
         icon: CreateNewFolderIcon,
         path: '/request/create'
     },
