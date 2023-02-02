@@ -11,7 +11,7 @@ export const Request = () => {
 
     const tableHead = [
 
-        "CLient Id",
+        "Client ID",
         "Customer Name",
         "Shop Name",
         "Contact Number",
