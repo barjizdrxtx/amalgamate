@@ -15,7 +15,7 @@ export const Request = () => {
         "Customer Name",
         "Shop Name",
         "Contact Number",
-        "Email"
+        "Software Name"
     ];
 
     const element = [
@@ -23,7 +23,7 @@ export const Request = () => {
         "customer_name",
         "shop_name",
         "contact_number",
-        "email"
+        "software_name"
     ]
 
     const actions = [
