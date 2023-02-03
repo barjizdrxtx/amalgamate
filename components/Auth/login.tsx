@@ -64,18 +64,6 @@ export const Login = () => {
         <Grid container justifyContent="center" alignItems="center"
             sx={{ bgcolor: "white", height: "100vh" }} >
 
-            <Box sx={{
-                position: "fixed", top: 10, left: 10,
-                width: "100px", height: "100px", borderRadius: "100%",
-                display: "flex",
-                justifyContent: "center", p: 2,
-                alignItems: "center", bgcolor: "dodgerblue",
-            }}>
-
-                <img width="100%" src="https://www.amalgamatetechnologies.com/images/logo.png" alt="" />
-
-            </Box>
-
             <Grid container lg={10} justifyContent="center" alignItems="center">
 
                 <Grid xs={12} lg={6} justifyContent="center" alignItems="center">
