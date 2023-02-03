@@ -145,6 +145,8 @@ const MobileNavBar = (props: any) => {
 
                 </Box>
 
+                <Typography sx={{ color: PRIMARY_COLOR }} variant="h5" fontWeight="bold">AMALGAMATE</Typography>
+
 
             </Grid>
 
@@ -171,9 +173,6 @@ const MobileNavBar = (props: any) => {
 
 
             </Grid>
-
-
-
 
         </Grid >
 

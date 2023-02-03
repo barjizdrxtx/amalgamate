@@ -387,7 +387,7 @@ export const CreateTab = () => {
     <Grid>
 
       <Box sx={{
-        width: "100%", display: "flex",
+        width: "100%", display: "flex", mt: { xs: 8, md: 0 },
         flexDirection: { xs: "column-reverse", lg: "column" }
       }}>
 
