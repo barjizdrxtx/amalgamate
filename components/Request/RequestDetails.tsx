@@ -84,7 +84,7 @@ export const RequestDetails = () => {
 
     return (
 
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" sx={{ mt: { xs: 8, mt: 0 } }}>
 
             {alertBox === true ? <AlertBox title="Are You Sure you want to delete ?"
                 onYes={handleDelete} setAlertBox={setAlertBox} /> : null}

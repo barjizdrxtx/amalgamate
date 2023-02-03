@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -399,14 +399,20 @@ export const EditTab = () => {
 
     <Grid>
 
-      <CreateButton buttonName="Save" title="Edit Registration"
-        onCreate={formik.handleSubmit}
-      />
+      <Box sx={{
+        width: "100%", display: "flex", mt: { xs: 8, md: 0 },
+        flexDirection: { xs: "column-reverse", lg: "column" }
+      }}>
 
-      <MainTab tabData={tabData} request={request} />
+        <CreateButton buttonName="Save" title="Edit Registration"
+          onCreate={formik.handleSubmit}
+        />
 
-      {alertBox === true && < SavedPopup title="Saved Successfully" setAlertBox={setAlertBox} />}
+        <MainTab tabData={tabData} request={request} />
 
+        {alertBox === true && < SavedPopup title="Saved Successfully" setAlertBox={setAlertBox} />}
+
+      </Box>
 
     </Grid>
 
