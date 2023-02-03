@@ -399,7 +399,7 @@ export const EditTab = () => {
 
     <Grid>
 
-      <CreateButton buttonName="Save" title="Edit Registartion"
+      <CreateButton buttonName="Save" title="Edit Registration"
         onCreate={formik.handleSubmit}
       />
 

@@ -12,8 +12,6 @@ export const TableUI = (props: any) => {
   const { tableHead, element, name, nestedArray, disableImage, tableName } = props;
 
 
-  const [isPopUp, setIsPopup] = useState(false);
-
   const [page, setPage] = useState(1);
 
   const [limit, setLimit] = useState(10);
@@ -24,10 +22,10 @@ export const TableUI = (props: any) => {
 
   // ?page=${page}&limit=${limit}
 
-  const { fetchedData: tableData } = useQueryFetch(`request/search?query=${searchResult}`);
+  const { fetchedData: tableData } = useQueryFetch(`request/search?query=${searchResult}&page=${page}&limit=${limit}`);
 
 
-  console.log("search", tableData?.result)
+  console.log("search", tableData)
 
 
   const totalLength = tableData?.result?.length

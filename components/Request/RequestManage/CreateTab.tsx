@@ -391,7 +391,7 @@ export const CreateTab = () => {
         flexDirection: { xs: "column-reverse", lg: "column" }
       }}>
 
-        <CreateButton buttonName="Save" title="New Registartion"
+        <CreateButton buttonName="Save" title="New Registration"
           onCreate={formik.handleSubmit}
         />
 
