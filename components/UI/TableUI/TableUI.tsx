@@ -2,7 +2,6 @@ import { Box, Grid, Pagination, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import style from "../../../styles/TableUI.module.css"
 import { useQueryFetch } from '../../../hooks/useQueryFetch';
-import { RejectPopup } from '../Popups/RejectPopup/RejectPopup';
 import { useRouter } from 'next/router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SearchBar } from '../SearchBar/SearchBar';
@@ -10,69 +9,30 @@ import { SearchBar } from '../SearchBar/SearchBar';
 export const TableUI = (props: any) => {
 
 
-  const { tableHead, element, name, nestedArray, disableActions, disableImage, tableName, actions } = props;
+  const { tableHead, element, name, nestedArray, disableImage, tableName } = props;
 
 
   const [isPopUp, setIsPopup] = useState(false);
 
   const [page, setPage] = useState(1);
 
-  const [limit, setLimit] = useState(15);
+  const [limit, setLimit] = useState(10);
 
   const router = useRouter();
 
-  const [request, setRequest]: any = useState();
+  const [searchResult, setSearchResult]: any = useState('')
+
+  // ?page=${page}&limit=${limit}
+
+  const { fetchedData: tableData } = useQueryFetch(`request/search?query=${searchResult}`);
 
 
-  const [searchResult, setSearchResult]: any = useState()
+  console.log("search", tableData?.result)
 
-
-  const { fetchedData: tableData, refetch: refetch } = useQueryFetch(`${name}?page=${page}&limit=${limit}`);
-
-
-  const { fetchedData: search } = useQueryFetch(`request/search?query=${searchResult}`);
-
-
-
-  console.log("request", search?.result)
-
-  const [bool, setBool] = useState([]);
 
   const totalLength = tableData?.result?.length
 
   let totalPages = totalLength === limit ? page + 1 : page;
-
-
-  const Open = (index: any) => {
-
-    let newArray: any = [...bool]
-
-    newArray[index] = !newArray[index];
-
-    setBool(newArray)
-
-  }
-
-
-  React.useEffect(() => {
-
-
-    if (search?.result?.length > 0) {
-
-      setRequest(search)
-
-    }
-
-    else {
-
-
-      setRequest(tableData)
-
-    }
-
-  }, [search?.result?.length])
-
-
 
 
   const handleChange = (e: any, p: any) => {
@@ -82,10 +42,9 @@ export const TableUI = (props: any) => {
   }
 
 
-
   return (
 
-    <Grid container>
+    <Grid item container>
 
       <Box sx={{
         width: "100%", height: "80vh", overflowY: "scroll",
@@ -106,9 +65,6 @@ export const TableUI = (props: any) => {
         </Box>
 
 
-        {isPopUp && <RejectPopup setIsPopup={setIsPopup} />}
-
-
         <table id={style.table}>
 
           <tbody>
@@ -121,17 +77,17 @@ export const TableUI = (props: any) => {
               {!disableImage && <th>Image</th>}
 
 
-              {tableHead.map((data: any) =>
+              {tableHead.map((data: any, index: any) =>
 
-                <th>{data}</th>
+                <th key={index}>{data}</th>
 
               )}
 
             </tr>
 
-            {request?.result?.map((data: any, index: any) =>
+            {tableData?.result?.map((data: any, index: any) =>
 
-              <tr style={{ cursor: "pointer" }}>
+              <tr key={index} style={{ cursor: "pointer" }}>
 
                 <td style={{ fontWeight: "bold" }}>
                   {index + 1 + (page - 1) * limit}
@@ -151,10 +107,10 @@ export const TableUI = (props: any) => {
 
                 </td>}
 
-                {element.map((el: any) =>
+                {element.map((el: any, index: any) =>
 
 
-                  <td onClick={() => router.push(`/request/details/${data.id}`)}>
+                  <td key={index} onClick={() => router.push(`/request/details/${data.id}`)}>
 
                     {nestedArray ? data["data"][el] : data[el]}
 

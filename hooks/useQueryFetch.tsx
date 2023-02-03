@@ -26,7 +26,8 @@ export const useQueryFetchId = (url: any, id: any) => {
 
     const token = typeof window === "undefined" ? null : localStorage.getItem("authToken");
 
-    const { isLoading, error, data: fetchedData } = useQuery([url, id], () =>
+    const { isLoading, error, data: fetchedData, refetch: refetch } = useQuery([url, id,
+        { refetchOnWindowFocus: true, }], () =>
         fetch(`${BASE_URL + url + '/' + id}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ export const useQueryFetchId = (url: any, id: any) => {
         )
     )
 
-    return { fetchedData }
+    return { fetchedData, refetch }
 }
 
 export const useQueryFetchParams = (url: any, id: any) => {

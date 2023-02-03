@@ -23,7 +23,7 @@ export const MainTab = (props: any) => {
 
         {tabData.map((data: any, index: any) =>
 
-          <Box sx={{ display: "flex", backgroundColor: tab === index ? PRIMARY_COLOR : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
+          <Box key={index}  sx={{ display: "flex", backgroundColor: tab === index ? PRIMARY_COLOR : "transparent", px: 2, py: 1, cursor: "pointer", borderRadius: "10px" }} onClick={() => setTab(index)}>
 
             {data.errors === false || pop > 0 && < ErrorIcon sx={{ color: "red", mr: 1 }} />}
 
@@ -37,7 +37,7 @@ export const MainTab = (props: any) => {
 
       {tabData.filter((fil: any, ind: any) => ind === tab).map((data: any, index: any) =>
 
-        <Box sx={{ mt: 3 }}>
+        <Box key={index} sx={{ mt: 3 }}>
 
           <Box>{data.component}</Box>
 

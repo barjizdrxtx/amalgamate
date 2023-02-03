@@ -8,6 +8,7 @@ import { useJwt } from '../../../hooks/useJwt';
 import { useQueryFetch, useQueryFetchId } from '../../../hooks/useQueryFetch';
 import { MainTab } from '../../MainTab/MainTab';
 import { CreateButton } from '../../UI/Button/CreateButton';
+import { SavedPopup } from '../../UI/Popups/SavedPopup';
 import { validationSchema } from '../validation';
 import { InstallionDetails } from './InstallionDetails';
 import { OtherDetails } from './OtherDetails';
@@ -30,6 +31,10 @@ export const EditTab = () => {
 
 
   const [file_upload, setFileUpload] = React.useState();
+
+
+  const [alertBox, setAlertBox] = React.useState(false)
+
 
   const [erp, setErp] = React.useState(false);
   const [pos, setPos] = React.useState(false);
@@ -145,9 +150,8 @@ export const EditTab = () => {
 
       // you could also use destructuring to have an array of responses
       axios.all([axiosrequest]).then(axios.spread(function (res) {
-        router.push(`/`)
 
-
+        setAlertBox(true)
 
       }));
 
@@ -400,6 +404,9 @@ export const EditTab = () => {
       />
 
       <MainTab tabData={tabData} request={request} />
+
+      {alertBox === true && < SavedPopup title="Saved Successfully" setAlertBox={setAlertBox} />}
+
 
     </Grid>
 

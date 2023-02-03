@@ -10,9 +10,9 @@ export const LoadingPage = () => {
         <Grid container justifyContent="center" alignItems="center" sx={{ height: "100vh" }}>
 
 
-            {[1, 2, 3, 4, 5].map(data =>
+            {[1, 2, 3, 4, 5].map((data:any,index:any) =>
 
-                <Box className={style.load_anim} sx={{
+                <Box key={index} className={style.load_anim} sx={{
 
                     width: "40px", height: "40px",
                     bgcolor: PRIMARY_COLOR, m: 1, borderRadius: "100%"

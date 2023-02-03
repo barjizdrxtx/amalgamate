@@ -19,19 +19,20 @@ export const RequestDetails = () => {
 
     const [alertBox, setAlertBox] = useState(false)
 
-    const { fetchedData: fetchedData } = useQueryFetchId(`request`, id);
+    const { fetchedData: fetchedData, refetch: refetch } = useQueryFetchId(`request`, id);
 
     const request = fetchedData?.result
 
     const token = useJwt();
 
-    const onNo = () => {
 
-        setAlertBox(false)
+    React.useEffect(() => {
+
+        refetch();
 
         // alert("hello")
 
-    }
+    }, [])
 
 
 
@@ -76,8 +77,9 @@ export const RequestDetails = () => {
     };
 
 
-
     console.log("request", request)
+
+
 
 
     return (
@@ -169,9 +171,9 @@ export const RequestDetails = () => {
 
                     </Grid>
 
-                    {checkbox.map((data: any) =>
+                    {checkbox.map((data: any, index: any) =>
 
-                        <Grid container md={6} lg={6} sx={{
+                        <Grid key={index} container md={6} lg={6} sx={{
                             width: "100%", px: 1,
                             borderBottom: "1px solid #E5E7E9",
                             display: "flex", justifyContent: "space-around", alignItems: "center"
@@ -185,7 +187,7 @@ export const RequestDetails = () => {
 
                             <Box sx={{ flex: 1 }}>
 
-                                <Checkbox disabled defaultChecked={request?.[data.data]} />
+                                <Checkbox disabled checked={request?.[data.data]} />
 
                             </Box>
 

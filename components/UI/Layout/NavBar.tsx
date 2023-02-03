@@ -97,9 +97,9 @@ export const NavBar = () => {
             }}>
 
 
-                {mobileNavBar.map(data =>
+                {mobileNavBar.map((data:any,index:any) =>
 
-                    <Typography fontWeight="bold"
+                    <Typography key={index} fontWeight="bold"
                         onClick={() => {
                             router.push(data.path)
                             setMenu("100%")
