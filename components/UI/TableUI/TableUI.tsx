@@ -5,6 +5,7 @@ import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { useRouter } from 'next/router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SearchBar } from '../SearchBar/SearchBar';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 export const TableUI = (props: any) => {
 
@@ -42,101 +43,134 @@ export const TableUI = (props: any) => {
 
   return (
 
-    <Grid item container>
+    <>
 
-      <Box sx={{
-        width: "100%", height: "80vh", overflowY: "scroll",
-        bgcolor: "white",
-        boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
-        borderRadius: "20px", p: 2
-      }}>
+      {tableData?.result?.length === 0 ?
 
-        <Typography variant='h5' sx={{
-          mr: 4, fontWeight: "bold",
-          color: "#566573", textTransform: "capitalize"
-        }}>{tableName}</Typography>
+        <Grid container justifyContent="center" alignItems="center" sx={{
+          bgcolor: "white", width: "100%",
+          display: "flex", justifyContent: "center", alignItems: "center"
+        }}>
 
-        <Box sx={{ py: 3, display: "flex", justifyContent: "start", alignItems: "center" }}>
+          <Grid>
 
-          <SearchBar setSearchResult={setSearchResult} />
+            <Player
+              src='https://assets3.lottiefiles.com/packages/lf20_mxuufmel.json'
+              className="player"
+            />
 
-        </Box>
+          </Grid>
 
+          <Grid container justifyContent="center" alignItems="center">
 
-        <table id={style.table}>
+            <Typography variant='h4' sx={{ width: "100%", textAlign:"center" }} fontWeight="bold">No data found</Typography>
 
-          <tbody>
-
-            <tr>
-
-              <th>No</th>
+          </Grid>
 
 
-              {!disableImage && <th>Image</th>}
+        </Grid>
+
+        :
+
+        <Grid item container>
+
+          <Box sx={{
+            width: "100%", height: "80vh", overflowY: "scroll",
+            bgcolor: "white",
+            boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
+            borderRadius: "20px", p: 2
+          }}>
+
+            <Typography variant='h5' sx={{
+              mr: 4, fontWeight: "bold",
+              color: "#566573", textTransform: "capitalize"
+            }}>{tableName}</Typography>
+
+            <Box sx={{ py: 3, display: "flex", justifyContent: "start", alignItems: "center" }}>
+
+              <SearchBar setSearchResult={setSearchResult} />
+
+            </Box>
 
 
-              {tableHead.map((data: any, index: any) =>
+            <table id={style.table}>
 
-                <th key={index}>{data}</th>
+              <tbody>
 
-              )}
+                <tr>
 
-            </tr>
-
-            {tableData?.result?.map((data: any, index: any) =>
-
-              <tr key={index} style={{ cursor: "pointer" }}>
-
-                <td style={{ fontWeight: "bold" }}>
-                  {/* {index + 1 + (page - 1) * limit} */}
-                  {data.id}
-                </td>
+                  <th>No</th>
 
 
-                {!disableImage && <td style={{ display: "flex", alignItems: "center" }}>
-
-                  {data.images[0].image === undefined ?
-                    <AccountCircleIcon sx={{ fontSize: "3.8rem", color: "#AEAEAE" }} /> :
-
-                    <img src={data.images[0].image} width="55px" height="55px"
-                      style={{ borderRadius: "100%" }} />
-
-                  }
+                  {!disableImage && <th>Image</th>}
 
 
-                </td>}
+                  {tableHead.map((data: any, index: any) =>
 
-                {element.map((el: any, index: any) =>
+                    <th key={index}>{data}</th>
+
+                  )}
+
+                </tr>
+
+                {tableData?.result?.map((data: any, index: any) =>
+
+                  <tr key={index} style={{ cursor: "pointer" }}>
+
+                    <td style={{ fontWeight: "bold" }}>
+                      {/* {index + 1 + (page - 1) * limit} */}
+                      {data.id}
+                    </td>
 
 
-                  <td key={index} onClick={() => router.push(`/request/details/${data.id}`)}>
+                    {!disableImage && <td style={{ display: "flex", alignItems: "center" }}>
 
-                    {nestedArray ? data["data"][el] : data[el]}
+                      {data.images[0].image === undefined ?
+                        <AccountCircleIcon sx={{ fontSize: "3.8rem", color: "#AEAEAE" }} /> :
 
-                  </td>
+                        <img src={data.images[0].image} width="55px" height="55px"
+                          style={{ borderRadius: "100%" }} />
+
+                      }
+
+
+                    </td>}
+
+                    {element.map((el: any, index: any) =>
+
+
+                      <td key={index} onClick={() => router.push(`/request/details/${data.id}`)}>
+
+                        {nestedArray ? data["data"][el] : data[el]}
+
+                      </td>
+
+                    )}
+
+
+                  </tr>
 
                 )}
 
 
-              </tr>
+              </tbody>
 
-            )}
+            </table>
 
+            <Box sx={{ display: "flex", justifyContent: "end", py: 2 }}>
 
-          </tbody>
+              <Stack spacing={2}>
+                <Pagination onChange={handleChange} count={totalPages} color="primary" />
+              </Stack>
 
-        </table>
+            </Box>
 
-        <Box sx={{ display: "flex", justifyContent: "end", py: 2 }}>
+          </Box>
+        </Grid >
 
-          <Stack spacing={2}>
-            <Pagination onChange={handleChange} count={totalPages} color="primary" />
-          </Stack>
+      }
 
-        </Box>
+    </>
 
-      </Box>
-
-    </Grid >
   )
 }
