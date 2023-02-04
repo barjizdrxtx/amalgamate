@@ -88,7 +88,8 @@ export const TableUI = (props: any) => {
               <tr key={index} style={{ cursor: "pointer" }}>
 
                 <td style={{ fontWeight: "bold" }}>
-                  {index + 1 + (page - 1) * limit}
+                  {/* {index + 1 + (page - 1) * limit} */}
+                  {data.id}
                 </td>
 
 
