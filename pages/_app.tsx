@@ -4,11 +4,22 @@ import { Layout } from '../components/UI/Layout/Layout'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ProtectedRoutes } from '../components/ProtectedRoutes/ProtectedRoutes'
 import Head from 'next/head'
+import { useJwt } from '../hooks/useJwt';
+import jwt_decode from 'jwt-decode';
+import { Box, Divider, Typography } from '@mui/material'
+import { NavBar } from '../components/UI/Layout/NavBar'
+import { UserLayout } from '../components/UI/Layout/UserLayout'
 
 const queryClient = new QueryClient()
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  const token = useJwt();
+
+  const decoded: any = token === null ? null : jwt_decode(token)
+
+  console.log("aaaaaaaaaaaaa", decoded?.username);
 
 
   return (
@@ -16,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
 
       <Head>
+
         <title>Amalgamate</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Head>
@@ -23,11 +35,29 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <ProtectedRoutes>
 
-        <Layout>
 
-          <Component {...pageProps} />
+      <Box>
 
-        </Layout>
+<NavBar/>
+
+<Divider />
+
+</Box>
+
+        {decoded?.username === "abhinav" ?
+        
+
+          <UserLayout/>
+
+          :
+
+          <Layout>
+
+            <Component {...pageProps} />
+
+          </Layout>
+            
+          }
 
       </ProtectedRoutes>
 

@@ -20,13 +20,13 @@ export const Layout = (props: { children: string | number | boolean | React.Reac
 
             <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
 
-                <Box>
+                {/* <Box>
 
                     <NavBar />
 
                     <Divider />
 
-                </Box>
+                </Box> */}
 
                 <Box sx={{ display: "flex" }} >
 

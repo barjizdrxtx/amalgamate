@@ -13,7 +13,6 @@ export const Login = () => {
 
     const router = useRouter();
 
-
     const formik = useFormik({
 
         initialValues: {
@@ -45,7 +44,11 @@ export const Login = () => {
 
                     router.push('/').then(() => router.reload())
 
+                    // console.log('response', response);
+
+
                 }
+
 
                 else {
 
