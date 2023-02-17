@@ -49,7 +49,6 @@ export const TableUI = (props: any) => {
 
 
 
-
   useEffect(() => {
 
     if (searchResult.length === 0) {
