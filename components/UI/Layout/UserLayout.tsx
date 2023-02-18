@@ -8,9 +8,7 @@ import { SearchBar } from '../SearchBar/SearchBar'
 export const UserLayout = () => {
 
   const [id, setSearchResult] = useState('');
-
-  console.log("id", id)
-
+  
   return (
 
     <Grid container justifyContent="center" alignItems="center">

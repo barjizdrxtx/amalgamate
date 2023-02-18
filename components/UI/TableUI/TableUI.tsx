@@ -27,18 +27,12 @@ export const TableUI = (props: any) => {
   const { fetchedData: tableData } = useQueryFetch(`request/search?query=${searchResult}&page=${page}&limit=${limit}`);
 
 
-  console.log("page", page)
-
-  console.log("searchResult", searchResult.length)
-
 
 
   const totalLength = tableData?.result?.rows?.length
 
   let totalPages = totalLength === limit ? JSON.parse(page) + 1 : JSON.parse(page);
 
-
-  console.log("totalPages", totalPages)
 
 
   const handleChange = (e: any, p: any) => {

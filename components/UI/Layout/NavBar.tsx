@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from 'next/router';
@@ -9,6 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import FeedIcon from '@mui/icons-material/Feed';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import { AlertBox } from '../AlertBox/AlertBox';
+import { useDecodedJwt } from '../../../hooks/useDecodedJwt';
 
 
 export const NavBar = () => {
@@ -59,41 +60,43 @@ export const DeskTopNavBar = (props: any) => {
 
     const { alertBox, setAlertBox } = props;
 
-    console.log("alertBox", alertBox)
-
 
     return (
 
         <Grid container justifyContent="center" alignItems="center" sx={{ bgcolor: "white" }}>
 
-
-            <Grid container justifyContent="start" alignItems="center"
-                xs={6} lg={6}>
-
-                <Box sx={{
-                    mx: 1,
-                    width: "50px", height: "50px", borderRadius: "100%",
-                    display: "flex",
-                    justifyContent: "center", p: 1,
-                    alignItems: "center", bgcolor: "dodgerblue",
-                }}>
-
-                    <img width="100%" src="https://www.amalgamatetechnologies.com/images/logo.png" alt="" />
-
-                </Box>
-
-                <Typography sx={{ color: PRIMARY_COLOR }} variant="h5" fontWeight="bold">AMALGAMATE</Typography>
-
-            </Grid>
+            <Grid container lg={11}>
 
 
-            <Grid container xs={6} lg={6} justifyContent="end">
+                <Grid container justifyContent="start" alignItems="center"
+                    xs={6} lg={6}>
 
-                <Logout alertBox={alertBox} setAlertBox={setAlertBox} />
+                    <Box sx={{
+                        mx: 1,
+                        width: "50px", height: "50px", borderRadius: "100%",
+                        display: "flex",
+                        justifyContent: "center", p: 1,
+                        alignItems: "center", bgcolor: "dodgerblue",
+                    }}>
 
-            </Grid>
+                        <img width="100%" src="https://www.amalgamatetechnologies.com/images/logo.png" alt="" />
 
-        </Grid >
+                    </Box>
+
+                    <Typography sx={{ color: PRIMARY_COLOR }} variant="h5" fontWeight="bold">AMALGAMATE</Typography>
+
+                </Grid>
+
+
+                <Grid container xs={6} lg={6} justifyContent="end">
+
+                    <Logout alertBox={alertBox} setAlertBox={setAlertBox} />
+
+                </Grid>
+
+            </Grid >
+
+        </Grid>
 
     )
 }
@@ -122,6 +125,7 @@ const MobileNavBar = (props: any) => {
 
     ]
 
+    const decoded = useDecodedJwt();
 
     return (
 
@@ -157,7 +161,7 @@ const MobileNavBar = (props: any) => {
             }}>
 
 
-                {mobileNavBar.map((data: any, index: any) =>
+                {mobileNavBar.slice(0, decoded?.role === "user" ? 1 : 2).map((data: any, index: any) =>
 
                     <Typography key={index} fontWeight="bold"
                         onClick={() => {

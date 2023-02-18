@@ -46,8 +46,6 @@ export const EditTab = () => {
 
   const [next_amc_date, setNextAmcDate]: any = React.useState();
 
-  console.log("re", request)
-
   React.useEffect(() => {
 
     setErp(request?.erp)

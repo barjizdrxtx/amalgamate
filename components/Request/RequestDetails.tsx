@@ -56,7 +56,7 @@ export const RequestDetails = () => {
     }
 
     const download = (e: any) => {
-        // console.log(e.target.href);
+
         fetch(e.target.href, {
             method: "GET",
             headers: {}
@@ -72,12 +72,9 @@ export const RequestDetails = () => {
                 });
             })
             .catch(err => {
-                // console.log(err);
+  
             });
     };
-
-
-    console.log("request", request)
 
 
 

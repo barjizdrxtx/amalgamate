@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Box, Grid, Typography } from '@mui/material'
-import { useRouter } from 'next/router';
 import { useQueryFetchId } from '../../hooks/useQueryFetch';
 import Checkbox from '@mui/material/Checkbox';
 import DownloadIcon from '@mui/icons-material/Download';
-import { CustomizedButton } from '../UI/Button/CustomizedButton';
-import axios from 'axios';
-import { useJwt } from '../../hooks/useJwt';
 import * as moment from 'moment'
-import { LoadingPage } from '../UI/LoadingPage/LoadingPage';
-import { AlertBox } from '../UI/AlertBox/AlertBox';
 
 export const RequestDetails2 = (props: any) => {
 
@@ -20,7 +14,7 @@ export const RequestDetails2 = (props: any) => {
     const request = fetchedData?.result
 
     const download = (e: any) => {
-        // console.log(e.target.href);
+
         fetch(e.target.href, {
             method: "GET",
             headers: {}
@@ -36,13 +30,9 @@ export const RequestDetails2 = (props: any) => {
                 });
             })
             .catch(err => {
-                // console.log(err);
+         
             });
     };
-
-
-    console.log("request", request)
-
 
     useEffect(() => {
 
@@ -63,7 +53,7 @@ export const RequestDetails2 = (props: any) => {
 
             {request != null ?
 
-                <Grid container lg={12} sx={{
+                <Grid container lg={11} sx={{
                     bgcolor: "white", borderRadius: "20px",
                 }}>
 
