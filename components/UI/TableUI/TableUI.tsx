@@ -33,7 +33,7 @@ export const TableUI = (props: any) => {
 
 
 
-  const totalLength = tableData?.result?.length
+  const totalLength = tableData?.result?.rows?.length
 
   let totalPages = totalLength === limit ? JSON.parse(page) + 1 : JSON.parse(page);
 
@@ -121,7 +121,7 @@ export const TableUI = (props: any) => {
 
               </tr>
 
-              {tableData?.result?.map((data: any, index: any) =>
+              {tableData?.result?.rows?.map((data: any, index: any) =>
 
                 <tr key={index} style={{ cursor: "pointer" }}>
 

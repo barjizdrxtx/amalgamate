@@ -45,14 +45,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         </Box>
 
-        {decoded?.mode === "user" ?
+        {decoded?.role === "user" ?
 
 
           <UserLayout />
 
           :
 
-          decoded?.mode === "admin" ?
+          decoded?.role === "admin" || "developer" ?
 
             <Layout>
 
