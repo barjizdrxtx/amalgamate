@@ -9,6 +9,7 @@ import jwt_decode from 'jwt-decode';
 import { Box, Divider, Typography } from '@mui/material'
 import { NavBar } from '../components/UI/Layout/NavBar'
 import { UserLayout } from '../components/UI/Layout/UserLayout'
+import { Login } from '../components/Auth/login'
 
 const queryClient = new QueryClient()
 
@@ -19,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const decoded: any = token === null ? null : jwt_decode(token)
 
-  console.log("aaaaaaaaaaaaa", decoded?.username);
+  console.log("aaaaaaaaaaaaa", decoded);
 
 
   return (
@@ -36,28 +37,30 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ProtectedRoutes>
 
 
-      <Box>
+        <Box>
 
-<NavBar/>
+          <NavBar />
 
-<Divider />
+          <Divider />
 
-</Box>
+        </Box>
 
-        {decoded?.username === "abhinav" ?
-        
+        {decoded?.mode === "user" ?
 
-          <UserLayout/>
+
+          <UserLayout />
 
           :
 
-          <Layout>
+          decoded?.mode === "admin" ?
 
-            <Component {...pageProps} />
+            <Layout>
 
-          </Layout>
-            
-          }
+              <Component {...pageProps} />
+
+            </Layout> : <Login />
+
+        }
 
       </ProtectedRoutes>
 
