@@ -65,7 +65,7 @@ export const DeskTopNavBar = (props: any) => {
 
         <Grid container justifyContent="center" alignItems="center" sx={{ bgcolor: "white" }}>
 
-            <Grid container lg={11}>
+            <Grid container md={11}>
 
 
                 <Grid container justifyContent="start" alignItems="center"
