@@ -53,7 +53,7 @@ export const RequestDetails2 = (props: any) => {
 
             {request != null ?
 
-                <Grid container lg={11} sx={{
+                <Grid container md={11} lg={11} sx={{
                     bgcolor: "white", borderRadius: "20px",
                 }}>
 
