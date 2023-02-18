@@ -15,7 +15,7 @@ export const RequestDetails2 = (props: any) => {
 
     const { id, setSearchResult } = props;
 
-    const { fetchedData: fetchedData, refetch: refetch } = useQueryFetchId(`request/details/`, id);
+    const { fetchedData: fetchedData, refetch: refetch } = useQueryFetchId(`request/details`, id);
 
     const request = fetchedData?.result
 
