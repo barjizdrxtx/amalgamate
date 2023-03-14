@@ -229,19 +229,19 @@ const index = () => {
 
           <Grid container lg={4} sx={{ bgcolor: "", borderBottom: "1px solid black", p: 1 }}>
 
+            {/* <Grid container lg={12}>
+
+              <Typography>Client </Typography>
+
+              <Typography sx={{ mx: 1 }}>{data.client.customer_name}</Typography>
+
+            </Grid> */}
+
             <Grid container lg={12}>
 
-              <Typography>Client Id </Typography>
+              <Typography>User Name </Typography>
 
-              <Typography sx={{ mx: 1 }}>{data.client_id}</Typography>
-
-            </Grid>
-
-            <Grid container lg={12}>
-
-              <Typography>User Id </Typography>
-
-              <Typography sx={{ mx: 1 }}>{data.user_id}</Typography>
+              <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
 
             </Grid>
 
@@ -251,6 +251,14 @@ const index = () => {
               <Typography>Purpose </Typography>
 
               <Typography sx={{ mx: 1 }}>{data.pupose}</Typography>
+
+            </Grid>
+
+            <Grid container lg={12}>
+
+              <Typography>Date </Typography>
+
+              <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
 
             </Grid>
 
