@@ -1,16 +1,26 @@
 import { Grid, TextField, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/system';
 import { FileUpload } from '../../UI/FileUpload/FileUpload';
+import { DropDown } from '../../UI/DropDown/DropDown';
 
 
 export const PersonalDetails = (props: any) => {
 
-    const { list, formik, file_upload, setFileUpload,
+    const { serverType, setServerType, list, formik, file_upload, setFileUpload,
 
     } = props;
 
-    
+    const dropData = [
+
+        { name: "vpn" },
+        { name: "onpremises" },
+        { name: "cloud" }
+
+    ]
+
+
+
     return (
 
         <Grid container justifyContent="center" xl={12}>
@@ -48,16 +58,21 @@ export const PersonalDetails = (props: any) => {
                         </Grid>
                     )}
 
-                    <Grid container lg={4}>
+                    <Grid container xs={12} sm={6} lg={4}>
 
-                        <FileUpload file_upload={file_upload} setFileUpload={setFileUpload} />
+                        <DropDown text="service type" value={serverType} setValue={setServerType} dropData={dropData} name="name" />
 
                     </Grid>
 
                 </Grid>
 
-            </form>
+                <Grid container lg={4}>
 
+                    <FileUpload file_upload={file_upload} setFileUpload={setFileUpload} />
+
+                </Grid>
+
+            </form>
 
         </Grid >
 

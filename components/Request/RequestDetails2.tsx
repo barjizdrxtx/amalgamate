@@ -7,11 +7,7 @@ import * as moment from 'moment'
 
 export const RequestDetails2 = (props: any) => {
 
-    const { id, setSearchResult } = props;
-
-    const { fetchedData: fetchedData, refetch: refetch } = useQueryFetchId(`request/details`, id);
-
-    const request = fetchedData?.result
+    const { searchData } = props;
 
     const download = (e: any) => {
 
@@ -30,32 +26,39 @@ export const RequestDetails2 = (props: any) => {
                 });
             })
             .catch(err => {
-         
+
             });
     };
-
-    useEffect(() => {
-
-        if (id === '') {
-
-            setSearchResult(null)
-
-        }
-
-
-    }, [id])
-
 
 
     return (
 
         <Grid container justifyContent="center" sx={{ mt: { xs: 8, md: 3 } }}>
 
-            {request != null ?
+            {searchData != null ?
 
                 <Grid container md={11} lg={11} sx={{
                     bgcolor: "white", borderRadius: "20px",
                 }}>
+
+
+                    <Grid container md={6} lg={6} sx={{
+                        width: "100%", p: 1,
+                        borderBottom: "1px solid #E5E7E9",
+                        display: "flex", justifyContent: "space-around", alignItems: "center"
+                    }}>
+
+                        <Typography sx={{ flex: 1, fontWeight: "bold" }}>Status</Typography>
+
+
+                        <Typography sx={{
+
+                            bgcolor: searchData?.is_active === true ? "green" : "grey", px: 1,
+                            borderRadius: "20px", color: "white"
+                        }}>{searchData?.is_active === true ? "active" : "inactive"}</Typography>
+
+
+                    </Grid>
 
                     <Grid container md={6} lg={6} sx={{
                         width: "100%", p: 1,
@@ -66,7 +69,7 @@ export const RequestDetails2 = (props: any) => {
                         <Typography sx={{ flex: 1, fontWeight: "bold" }}>Download File</Typography>
 
 
-                        {request?.file_location != null &&
+                        {searchData?.file_location != null &&
 
                             < Box sx={{
                                 width: "30%",
@@ -75,7 +78,7 @@ export const RequestDetails2 = (props: any) => {
                             }}>
 
                                 <a style={{ color: "white" }}
-                                    href={request?.file_location}
+                                    href={searchData?.file_location}
                                     onClick={e => download(e)}
                                     target="_blank"
                                 >
@@ -101,7 +104,7 @@ export const RequestDetails2 = (props: any) => {
 
                             <Typography sx={{ flex: 1, fontWeight: "bold" }}>{data.title}</Typography>
 
-                            <Typography sx={{ flex: 1 }}>{request?.[data.data]}</Typography>
+                            <Typography sx={{ flex: 1 }}>{searchData?.[data.data]}</Typography>
 
                         </Grid>
 
@@ -116,7 +119,7 @@ export const RequestDetails2 = (props: any) => {
 
                         <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
 
-                        <Typography sx={{ flex: 1 }}>{moment.utc(request?.next_amc_date).format('MMMM Do YYYY')}</Typography>
+                        <Typography sx={{ flex: 1 }}>{moment.utc(searchData?.next_amc_date).format('MMMM Do YYYY')}</Typography>
 
                     </Grid>
 
@@ -136,7 +139,7 @@ export const RequestDetails2 = (props: any) => {
 
                             <Box sx={{ flex: 1 }}>
 
-                                <Checkbox disabled checked={request?.[data.data]} />
+                                <Checkbox disabled checked={searchData?.[data.data]} />
 
                             </Box>
 
@@ -165,7 +168,6 @@ export const RequestDetails2 = (props: any) => {
 }
 
 
-
 const details = [
 
 
@@ -173,6 +175,12 @@ const details = [
         title: "Client Id",
         data: "client_id",
     },
+
+    {
+        title: "Server Type",
+        data: "server_type",
+    },
+
     {
         title: "Customer Name",
         data: "customer_name",

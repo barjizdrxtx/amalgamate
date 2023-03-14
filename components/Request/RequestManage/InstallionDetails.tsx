@@ -14,6 +14,9 @@ export const InstallionDetails = (props: any) => {
         erp_pos,
         setErpPos,
 
+        isActive,
+        setIsActive,
+
     } = props;
 
     return (
@@ -52,6 +55,16 @@ export const InstallionDetails = (props: any) => {
 
                         </Grid>
                     )}
+
+                    <Grid container lg={4}>
+
+                        <FormGroup>
+
+                            <FormControlLabel control={<Checkbox checked={isActive} sx={{ m: 1 }} onClick={() => setIsActive(!isActive)} />} label="IS ACTIVE" />
+
+                        </FormGroup>
+
+                    </Grid>
 
                     <Grid container lg={4}>
 

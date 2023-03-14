@@ -5,13 +5,12 @@ import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { useRouter } from 'next/router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SearchBar } from '../SearchBar/SearchBar';
-import { Player } from '@lottiefiles/react-lottie-player';
-import { CustomizedButton } from '../Button/CustomizedButton';
 
 export const TableUI = (props: any) => {
 
 
-  const { tableHead, element, name, nestedArray, disableImage, tableName } = props;
+  const { tableHead, element, showStatus,
+    showImage, nestedArray, tableName } = props;
 
 
   const [page, setPage]: any = useState(1);
@@ -27,11 +26,11 @@ export const TableUI = (props: any) => {
   const { fetchedData: tableData } = useQueryFetch(`request/search?query=${searchResult}&page=${page}&limit=${limit}`);
 
 
-
-
   const totalLength = tableData?.result?.rows?.length
 
   let totalPages = totalLength === limit ? JSON.parse(page) + 1 : JSON.parse(page);
+
+  console.log("tableData", tableData)
 
 
 
@@ -104,7 +103,7 @@ export const TableUI = (props: any) => {
                 <th>No</th>
 
 
-                {!disableImage && <th>Image</th>}
+                {showImage && <th>Image</th>}
 
 
                 {tableHead.map((data: any, index: any) =>
@@ -112,6 +111,10 @@ export const TableUI = (props: any) => {
                   <th key={index}>{data}</th>
 
                 )}
+
+
+
+                {showStatus && <th>Status</th>}
 
               </tr>
 
@@ -125,7 +128,7 @@ export const TableUI = (props: any) => {
                   </td>
 
 
-                  {!disableImage && <td style={{ display: "flex", alignItems: "center" }}>
+                  {showImage && <td style={{ display: "flex", alignItems: "center" }}>
 
                     {data.images[0].image === undefined ?
                       <AccountCircleIcon sx={{ fontSize: "3.8rem", color: "#AEAEAE" }} /> :
@@ -149,6 +152,19 @@ export const TableUI = (props: any) => {
 
                   )}
 
+                  {showStatus &&
+
+                    <td>
+
+                      <Typography sx={{
+                        width: 'fit-content', bgcolor: data.is_active === true ? "green" : "grey", px: 1,
+                        borderRadius: "20px", color: "white"
+                      }}>{data.is_active === true ? "active" : "inactive"}</Typography>
+
+                    </td>}
+
+
+
 
                 </tr>
 
@@ -164,16 +180,6 @@ export const TableUI = (props: any) => {
             <Stack spacing={2}>
               <Pagination onChange={handleChange} count={totalPages} color="secondary" />
             </Stack>
-
-            {/* {[1, 2, 3, 4].map(data =>
-
-              <Grid sx={{ m: 0.5 }}>
-
-                <CustomizedButton bgcolor="Red">{data}</CustomizedButton>
-
-              </Grid>
-
-            )} */}
 
           </Box>
 
