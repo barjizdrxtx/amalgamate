@@ -15,8 +15,6 @@ import * as yup from 'yup';
 
 const index = () => {
 
-    const router = useRouter();
-
     const token = useJwt();
 
     const [file_upload, setFileUpload] = React.useState();
@@ -38,8 +36,6 @@ const index = () => {
     const [next_amc_date, setNextAmcDate]: any = React.useState();
 
     const [serverType, setServerType] = React.useState(0);
-
-    console.log("serverType", serverType)
 
 
     const formik = useFormik({

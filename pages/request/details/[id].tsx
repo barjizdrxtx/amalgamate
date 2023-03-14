@@ -12,20 +12,56 @@ import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
 import { width } from '@mui/system';
 
+
+
 const index = () => {
 
   const router = useRouter();
 
   const { id } = router.query;
 
-  const [alertBox, setAlertBox] = useState(false)
-
   const { fetchedData: fetchedData, refetch: refetch } = useQueryFetchId(`request`, id);
 
   const request = fetchedData?.result
 
-  const token = useJwt();
+  const [tab, setTab] = useState(1);
 
+  return (
+
+    <Grid>
+
+      <Grid sx={{ m: 1 }}>
+
+        <CustomizedButton onClick={() => setTab(1)} bgcolor={tab === 1 ? "dodgerblue" : "gray"}>Details</CustomizedButton>
+
+        <CustomizedButton onClick={() => setTab(2)} bgcolor={tab === 2 ? "dodgerblue" : "gray"}>History</CustomizedButton>
+
+      </Grid>
+
+      {tab === 1 ?
+
+        <Details request={request} refetch={refetch} router={router} id={id} />
+
+        :
+
+        <History request={request} />
+      }
+
+    </Grid>
+
+
+  )
+}
+
+const Details = (props: any) => {
+
+  const { request, refetch, router, id } = props;
+
+
+  const [alertBox, setAlertBox] = useState(false)
+
+
+  const token = useJwt();
 
   React.useEffect(() => {
 
@@ -115,10 +151,9 @@ const index = () => {
 
             <Typography sx={{
 
-              bgcolor: request?.is_active === true ? "green" : "grey", px: 1,
+              bgcolor: request?.is_active === true ? "green" : "gray", px: 1,
               borderRadius: "20px", color: "white"
             }}>{request?.is_active === true ? "active" : "inactive"}</Typography>
-
 
           </Grid>
 
@@ -220,57 +255,65 @@ const index = () => {
 
       }
 
+    </Grid >
 
-      <Grid container justifyContent="center">
-
-        <Typography variant='h4' sx={{ width: "100%", fontWeight: "bold", textAlign: "center", m: 2 }}>History</Typography>
-
-        {request?.history?.map((data: any) =>
-
-          <Grid container lg={4} sx={{ bgcolor: "", borderBottom: "1px solid black", p: 1 }}>
-
-            {/* <Grid container lg={12}>
-
-              <Typography>Client </Typography>
-
-              <Typography sx={{ mx: 1 }}>{data.client.customer_name}</Typography>
-
-            </Grid> */}
-
-            <Grid container lg={12}>
-
-              <Typography>User Name </Typography>
-
-              <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
-
-            </Grid>
+  )
+}
 
 
-            <Grid container lg={12}>
+const History = (props: any) => {
 
-              <Typography>Purpose </Typography>
+  const { request } = props;
 
-              <Typography sx={{ mx: 1 }}>{data.pupose}</Typography>
+  return (
+    
+    <Grid container justifyContent="center">
 
-            </Grid>
+      <Typography variant='h4' sx={{ width: "100%", fontWeight: "bold", textAlign: "center", m: 2 }}>History</Typography>
 
-            <Grid container lg={12}>
+      {request?.history?.map((data: any) =>
 
-              <Typography>Date </Typography>
+        <Grid container lg={4} sx={{ bgcolor: "", borderBottom: "1px solid black", p: 1 }}>
 
-              <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
+          {/* <Grid container lg={12}>
 
-            </Grid>
+          <Typography>Client </Typography>
+
+          <Typography sx={{ mx: 1 }}>{data.client.customer_name}</Typography>
+
+        </Grid> */}
+
+          <Grid container lg={12}>
+
+            <Typography>User Name </Typography>
+
+            <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
 
           </Grid>
 
-        )}
+
+          <Grid container lg={12}>
+
+            <Typography>Purpose </Typography>
+
+            <Typography sx={{ mx: 1 }}>{data.pupose}</Typography>
+
+          </Grid>
+
+          <Grid container lg={12}>
+
+            <Typography>Date </Typography>
+
+            <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
+
+          </Grid>
+
+        </Grid>
+
+      )}
 
 
-      </Grid>
-
-    </Grid >
-
+    </Grid>
   )
 }
 
@@ -283,7 +326,10 @@ const details = [
     title: "Client Id",
     data: "client_id",
   },
-
+  {
+    title: "Care of",
+    data: "care_of",
+  },
   {
     title: "Server Type",
     data: "server_type",
@@ -406,6 +452,8 @@ const checkbox = [
   },
 
 ]
+
+
 
 export default index
 

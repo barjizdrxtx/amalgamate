@@ -7,11 +7,12 @@ import { MainTab } from '../../../components/MainTab/MainTab';
 import { InstallionDetails } from '../../../components/Request/RequestManage/InstallionDetails';
 import { OtherDetails } from '../../../components/Request/RequestManage/OtherDetails';
 import { PersonalDetails } from '../../../components/Request/RequestManage/PersonalDetails';
-import { validationSchema } from '../../../components/Request/validation';
 import { CreateButton } from '../../../components/UI/Button/CreateButton';
 import { SavedPopup } from '../../../components/UI/Popups/SavedPopup';
 import { useJwt } from '../../../hooks/useJwt';
 import { useQueryFetchId } from '../../../hooks/useQueryFetch';
+import * as yup from 'yup';
+
 
 const index = () => {
 
@@ -33,6 +34,8 @@ const index = () => {
   const [alertBox, setAlertBox] = React.useState(false)
 
 
+  const [isActive, setIsActive] = React.useState(true);
+
   const [erp, setErp] = React.useState(false);
   const [pos, setPos] = React.useState(false);
   const [erp_pos, setErpPos] = React.useState(false);
@@ -42,6 +45,15 @@ const index = () => {
   const [network_support, setNetworkSupport] = React.useState(false);
 
   const [next_amc_date, setNextAmcDate]: any = React.useState();
+
+  const [serverType, setServerType] = React.useState(0);
+
+  
+  console.log("request", request)
+
+
+  console.log("serverType", serverType)
+
 
   React.useEffect(() => {
 
@@ -57,6 +69,9 @@ const index = () => {
 
     setNextAmcDate(request?.next_amc_date)
 
+    setIsActive(request?.is_active)
+
+    setServerType(request?.server_type)
 
   }, [request])
 
@@ -75,9 +90,12 @@ const index = () => {
       cr_no: request?.cr_no,
       email: request?.email,
       owner_contact_no: request?.owner_contact_no,
+      care_of: request?.care_of,
+
 
       software_name: request?.software_name,
       shop_category: request?.shop_category,
+
       erp_system_count: request?.erp_system_count,
       pos_system_count: request?.pos_system_count,
       user_limit: request?.user_limit,
@@ -89,7 +107,6 @@ const index = () => {
       anydesk_password: request?.anydesk_password,
       server_configuration: request?.server_configuration,
       sql_password: request?.sql_password,
-      next_amc_date: request?.next_amc_date,
 
     },
 
@@ -101,6 +118,7 @@ const index = () => {
 
       const axiosrequest = axios.patch(`request/${id}`, {
 
+        is_active: isActive,
         client_id: values.client_id,
         customer_name: values.customer_name,
         shop_name: values.shop_name,
@@ -131,8 +149,9 @@ const index = () => {
         server_configuration: values.server_configuration,
         sql_password: values.sql_password,
         next_amc_date: next_amc_date?.$d,
-        file_location: file_upload
-
+        file_location: file_upload,
+        server_type: serverType,
+        care_of: values.care_of
 
       },
         {
@@ -191,7 +210,7 @@ const index = () => {
     {
       title: "Contact Number",
       label: "contact_number",
-      type: "text",
+      type: "number",
       value: formik.values.contact_number,
       touched: formik.touched.contact_number,
       errors: formik.errors.contact_number,
@@ -205,7 +224,15 @@ const index = () => {
       errors: formik.errors.contact_person,
     },
     {
-      title: "CR No",
+      title: "Care Of",
+      label: "care_of",
+      type: "text",
+      value: formik.values.care_of,
+      touched: formik.touched.care_of,
+      errors: formik.errors.care_of,
+    },
+    {
+      title: "CR NO",
       label: "cr_no",
       type: "number",
       value: formik.values.cr_no,
@@ -253,7 +280,7 @@ const index = () => {
     {
       title: "ERP System Count",
       label: "erp_system_count",
-      type: "text",
+      type: "number",
       value: formik.values.erp_system_count,
       touched: formik.touched.erp_system_count,
       errors: formik.errors.erp_system_count,
@@ -261,7 +288,7 @@ const index = () => {
     {
       title: "POS System Count",
       label: "pos_system_count",
-      type: "text",
+      type: "number",
       value: formik.values.pos_system_count,
       touched: formik.touched.pos_system_count,
       errors: formik.errors.pos_system_count,
@@ -277,7 +304,7 @@ const index = () => {
     {
       title: "Active ERP",
       label: "active_erp",
-      type: "text",
+      type: "number",
       value: formik.values.active_erp,
       touched: formik.touched.active_erp,
       errors: formik.errors.active_erp,
@@ -286,7 +313,7 @@ const index = () => {
     {
       title: "Active POS",
       label: "active_pos",
-      type: "text",
+      type: "number",
       value: formik.values.active_pos,
       touched: formik.touched.active_pos,
       errors: formik.errors.active_pos,
@@ -331,18 +358,21 @@ const index = () => {
     {
       title: "SQL Password",
       label: "sql_password",
-      type: "email",
+      type: "text",
       value: formik.values.sql_password,
       touched: formik.touched.sql_password,
       errors: formik.errors.sql_password,
     },
   ]
 
-
   const tabData = [
     {
       label: "Personal Details",
+      errors: true,
       component: <PersonalDetails
+
+        serverType={serverType}
+        setServerType={setServerType}
 
         software_support={software_support}
         setSoftWareSupport={setSoftWareSupport}
@@ -352,9 +382,8 @@ const index = () => {
     },
     {
       label: "Installion Details",
+      errors: false,
       component: <InstallionDetails
-
-        request={request}
 
         erp={erp}
         setErp={setErp}
@@ -365,13 +394,15 @@ const index = () => {
         erp_pos={erp_pos}
         setErpPos={setErpPos}
 
+        isActive={isActive}
+        setIsActive={setIsActive}
+
         list={installiondetails} formik={formik} />
     },
     {
       label: "Other Details",
+      errors: false,
       component: <OtherDetails
-
-        request={request}
 
         software_support={software_support}
         setSoftWareSupport={setSoftWareSupport}
@@ -388,6 +419,7 @@ const index = () => {
         list={otherdetails} formik={formik} />
     }
   ]
+
 
 
   return (
@@ -414,6 +446,36 @@ const index = () => {
   )
 
 }
+
+
+
+const validationSchema = yup.object({
+
+  client_id: yup
+    .string()
+    .required('Client Id is required'),
+
+  customer_name: yup
+    .string()
+    .required('Customer Name is required'),
+
+  shop_name: yup
+    .string()
+    .required('Shop Name is required'),
+
+  contact_number: yup
+    .string(),
+  // .min(10, 'Phone Number should be of minimum 10 characters length'),
+
+  owner_contact_no: yup
+    .string(),
+  // .min(10, 'Phone Number should be of minimum 10 characters length'),
+
+  email: yup
+    .string()
+    .email('Enter a valid email')
+
+});
 
 
 

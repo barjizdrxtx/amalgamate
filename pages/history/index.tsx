@@ -24,9 +24,6 @@ const index = () => {
 
     const history = fetchedData?.result
 
-
-    console.log("fetchedData", fetchedData?.result)
-
     const dropData = [
 
         {
@@ -70,7 +67,7 @@ const index = () => {
 
                         <Typography>Client Name</Typography>
 
-                        <Typography sx={{ mx: 1 }}>{data.client.customer_name}</Typography>
+                        <Typography sx={{ mx: 1 }}>{data?.client?.customer_name}</Typography>
 
                     </Grid>
 

@@ -24,8 +24,6 @@ export const UserLayout = () => {
 
   const token = useJwt();
 
-  console.log("searchData", searchData)
-
   const formik = useFormik({
 
     initialValues: {

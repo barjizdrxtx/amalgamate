@@ -30,8 +30,6 @@ export const TableUI = (props: any) => {
 
   let totalPages = totalLength === limit ? JSON.parse(page) + 1 : JSON.parse(page);
 
-  console.log("tableData", tableData)
-
 
 
   const handleChange = (e: any, p: any) => {
