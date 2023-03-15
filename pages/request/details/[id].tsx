@@ -220,7 +220,7 @@ const Details = (props: any) => {
 
             <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
 
-            <Typography sx={{ flex: 1 }}>{moment.utc(request?.next_amc_date).format('MMMM Do YYYY')}</Typography>
+            <Typography sx={{ flex: 1 }}>{request.next_amc_date ? moment.utc(request?.next_amc_date).format('MMMM Do YYYY'): null}</Typography>
 
           </Grid>
 
