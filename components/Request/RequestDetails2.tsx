@@ -111,17 +111,17 @@ export const RequestDetails2 = (props: any) => {
 
                     )}
 
-                    <Grid container md={6} lg={6} sx={{
-                        width: "100%", p: 1,
-                        borderBottom: "1px solid #E5E7E9",
-                        display: "flex", justifyContent: "space-around", alignItems: "center"
-                    }}>
+<Grid container md={6} lg={6} sx={{
+            width: "100%", p: 1,
+            borderBottom: "1px solid #E5E7E9",
+            display: "flex", justifyContent: "space-around", alignItems: "center"
+          }}>
 
-                        <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
+            <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
 
-                        <Typography sx={{ flex: 1 }}>{moment.utc(searchData?.next_amc_date).format('MMMM Do YYYY')}</Typography>
+            <Typography sx={{ flex: 1 }}>{searchData?.next_amc_date ? moment.utc(searchData?.next_amc_date).format('MMMM Do YYYY'): null}</Typography>
 
-                    </Grid>
+          </Grid>
 
                     {checkbox.map((data: any, index: any) =>
 
