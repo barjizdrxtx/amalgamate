@@ -75,8 +75,9 @@ export const UserLayout = () => {
       value: formik.values.reason,
       touched: formik.touched.reason,
       errors: formik.errors.reason,
-      rows: 6
+      rows: 2
     },
+    
     {
       title: "Client Id",
       label: "client_id",
@@ -95,11 +96,11 @@ export const UserLayout = () => {
 
       <form onSubmit={formik.handleSubmit}>
 
-        <Grid container lg={12}>
+        <Grid container justifyContent="space-between" alignItems="center" >
 
           {list.map((data: any, index: any) =>
 
-            <Grid key={index} xs={12} sm={12} lg={12}>
+            <Grid container key={index} xs={12} sm={12} lg={4}>
 
               <Typography sx={{ color: "#566573", fontWeight: "bold", m: 1 }}>{data.title}</Typography>
 
@@ -120,7 +121,13 @@ export const UserLayout = () => {
             </Grid>
           )}
 
-          <CustomizedButton bgcolor="green" onClick={formik.handleSubmit}>Search</CustomizedButton>
+          <Grid sx={{ bgcolor: "white" }}>
+
+
+            <CustomizedButton bgcolor="green" onClick={formik.handleSubmit}>Search</CustomizedButton>
+
+
+          </Grid>
 
 
         </Grid >

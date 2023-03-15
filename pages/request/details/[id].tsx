@@ -10,8 +10,6 @@ import { useQueryFetchId } from '../../../hooks/useQueryFetch';
 import * as moment from 'moment'
 import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
-import { width } from '@mui/system';
-
 
 
 const index = () => {
@@ -24,7 +22,7 @@ const index = () => {
 
   const request = fetchedData?.result
 
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(2);
 
   return (
 
@@ -32,22 +30,30 @@ const index = () => {
 
       <Grid sx={{ m: 1 }}>
 
-        <CustomizedButton onClick={() => setTab(1)} bgcolor={tab === 1 ? "dodgerblue" : "gray"}>Details</CustomizedButton>
+        <CustomizedButton color={tab === 1 ? "white" : "black"} width="10%" boxShadow="rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" onClick={() => setTab(1)} bgcolor={tab === 1 ? "dodgerblue" : "white"} mx={0.5}>Details</CustomizedButton>
 
-        <CustomizedButton onClick={() => setTab(2)} bgcolor={tab === 2 ? "dodgerblue" : "gray"}>History</CustomizedButton>
+        <CustomizedButton color={tab === 2 ? "white" : "black"} width="10%" boxShadow="rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" onClick={() => setTab(2)} bgcolor={tab === 2 ? "dodgerblue" : "white"} mx={0.5}>History</CustomizedButton>
 
       </Grid>
 
-      {tab === 1 ?
+      {
+        tab === 1 ?
 
-        <Details request={request} refetch={refetch} router={router} id={id} />
+          <Details request={request} refetch={refetch} router={router} id={id} />
 
-        :
+          :
 
-        <History request={request} />
+          <>
+
+     
+            <History request={request} />
+
+          </>
+
+
       }
 
-    </Grid>
+    </Grid >
 
 
   )
@@ -151,7 +157,7 @@ const Details = (props: any) => {
 
             <Typography sx={{
 
-              bgcolor: request?.is_active === true ? "green" : "gray", px: 1,
+              bgcolor: request?.is_active === true ? "green" : "red", px: 1,
               borderRadius: "20px", color: "white"
             }}>{request?.is_active === true ? "active" : "inactive"}</Typography>
 
@@ -266,54 +272,54 @@ const History = (props: any) => {
   const { request } = props;
 
   return (
-    
-    <Grid container justifyContent="center">
+
+    <Grid container justifyContent="start">
 
       <Typography variant='h4' sx={{ width: "100%", fontWeight: "bold", textAlign: "center", m: 2 }}>History</Typography>
 
+
+
+
       {request?.history?.map((data: any) =>
 
-        <Grid container lg={4} sx={{ bgcolor: "", borderBottom: "1px solid black", p: 1 }}>
+        <Grid container lg={4}>
 
-          {/* <Grid container lg={12}>
+          <Grid container sx={{ m: 1, p: 1, borderRadius: "10px", boxShadow: "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" }}>
 
-          <Typography>Client </Typography>
+            <Grid container lg={12}>
 
-          <Typography sx={{ mx: 1 }}>{data.client.customer_name}</Typography>
+              <Typography fontWeight="bold">User Name </Typography>
 
-        </Grid> */}
+              <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
 
-          <Grid container lg={12}>
-
-            <Typography>User Name </Typography>
-
-            <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
-
-          </Grid>
+            </Grid>
 
 
-          <Grid container lg={12}>
+            <Grid container lg={12}>
 
-            <Typography>Purpose </Typography>
+              <Typography fontWeight="bold">Purpose </Typography>
 
-            <Typography sx={{ mx: 1 }}>{data.pupose}</Typography>
+              <Typography sx={{ mx: 1 }}>{data.purpose}</Typography>
 
-          </Grid>
+            </Grid>
 
-          <Grid container lg={12}>
+            <Grid container lg={12}>
 
-            <Typography>Date </Typography>
+              <Typography fontWeight="bold">Date </Typography>
 
-            <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
+              <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
+
+            </Grid>
 
           </Grid>
 
         </Grid>
 
-      )}
+      )
+      }
 
 
-    </Grid>
+    </Grid >
   )
 }
 

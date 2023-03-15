@@ -3,14 +3,15 @@ import React from 'react'
 
 export const CustomizedButton = (props: any) => {
 
-    const { children, onClick, bgcolor, type, mx } = props;
+    const { children, onClick, bgcolor, type, mx, boxShadow, color } = props;
 
     return (
         <Button type={type} sx={{
-            width: props.width, mx: mx,
-            boxShadow: "none", my: 1, backgroundColor: bgcolor, border: `1px solid ${bgcolor}`, "&:hover": {
-                backgroundColor: "transparent", boxShadow: "none",
-                color: bgcolor, border: `1px solid ${bgcolor}`,
+            boxShadow: boxShadow,
+            width: props.width, mx: mx, color: color,
+            my: 1, bgcolor: bgcolor, border: `1px solid ${bgcolor}`, "&:hover": {
+                backgroundColor: bgcolor, boxShadow: "none",
+                color: color, border: `1px solid ${bgcolor}`,
 
             },
         }}

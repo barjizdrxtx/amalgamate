@@ -11,31 +11,31 @@ export const DropDown = (props: any) => {
 
     return (
 
-        <Box sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+        <Grid container>
 
-            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+            <Grid container sx={{ m: 1, bgcolor: "white" }}>
 
                 <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{text}</Typography>
 
-            </Box>
+                <Select sx={{ width: "100%", my: 1, textTransform: "capitalize", bgcolor: "white" }}
+                    id={text}
+                    value={value}
+                    onChange={handleChange}
+                >
 
-            <Select sx={{ width: "100%", my: 1, textTransform: "capitalize" }}
-                id={text}
-                value={value}
-                onChange={handleChange}
-            >
+                    <MenuItem value={0} disabled >Select a {text}</MenuItem>
 
-                <MenuItem value={0} disabled >Select a {text}</MenuItem>
+                    {dropData?.map((data: any, index: any) =>
 
-                {dropData?.map((data: any, index: any) =>
+                        <MenuItem key={index} sx={{ textTransform: "capitalize", width: "100%" }} value={data[name]}>{data[name]}</MenuItem>
 
-                    <MenuItem key={index} sx={{ textTransform: "capitalize" }} value={data[name]}>{data[name]}</MenuItem>
+                    )}
 
-                )}
+                </Select>
 
-            </Select>
+            </Grid>
 
-        </Box>
+        </Grid >
 
     )
 }

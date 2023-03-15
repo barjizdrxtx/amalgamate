@@ -31,15 +31,11 @@ export const InstallionDetails = (props: any) => {
 
                         <Grid key={index} xs={12} sm={6} lg={4}>
 
-                            <Box key={index} sx={{ m: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}>
+                            <Grid sx={{ m: 1 }}>
 
-                                <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+                                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
 
-                                    <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{data.title}</Typography>
-
-                                </Box>
-
-                                < TextField sx={{ flex: 2, width: "100%", mb: 2 }}
+                                < TextField sx={{ width: "100%", my: 1 }}
                                     fullWidth
                                     id={data.label}
                                     name={data.label}
@@ -51,7 +47,7 @@ export const InstallionDetails = (props: any) => {
                                     helperText={data.touched && data.errors}
                                 />
 
-                            </Box>
+                            </Grid>
 
                         </Grid>
                     )}

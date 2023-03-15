@@ -10,6 +10,7 @@ import { TableUI } from '../../components/UI/TableUI/TableUI';
 import { useQueryFetch } from '../../hooks/useQueryFetch';
 import { PRIMARY_COLOR } from '../../utls/colors';
 import * as moment from 'moment'
+import { Csv } from '../../components/UI/Csv/Csv';
 
 
 const index = () => {
@@ -23,6 +24,8 @@ const index = () => {
 
 
     const history = fetchedData?.result
+
+    console.log("history", history)
 
     const dropData = [
 
@@ -43,64 +46,98 @@ const index = () => {
 
         <Grid container justifyContent="start">
 
-            <Grid container alignItems="center">
 
-                <DropDown text="Select Type" value={type} setValue={setType} dropData={dropData} name="name" />
 
-                <Grid>
 
-                    <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Type ID</Typography>
+            <Grid container alignContent="space-around" alignItems="center">
 
-                    <TextField onChange={(e: any) => setTypeId(e.target.value)} />
+                <Grid lg={4}>
 
-                </Grid>
+                    <DropDown text="Select Type" value={type} setValue={setType} dropData={dropData} name="name" />
+
+                </Grid >
+
+                <Grid lg={4} sx={{ bgcolor: "" }}>
+
+                    <Grid container sx={{ m: 1, bgcolor: "white" }}>
+
+                        <Typography sx={{ color: "#566573", fontWeight: "bold", width: "100%", mb: 1 }}>Type</Typography>
+
+                        <TextField onChange={(e: any) => setTypeId(e.target.value)} />
+
+                    </Grid>
+
+                </Grid >
+
+                {history?.length > 0 &&
+
+                    <Grid lg={4} sx={{ bgcolor: "", m: 1 }} alignItems="center">
+
+                        <Csv csvdata={history} />
+
+                    </Grid>
+
+                }
 
             </Grid>
 
 
 
+
+
+
+
             {history?.map((data: any) =>
 
-                <Grid container lg={4} sx={{ bgcolor: "", borderBottom: "1px solid black", p: 1 }}>
+                <Grid container lg={4}>
 
-                    <Grid container lg={12}>
 
-                        <Typography>Client Name</Typography>
+                    <Grid container sx={{ m: 1, p: 1, borderRadius: "10px", boxShadow: "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" }}>
 
-                        <Typography sx={{ mx: 1 }}>{data?.client?.customer_name}</Typography>
+                        <Grid container lg={12}>
+
+                            <Typography fontWeight="bold">Client Name</Typography>
+
+                            <Typography sx={{ mx: 1 }}>{data?.client?.customer_name}</Typography>
+
+                        </Grid>
+
+                        <Grid container lg={12}>
+
+                            <Typography fontWeight="bold">User Name</Typography>
+
+                            <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
+
+                        </Grid>
+
+
+                        <Grid container lg={12}>
+
+                            <Typography fontWeight="bold">Purpose </Typography>
+
+                            <Typography sx={{ mx: 1 }}>{data.purpose}</Typography>
+
+                        </Grid>
+
+                        <Grid container lg={12}>
+
+                            <Typography fontWeight="bold">Date </Typography>
+
+                            <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
+
+                        </Grid>
 
                     </Grid>
 
-                    <Grid container lg={12}>
 
-                        <Typography>User Name</Typography>
+                </Grid >
 
-                        <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
+            )
+            }
 
-                    </Grid>
-
-
-                    <Grid container lg={12}>
-
-                        <Typography>Purpose </Typography>
-
-                        <Typography sx={{ mx: 1 }}>{data.pupose}</Typography>
-
-                    </Grid>
-
-                    <Grid container lg={12}>
-
-                        <Typography>Date </Typography>
-
-                        <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
-
-                    </Grid>
-
-                </Grid>
-
-            )}
 
         </Grid >
+
 
     )
 }
