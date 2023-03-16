@@ -44,9 +44,7 @@ const index = () => {
 
     return (
 
-        <Grid container justifyContent="start">
-
-
+        <Grid container justifyContent="start" sx={{ mt: { xs: 10, md: 0 } }}>
 
 
             <Grid container alignContent="space-around" alignItems="center">

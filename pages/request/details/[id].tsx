@@ -22,11 +22,16 @@ const index = () => {
 
   const request = fetchedData?.result
 
-  const [tab, setTab] = useState(2);
+  const [tab, setTab] = useState(1);
+
+  console.log("history", request?.history.length < 1)
+
+
+
 
   return (
 
-    <Grid>
+    <Grid sx={{ mt: { xs: 10, md: 0 } }}>
 
       <Grid sx={{ m: 1 }}>
 
@@ -45,7 +50,7 @@ const index = () => {
 
           <>
 
-     
+
             <History request={request} />
 
           </>
@@ -124,7 +129,8 @@ const Details = (props: any) => {
 
   return (
 
-    <Grid container justifyContent="center" sx={{ mt: { xs: 8, mt: 0 } }}>
+
+    <Grid container justifyContent="center" sx={{ mt: { xs: 8, md: 0 }, p: 1 }}>
 
       {alertBox === true ? <AlertBox title="Are You Sure you want to delete ?"
         onYes={handleDelete} setAlertBox={setAlertBox} /> : null}
@@ -133,7 +139,7 @@ const Details = (props: any) => {
       {request ?
 
         <Grid container lg={12} sx={{
-          height: "85vh", overflowY: "scroll",
+          height: "80vh", overflowY: "scroll",
           bgcolor: "white", borderRadius: "20px",
           boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px"
         }}>
@@ -226,7 +232,7 @@ const Details = (props: any) => {
 
             <Typography sx={{ flex: 1, fontWeight: "bold" }}>Next AMC Date</Typography>
 
-            <Typography sx={{ flex: 1 }}>{request.next_amc_date ? moment.utc(request?.next_amc_date).format('MMMM Do YYYY'): null}</Typography>
+            <Typography sx={{ flex: 1 }}>{request.next_amc_date ? moment.utc(request?.next_amc_date).format('MMMM Do YYYY') : null}</Typography>
 
           </Grid>
 
@@ -263,6 +269,9 @@ const Details = (props: any) => {
 
     </Grid >
 
+
+
+
   )
 }
 
@@ -273,53 +282,71 @@ const History = (props: any) => {
 
   return (
 
-    <Grid container justifyContent="start">
+    <>
 
-      <Typography variant='h4' sx={{ width: "100%", fontWeight: "bold", textAlign: "center", m: 2 }}>History</Typography>
-
-
+      {request?.history > 1 ?
 
 
-      {request?.history?.map((data: any) =>
+        <Grid container justifyContent="start">
 
-        <Grid container lg={4}>
+          <Typography variant='h4' sx={{ width: "100%", fontWeight: "bold", textAlign: "center", m: 2 }}>History</Typography>
 
-          <Grid container sx={{ m: 1, p: 1, borderRadius: "10px", boxShadow: "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" }}>
 
-            <Grid container lg={12}>
 
-              <Typography fontWeight="bold">User Name </Typography>
 
-              <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
+          {request?.history?.map((data: any) =>
+
+            <Grid container lg={4}>
+
+              <Grid container sx={{ m: 1, p: 1, borderRadius: "10px", boxShadow: "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" }}>
+
+                <Grid container lg={12}>
+
+                  <Typography fontWeight="bold">User Name </Typography>
+
+                  <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
+
+                </Grid>
+
+
+                <Grid container lg={12}>
+
+                  <Typography fontWeight="bold">Purpose </Typography>
+
+                  <Typography sx={{ mx: 1 }}>{data.purpose}</Typography>
+
+                </Grid>
+
+                <Grid container lg={12}>
+
+                  <Typography fontWeight="bold">Date </Typography>
+
+                  <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
+
+                </Grid>
+
+              </Grid>
 
             </Grid>
 
+          )
+          }
 
-            <Grid container lg={12}>
 
-              <Typography fontWeight="bold">Purpose </Typography>
+        </Grid >
 
-              <Typography sx={{ mx: 1 }}>{data.purpose}</Typography>
+        :
 
-            </Grid>
+        <Grid container justifyContent="center">
 
-            <Grid container lg={12}>
+          <img width="400px" src="/assets/nodata.png" />
 
-              <Typography fontWeight="bold">Date </Typography>
+        </Grid >
 
-              <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
-
-            </Grid>
-
-          </Grid>
-
-        </Grid>
-
-      )
       }
 
+    </>
 
-    </Grid >
   )
 }
 

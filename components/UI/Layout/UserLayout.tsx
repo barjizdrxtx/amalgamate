@@ -7,18 +7,13 @@ import { BASE_URL } from '../../../url'
 import { RequestDetails2 } from '../../Request/RequestDetails2'
 import { CustomizedButton } from '../Button/CustomizedButton'
 import * as yup from 'yup';
-import Box from '@mui/material/Box'
 
 export const UserLayout = () => {
 
 
   axios.defaults.baseURL = BASE_URL;
 
-  const [id, setSearchResult] = useState('');
 
-  const [client_id, setClientId] = useState();
-
-  const [reason, setReason] = useState();
 
   const [searchData, setSearchData] = useState();
 
@@ -77,7 +72,7 @@ export const UserLayout = () => {
       errors: formik.errors.reason,
       rows: 2
     },
-    
+
     {
       title: "Client Id",
       label: "client_id",
@@ -92,7 +87,7 @@ export const UserLayout = () => {
 
   return (
 
-    <Grid container justifyContent="center" alignItems="center">
+    <Grid container justifyContent="center" alignItems="center" sx={{ mt: { xs: 8, md: 0 }, p: 1 }}>
 
       <form onSubmit={formik.handleSubmit}>
 
