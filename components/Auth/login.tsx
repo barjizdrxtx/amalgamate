@@ -42,6 +42,8 @@ export const Login = () => {
 
                     localStorage.setItem('authToken', response.data.accessTocken)
 
+                    localStorage.setItem("isSearch", "true")
+
                     router.push('/').then(() => router.reload())
 
 

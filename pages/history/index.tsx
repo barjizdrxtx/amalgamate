@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CustomizedButton } from '../../components/UI/Button/CustomizedButton';
 import { DropDown } from '../../components/UI/DropDown/DropDown';
 import { TableUI } from '../../components/UI/TableUI/TableUI';
@@ -15,17 +15,42 @@ import { Csv } from '../../components/UI/Csv/Csv';
 
 const index = () => {
 
-    const [type, setType] = React.useState(0);
+    const [type, setType]: any = React.useState(0);
 
     const [type_id, setTypeId] = React.useState(0);
 
 
+    const [user_list, setUserList] = React.useState(0);
+
     const { fetchedData: fetchedData } = useQueryFetch(`search-history?type=${type}&type_id=${type_id}`);
+
+    const { fetchedData: userData, isPaused } = useQueryFetch(`user/list`);
+
+
+
+    useEffect(() => {
+
+
+        isPaused === true;
+
+    }, [])
+
+
+    console.log("isPaused")
+
+
+
+    const userlist = userData?.result
+
+
+    console.log("userlist", userlist)
 
 
     const history = fetchedData?.result
 
     console.log("history", history)
+
+    console.log("type", type)
 
     const dropData = [
 
@@ -49,23 +74,52 @@ const index = () => {
 
             <Grid container alignContent="space-around" alignItems="center">
 
+
+
                 <Grid lg={4}>
 
                     <DropDown text="Select Type" value={type} setValue={setType} dropData={dropData} name="name" />
 
                 </Grid >
 
-                <Grid lg={4} sx={{ bgcolor: "" }}>
+                {type === "user" && < Grid lg={4}>
 
-                    <Grid container sx={{ m: 1, bgcolor: "white" }}>
+                    <DropDown text="User List" value={user_list} setValue={setUserList} dropData={userlist} name="username" />
 
-                        <Typography sx={{ color: "#566573", fontWeight: "bold", width: "100%", mb: 1 }}>Type</Typography>
+                </Grid >}
 
-                        <TextField onChange={(e: any) => setTypeId(e.target.value)} />
+                {type === "client" &&
 
-                    </Grid>
+                    <Grid lg={4} sx={{ bgcolor: "" }}>
 
-                </Grid >
+                        <Grid container sx={{ m: 1, bgcolor: "white" }}>
+
+                            <Typography sx={{ color: "#566573", fontWeight: "bold", width: "100%", mb: 1 }}>Type</Typography>
+
+                            <TextField onChange={(e: any) => setTypeId(e.target.value)} />
+
+                        </Grid>
+
+                    </Grid >
+
+                }
+
+                {type === "date" && < Grid lg={4}>
+
+                    <Grid lg={4} sx={{ bgcolor: "" }}>
+
+                        <Grid container sx={{ m: 1, bgcolor: "white" }}>
+
+                            <Typography sx={{ color: "#566573", fontWeight: "bold", width: "100%", mb: 1 }}>Date</Typography>
+
+                            <TextField type="date" onChange={(e: any) => setTypeId(e.target.value)} />
+
+                        </Grid>
+
+                    </Grid >
+
+                </Grid >}
+
 
                 {history?.length > 0 &&
 
@@ -85,52 +139,53 @@ const index = () => {
 
 
 
-            {history?.map((data: any) =>
+            {
+                history?.map((data: any) =>
 
-                <Grid container lg={4}>
+                    <Grid container lg={4}>
 
 
-                    <Grid container sx={{ m: 1, p: 1, borderRadius: "10px", boxShadow: "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" }}>
+                        <Grid container sx={{ m: 1, p: 1, borderRadius: "10px", boxShadow: "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" }}>
 
-                        <Grid container lg={12}>
+                            <Grid container lg={12}>
 
-                            <Typography fontWeight="bold">Client Name</Typography>
+                                <Typography fontWeight="bold">Client Name</Typography>
 
-                            <Typography sx={{ mx: 1 }}>{data?.client?.customer_name}</Typography>
+                                <Typography sx={{ mx: 1 }}>{data?.client?.customer_name}</Typography>
+
+                            </Grid>
+
+                            <Grid container lg={12}>
+
+                                <Typography fontWeight="bold">User Name</Typography>
+
+                                <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
+
+                            </Grid>
+
+
+                            <Grid container lg={12}>
+
+                                <Typography fontWeight="bold">Purpose </Typography>
+
+                                <Typography sx={{ mx: 1 }}>{data.purpose}</Typography>
+
+                            </Grid>
+
+                            <Grid container lg={12}>
+
+                                <Typography fontWeight="bold">Date </Typography>
+
+                                <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
+
+                            </Grid>
 
                         </Grid>
 
-                        <Grid container lg={12}>
 
-                            <Typography fontWeight="bold">User Name</Typography>
+                    </Grid >
 
-                            <Typography sx={{ mx: 1 }}>{data.user.username}</Typography>
-
-                        </Grid>
-
-
-                        <Grid container lg={12}>
-
-                            <Typography fontWeight="bold">Purpose </Typography>
-
-                            <Typography sx={{ mx: 1 }}>{data.purpose}</Typography>
-
-                        </Grid>
-
-                        <Grid container lg={12}>
-
-                            <Typography fontWeight="bold">Date </Typography>
-
-                            <Typography sx={{ mx: 1 }}>{moment.utc(data.createdAt).format('MMMM Do YYYY, hh:mm A')}</Typography>
-
-                        </Grid>
-
-                    </Grid>
-
-
-                </Grid >
-
-            )
+                )
             }
 
 

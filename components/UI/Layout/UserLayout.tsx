@@ -52,6 +52,8 @@ export const UserLayout = () => {
 
         setSearchData(res.data.result)
 
+        localStorage.setItem("isSearch", "false")
+
 
       }));
 
@@ -91,7 +93,7 @@ export const UserLayout = () => {
 
       <form onSubmit={formik.handleSubmit}>
 
-        <Grid container justifyContent="space-between" alignItems="center" >
+        {localStorage.getItem("isSearch") === "true" ? <Grid container justifyContent="space-between" alignItems="center" >
 
           {list.map((data: any, index: any) =>
 
@@ -126,6 +128,16 @@ export const UserLayout = () => {
 
 
         </Grid >
+
+          :
+
+          <Grid>
+
+            <Typography>Please Login in back for Search</Typography>
+
+          </Grid>
+
+        }
 
       </form>
 
