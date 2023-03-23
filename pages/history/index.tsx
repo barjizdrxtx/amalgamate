@@ -24,33 +24,16 @@ const index = () => {
 
     const { fetchedData: fetchedData } = useQueryFetch(`search-history?type=${type}&type_id=${type_id}`);
 
-    const { fetchedData: userData, isPaused } = useQueryFetch(`user/list`);
-
-
-
-    useEffect(() => {
-
-
-        isPaused === true;
-
-    }, [])
-
-
-    console.log("isPaused")
-
+    const { fetchedData: userData } = useQueryFetch(`user/list`);
 
 
     const userlist = userData?.result
 
 
-    console.log("userlist", userlist)
-
-
     const history = fetchedData?.result
 
-    console.log("history", history)
+    console.log("user_list", user_list)
 
-    console.log("type", type)
 
     const dropData = [
 
@@ -67,6 +50,8 @@ const index = () => {
     ]
 
 
+
+
     return (
 
         <Grid container justifyContent="start" sx={{ mt: { xs: 10, md: 0 } }}>
@@ -78,13 +63,13 @@ const index = () => {
 
                 <Grid lg={4}>
 
-                    <DropDown text="Select Type" value={type} setValue={setType} dropData={dropData} name="name" />
+                    <DropDown text="Select Type" value={type} setValue={setType} dropData={dropData} name="name" id="name" />
 
                 </Grid >
 
                 {type === "user" && < Grid lg={4}>
 
-                    <DropDown text="User List" value={user_list} setValue={setUserList} dropData={userlist} name="username" />
+                    <DropDown text="User List" value={type_id} setValue={setTypeId} dropData={userlist} name="username" id="id" />
 
                 </Grid >}
 

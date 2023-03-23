@@ -24,10 +24,6 @@ const index = () => {
 
   const [tab, setTab] = useState(1);
 
-  console.log("history", request?.history.length < 1)
-
-
-
 
   return (
 

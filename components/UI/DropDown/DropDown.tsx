@@ -3,7 +3,7 @@ import React from 'react'
 
 export const DropDown = (props: any) => {
 
-    const { text, dropData, value, setValue, _id, name } = props;
+    const { text, dropData, value, setValue, id, name } = props;
 
     const handleChange = (event: SelectChangeEvent) => {
         setValue(event.target.value as string);
@@ -27,7 +27,7 @@ export const DropDown = (props: any) => {
 
                     {dropData?.map((data: any, index: any) =>
 
-                        <MenuItem key={index} sx={{ textTransform: "capitalize", width: "100%" }} value={data[name]}>{data[name]}</MenuItem>
+                        <MenuItem key={index} sx={{ textTransform: "capitalize", width: "100%" }} value={data[id]}>{data[name]}</MenuItem>
 
                     )}
 

@@ -24,7 +24,6 @@ export const Csv = (props: any) => {
     { label: "Date and Time", key: "date" }
   ];
 
-  console.log("exceldata", exceldata)
 
   return (
 

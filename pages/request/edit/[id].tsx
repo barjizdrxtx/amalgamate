@@ -48,12 +48,6 @@ const index = () => {
 
   const [serverType, setServerType] = React.useState(0);
 
-  
-  console.log("request", request)
-
-
-  console.log("serverType", serverType)
-
 
   React.useEffect(() => {
 
