@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from '@mui/material'
+import { FormControl, Grid, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
@@ -28,9 +28,11 @@ export const UserLayout = () => {
 
     },
 
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema,
 
-    onSubmit: (values: any) => {
+    onSubmit: (values: any, e: any) => {
+
+      // e.preventDefault()
 
       const axiosrequest = axios.post('request/details', {
 
@@ -52,7 +54,7 @@ export const UserLayout = () => {
 
         setSearchData(res.data.result)
 
-        localStorage.setItem("isSearch", "false")
+        localStorage.setItem("isSearch", "true")
 
 
       }));
@@ -75,6 +77,7 @@ export const UserLayout = () => {
       rows: 2
     },
 
+
     {
       title: "Client Id",
       label: "client_id",
@@ -91,11 +94,16 @@ export const UserLayout = () => {
 
     <Grid container justifyContent="center" alignItems="center" sx={{ mt: { xs: 8, md: 0 }, p: 1 }}>
 
-      <form onSubmit={formik.handleSubmit}>
 
-        {localStorage.getItem("isSearch") === "true" ? <Grid container justifyContent="space-between" alignItems="center" >
+      {localStorage.getItem("isSearch") === "true" ? <Grid container justifyContent="space-between" alignItems="center" >
 
-          {list.map((data: any, index: any) =>
+
+
+        {list.map((data: any, index: any) =>
+
+          <form onSubmit={formik.handleSubmit}>
+
+
 
             <Grid container key={index} xs={12} sm={12} lg={4}>
 
@@ -106,7 +114,7 @@ export const UserLayout = () => {
                 id={data.label}
                 name={data.label}
                 // label={data.label}
-                multiline
+                // multiline
                 rows={data.rows}
                 value={data.value}
                 type={data.type}
@@ -115,31 +123,41 @@ export const UserLayout = () => {
                 helperText={data.touched && data.errors}
               />
 
+
             </Grid>
-          )}
-
-          <Grid sx={{ bgcolor: "white" }}>
 
 
-            <CustomizedButton bgcolor="green" onClick={formik.handleSubmit}>Search</CustomizedButton>
+          </form>
+
+        )}
 
 
-          </Grid>
 
 
-        </Grid >
 
-          :
 
-          <Grid>
+        <Grid sx={{ bgcolor: "white" }}>
 
-            <Typography>Please Login in back for Search</Typography>
 
-          </Grid>
+          <CustomizedButton bgcolor="green" onClick={formik.handleSubmit}>Search</CustomizedButton>
 
-        }
 
-      </form>
+        </Grid>
+
+
+      </Grid >
+
+        :
+
+        <Grid>
+
+          <Typography>Please Login in back for Search</Typography>
+
+        </Grid>
+
+      }
+
+
 
       <RequestDetails2 searchData={searchData} />
 

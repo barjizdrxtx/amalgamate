@@ -280,7 +280,16 @@ const History = (props: any) => {
 
     <>
 
-      {request?.history > 1 ?
+      {request?.history.length < 1 ?
+
+
+        <Grid container justifyContent="center">
+
+          <img width="400px" src="/assets/nodata.png" />
+
+        </Grid >
+
+        :
 
 
         <Grid container justifyContent="start">
@@ -331,13 +340,7 @@ const History = (props: any) => {
 
         </Grid >
 
-        :
 
-        <Grid container justifyContent="center">
-
-          <img width="400px" src="/assets/nodata.png" />
-
-        </Grid >
 
       }
 
