@@ -54,7 +54,7 @@ export const UserLayout = () => {
 
         setSearchData(res.data.result)
 
-        localStorage.setItem("isSearch", "true")
+        localStorage.setItem("isSearch", "false")
 
 
       }));
@@ -65,103 +65,90 @@ export const UserLayout = () => {
 
 
 
-  const list = [
-
-    {
-      title: "Reason",
-      label: "reason",
-      type: "text",
-      value: formik.values.reason,
-      touched: formik.touched.reason,
-      errors: formik.errors.reason,
-      rows: 2
-    },
-
-
-    {
-      title: "Client Id",
-      label: "client_id",
-      type: "text",
-      value: formik.values.client_id,
-      touched: formik.touched.client_id,
-      errors: formik.errors.client_id,
-      rows: 1
-    },
-
-  ]
-
   return (
 
     <Grid container justifyContent="center" alignItems="center" sx={{ mt: { xs: 8, md: 0 }, p: 1 }}>
 
+      {localStorage.getItem("isSearch") === "true" ?
 
-      {localStorage.getItem("isSearch") === "true" ? <Grid container justifyContent="space-between" alignItems="center" >
-
-
-
-        {list.map((data: any, index: any) =>
-
-          <form onSubmit={formik.handleSubmit}>
+        <form style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} onSubmit={formik.handleSubmit}>
 
 
+          <Grid lg={10} container justifyContent="space-between" alignItems="center" >
 
-            <Grid container key={index} xs={12} sm={12} lg={4}>
+            <Grid container xs={12} sm={12} lg={4}>
 
-              <Typography sx={{ color: "#566573", fontWeight: "bold", m: 1 }}>{data.title}</Typography>
+              <Typography sx={{ color: "#566573", fontWeight: "bold", m: 1 }}>Reason</Typography>
 
               < TextField sx={{ width: "100%", mb: 2 }}
                 fullWidth
-                id={data.label}
-                name={data.label}
+                id="reason"
+                name="reason"
+                // label={data.label}
+                multiline
+                rows={4}
+                value={formik.values.reason}
+                type="text"
+                onChange={formik.handleChange}
+                error={formik.touched.reason && Boolean(formik.errors.reason)}
+                helperText={formik.touched.reason && formik.errors.reason}
+              />
+
+
+            </Grid>
+
+            <Grid container xs={12} sm={12} lg={4}>
+
+
+              <Typography sx={{ color: "#566573", fontWeight: "bold", m: 1 }}>Client Id</Typography>
+
+              < TextField sx={{ width: "100%", mb: 2 }}
+                fullWidth
+                id="client_id"
+                name="client_id"
                 // label={data.label}
                 // multiline
-                rows={data.rows}
-                value={data.value}
-                type={data.type}
+                rows={1}
+                value={formik.values.client_id}
+                type="text"
                 onChange={formik.handleChange}
-                error={data.touched && Boolean(data.errors)}
-                helperText={data.touched && data.errors}
+                error={formik.touched.client_id && Boolean(formik.errors.client_id)}
+                helperText={formik.touched.client_id && formik.errors.client_id}
               />
 
 
             </Grid>
 
 
-          </form>
 
-        )}
+            <Grid sx={{ bgcolor: "white" }}>
 
+              <CustomizedButton bgcolor="green" onClick={formik.handleSubmit}>Search</CustomizedButton>
 
-
-
-
-
-        <Grid sx={{ bgcolor: "white" }}>
+            </Grid>
 
 
-          <CustomizedButton bgcolor="green" onClick={formik.handleSubmit}>Search</CustomizedButton>
+          </Grid >
 
-
-        </Grid>
-
-
-      </Grid >
+        </form>
 
         :
 
         <Grid>
 
-          <Typography>Please Login in back for Search</Typography>
+          <Typography variant='subtitle1' sx={{ bgcolor: "#F8C471", p: 1 }}>Please Login in back for Search</Typography>
 
         </Grid>
 
       }
 
 
-
       <RequestDetails2 searchData={searchData} />
 
+
+
     </Grid >
+
 
 
   )
