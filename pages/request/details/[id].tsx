@@ -10,6 +10,7 @@ import { useQueryFetchId } from '../../../hooks/useQueryFetch';
 import * as moment from 'moment'
 import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
+import style from "../../../styles/TableUI.module.css"
 
 
 const index = () => {
@@ -22,7 +23,7 @@ const index = () => {
 
   const request = fetchedData?.result
 
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(0);
 
 
   return (
@@ -31,28 +32,22 @@ const index = () => {
 
       <Grid sx={{ m: 1 }}>
 
-        <CustomizedButton color={tab === 1 ? "white" : "black"} width="10%" boxShadow="rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" onClick={() => setTab(1)} bgcolor={tab === 1 ? "dodgerblue" : "white"} mx={0.5}>Details</CustomizedButton>
+        {["Details", "Product Key", "History"].map((data, index) =>
 
-        <CustomizedButton color={tab === 2 ? "white" : "black"} width="10%" boxShadow="rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" onClick={() => setTab(2)} bgcolor={tab === 2 ? "dodgerblue" : "white"} mx={0.5}>History</CustomizedButton>
+          <CustomizedButton color={tab === index ? "white" : "black"} width="fit-content"
+            boxShadow="rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px" onClick={() => setTab(index)} bgcolor={tab === index ? "dodgerblue" : "white"} mx={0.5}>{data}</CustomizedButton>
+
+        )}
 
       </Grid>
 
-      {
-        tab === 1 ?
-
-          <Details request={request} refetch={refetch} router={router} id={id} />
-
-          :
-
-          <>
+      {tab === 0 && <Details request={request} refetch={refetch} router={router} id={id} />}
 
 
-            <History request={request} />
+      {tab === 1 && <ProductKey request={request} />}
 
-          </>
+      {tab === 2 && <History request={request} />}
 
-
-      }
 
     </Grid >
 
@@ -484,6 +479,94 @@ const checkbox = [
   },
 
 ]
+
+
+export const ProductKey = (props: any) => {
+
+  const { request } = props;
+
+  console.log("request", request?.product_keys)
+
+  const router = useRouter();
+
+  const tableHead = [
+
+    "Client ID",
+    "Product Key",
+    "Software Name",
+    "Mac Id",
+    "Type"
+  ];
+
+  const element = [
+    "client_id",
+    "product_key",
+    "software_name",
+    "mac_id",
+    "type"
+  ]
+
+  const actions = [
+    "OverView",
+    "Edit",
+    "Delete"
+  ];
+
+
+  return (
+
+    <Grid>
+
+      <table id={style.table}>
+
+        <tbody>
+
+          <tr>
+
+            <th>No</th>
+
+            {tableHead.map((data: any, index: any) =>
+
+              <th key={index}>{data}</th>
+
+            )}
+
+          </tr>
+
+          {request?.product_keys?.map((data: any, index: any) =>
+
+            <tr key={index} style={{ cursor: "pointer" }}>
+
+              <td style={{ fontWeight: "bold" }}>
+                {/* {index + 1 + (page - 1) * limit} */}
+                {data.id}
+              </td>
+
+
+              {element.map((el: any, index: any) =>
+
+                <td key={index}>
+
+                  {data[el]}
+
+                </td>
+
+              )}
+
+            </tr>
+
+          )}
+
+
+        </tbody>
+
+      </table>
+
+    </Grid>
+
+  )
+}
+
 
 
 

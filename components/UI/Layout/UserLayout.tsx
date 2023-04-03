@@ -28,7 +28,7 @@ export const UserLayout = () => {
 
     },
 
-    // validationSchema: validationSchema,
+    validationSchema: validationSchema,
 
     onSubmit: (values: any, e: any) => {
 
@@ -69,78 +69,70 @@ export const UserLayout = () => {
 
     <Grid container justifyContent="center" alignItems="center" sx={{ mt: { xs: 8, md: 0 }, p: 1 }}>
 
-      {localStorage.getItem("isSearch") === "true" ?
-
-        <form style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} onSubmit={formik.handleSubmit}>
+      <form style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} onSubmit={formik.handleSubmit}>
 
 
-          <Grid lg={10} container justifyContent="space-between" alignItems="center" >
+        <Grid lg={10} container justifyContent="space-between" alignItems="center" >
 
-            <Grid container xs={12} sm={12} lg={4}>
+          <Grid container xs={12} sm={12} lg={4}>
 
-              <Typography sx={{ color: "#566573", fontWeight: "bold", m: 1 }}>Reason</Typography>
+            <Typography sx={{ color: "#566573", fontWeight: "bold", m: 1 }}>Reason</Typography>
 
-              < TextField sx={{ width: "100%", mb: 2 }}
-                fullWidth
-                id="reason"
-                name="reason"
-                // label={data.label}
-                multiline
-                rows={4}
-                value={formik.values.reason}
-                type="text"
-                onChange={formik.handleChange}
-                error={formik.touched.reason && Boolean(formik.errors.reason)}
-                helperText={formik.touched.reason && formik.errors.reason}
-              />
-
-
-            </Grid>
-
-            <Grid container xs={12} sm={12} lg={4}>
+            < TextField sx={{ width: "100%", mb: 2 }}
+              fullWidth
+              id="reason"
+              name="reason"
+              // label={data.label}
+              multiline
+              rows={4}
+              value={formik.values.reason}
+              type="text"
+              disabled={localStorage.getItem("isSearch") === "true" ? false : true}
+              onChange={formik.handleChange}
+              error={formik.touched.reason && Boolean(formik.errors.reason)}
+              helperText={formik.touched.reason && formik.errors.reason}
+            />
 
 
-              <Typography sx={{ color: "#566573", fontWeight: "bold", m: 1 }}>Client Id</Typography>
+          </Grid>
 
-              < TextField sx={{ width: "100%", mb: 2 }}
-                fullWidth
-                id="client_id"
-                name="client_id"
-                // label={data.label}
-                // multiline
-                rows={1}
-                value={formik.values.client_id}
-                type="text"
-                onChange={formik.handleChange}
-                error={formik.touched.client_id && Boolean(formik.errors.client_id)}
-                helperText={formik.touched.client_id && formik.errors.client_id}
-              />
+          <Grid container xs={12} sm={12} lg={4}>
 
 
-            </Grid>
+            <Typography sx={{ color: "#566573", fontWeight: "bold", m: 1 }}>Client Id</Typography>
+
+            < TextField sx={{ width: "100%", mb: 2 }}
+              fullWidth
+              id="client_id"
+              name="client_id"
+              // label={data.label}
+              // multiline
+              rows={1}
+              value={formik.values.client_id}
+              type="text"
+              onChange={formik.handleChange}
+              disabled={localStorage.getItem("isSearch") === "true" ? false : true}
+              error={formik.touched.client_id && Boolean(formik.errors.client_id)}
+              helperText={formik.touched.client_id && formik.errors.client_id}
+            />
+
+
+          </Grid>
 
 
 
-            <Grid sx={{ bgcolor: "white" }}>
+          <Grid sx={{ bgcolor: "white" }}>
 
-              <CustomizedButton bgcolor="green" onClick={formik.handleSubmit}>Search</CustomizedButton>
+            <CustomizedButton
+              disabled={localStorage.getItem("isSearch") === "true" ? false : true}
+              bgcolor="green" onClick={formik.handleSubmit}>Search</CustomizedButton>
 
-            </Grid>
+          </Grid>
 
 
-          </Grid >
+        </Grid >
 
-        </form>
-
-        :
-
-        <Grid>
-
-          <Typography variant='subtitle1' sx={{ bgcolor: "#F8C471", p: 1 }}>Please Login in back for Search</Typography>
-
-        </Grid>
-
-      }
+      </form>
 
 
       <RequestDetails2 searchData={searchData} />

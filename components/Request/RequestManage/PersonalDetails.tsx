@@ -56,7 +56,7 @@ export const PersonalDetails = (props: any) => {
 
                     <Grid container xs={12} sm={6} lg={4}>
 
-                        <DropDown text="service type" value={serverType} setValue={setServerType} dropData={dropData} name="name" />
+                        <DropDown text="service type" value={serverType} setValue={setServerType} dropData={dropData} id="name" name="name" />
 
                     </Grid>
 

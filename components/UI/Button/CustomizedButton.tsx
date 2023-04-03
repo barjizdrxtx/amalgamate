@@ -3,10 +3,10 @@ import React from 'react'
 
 export const CustomizedButton = (props: any) => {
 
-    const { children, onClick, bgcolor, type, mx, boxShadow, color } = props;
+    const { disabled, children, onClick, bgcolor, type, mx, boxShadow, color } = props;
 
     return (
-        <Button type={type} sx={{
+        <Button disabled={disabled} type={type} sx={{
             boxShadow: boxShadow,
             width: props.width, mx: mx, color: color,
             my: 1, bgcolor: bgcolor, border: `1px solid ${bgcolor}`, "&:hover": {
