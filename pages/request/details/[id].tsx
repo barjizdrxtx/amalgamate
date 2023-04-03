@@ -491,7 +491,7 @@ export const ProductKey = (props: any) => {
 
   const tableHead = [
 
-    "Client ID",
+    // "Client ID",
     "Product Key",
     "Software Name",
     "Mac Id",
@@ -499,7 +499,7 @@ export const ProductKey = (props: any) => {
   ];
 
   const element = [
-    "client_id",
+    // "client_id",
     "product_key",
     "software_name",
     "mac_id",
@@ -525,14 +525,16 @@ export const ProductKey = (props: any) => {
 
             <th>No</th>
 
-            <th>Status</th>
-
 
             {tableHead.map((data: any, index: any) =>
 
               <th key={index}>{data}</th>
 
             )}
+
+            <th>Status</th>
+
+
 
           </tr>
 
