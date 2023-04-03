@@ -525,6 +525,9 @@ export const ProductKey = (props: any) => {
 
             <th>No</th>
 
+            <th>Status</th>
+
+
             {tableHead.map((data: any, index: any) =>
 
               <th key={index}>{data}</th>
@@ -552,6 +555,17 @@ export const ProductKey = (props: any) => {
                 </td>
 
               )}
+
+              <td>
+
+                <Typography sx={{
+                  width: 'fit-content', bgcolor: data.is_active === true ? "green" : "gray", px: 1,
+                  borderRadius: "20px", color: "white"
+                }}>{data.is_active === true ? "active" : "inactive"}</Typography>
+                {data.is_active}
+
+              </td>
+
 
             </tr>
 
