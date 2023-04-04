@@ -23,7 +23,7 @@ export const DropDown = (props: any) => {
                     onChange={handleChange}
                 >
 
-                    <MenuItem value={0} disabled >Select a {text}</MenuItem>
+                    <MenuItem value={0} disabled >{text}</MenuItem>
 
                     {dropData?.map((data: any, index: any) =>
 

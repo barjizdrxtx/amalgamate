@@ -56,11 +56,11 @@ const index = () => {
             software_name: '',
             shop_category: '',
 
-            erp_system_count: '',
-            pos_system_count: '',
-            user_limit: '',
-            active_erp: '',
-            active_pos: '',
+            erp_system_count: 0,
+            pos_system_count: 0,
+            user_limit: 1,
+            active_erp: 0,
+            active_pos: 0,
 
             amc: '',
             server_password: '',
@@ -107,7 +107,7 @@ const index = () => {
                 sql_password: values.sql_password,
                 next_amc_date: next_amc_date?.$d,
                 file_location: file_upload,
-                server_type: serverType,
+                server_type: serverType || null,
                 care_of: values.care_of
             },
                 {

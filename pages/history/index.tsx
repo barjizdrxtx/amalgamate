@@ -32,7 +32,7 @@ const index = () => {
 
     const history = fetchedData?.result
 
-    console.log("history", history)
+    // console.log("history", history)
 
 
     const dropData = [
