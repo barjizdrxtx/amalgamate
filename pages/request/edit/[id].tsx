@@ -47,6 +47,8 @@ const index = () => {
   const [next_amc_date, setNextAmcDate]: any = React.useState();
 
   const [serverType, setServerType] = React.useState(0);
+  const [softwareName, setSoftwareName] = React.useState(0);
+
 
 
   React.useEffect(() => {
@@ -66,6 +68,8 @@ const index = () => {
     setIsActive(request?.is_active)
 
     setServerType(request?.server_type)
+
+    setSoftwareName(request?.software_name)
 
   }, [request])
 
@@ -123,7 +127,7 @@ const index = () => {
         email: values.email,
         owner_contact_no: values.owner_contact_no,
 
-        software_name: values.software_name,
+        software_name: softwareName,
         shop_category: values.shop_category,
         erp: erp,
         pos: pos,

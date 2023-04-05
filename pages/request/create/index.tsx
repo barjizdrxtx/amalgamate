@@ -36,6 +36,7 @@ const index = () => {
     const [next_amc_date, setNextAmcDate]: any = React.useState();
 
     const [serverType, setServerType] = React.useState(0);
+    const [softwareName, setSoftwareName] = React.useState(0);
 
 
     const formik = useFormik({
@@ -86,7 +87,7 @@ const index = () => {
                 email: values.email,
                 owner_contact_no: values.owner_contact_no,
 
-                software_name: values.software_name,
+                software_name: softwareName,
                 shop_category: values.shop_category,
                 erp: erp,
                 pos: pos,
@@ -240,14 +241,14 @@ const index = () => {
 
     const installiondetails = [
 
-        {
-            title: "Software  Name",
-            label: "software_name",
-            type: "text",
-            value: formik.values.software_name,
-            touched: formik.touched.software_name,
-            errors: formik.errors.software_name,
-        },
+        // {
+        //     title: "Software  Name",
+        //     label: "software_name",
+        //     type: "text",
+        //     value: formik.values.software_name,
+        //     touched: formik.touched.software_name,
+        //     errors: formik.errors.software_name,
+        // },
         {
             title: "Shop Category",
             label: "shop_category",
@@ -364,6 +365,9 @@ const index = () => {
             label: "Installion Details",
             errors: false,
             component: <InstallionDetails
+
+                softwareName={softwareName}
+                setSoftwareName={setSoftwareName}
 
                 erp={erp}
                 setErp={setErp}

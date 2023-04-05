@@ -495,7 +495,8 @@ export const ProductKey = (props: any) => {
     "Product Key",
     "Software Name",
     "Mac Id",
-    "Type"
+    "Type",
+    "Activated Date"
   ];
 
   const element = [
@@ -503,7 +504,8 @@ export const ProductKey = (props: any) => {
     "product_key",
     "software_name",
     "mac_id",
-    "type"
+    "type",
+    'activated_date'
   ]
 
   const actions = [

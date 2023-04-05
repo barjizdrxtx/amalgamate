@@ -1,10 +1,16 @@
 import { Checkbox, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { Box } from '@mui/system';
+import { DropDown } from '../../UI/DropDown/DropDown';
+import { useQueryFetch } from '../../../hooks/useQueryFetch';
+
 
 export const InstallionDetails = (props: any) => {
 
     const { list, formik,
+        softwareName,
+        setSoftwareName,
+
         erp,
         setErp,
 
@@ -19,6 +25,20 @@ export const InstallionDetails = (props: any) => {
 
     } = props;
 
+    const { fetchedData: fetchedData, refetch: refetch } = useQueryFetch(`request/softwares`);
+
+    const dropData = fetchedData?.result
+
+    // const dropData = [
+
+    //     { name: "Amber Erp" },
+    //     { name: "Amber Pos" },
+    //     { name: "Zoomie" },
+    //     { name: "Beauteqx" },
+    //     { name: "Gozzbe" }
+    // ]
+    
+
     return (
 
         <Grid container justifyContent="center" xl={12}>
@@ -26,6 +46,12 @@ export const InstallionDetails = (props: any) => {
             <form onSubmit={formik.handleSubmit}>
 
                 <Grid container lg={12} alignItems="center">
+
+                    <Grid container xs={12} sm={6} lg={4}>
+
+                        <DropDown text="Software Name" value={softwareName} setValue={setSoftwareName} dropData={dropData} id="name" name="name" />
+
+                    </Grid>
 
                     {list.map((data: any, index: any) =>
 
