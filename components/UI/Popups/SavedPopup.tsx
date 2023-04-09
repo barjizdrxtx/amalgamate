@@ -3,21 +3,23 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import React from 'react'
 import { CustomizedButton } from '../Button/CustomizedButton'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckCircleIcon from '@mui/icons-material/CheckRounded';
+import CloseIcon from '@mui/icons-material/CloseRounded';
 import { useRouter } from 'next/router'
 
 export const SavedPopup = (props: any) => {
 
-    const { title, setAlertBox } = props;
+    const { data, setAlertBox } = props;
 
     const router = useRouter();
 
-    
+
     const onYes = () => {
 
-        setAlertBox(false)
+        setAlertBox({ active: false, message: '', success: false })
 
-        router.push('/')
+        if (data.success)
+            router.push(`/request/details/${data.id}`)
 
     }
 
@@ -36,9 +38,11 @@ export const SavedPopup = (props: any) => {
                 justifyContent: "center", alignItems: "center", py: 3, px: 5, borderRadius: "10px"
             }}>
 
-                <CheckCircleIcon sx={{ fontSize: "6rem", color: "dodgerblue" }} />
+                {data.success ? <CheckCircleIcon sx={{ fontSize: "6rem", color: "green" }} /> :
+                 <CloseIcon sx={{ fontSize: "6rem", color: "red" }} />
+                } 
 
-                <Typography variant='h5' fontWeight="bold" sx={{ m: 1 }}>{title}</Typography>
+                <Typography variant='h5' fontWeight="bold" sx={{ m: 1 }}>{data.message}</Typography>
 
 
                 <CustomizedButton onClick={onYes} bgcolor="dodgerblue" mx={1}>Continue</CustomizedButton>

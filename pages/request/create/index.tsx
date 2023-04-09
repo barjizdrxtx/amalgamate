@@ -20,7 +20,7 @@ const index = () => {
     const [file_upload, setFileUpload] = React.useState();
 
 
-    const [alertBox, setAlertBox] = React.useState(false)
+    const [alertBox, setAlertBox] = React.useState({ active: false, message: '', success: false, id: 0 })
 
 
     const [isActive, setIsActive] = React.useState(true);
@@ -36,7 +36,7 @@ const index = () => {
     const [next_amc_date, setNextAmcDate]: any = React.useState();
 
     const [serverType, setServerType] = React.useState(0);
-    const [softwareName, setSoftwareName] = React.useState(0);
+    const [softwareName, setSoftwareName] = React.useState(null);
 
 
     const formik = useFormik({
@@ -122,7 +122,7 @@ const index = () => {
             // you could also use destructuring to have an array of responses
             axios.all([axiosrequest]).then(axios.spread(function (res) {
 
-                setAlertBox(true)
+                setAlertBox({ active: true, message: res.data.message, success: res.data.success, id: res.data?.result.id })
 
             }));
 
@@ -421,8 +421,7 @@ const index = () => {
 
                 <MainTab tabData={tabData} pop={pop} />
 
-
-                {alertBox === true && < SavedPopup title="Saved Successfully" setAlertBox={setAlertBox} />}
+                {alertBox.active === true && < SavedPopup data={alertBox} setAlertBox={setAlertBox}  />}
 
             </Box>
 

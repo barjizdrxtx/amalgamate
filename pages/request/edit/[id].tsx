@@ -31,7 +31,7 @@ const index = () => {
   const [file_upload, setFileUpload] = React.useState();
 
 
-  const [alertBox, setAlertBox] = React.useState(false)
+  const [alertBox, setAlertBox] = React.useState({ active: false, message: '', success: false, id: 0 })
 
 
   const [isActive, setIsActive] = React.useState(true);
@@ -47,7 +47,7 @@ const index = () => {
   const [next_amc_date, setNextAmcDate]: any = React.useState();
 
   const [serverType, setServerType] = React.useState(0);
-  const [softwareName, setSoftwareName] = React.useState(0);
+  const [softwareName, setSoftwareName] = React.useState(null);
 
 
 
@@ -163,7 +163,7 @@ const index = () => {
       // you could also use destructuring to have an array of responses
       axios.all([axiosrequest]).then(axios.spread(function (res) {
 
-        setAlertBox(true)
+        setAlertBox({ active: true, message: res.data.message, success: res.data.success, id: res.data?.result.id })
 
       }));
 
@@ -259,14 +259,14 @@ const index = () => {
 
   const installiondetails = [
 
-    {
-      title: "Software  Name",
-      label: "software_name",
-      type: "text",
-      value: formik.values.software_name,
-      touched: formik.touched.software_name,
-      errors: formik.errors.software_name,
-    },
+    // {
+    //   title: "Software  Name",
+    //   label: "software_name",
+    //   type: "text",
+    //   value: formik.values.software_name,
+    //   touched: formik.touched.software_name,
+    //   errors: formik.errors.software_name,
+    // },
     {
       title: "Shop Category",
       label: "shop_category",
@@ -383,6 +383,9 @@ const index = () => {
       errors: false,
       component: <InstallionDetails
 
+        softwareName={softwareName}
+        setSoftwareName={setSoftwareName}
+
         erp={erp}
         setErp={setErp}
 
@@ -429,13 +432,13 @@ const index = () => {
         flexDirection: { xs: "column-reverse", lg: "column" }
       }}>
 
-        <CreateButton buttonName="Save" title="Edit Registration"
+        <CreateButton buttonName="Update" title="Edit Registration"
           onCreate={formik.handleSubmit}
         />
 
         <MainTab tabData={tabData} request={request} />
 
-        {alertBox === true && < SavedPopup title="Saved Successfully" setAlertBox={setAlertBox} />}
+        {alertBox.active === true && < SavedPopup data={alertBox} setAlertBox={setAlertBox}  />}
 
       </Box>
 
