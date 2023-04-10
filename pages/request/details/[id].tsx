@@ -546,7 +546,8 @@ export const ProductKey = (props: any) => {
 
               <td style={{ fontWeight: "bold" }}>
                 {/* {index + 1 + (page - 1) * limit} */}
-                {data.id}
+                {/* {data.id} */}
+                {index + 1}
               </td>
 
 

@@ -163,7 +163,7 @@ const index = () => {
       // you could also use destructuring to have an array of responses
       axios.all([axiosrequest]).then(axios.spread(function (res) {
 
-        setAlertBox({ active: true, message: res.data.message, success: res.data.success, id: res.data?.result.id })
+        setAlertBox({ active: true, message: res.data.message, success: res.data.success, id: res.data?.result?.id })
 
       }));
 
