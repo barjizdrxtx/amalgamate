@@ -14,7 +14,7 @@ const index = () => {
 
         "Client ID",
         "Customer Name",
-        "Shop Name",
+        "Shop Category",
         "Contact Number",
         "Software Name"
     ];
@@ -22,7 +22,7 @@ const index = () => {
     const element = [
         "client_id",
         "customer_name",
-        "shop_name",
+        "shop_category",
         "contact_number",
         "software_name"
     ]
