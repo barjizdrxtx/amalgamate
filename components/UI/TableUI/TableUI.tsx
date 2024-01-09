@@ -159,7 +159,7 @@ export const TableUI = (props: any) => {
                     <td>
 
                       <Typography sx={{
-                        width: 'fit-content', bgcolor: data.is_active === true ? "yellowgreen" : "grey", px: 1,
+                        width: 'fit-content', bgcolor: data.is_active === true ? "yellowgreen" : "gray", px: 1,
                         borderRadius: "20px", color: "white"
                       }}>{data.is_active === true ? "Active" : "Inactive"}</Typography>
 

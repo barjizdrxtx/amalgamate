@@ -53,9 +53,9 @@ export const RequestDetails2 = (props: any) => {
 
                         <Typography sx={{
 
-                            bgcolor: searchData?.is_active === true ? "green" : "red", px: 1,
+                            bgcolor: searchData?.is_active === true ? "yellowgreen" : "red", px: 1,
                             borderRadius: "20px", color: "white"
-                        }}>{searchData?.is_active === true ? "active" : "inactive"}</Typography>
+                        }}>{searchData?.is_active === true ? "Active" : "Inactive"}</Typography>
 
 
                     </Grid>

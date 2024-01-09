@@ -159,13 +159,13 @@ const Details = (props: any) => {
 
             <Typography
               sx={{
-                bgcolor: request?.is_active === true ? "green" : "red",
+                bgcolor: request?.is_active === true ? "yellowgreen" : "red",
                 px: 1,
                 borderRadius: "20px",
                 color: "white",
               }}
             >
-              {request?.is_active === true ? "active" : "inactive"}
+              {request?.is_active === true ? "Active" : "Inactive"}
             </Typography>
           </Grid>
 
@@ -542,9 +542,9 @@ export const ProductKey = (props: any) => {
 
               {element.map((el: any, index: any) => (
                 <td key={index}>
-                  {el === "last_loggedin_at"
+                  {el === "last_loggedin_at" && data?.last_loggedin_at
                     ? moment
-                        .utc(data["createdAt"])
+                        .utc(data["last_loggedin_at"])
                         .format("MMMM Do YYYY hh:mm:ss A")
                     : data[el]}
                 </td>
