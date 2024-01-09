@@ -496,6 +496,7 @@ export const ProductKey = (props: any) => {
     "Software Name",
     "Mac Id",
     "Type",
+    "Activated By",
     "Activated Date"
   ];
 
@@ -505,6 +506,7 @@ export const ProductKey = (props: any) => {
     "software_name",
     "mac_id",
     "type",
+    "user",
     'activated_date'
   ]
 
@@ -564,9 +566,9 @@ export const ProductKey = (props: any) => {
               <td>
 
                 <Typography sx={{
-                  width: 'fit-content', bgcolor: data.is_active === true ? "green" : "gray", px: 1,
+                  width: 'fit-content', bgcolor: data.is_active === true ? "yellowgreen" : "gray", px: 1,
                   borderRadius: "20px", color: "white"
-                }}>{data.is_active === true ? "active" : "inactive"}</Typography>
+                }}>{data.is_active === true ? "Active" : "Inactive"}</Typography>
                 {data.is_active}
 
               </td>

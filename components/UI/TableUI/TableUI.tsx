@@ -118,7 +118,7 @@ export const TableUI = (props: any) => {
 
               {tableData?.result?.rows?.map((data: any, index: any) =>
 
-                <tr key={index} style={{ cursor: "pointer" }}>
+                <tr key={index} style={{ cursor: "pointer" }} onClick={() => router.push(`/request/details/${data.id}`)}>
 
                   <td style={{ fontWeight: "bold" }}>
                     {/* {index + 1 + (page - 1) * limit} */}
@@ -141,10 +141,14 @@ export const TableUI = (props: any) => {
 
                   {element.map((el: any, index: any) =>
 
+                    <td key={index} >
 
-                    <td key={index} onClick={() => router.push(`/request/details/${data.id}`)}>
-
-                      {nestedArray ? data["data"][el] : data[el]}
+                      {el === 'total_systems' ? 
+                        data['erp_system_count'] + data['tab_count'] + data['pos_system_count'] 
+                      : el === 'active_systems' ? 
+                        data['active_erp'] + data['active_pos'] + data['active_tabs']
+                      : nestedArray ? data["data"][el] 
+                      : data[el]}
 
                     </td>
 
@@ -155,9 +159,9 @@ export const TableUI = (props: any) => {
                     <td>
 
                       <Typography sx={{
-                        width: 'fit-content', bgcolor: data.is_active === true ? "green" : "grey", px: 1,
+                        width: 'fit-content', bgcolor: data.is_active === true ? "yellowgreen" : "grey", px: 1,
                         borderRadius: "20px", color: "white"
-                      }}>{data.is_active === true ? "active" : "inactive"}</Typography>
+                      }}>{data.is_active === true ? "Active" : "Inactive"}</Typography>
 
                     </td>}
 

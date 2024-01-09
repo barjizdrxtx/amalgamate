@@ -59,9 +59,11 @@ const index = () => {
 
             erp_system_count: 0,
             pos_system_count: 0,
+            tab_count: 0,
             user_limit: 1,
             active_erp: 0,
             active_pos: 0,
+            active_tabs: 0,
 
             amc: '',
             server_password: '',
@@ -94,9 +96,11 @@ const index = () => {
                 erp_pos: erp_pos,
                 erp_system_count: values.erp_system_count,
                 pos_system_count: values.pos_system_count,
+                tab_count: values.tab_count,
                 user_limit: values.user_limit,
                 active_erp: values.active_erp,
                 active_pos: values.active_pos,
+                active_tabs: values.active_tabs,
 
                 amc: values.amc,
                 software_support: software_support,
@@ -274,6 +278,14 @@ const index = () => {
             errors: formik.errors.pos_system_count,
         },
         {
+            title: "Tab Count",
+            label: "tab_count",
+            type: "number",
+            value: formik.values.tab_count,
+            touched: formik.touched.tab_count,
+            errors: formik.errors.tab_count,
+        },
+        {
             title: "User Limit",
             label: "user_limit",
             type: "number",
@@ -297,6 +309,14 @@ const index = () => {
             value: formik.values.active_pos,
             touched: formik.touched.active_pos,
             errors: formik.errors.active_pos,
+        },
+        {
+            title: "Active Tabs",
+            label: "active_tabs",
+            type: "number",
+            value: formik.values.active_tabs,
+            touched: formik.touched.active_tabs,
+            errors: formik.errors.active_tabs,
         },
     ]
 

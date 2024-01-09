@@ -15,7 +15,8 @@ const index = () => {
         "Client ID",
         "Customer Name",
         "Shop Category",
-        "Contact Number",
+        "Total Systems",
+        "Active Systems",
         "Software Name"
     ];
 
@@ -23,7 +24,8 @@ const index = () => {
         "client_id",
         "customer_name",
         "shop_category",
-        "contact_number",
+        "total_systems",
+        "active_systems",
         "software_name"
     ]
 
@@ -40,7 +42,7 @@ const index = () => {
 
             <CustomizedButton onClick={() => router.push("/request/create")} bgcolor={PRIMARY_COLOR}>Registration</CustomizedButton>
 
-            <TableUI tableName="Registration" tableHead={tableHead} showStatus={false}
+            <TableUI tableName="Registration" tableHead={tableHead} showStatus={true}
                 element={element} name="request" actions={actions} />
 
         </Grid>
