@@ -15,8 +15,8 @@ export const PersonalDetails = (props: any) => {
 
         { name: "vpn" },
         { name: "onpremises" },
-        { name: "cloud" }
-
+        { name: "cloud" },
+        { name: "DynDns" }
     ]
 
 
