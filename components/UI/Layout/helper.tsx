@@ -1,6 +1,7 @@
 import FeedIcon from '@mui/icons-material/Feed';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import HistoryIcon from '@mui/icons-material/History';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 
 export const siderbar = [
     {
@@ -17,6 +18,11 @@ export const siderbar = [
         name: 'History',
         icon: HistoryIcon,
         path: '/history'
+    },
+    {
+        name: 'Report',
+        icon: SummarizeIcon,
+        path: '/report'
     },
 
 ]
