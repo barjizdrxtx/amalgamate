@@ -1,13 +1,17 @@
 import {
+  Button,
   Grid,
   MenuItem,
   Select,
   SelectChangeEvent,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import { DropDown } from "../../components/UI/DropDown/DropDown";
 import React from "react";
 import { useQueryFetch } from "../../hooks/useQueryFetch";
+import Download from "@mui/icons-material/Download";
+import { CsvReport } from "../../components/UI/Csv/Csv";
 
 const index = () => {
   const [month, setMonth] = React.useState<number>(0);
@@ -37,6 +41,8 @@ const index = () => {
   const handleChange = (value: number) => {
     setMonth(value);
   };
+
+  const handleDownload = () => {};
 
   React.useEffect(() => {
     refetch();
@@ -80,30 +86,75 @@ const index = () => {
             </Grid>
           </Grid>
         </Grid>
+        {request?.length > 0 && (
+          <Grid lg={4} sx={{ bgcolor: "", m: 1 }} alignItems="center">
+            <CsvReport csvdata={request} />
+          </Grid>
+        )}
+        {/* {request?.length && (
+          <Button
+            variant="contained"
+            startIcon={<Download />}
+            onClick={handleDownload}
+          >
+            Download
+          </Button>
+        )} */}
       </Grid>
 
-      {request?.map((data: any) => (
-        <Grid container lg={4}>
-          <Grid
-            container
-            sx={{
-              m: 1,
-              p: 1,
-              borderRadius: "10px",
-              boxShadow:
-                "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px",
-            }}
-          >
-            <Grid container lg={12}>
-              <Typography fontWeight="bold">Client Name: </Typography>
+      {request?.length ? (
+        request?.map((data: any) => (
+          <Grid container lg={4}>
+            <Grid
+              container
+              sx={{
+                m: 1,
+                p: 1,
+                borderRadius: "10px",
+                boxShadow:
+                  "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px",
+              }}
+            >
+              <Grid container lg={12}>
+                <Typography fontWeight="bold">Client Name: </Typography>
 
-              <Typography sx={{ mx: 1 }}>
-                {data?.client?.customer_name}
-              </Typography>
+                <Typography sx={{ mx: 1 }}>{data?.customer_name}</Typography>
+              </Grid>
+
+              <Grid container lg={12}>
+                <Typography fontWeight="bold">AMC Amount: </Typography>
+
+                <Typography sx={{ mx: 1 }}>{data?.amc}</Typography>
+              </Grid>
+
+              {/* <Grid container lg={12}>
+                <Typography fontWeight="bold">Last Login: </Typography>
+
+                <Typography sx={{ mx: 1 }}>{data?.customer_name}</Typography>
+              </Grid> */}
+
+              <Grid container lg={12}>
+                <Typography fontWeight="bold">Status: </Typography>
+
+                <Typography
+                  sx={{
+                    width: "fit-content",
+                    height: "25px",
+                    bgcolor: data?.is_active === true ? "yellowgreen" : "gray",
+                    px: 1,
+                    borderRadius: "20px",
+                    color: "white",
+                  }}
+                >
+                  {data.is_active === true ? "Active" : "Inactive"}
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      ))}
+        ))
+      ) : (
+        <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+      )}
     </Grid>
   );
 };
