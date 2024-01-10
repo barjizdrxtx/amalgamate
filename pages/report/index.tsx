@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   Grid,
   MenuItem,
   Select,
@@ -102,7 +103,7 @@ const index = () => {
         )} */}
       </Grid>
 
-      {request?.length ? (
+      {request ? (
         request?.map((data: any) => (
           <Grid container lg={4}>
             <Grid
@@ -153,7 +154,10 @@ const index = () => {
           </Grid>
         ))
       ) : (
-        <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+        // <Skeleton variant="text" sx={{ fontSize: "1rem" }} width={'100%'} height={60} />
+        <Grid container>
+          <CircularProgress />
+        </Grid>
       )}
     </Grid>
   );
