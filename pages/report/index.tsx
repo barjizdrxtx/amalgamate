@@ -1,6 +1,8 @@
 import {
+  Box,
   Button,
   CircularProgress,
+  Fade,
   Grid,
   MenuItem,
   Select,
@@ -13,16 +15,16 @@ import React from "react";
 import { useQueryFetch } from "../../hooks/useQueryFetch";
 import Download from "@mui/icons-material/Download";
 import { CsvReport } from "../../components/UI/Csv/Csv";
+import style from "../../styles/TableUI.module.css";
+import axios from "axios";
+import * as moment from "moment";
 
 const index = () => {
   const [month, setMonth] = React.useState<number>(0);
   const [report, setReport] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
-  const { fetchedData: fetchedData, refetch: refetch } = useQueryFetch(
-    `request/report?month=${month}`
-  );
-
-  const request = fetchedData?.result;
+  let request: string | any[] = [];
 
   const months = [
     { value: 1, label: "January" },
@@ -41,13 +43,43 @@ const index = () => {
 
   const handleChange = (value: number) => {
     setMonth(value);
+    setLoading(true);
+    axios
+      .get(`request/report?month=${value}`)
+      .then((response: any) => {
+        if (response.data.statusCode === 200) {
+          setReport(response.data.result);
+          setLoading(false);
+        } else if (response.data.statusCode === 404) {
+          alert("No Data Found!");
+        } else {
+          alert("Failed to Load Data, Please try Again Later!");
+        }
+      })
+      .catch((error: any) => {
+        alert("Failed to Load Data, Please try Again Later!");
+      });
   };
 
-  const handleDownload = () => {};
-
-  React.useEffect(() => {
-    refetch();
-  }, [month]);
+  const tableHead: any[] = [
+    "Sl No",
+    "Client ID",
+    "Client Name",
+    "Software Name",
+    "Server Type",
+    "Instalation Date",
+    "AMC Amount",
+    "Status",
+  ];
+  const element: any[] = [
+    "client_id",
+    "customer_name",
+    "software_name",
+    "server_type",
+    "createdAt",
+    "amc",
+    "is_active",
+  ];
 
   return (
     <Grid container justifyContent="start" sx={{ mt: { xs: 10, md: 0 } }}>
@@ -87,78 +119,94 @@ const index = () => {
             </Grid>
           </Grid>
         </Grid>
-        {request?.length > 0 && (
+        {report?.length > 0 && (
           <Grid lg={4} sx={{ bgcolor: "", m: 1 }} alignItems="center">
-            <CsvReport csvdata={request} />
+            <CsvReport csvdata={report} />
           </Grid>
         )}
-        {/* {request?.length && (
-          <Button
-            variant="contained"
-            startIcon={<Download />}
-            onClick={handleDownload}
-          >
-            Download
-          </Button>
-        )} */}
       </Grid>
-
-      {request ? (
-        request?.map((data: any) => (
-          <Grid container lg={4}>
-            <Grid
-              container
-              sx={{
-                m: 1,
-                p: 1,
-                borderRadius: "10px",
-                boxShadow:
-                  "rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px",
-              }}
-            >
-              <Grid container lg={12}>
-                <Typography fontWeight="bold">Client Name: </Typography>
-
-                <Typography sx={{ mx: 1 }}>{data?.customer_name}</Typography>
+      <Grid sx={{ width: "100%" }}>
+        <Grid item container sx={{ width: "100%" }}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "80vh",
+              overflowY: "scroll",
+              bgcolor: "white",
+              boxShadow: "rgba(17, 17, 26, 0.1) 0px 0px 16px",
+              borderRadius: "20px",
+              p: 2,
+            }}
+          >
+            <table id={style.table}>
+              <tbody>
+                <tr>
+                  {tableHead.map((data: any, index: any) => (
+                    <th key={index}>{data}</th>
+                  ))}
+                </tr>
+                {loading === false &&
+                  report?.map((element: any, index) => (
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>{element.client_id}</td>
+                      <td>{element.customer_name}</td>
+                      <td>{element.software_name}</td>
+                      <td>{element.server_type}</td>
+                      <td>
+                        {element.next_amc_date
+                          ? moment
+                              .utc(element?.next_amc_date)
+                              .format("DD/MM/YYYY")
+                          : null}
+                      </td>
+                      <td>{element.amc}</td>
+                      <td>
+                        <Typography
+                          sx={{
+                            width: "fit-content",
+                            bgcolor:
+                              element.is_active === true
+                                ? "yellowgreen"
+                                : "gray",
+                            px: 1,
+                            borderRadius: "20px",
+                            color: "white",
+                          }}
+                        >
+                          {element.is_active === true ? "Active" : "Inactive"}
+                        </Typography>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            {loading ? (
+              <Grid
+                container
+                width={"100%"}
+                justifyContent={"center"}
+                alignItems="center"
+              >
+                <Fade in={loading}>
+                  <CircularProgress />
+                </Fade>
               </Grid>
-
-              <Grid container lg={12}>
-                <Typography fontWeight="bold">AMC Amount: </Typography>
-
-                <Typography sx={{ mx: 1 }}>{data?.amc}</Typography>
-              </Grid>
-
-              {/* <Grid container lg={12}>
-                <Typography fontWeight="bold">Last Login: </Typography>
-
-                <Typography sx={{ mx: 1 }}>{data?.customer_name}</Typography>
-              </Grid> */}
-
-              <Grid container lg={12}>
-                <Typography fontWeight="bold">Status: </Typography>
-
-                <Typography
-                  sx={{
-                    width: "fit-content",
-                    height: "25px",
-                    bgcolor: data?.is_active === true ? "yellowgreen" : "gray",
-                    px: 1,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
+            ) : (
+              report.length === 0 && (
+                <Grid
+                  container
+                  width={"100%"}
+                  justifyContent={"center"}
+                  alignItems="center"
                 >
-                  {data.is_active === true ? "Active" : "Inactive"}
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        ))
-      ) : (
-        // <Skeleton variant="text" sx={{ fontSize: "1rem" }} width={'100%'} height={60} />
-        <Grid container>
-          <CircularProgress />
+                  <img width="400px" src="assets/nodata.png" />
+                </Grid>
+              )
+            )}
+          </Box>
         </Grid>
-      )}
+      </Grid>
     </Grid>
   );
 };
