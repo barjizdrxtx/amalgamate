@@ -14,9 +14,9 @@ export const PersonalDetails = (props: any) => {
     const dropData = [
 
         { name: "vpn" },
-        { name: "onpremises" },
+        { name: "onpremise" },
         { name: "cloud" },
-        { name: "DynDns" }
+        { name: "dyndns" }
     ]
 
 
