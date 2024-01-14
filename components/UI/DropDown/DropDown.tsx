@@ -41,3 +41,45 @@ export const DropDown = (props: any) => {
 }
 
 
+export const SelectComponent = (props: any) => {
+
+    const { text, dropData, value, setValue, id, name } = props;
+
+    const handleChange = (value: number) => {
+        setValue(value);
+    };
+
+    return (
+
+        <Grid container>
+
+            <Grid container sx={{ m: 1, bgcolor: "white" }}>
+
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{text}</Typography>
+
+                <Select sx={{ width: "100%", my: 1, textTransform: "capitalize", bgcolor: "white" }}
+                    id={text}
+                    value={value}
+                    onChange={(e) => handleChange(+e.target.value)}
+                >
+
+                    <MenuItem value={0} disabled >{text}</MenuItem>
+
+                    {dropData?.map((data: any, index: any) =>
+
+                        <MenuItem key={index} sx={{ textTransform: "capitalize", width: "100%" }} value={data["value"]}>
+                            {data["label"]}
+                        </MenuItem>
+
+                    )}
+
+                </Select>
+
+            </Grid>
+
+        </Grid >
+
+    )
+}
+
+

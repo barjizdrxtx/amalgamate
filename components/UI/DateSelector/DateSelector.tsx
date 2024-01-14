@@ -23,7 +23,7 @@ export const DateSelector = (props: any) => {
 
             <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
 
-                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Next AMC Date</Typography>
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>AMC Date</Typography>
 
             </Box>
 
@@ -31,9 +31,47 @@ export const DateSelector = (props: any) => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
 
                 <DatePicker
+                    // views={['month','day']}
                     value={next_amc_date}
                     onChange={(newValue) => {
                         setNextAmcDate(newValue);
+                    }}
+                    renderInput={(params) => <TextField sx={{ width: "100%" }} {...params} />}
+                />
+            </LocalizationProvider>
+
+        </Box>
+
+
+    )
+}
+
+export const InstallationDateSelector = (props: any) => {
+
+    const { installationDate, setInstallationDate } = props;
+
+    const [value, setValue] = React.useState<Dayjs | null>(null);
+
+    return (
+
+        <Box sx={{
+            width: "100%", m: 1, display: "flex", flexDirection: "column",
+            justifyContent: "start", alignItems: "start"
+        }}>
+
+            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Installation Date</Typography>
+
+            </Box>
+
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+                <DatePicker
+                    value={installationDate}
+                    onChange={(newValue) => {
+                        setInstallationDate(newValue);
                     }}
                     renderInput={(params) => <TextField sx={{ width: "100%" }} {...params} />}
                 />
