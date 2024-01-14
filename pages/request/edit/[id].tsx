@@ -45,9 +45,12 @@ const index = () => {
   const [network_support, setNetworkSupport] = React.useState(false);
 
   const [next_amc_date, setNextAmcDate]: any = React.useState();
+  const [installationDate, setInstallationDate]: any = React.useState();
 
   const [serverType, setServerType] = React.useState(0);
   const [softwareName, setSoftwareName] = React.useState(null);
+  const [amcMonth, setAmcMonth] = React.useState(null)
+  const [amcDate, setAmcDate] = React.useState(null)
 
 
 
@@ -107,6 +110,8 @@ const index = () => {
       anydesk_password: request?.anydesk_password,
       server_configuration: request?.server_configuration,
       sql_password: request?.sql_password,
+      amc_date:request?.amc_date,
+      amc_month: request?.amc_month,
 
     },
 
@@ -151,6 +156,8 @@ const index = () => {
         server_configuration: values.server_configuration,
         sql_password: values.sql_password,
         next_amc_date: next_amc_date?.$d,
+        amc_month: amcMonth || null,
+        amc_date: amcDate || null,
         file_location: file_upload,
         server_type: serverType,
         care_of: values.care_of
@@ -436,6 +443,15 @@ const index = () => {
 
         next_amc_date={next_amc_date}
         setNextAmcDate={setNextAmcDate}
+
+        installationDate={installationDate}
+        setInstallationDate={setInstallationDate}
+
+        amcMonth={amcMonth}
+        setAmcMonth={setAmcMonth}
+
+        amcDate={amcDate}
+        setAmcDate={setAmcDate}
 
         list={otherdetails} formik={formik} />
     }
