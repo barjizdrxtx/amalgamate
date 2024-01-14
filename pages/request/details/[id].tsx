@@ -102,6 +102,21 @@ const Details = (props: any) => {
       .catch((err) => {});
   };
 
+  const months = [
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
+  ];
+
   return (
     <Grid container justifyContent="center" sx={{ mt: { xs: 8, md: 0 }, p: 1 }}>
       {alertBox === true ? (
@@ -246,12 +261,36 @@ const Details = (props: any) => {
             }}
           >
             <Typography sx={{ flex: 1, fontWeight: "bold" }}>
-              Next AMC Date
+              Installation Date
             </Typography>
 
             <Typography sx={{ flex: 1 }}>
-              {request.next_amc_date
-                ? moment.utc(request?.next_amc_date).format("MMMM Do YYYY")
+              {request?.installation_date
+                ? moment.utc(request?.installation_date).format("MMMM Do YYYY")
+                : null}
+            </Typography>
+          </Grid>
+
+          <Grid
+            container
+            md={6}
+            lg={6}
+            sx={{
+              width: "100%",
+              p: 1,
+              borderBottom: "1px solid #E5E7E9",
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <Typography sx={{ flex: 1, fontWeight: "bold" }}>
+              AMC Month
+            </Typography>
+
+            <Typography sx={{ flex: 1 }}>
+              {request?.amc_month
+                ? months.find((element: any) => element.value === request?.amc_month)?.label || null
                 : null}
             </Typography>
           </Grid>
