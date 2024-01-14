@@ -68,6 +68,8 @@ const index = () => {
 
     setNextAmcDate(request?.next_amc_date)
 
+    setInstallationDate(request?.installation_date)
+
     setIsActive(request?.is_active)
 
     setServerType(request?.server_type)
@@ -156,6 +158,7 @@ const index = () => {
         server_configuration: values.server_configuration,
         sql_password: values.sql_password,
         next_amc_date: next_amc_date?.$d,
+        installation_date: installationDate?.$d,
         amc_month: amcMonth || null,
         amc_date: amcDate || null,
         file_location: file_upload,

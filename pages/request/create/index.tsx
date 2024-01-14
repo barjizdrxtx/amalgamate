@@ -117,7 +117,7 @@ const index = () => {
                 amc_month: amcMonth || null,
                 amc_date: amcDate || null,
                 next_amc_date: next_amc_date?.$d,
-                installationDate: installationDate?.$d,
+                installation_date: installationDate?.$d,
                 file_location: file_upload,
                 server_type: serverType || null,
                 care_of: values.care_of
