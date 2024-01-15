@@ -154,9 +154,9 @@ const index = () => {
                       <td>{element.software_name}</td>
                       <td>{element.server_type}</td>
                       <td>
-                        {element.next_amc_date
+                        {element.installation_date
                           ? moment
-                              .utc(element?.next_amc_date)
+                              .utc(element?.installation_date)
                               .format("DD/MM/YYYY")
                           : null}
                       </td>
