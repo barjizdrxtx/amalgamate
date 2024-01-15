@@ -68,6 +68,8 @@ const index = () => {
 
     setNextAmcDate(request?.next_amc_date)
 
+    setAmcMonth(request?.amc_month)
+
     setInstallationDate(request?.installation_date)
 
     setIsActive(request?.is_active)
