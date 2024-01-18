@@ -542,6 +542,7 @@ export const ProductKey = (props: any) => {
     "Activated By",
     "Activated Date",
     "Last Login",
+    "Version"
   ];
 
   const element = [
@@ -553,6 +554,7 @@ export const ProductKey = (props: any) => {
     "user",
     "activated_date",
     "last_loggedin_at",
+    "software_version"
   ];
 
   const actions = ["OverView", "Edit", "Delete"];
