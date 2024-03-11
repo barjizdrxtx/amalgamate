@@ -49,6 +49,7 @@ const index = () => {
 
   const [serverType, setServerType] = React.useState(0);
   const [softwareName, setSoftwareName] = React.useState(null);
+  const [shopCategory, setShopCategory] = React.useState(null);
   const [amcMonth, setAmcMonth] = React.useState(null)
   const [amcDate, setAmcDate] = React.useState(null)
 
@@ -139,7 +140,7 @@ const index = () => {
         owner_contact_no: values.owner_contact_no,
 
         software_name: softwareName,
-        shop_category: values.shop_category,
+        shop_category: shopCategory,
         erp: erp,
         pos: pos,
         erp_pos: erp_pos,
@@ -283,14 +284,14 @@ const index = () => {
     //   touched: formik.touched.software_name,
     //   errors: formik.errors.software_name,
     // },
-    {
-      title: "Shop Category",
-      label: "shop_category",
-      type: "text",
-      value: formik.values.shop_category,
-      touched: formik.touched.shop_category,
-      errors: formik.errors.shop_category,
-    },
+    // {
+    //   title: "Shop Category",
+    //   label: "shop_category",
+    //   type: "text",
+    //   value: formik.shopCategory,
+    //   touched: formik.touched.shop_category,
+    //   errors: formik.errors.shop_category,
+    // },
     {
       title: "ERP System Count",
       label: "erp_system_count",
@@ -417,6 +418,9 @@ const index = () => {
 
         softwareName={softwareName}
         setSoftwareName={setSoftwareName}
+
+        shopCatrgory={shopCategory}
+        setShopCategory={setShopCategory}
 
         erp={erp}
         setErp={setErp}

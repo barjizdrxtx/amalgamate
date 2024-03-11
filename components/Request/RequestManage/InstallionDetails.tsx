@@ -11,6 +11,9 @@ export const InstallionDetails = (props: any) => {
         softwareName,
         setSoftwareName,
 
+        shopCategory,
+        setShopCategory,
+
         erp,
         setErp,
 
@@ -37,6 +40,20 @@ export const InstallionDetails = (props: any) => {
     //     { name: "Beauteqx" },
     //     { name: "Gozzbe" }
     // ]
+
+    const shopCategories = [
+        { id: 'Hypermarket', name: 'Hypermarket'},
+        { id: 'Supermarket', name: 'Supermarket'},
+        { id: 'Grocery', name: 'Grocery'},
+        { id: 'Trading', name: 'Trading'},
+        { id: 'Restaurant', name: 'Restaurant'},
+        { id: 'Cafe', name: 'Cafe'},
+        { id: 'Laundry', name: 'Laundry'},
+        { id: 'Spa/Saloon', name: 'Spa/Saloon'},
+        { id: 'Garrage', name: 'Garrage'},
+        { id: 'Parts Shop', name: 'Parts Shop'},
+        { id: 'FMCG', name: 'FMCG'},
+    ]
     
 
     return (
@@ -50,6 +67,12 @@ export const InstallionDetails = (props: any) => {
                     <Grid container xs={12} sm={6} lg={4}>
 
                         <DropDown text="Software Name" value={softwareName} setValue={setSoftwareName} dropData={dropData} id="name" name="name" />
+
+                    </Grid>
+
+                    <Grid container xs={12} sm={6} lg={4}>
+
+                        <DropDown text="Shop Category" value={shopCategory} setValue={setShopCategory} dropData={shopCategories} id="name" name="name" />
 
                     </Grid>
 
