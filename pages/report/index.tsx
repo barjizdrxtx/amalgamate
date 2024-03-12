@@ -70,6 +70,7 @@ const index = () => {
     "Instalation Date",
     "AMC Amount",
     "Status",
+    "Action"
   ];
   const element: any[] = [
     "client_id",
@@ -79,6 +80,7 @@ const index = () => {
     "createdAt",
     "amc",
     "is_active",
+    "download"
   ];
 
   return (
@@ -119,10 +121,29 @@ const index = () => {
             </Grid>
           </Grid>
         </Grid>
+        
         {report?.length > 0 && (
-          <Grid lg={4} sx={{ bgcolor: "", m: 1 }} alignItems="center">
-            <CsvReport csvdata={report} />
+          
+          <><Grid lg={4} container flexDirection={"row"} sx={{justifyContent: "space-evenly", alignItems: "center"}} >
+            <Grid container sx={{ m: 1, bgcolor: "white" }}>
+              <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+                {'Total AMC Amount: '}
+              </Typography>
+              <Typography sx={{ color: "green", fontWeight: "bold" }}>
+                {(report.reduce((acc, currentItem: any) => {
+                  if (currentItem.is_active) {
+                    return acc + +currentItem.amc;
+                  } else {
+                    return acc;
+                  }
+                }, 0)).toFixed(3)}
+              </Typography>
+            </Grid>
           </Grid>
+          <Grid lg={2} sx={{ bgcolor: "", m: 1 }} alignItems="center">
+              <CsvReport csvdata={report} />
+            </Grid>
+          </>
         )}
       </Grid>
       <Grid sx={{ width: "100%" }}>

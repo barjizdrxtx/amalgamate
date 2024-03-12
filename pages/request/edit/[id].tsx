@@ -79,6 +79,8 @@ const index = () => {
 
     setSoftwareName(request?.software_name)
 
+    setShopCategory(request?.shop_category)
+
   }, [request])
 
 
@@ -100,7 +102,8 @@ const index = () => {
 
 
       software_name: request?.software_name,
-      shop_category: request?.shop_category,
+      // shop_category: request?.shop_category,
+      shop_category: shopCategory,
 
       erp_system_count: request?.erp_system_count || 0,
       pos_system_count: request?.pos_system_count || 0,
@@ -419,7 +422,7 @@ const index = () => {
         softwareName={softwareName}
         setSoftwareName={setSoftwareName}
 
-        shopCatrgory={shopCategory}
+        shopCategory={shopCategory}
         setShopCategory={setShopCategory}
 
         erp={erp}
