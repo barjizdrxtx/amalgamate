@@ -13,7 +13,7 @@ import {
 import { DropDown } from "../../components/UI/DropDown/DropDown";
 import React from "react";
 import { useQueryFetch } from "../../hooks/useQueryFetch";
-import Download from "@mui/icons-material/Download";
+import DownloadIcon from '@mui/icons-material/Download';
 import { CsvReport } from "../../components/UI/Csv/Csv";
 import style from "../../styles/TableUI.module.css";
 import axios from "axios";
@@ -82,6 +82,10 @@ const index = () => {
     "is_active",
     "download"
   ];
+
+  const handleDownload = (client_id: string) => {
+    alert(`${client_id}'s report will be available soon`)
+  }
 
   return (
     <Grid container justifyContent="start" sx={{ mt: { xs: 10, md: 0 } }}>
@@ -197,6 +201,9 @@ const index = () => {
                         >
                           {element.is_active === true ? "Active" : "Inactive"}
                         </Typography>
+                      </td>
+                      <td onClick={() => handleDownload(element.client_id)}>
+                        <DownloadIcon color="primary" sx={{cursor: 'pointer'}}/>
                       </td>
                     </tr>
                   ))}
