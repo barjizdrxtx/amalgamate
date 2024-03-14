@@ -13,11 +13,14 @@ import {
 import { DropDown } from "../../components/UI/DropDown/DropDown";
 import React from "react";
 import { useQueryFetch } from "../../hooks/useQueryFetch";
-import DownloadIcon from '@mui/icons-material/Download';
+import DownloadIcon from "@mui/icons-material/Download";
 import { CsvReport } from "../../components/UI/Csv/Csv";
 import style from "../../styles/TableUI.module.css";
 import axios from "axios";
 import * as moment from "moment";
+import PDFDocument from "../../components/UI/Pdf/Pdf";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import DownloadingIcon from '@mui/icons-material/Downloading';
 
 const index = () => {
   const [month, setMonth] = React.useState<number>(0);
@@ -70,7 +73,7 @@ const index = () => {
     "Instalation Date",
     "AMC Amount",
     "Status",
-    "Action"
+    "Action",
   ];
   const element: any[] = [
     "client_id",
@@ -80,12 +83,12 @@ const index = () => {
     "createdAt",
     "amc",
     "is_active",
-    "download"
+    "download",
   ];
 
   const handleDownload = (client_id: string) => {
-    alert(`${client_id}'s report will be available soon`)
-  }
+    alert(`${client_id}'s report will be available soon`);
+  };
 
   return (
     <Grid container justifyContent="start" sx={{ mt: { xs: 10, md: 0 } }}>
@@ -125,26 +128,33 @@ const index = () => {
             </Grid>
           </Grid>
         </Grid>
-        
+
         {report?.length > 0 && (
-          
-          <><Grid lg={4} container flexDirection={"row"} sx={{justifyContent: "space-evenly", alignItems: "center"}} >
-            <Grid container sx={{ m: 1, bgcolor: "white" }}>
-              <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
-                {'Total AMC Amount: '}
-              </Typography>
-              <Typography sx={{ color: "green", fontWeight: "bold" }}>
-                {(report.reduce((acc, currentItem: any) => {
-                  if (currentItem.is_active) {
-                    return acc + +currentItem.amc;
-                  } else {
-                    return acc;
-                  }
-                }, 0)).toFixed(3)}
-              </Typography>
+          <>
+            <Grid
+              lg={4}
+              container
+              flexDirection={"row"}
+              sx={{ justifyContent: "space-evenly", alignItems: "center" }}
+            >
+              <Grid container sx={{ m: 1, bgcolor: "white" }}>
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+                  {"Total AMC Amount: "}
+                </Typography>
+                <Typography sx={{ color: "green", fontWeight: "bold" }}>
+                  {report
+                    .reduce((acc, currentItem: any) => {
+                      if (currentItem.is_active) {
+                        return acc + +currentItem.amc;
+                      } else {
+                        return acc;
+                      }
+                    }, 0)
+                    .toFixed(3)}
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid lg={2} sx={{ bgcolor: "", m: 1 }} alignItems="center">
+            <Grid lg={2} sx={{ bgcolor: "", m: 1 }} alignItems="center">
               <CsvReport csvdata={report} />
             </Grid>
           </>
@@ -202,8 +212,23 @@ const index = () => {
                           {element.is_active === true ? "Active" : "Inactive"}
                         </Typography>
                       </td>
-                      <td onClick={() => handleDownload(element.client_id)}>
-                        <DownloadIcon color="primary" sx={{cursor: 'pointer'}}/>
+                      {/* <td onClick={() => handleDownload(element.client_id)}> */}
+                      <td>
+                        <PDFDownloadLink
+                          document={<PDFDocument />}
+                          fileName={`${element.customer_name} invoice.pdf`}
+                        >
+                          {({ blob, url, loading, error }) =>
+                            loading ? (
+                              <DownloadingIcon />
+                            ) : (
+                              <DownloadIcon
+                                color="primary"
+                                sx={{ cursor: "pointer" }}
+                              />
+                            )
+                          }
+                        </PDFDownloadLink>
                       </td>
                     </tr>
                   ))}
