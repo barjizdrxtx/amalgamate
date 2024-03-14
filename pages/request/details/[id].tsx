@@ -1,4 +1,4 @@
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -11,6 +11,12 @@ import * as moment from "moment";
 import Checkbox from "@mui/material/Checkbox";
 import axios from "axios";
 import style from "../../../styles/TableUI.module.css";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const index = () => {
   const router = useRouter();
@@ -290,7 +296,9 @@ const Details = (props: any) => {
 
             <Typography sx={{ flex: 1 }}>
               {request?.amc_month
-                ? months.find((element: any) => element.value === request?.amc_month)?.label || null
+                ? months.find(
+                    (element: any) => element.value === request?.amc_month
+                  )?.label || null
                 : null}
             </Typography>
           </Grid>
@@ -542,7 +550,7 @@ export const ProductKey = (props: any) => {
     "Activated By",
     "Activated Date",
     "Last Login",
-    "Version"
+    "Version",
   ];
 
   const element = [
@@ -554,10 +562,22 @@ export const ProductKey = (props: any) => {
     "user",
     "activated_date",
     "last_loggedin_at",
-    "software_version"
+    "software_version",
   ];
 
   const actions = ["OverView", "Edit", "Delete"];
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleConfirm = () => {};
 
   return (
     <Grid>
@@ -571,6 +591,7 @@ export const ProductKey = (props: any) => {
             ))}
 
             <th>Status</th>
+            <th>Action</th>
           </tr>
 
           {request?.product_keys?.map((data: any, index: any) => (
@@ -592,7 +613,7 @@ export const ProductKey = (props: any) => {
               ))}
 
               <td>
-                <Typography
+                {/* <Typography
                   sx={{
                     width: "fit-content",
                     bgcolor: data.is_active === true ? "yellowgreen" : "gray",
@@ -602,8 +623,46 @@ export const ProductKey = (props: any) => {
                   }}
                 >
                   {data.is_active === true ? "Active" : "Inactive"}
-                </Typography>
-                {data.is_active}
+                </Typography> */}
+                {data.is_active ? (
+                  <Typography
+                    sx={{
+                      width: "fit-content",
+                      bgcolor: "yellowgreen",
+                      px: 1,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                  >
+                    Active
+                  </Typography>
+                ) : (
+                  "Inactive"
+                )}
+              </td>
+              <td>
+                <DeleteIcon onClick={handleClickOpen} />
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Caution!!!!"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      Are you sure want to delete this Product Key.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleConfirm}>Confirm</Button>
+                    <Button onClick={handleClose} autoFocus>
+                      Cancel
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </td>
             </tr>
           ))}
