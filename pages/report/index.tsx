@@ -20,7 +20,7 @@ import axios from "axios";
 import * as moment from "moment";
 import PDFDocument from "../../components/UI/Pdf/Pdf";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import DownloadingIcon from '@mui/icons-material/Downloading';
+import DownloadingIcon from "@mui/icons-material/Downloading";
 
 const index = () => {
   const [month, setMonth] = React.useState<number>(0);
@@ -55,12 +55,15 @@ const index = () => {
           setLoading(false);
         } else if (response.data.statusCode === 404) {
           alert("No Data Found!");
+          setLoading(false);
         } else {
           alert("Failed to Load Data, Please try Again Later!");
+          setLoading(false);
         }
       })
       .catch((error: any) => {
         alert("Failed to Load Data, Please try Again Later!");
+        setLoading(false);
       });
   };
 
@@ -215,7 +218,7 @@ const index = () => {
                       {/* <td onClick={() => handleDownload(element.client_id)}> */}
                       <td>
                         <PDFDownloadLink
-                          document={<PDFDocument />}
+                          document={<PDFDocument data={element} />}
                           fileName={`${element.customer_name} invoice.pdf`}
                         >
                           {({ blob, url, loading, error }) =>

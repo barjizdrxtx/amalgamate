@@ -1,5 +1,6 @@
 import React from "react";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import * as moment from "moment";
 
 const styles = StyleSheet.create({
   page: {
@@ -7,8 +8,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
-    backgroundColor: "#333",
-    color: "#fff",
+    // backgroundColor: "#333",
+    // color: "#fff",
     padding: 20,
     height: 100,
     textAlign: "center",
@@ -16,116 +17,297 @@ const styles = StyleSheet.create({
   addressContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 10,
+    borderBottomWidth: 1,
   },
   invoiceTable: {
-    width: "40%",
+    width: "100%",
     borderCollapse: "collapse",
+    paddingBottom: 8,
+  },
+  invoiceTable2: {
+    width: "100%",
+    borderCollapse: "collapse",
+    paddingBottom: 8,
+    textAlign: "right",
   },
   invoiceTableHeader: {
     backgroundColor: "#4f81bd",
     color: "#fff",
-    padding: 8,
+    textAlign: "center",
+    padding: 3,
+    fontSize: 12,
+    fontWeight: "extrabold",
   },
   invoiceTableCell: {
-    padding: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    padding: 3,
+    // borderBottomWidth: 1,
+    // borderBottomColor: "#ddd",
+    fontSize: 10,
+    width: "100%",
   },
   invoiceTableTh: {
     padding: 8,
   },
+  serviceTable: {
+    width: "100%",
+    borderCollapse: "collapse",
+    padding: 8,
+    textAlign: "right",
+  },
+  serviceTableRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  serviceTableColum1: {
+    width: "60%",
+    borderCollapse: "collapse",
+    // border: 0.5,
+    borderLeft: 0.5,
+    borderBottom: 0.5,
+  },
+  serviceTableColum2: {
+    width: "40%",
+    borderLeft: 0.5,
+    borderBottom: 0.5,
+    borderRight: 0.5,
+  },
+  serviceTableHeader: {
+    backgroundColor: "#f2f3f3",
+    textAlign: "center",
+    padding: 3,
+    fontSize: 10,
+    fontWeight: "extrabold",
+    borderTop: 0.5,
+  },
+  serviceTableCell1: {
+    padding: 3,
+    fontSize: 10,
+    width: "100%",
+    textAlign: "left",
+  },
+  serviceTableCell2: {
+    padding: 3,
+    fontSize: 10,
+    width: "100%",
+  },
 });
 
-const invoices = [
-  {
-    number: "INV-001",
-    customer: "Customer A",
-    amount: "$100.00",
-    status: "Paid",
-  },
-  {
-    number: "INV-002",
-    customer: "Customer B",
-    amount: "$150.00",
-    status: "Unpaid",
-  },
-  // Add more invoices as needed
-];
+const PDFDocument = (props: any) => {
+  const { data } = props;
 
-const Invoice = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        {/* <Text>Invoice Report</Text>
+  const date = moment.utc(data?.installation_date).format("DD");
+  const month = moment.utc(data?.installation_date).format("MM");
+  const current_year = moment.utc(new Date()).format("YYYY");
+  const current_amc = moment
+    .utc(month + "/" + date + "/" + current_year)
+    .format("DD-MMM-YYYY");
+  const next_amc = moment
+    .utc(month + "/" + date + "/" + current_year)
+    .add(365, "d")
+    .format("DD-MMM-YYYY");
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.header}>
+          {/* <Text>Invoice Report</Text>
         <Text>Date: [Insert Date]</Text> */}
-      </View>
-
-      <View style={styles.addressContainer}>
-        <View style={{ width: "40%" }}>
-          <Text style={styles.invoiceTableHeader}>SERVICES TO</Text>
-          <View style={styles.invoiceTable}>
-            <View style={styles.invoiceTableCell}>
-              <Text>Invoice#: 0000000</Text>
-            </View>
-            <View style={styles.invoiceTableCell}>
-              <Text>Date: 10-02-2024</Text>
-            </View>
-            <View style={styles.invoiceTableCell}>
-              <Text>Customer ID: QPT121223</Text>
-            </View>
-            <View style={styles.invoiceTableCell}>
-              <Text>Q PLUS TRADING</Text>
-            </View>
-            <View style={styles.invoiceTableCell}>
-              <Text>Contact: info@amalgamatetechnologies.com</Text>
-            </View>
-          </View>
         </View>
 
-        <View style={{ width: "40%" }}>
-          <p>
+        <View style={styles.addressContainer}>
+          <View style={{ width: "40%" }}>
+            <Text style={styles.invoiceTableHeader}>SERVICES TO</Text>
+            <View style={styles.invoiceTable}>
+              <View style={styles.invoiceTableCell}>
+                <Text>Invoice No: #{moment.utc(new Date()).valueOf()}</Text>
+              </View>
+              <View style={styles.invoiceTableCell}>
+                <Text>Date: {moment.utc(new Date()).format("DD/MM/YYYY")}</Text>
+              </View>
+              <View style={styles.invoiceTableCell}>
+                <Text>Customer ID: {data.client_id}</Text>
+              </View>
+              <View style={styles.invoiceTableCell}>
+                <Text>{data.customer_name}</Text>
+              </View>
+              <View style={styles.invoiceTableCell}>
+                <Text>Contact: {data.email}</Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={{ width: "40%" }}>
             <Text style={styles.invoiceTableHeader}>BILL TO</Text>
-          </p>
-          <View style={styles.invoiceTable}>
-            <View style={styles.invoiceTableCell}>
-              <Text>Q PLUS TRADING</Text>
+            <View style={styles.invoiceTable2}>
+              <View style={styles.invoiceTableCell}>
+                <Text>{data.customer_name}</Text>
+              </View>
+              <View style={styles.invoiceTableCell}></View>
+              <View style={styles.invoiceTableCell}>
+                <Text>{data.shop_address}</Text>
+              </View>
+              <View style={styles.invoiceTableCell}></View>
+              <View style={styles.invoiceTableCell}></View>
             </View>
-            <View style={styles.invoiceTableCell}></View>
-            <View style={styles.invoiceTableCell}>
-              <Text>DOHA,QATAR</Text>
-            </View>
-            <View style={styles.invoiceTableCell}></View>
-            <View style={styles.invoiceTableCell}></View>
           </View>
         </View>
-      </View>
 
-      <View>
-        <Text style={styles.invoiceTableHeader}>Invoices</Text>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th style={styles.invoiceTableTh}>Invoice Number</th>
-              <th style={styles.invoiceTableTh}>Customer Name</th>
-              <th style={styles.invoiceTableTh}>Amount</th>
-              <th style={styles.invoiceTableTh}>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {invoices.map((invoice: any, index: any) => (
-              <tr key={index}>
-                <td style={styles.invoiceTableCell}>{invoice.number}</td>
-                <td style={styles.invoiceTableCell}>{invoice.customer}</td>
-                <td style={styles.invoiceTableCell}>{invoice.amount}</td>
-                <td style={styles.invoiceTableCell}>{invoice.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </View>
-    </Page>
-  </Document>
-);
-
-export default Invoice;
+        <View>
+          <Text
+            style={{
+              fontSize: 13,
+              fontWeight: "extrabold",
+              textAlign: "center",
+            }}
+          >
+            AMC INVOICE
+          </Text>
+          <Text style={styles.invoiceTableHeader}>SERVICES</Text>
+          <View style={styles.serviceTable}>
+            <View style={styles.serviceTableRow}>
+              <View style={styles.serviceTableColum1}>
+                <Text style={styles.serviceTableHeader}>DECRIPTION</Text>
+              </View>
+              <View style={styles.serviceTableColum2}>
+                <Text style={styles.serviceTableHeader}>DATE</Text>
+              </View>
+            </View>
+            <View style={styles.serviceTableRow}>
+              <View style={styles.serviceTableColum1}>
+                <Text style={styles.serviceTableCell1}>Installation Date</Text>
+              </View>
+              <View style={styles.serviceTableColum2}>
+                <Text style={styles.serviceTableCell2}>
+                  {data.installation_date
+                    ? moment.utc(data?.installation_date).format("DD-MMM-YYYY")
+                    : null}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.serviceTableRow}>
+              <View style={styles.serviceTableColum1}>
+                <Text style={styles.serviceTableCell1}>{` `}</Text>
+              </View>
+              <View style={styles.serviceTableColum2}>
+                <Text style={styles.serviceTableCell2}>{` `}</Text>
+              </View>
+            </View>
+            <View style={styles.serviceTableRow}>
+              <View style={styles.serviceTableColum1}>
+                <Text style={styles.serviceTableCell1}>AMC Duration</Text>
+              </View>
+              <View style={styles.serviceTableColum2}>
+                <Text style={styles.serviceTableCell2}>
+                  {data.installation_date
+                    ? `${current_amc} to ${next_amc}`
+                    : null}
+                </Text>
+              </View>
+            </View>{" "}
+            <View style={styles.serviceTableRow}>
+              <View style={styles.serviceTableColum1}>
+                <Text style={styles.serviceTableCell1}>
+                  Next AMC Renewal Date
+                </Text>
+              </View>
+              <View style={styles.serviceTableColum2}>
+                <Text style={styles.serviceTableCell2}>
+                  {data.installation_date ? next_amc : null}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.serviceTableRow}>
+              <View style={styles.serviceTableColum1}>
+                <Text style={styles.serviceTableCell1}>{` `}</Text>
+              </View>
+              <View style={styles.serviceTableColum2}>
+                <Text style={styles.serviceTableCell2}>{` `}</Text>
+              </View>
+            </View>
+            <View style={styles.serviceTableRow}>
+              <View style={styles.serviceTableColum1}>
+                <Text style={{ ...styles.serviceTableHeader, borderTop: 0 }}>
+                  DECRIPTION
+                </Text>
+              </View>
+              <View style={styles.serviceTableColum2}>
+                <Text style={{ ...styles.serviceTableHeader, borderTop: 0 }}>
+                  AMOUNT
+                </Text>
+              </View>
+            </View>
+            <View style={styles.serviceTableRow}>
+              <View style={styles.serviceTableColum1}>
+                <Text
+                  style={styles.serviceTableCell1}
+                >{`${data?.software_name.toUpperCase()} - YEAR ${moment
+                  .utc(new Date())
+                  .format("YYYY")}`}</Text>
+              </View>
+              <View style={styles.serviceTableColum2}>
+                <Text
+                  style={styles.serviceTableCell2}
+                >{`QR ${(+data?.amc).toFixed(2)}`}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={styles.serviceTableRow}>
+          <View style={{ width: "60%" }}>
+            <Text style={styles.invoiceTableHeader}>Notes</Text>
+          </View>
+          <View style={{ width: "40%", padding: 8 }}>
+            <View style={styles.serviceTableRow}>
+              <View style={{ width: "40%", padding: 5, textAlign: "right" }}>
+                <Text style={{ fontSize: 10 }}>SUBTOTAL:</Text>
+              </View>
+              <View style={{ width: "60%", padding: 5, textAlign: "right" }}>
+                <Text
+                  style={{ fontSize: 10, fontWeight: "bold" }}
+                >{`QR ${(+data?.amc).toFixed(2)}`}</Text>
+              </View>
+            </View>
+            <View style={styles.serviceTableRow}>
+              <View style={{ width: "40%", padding: 5, textAlign: "right" }}>
+                <Text style={{ fontSize: 10 }}>OTHER:</Text>
+              </View>
+              <View style={{ width: "60%", padding: 5, textAlign: "right" }}>
+                <Text
+                  style={{ fontSize: 10, fontWeight: "bold" }}
+                >{`QR 0.00`}</Text>
+              </View>
+            </View>
+            <View style={styles.serviceTableRow}>
+              <View style={{ width: "40%", padding: 5, textAlign: "right" }}>
+                <Text style={{ fontSize: 10 }}>SUBTOTAL: </Text>
+              </View>
+              <View style={{ width: "60%", padding: 5, textAlign: "right" }}>
+                <Text
+                  style={{ fontSize: 10, fontWeight: "bold" }}
+                >{`QR ${(+data?.amc).toFixed(2)}`}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View>
+          <Text style={{ fontSize: 10, marginBottom: 20, padding: 5 }}>
+            Please contact at +974 30611913 with any questions regarding this
+            invoice
+          </Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 10, marginBottom: 5, padding: 5 }}>
+            Authorized Signatory,
+          </Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 10, padding: 5 }}>
+            Amalgamate Technology
+          </Text>
+        </View>
+      </Page>
+    </Document>
+  );
+};
+export default PDFDocument;
