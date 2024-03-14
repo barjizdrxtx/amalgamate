@@ -167,7 +167,7 @@ const PDFDocument = (props: any) => {
           <View style={styles.serviceTable}>
             <View style={styles.serviceTableRow}>
               <View style={styles.serviceTableColum1}>
-                <Text style={styles.serviceTableHeader}>DECRIPTION</Text>
+                <Text style={styles.serviceTableHeader}>DESCRIPTION</Text>
               </View>
               <View style={styles.serviceTableColum2}>
                 <Text style={styles.serviceTableHeader}>DATE</Text>
@@ -228,7 +228,7 @@ const PDFDocument = (props: any) => {
             <View style={styles.serviceTableRow}>
               <View style={styles.serviceTableColum1}>
                 <Text style={{ ...styles.serviceTableHeader, borderTop: 0 }}>
-                  DECRIPTION
+                  DESCRIPTION
                 </Text>
               </View>
               <View style={styles.serviceTableColum2}>
@@ -256,11 +256,14 @@ const PDFDocument = (props: any) => {
         <View style={styles.serviceTableRow}>
           <View style={{ width: "60%" }}>
             <Text style={styles.invoiceTableHeader}>Notes</Text>
+            <View style={{ border: 0.5, height: 55 }}>{` `}</View>
           </View>
           <View style={{ width: "40%", padding: 8 }}>
             <View style={styles.serviceTableRow}>
               <View style={{ width: "40%", padding: 5, textAlign: "right" }}>
-                <Text style={{ fontSize: 10 }}>SUBTOTAL:</Text>
+                <Text style={{ fontSize: 10, fontWeight: "bold" }}>
+                  SUBTOTAL:
+                </Text>
               </View>
               <View style={{ width: "60%", padding: 5, textAlign: "right" }}>
                 <Text
@@ -270,7 +273,7 @@ const PDFDocument = (props: any) => {
             </View>
             <View style={styles.serviceTableRow}>
               <View style={{ width: "40%", padding: 5, textAlign: "right" }}>
-                <Text style={{ fontSize: 10 }}>OTHER:</Text>
+                <Text style={{ fontSize: 10, fontWeight: "bold" }}>OTHER:</Text>
               </View>
               <View style={{ width: "60%", padding: 5, textAlign: "right" }}>
                 <Text
@@ -280,11 +283,18 @@ const PDFDocument = (props: any) => {
             </View>
             <View style={styles.serviceTableRow}>
               <View style={{ width: "40%", padding: 5, textAlign: "right" }}>
-                <Text style={{ fontSize: 10 }}>SUBTOTAL: </Text>
+                <Text style={{ fontSize: 10, fontWeight: "bold" }}>
+                  TOTAL:{" "}
+                </Text>
               </View>
               <View style={{ width: "60%", padding: 5, textAlign: "right" }}>
                 <Text
-                  style={{ fontSize: 10, fontWeight: "bold" }}
+                  style={{
+                    ...styles.invoiceTableHeader,
+                    fontSize: 10,
+                    fontWeight: "bold",
+                    textAlign: 'right'
+                  }}
                 >{`QR ${(+data?.amc).toFixed(2)}`}</Text>
               </View>
             </View>
