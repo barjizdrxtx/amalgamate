@@ -53,6 +53,8 @@ export const InstallionDetails = (props: any) => {
         { id: 'Garrage', name: 'Garrage'},
         { id: 'Parts Shop', name: 'Parts Shop'},
         { id: 'FMCG', name: 'FMCG'},
+        { id: 'Sweets&Backery', name: 'Sweets&Backery'},
+        { id: 'Wholesale', name: 'Wholesale'},
     ]
     
 
