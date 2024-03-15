@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Button } from "@mui/material";
+import { Box, Typography, Grid, Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -53,7 +53,7 @@ const index = () => {
         <Details request={request} refetch={refetch} router={router} id={id} />
       )}
 
-      {tab === 1 && <ProductKey request={request} />}
+      {tab === 1 && <ProductKey request={request} refetch={refetch} />}
 
       {tab === 2 && <History request={request} />}
     </Grid>
@@ -535,7 +535,7 @@ const checkbox = [
 ];
 
 export const ProductKey = (props: any) => {
-  const { request } = props;
+  const { request, refetch } = props;
 
   // console.log("request", request?.product_keys)
 
@@ -568,6 +568,13 @@ export const ProductKey = (props: any) => {
   const actions = ["OverView", "Edit", "Delete"];
 
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(
+    new Array(request?.product_keys?.length).fill(false)
+  );
+
+  const [confirmLoading, setConfirmLoading] = useState(
+    new Array(request?.product_keys?.length).fill(false)
+  );
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -577,7 +584,55 @@ export const ProductKey = (props: any) => {
     setOpen(false);
   };
 
-  const handleConfirm = () => {};
+  const handleConfirm = async (id: number, index: number) => {
+    const newLoadingStatesa = [...confirmLoading];
+    newLoadingStatesa[index] = true;
+    setConfirmLoading(newLoadingStatesa);
+
+    await axios
+      .delete(`product-key/${id}`)
+      .then((response: any) => {
+        if (response.data.statusCode === 200) {
+          refetch();
+        } else if (response.data.statusCode === 404) {
+          alert("No Data Found!");
+        } else {
+          alert("Failed to Delete, Please try Again Later!");
+        }
+      })
+      .catch((error: any) => {
+        alert("Failed to Delete, Please try Again Later!");
+      });
+
+    setOpen(false);
+    const newLoadingStatesb = [...confirmLoading];
+    newLoadingStatesb[index] = false;
+    setConfirmLoading(newLoadingStatesb);
+  };
+
+  const handleDeactivate = async (id: number, index: number) => {
+    const newLoadingStates = [...loading];
+    newLoadingStates[index] = true;
+    setLoading(newLoadingStates);
+
+    await axios
+      .patch(`product-key/${id}`)
+      .then((response: any) => {
+        if (response.data.statusCode === 200) {
+          refetch();
+        } else if (response.data.statusCode === 404) {
+          alert("No Data Found!");
+        } else {
+          alert("Failed to Deactivate, Please try Again Later!");
+        }
+      })
+      .catch((error: any) => {
+        alert("Failed to Deactivate, Please try Again Later!");
+      });
+    const newLoadingStatesA = [...loading];
+    newLoadingStatesA[index] = false;
+    setLoading(newLoadingStatesA);
+  };
 
   return (
     <Grid>
@@ -625,19 +680,36 @@ export const ProductKey = (props: any) => {
                   {data.is_active === true ? "Active" : "Inactive"}
                 </Typography> */}
                 {data.is_active ? (
+                  <Box sx={{ m: 1, position: "relative" }}>
+                    {loading[index] === true ? (
+                      <CircularProgress
+                        size={24}
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          marginTop: "-12px",
+                          marginLeft: "-12px",
+                        }}
+                      />
+                    ) : (
+                      <Button onClick={() => handleDeactivate(data.id, index)}>
+                        Deactivate
+                      </Button>
+                    )}
+                  </Box>
+                ) : (
                   <Typography
                     sx={{
                       width: "fit-content",
-                      bgcolor: "yellowgreen",
+                      bgcolor: "gray",
                       px: 1,
                       borderRadius: "20px",
                       color: "white",
                     }}
                   >
-                    Active
+                    Inactive
                   </Typography>
-                ) : (
-                  "Inactive"
                 )}
               </td>
               <td>
@@ -657,7 +729,24 @@ export const ProductKey = (props: any) => {
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleConfirm}>Confirm</Button>
+                    <Box sx={{ m: 1, position: "relative" }}>
+                      {confirmLoading[index] === true ? (
+                        <CircularProgress
+                          size={24}
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            marginTop: "-12px",
+                            marginLeft: "-12px",
+                          }}
+                        />
+                      ) : (
+                        <Button onClick={() => handleConfirm(data.id, index)}>
+                          Confirm
+                        </Button>
+                      )}
+                    </Box>
                     <Button onClick={handleClose} autoFocus>
                       Cancel
                     </Button>
