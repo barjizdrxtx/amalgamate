@@ -1,4 +1,11 @@
-import { Box, Typography, Grid, Button, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Button,
+  CircularProgress,
+  Tooltip,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -17,6 +24,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 
 const index = () => {
   const router = useRouter();
@@ -668,7 +676,7 @@ export const ProductKey = (props: any) => {
               ))}
 
               <td>
-                {/* <Typography
+                <Typography
                   sx={{
                     width: "fit-content",
                     bgcolor: data.is_active === true ? "yellowgreen" : "gray",
@@ -678,8 +686,8 @@ export const ProductKey = (props: any) => {
                   }}
                 >
                   {data.is_active === true ? "Active" : "Inactive"}
-                </Typography> */}
-                {data.is_active ? (
+                </Typography>
+                {/* {data.is_active ? (
                   <Box sx={{ m: 1, position: "relative" }}>
                     {loading[index] === true ? (
                       <CircularProgress
@@ -710,27 +718,13 @@ export const ProductKey = (props: any) => {
                   >
                     Inactive
                   </Typography>
-                )}
+                )} */}
               </td>
               <td>
-                <DeleteIcon onClick={handleClickOpen} />
-                <Dialog
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    {"Caution!!!!"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                      Are you sure want to delete this Product Key.
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
+                <Grid container justifyContent={"center"} alignItems={"center"}>
+                  {data.is_active && (
                     <Box sx={{ m: 1, position: "relative" }}>
-                      {confirmLoading[index] === true ? (
+                      {loading[index] === true ? (
                         <CircularProgress
                           size={24}
                           sx={{
@@ -742,16 +736,56 @@ export const ProductKey = (props: any) => {
                           }}
                         />
                       ) : (
-                        <Button onClick={() => handleConfirm(data.id, index)}>
-                          Confirm
-                        </Button>
+                        <Tooltip title="Deactivate" placement="top-start">
+                          <DisabledByDefaultIcon
+                            onClick={() => handleDeactivate(data.id, index)}
+                          />
+                        </Tooltip>
                       )}
                     </Box>
-                    <Button onClick={handleClose} autoFocus>
-                      Cancel
-                    </Button>
-                  </DialogActions>
-                </Dialog>
+                  )}
+                  <Tooltip title="Delete" placement="top-start">
+                    <DeleteIcon onClick={handleClickOpen} />
+                  </Tooltip>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {"Caution!!!!"}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        Are you sure want to delete this Product Key.
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Box sx={{ m: 1, position: "relative" }}>
+                        {confirmLoading[index] === true ? (
+                          <CircularProgress
+                            size={24}
+                            sx={{
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              marginTop: "-12px",
+                              marginLeft: "-12px",
+                            }}
+                          />
+                        ) : (
+                          <Button onClick={() => handleConfirm(data.id, index)}>
+                            Confirm
+                          </Button>
+                        )}
+                      </Box>
+                      <Button onClick={handleClose} autoFocus>
+                        Cancel
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </Grid>
               </td>
             </tr>
           ))}
