@@ -129,10 +129,10 @@ const PDFDocument = (props: any) => {
                 <Text>Customer ID: {data.client_id}</Text>
               </View>
               <View style={styles.invoiceTableCell}>
-                <Text>{data.customer_name}</Text>
+                <Text>{data.client.customer_name}</Text>
               </View>
               <View style={styles.invoiceTableCell}>
-                <Text>Contact: {data.email}</Text>
+                <Text>Contact: {data.client.email}</Text>
               </View>
             </View>
           </View>
@@ -141,11 +141,11 @@ const PDFDocument = (props: any) => {
             <Text style={styles.invoiceTableHeader}>BILL TO</Text>
             <View style={styles.invoiceTable2}>
               <View style={styles.invoiceTableCell}>
-                <Text>{data.customer_name}</Text>
+                <Text>{data.client.customer_name}</Text>
               </View>
               <View style={styles.invoiceTableCell}></View>
               <View style={styles.invoiceTableCell}>
-                <Text>{data.shop_address}</Text>
+                <Text>{data.client.shop_address}</Text>
               </View>
               <View style={styles.invoiceTableCell}></View>
               <View style={styles.invoiceTableCell}></View>

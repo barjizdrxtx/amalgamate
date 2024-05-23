@@ -48,7 +48,7 @@ const index = () => {
     setMonth(value);
     setLoading(true);
     axios
-      .get(`request/report?month=${value}`)
+      .get(`branch/report?month=${value}`)
       .then((response: any) => {
         if (response.data.statusCode === 200) {
           setReport(response.data.result);
@@ -71,6 +71,7 @@ const index = () => {
     "Sl No",
     "Client ID",
     "Client Name",
+    "Branch",
     "Software Name",
     "Server Type",
     "Instalation Date",
@@ -81,6 +82,7 @@ const index = () => {
   const element: any[] = [
     "client_id",
     "customer_name",
+    "branch_name",
     "software_name",
     "server_type",
     "createdAt",
@@ -188,9 +190,10 @@ const index = () => {
                     <tr>
                       <td>{index + 1}</td>
                       <td>{element.client_id}</td>
-                      <td>{element.customer_name}</td>
+                      <td>{element.client.customer_name}</td>
+                      <td>{element.branch_name}</td>
                       <td>{element.software_name}</td>
-                      <td>{element.server_type}</td>
+                      <td>{element.client.server_type}</td>
                       <td>
                         {element.installation_date
                           ? moment
@@ -219,7 +222,7 @@ const index = () => {
                       <td>
                         <PDFDownloadLink
                           document={<PDFDocument data={element} />}
-                          fileName={`${element.customer_name} invoice.pdf`}
+                          fileName={`${element?.client?.customer_name} invoice.pdf`}
                         >
                           {({ blob, url, loading, error }) =>
                             loading ? (
