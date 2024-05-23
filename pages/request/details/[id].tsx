@@ -5,15 +5,21 @@ import {
   Button,
   CircularProgress,
   Tooltip,
+  TextField,
+  Drawer,
+  Snackbar,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
 import { AlertBox } from "../../../components/UI/AlertBox/AlertBox";
-import { CustomizedButton } from "../../../components/UI/Button/CustomizedButton";
+import {
+  CustomizedButton,
+  DrawerButtons,
+} from "../../../components/UI/Button/CustomizedButton";
 import { LoadingPage } from "../../../components/UI/LoadingPage/LoadingPage";
 import { useJwt } from "../../../hooks/useJwt";
-import { useQueryFetchId } from "../../../hooks/useQueryFetch";
+import { useQueryFetch, useQueryFetchId } from "../../../hooks/useQueryFetch";
 import * as moment from "moment";
 import Checkbox from "@mui/material/Checkbox";
 import axios from "axios";
@@ -25,6 +31,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
+import { useFormik } from "formik";
+import {
+  DrawerDropDown,
+  BranchSelectComponent,
+} from "../../../components/UI/DropDown/DropDown";
+import { BranchInstallationDateSelector } from "../../../components/UI/DateSelector/DateSelector";
 
 const index = () => {
   const router = useRouter();
@@ -43,27 +55,31 @@ const index = () => {
   return (
     <Grid sx={{ mt: { xs: 10, md: 0 } }}>
       <Grid sx={{ m: 1 }}>
-        {["Details", "Product Key", "History"].map((data, index) => (
-          <CustomizedButton
-            color={tab === index ? "white" : "black"}
-            width="fit-content"
-            boxShadow="rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px"
-            onClick={() => setTab(index)}
-            bgcolor={tab === index ? "dodgerblue" : "white"}
-            mx={0.5}
-          >
-            {data}
-          </CustomizedButton>
-        ))}
+        {["Details", "Branches", "Product Key", "History"].map(
+          (data, index) => (
+            <CustomizedButton
+              color={tab === index ? "white" : "black"}
+              width="fit-content"
+              boxShadow="rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px"
+              onClick={() => setTab(index)}
+              bgcolor={tab === index ? "dodgerblue" : "white"}
+              mx={0.5}
+            >
+              {data}
+            </CustomizedButton>
+          )
+        )}
       </Grid>
 
       {tab === 0 && (
         <Details request={request} refetch={refetch} router={router} id={id} />
       )}
 
-      {tab === 1 && <ProductKey request={request} refetch={refetch} />}
+      {tab === 1 && <Branches request={request} />}
 
-      {tab === 2 && <History request={request} />}
+      {tab === 2 && <ProductKey request={request} refetch={refetch} />}
+
+      {tab === 3 && <History request={request} />}
     </Grid>
   );
 };
@@ -791,6 +807,357 @@ export const ProductKey = (props: any) => {
           ))}
         </tbody>
       </table>
+    </Grid>
+  );
+};
+
+export const Branches = (props: any) => {
+  const token = useJwt();
+  const { request, refetch } = props;
+  const router = useRouter();
+  const [alertBox, setAlertBox] = React.useState({
+    active: false,
+    message: "",
+    success: false,
+    id: 0,
+  });
+  const [softwareName, setSoftwareName] = React.useState(null);
+  const [installationDate, setInstallationDate]: any = React.useState();
+  const [next_amc_date, setNextAmcDate]: any = React.useState();
+  const [amcMonth, setAmcMonth] = React.useState(null);
+  const [amcDate, setAmcDate] = React.useState(null);
+  const [saveButtonClick, setSaveButtonClick] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [snakeOpen, setSnakeOpen] = React.useState(false);
+  const [messgae, setMessage] = React.useState("");
+  const tableHead = [
+    "Branch",
+    "Software Name",
+    "Installation Date",
+    "AMC",
+    "AMC Month",
+    "ERP",
+    "POS",
+    "TAB",
+    "Status",
+  ];
+
+  const [formDataFilled, setFormDataFilled] = useState({
+    branch_name: "",
+    software_name: "",
+    amc: "",
+    erp_system_count: 0,
+    pos_system_count: 0,
+    tab_count: 0,
+    active_erp: 0,
+    active_pos: 0,
+    active_tabs: 0,
+  });
+
+  const months = [
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
+  ];
+
+  const onSubmit = (values: any) => {
+    setSaveButtonClick(true);
+    const axiosrequest = axios
+      .post(
+        "branch",
+        {
+          client_id: request.client_id,
+          branch_name: formDataFilled.branch_name,
+          software_name: softwareName,
+          erp_system_count: formDataFilled.erp_system_count,
+          pos_system_count: formDataFilled.pos_system_count,
+          tab_count: formDataFilled.tab_count,
+          active_erp: formDataFilled.active_erp,
+          active_pos: formDataFilled.active_pos,
+          active_tabs: formDataFilled.active_tabs,
+          amc: formDataFilled.amc,
+          amc_month: amcMonth || null,
+          amc_date: amcDate || null,
+          next_amc_date: next_amc_date?.$d,
+          installation_date: installationDate?.$d,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => {
+        if (res?.data?.success) {
+          setMessage("Successfully Created");
+          setSnakeOpen(true);
+          setOpen(false);
+          setSaveButtonClick(false);
+        } else {
+          setSaveButtonClick(false);
+          setMessage("Failed to Create");
+          setSnakeOpen(true);
+        }
+        setSnakeOpen(false);
+      });
+  };
+
+  const formData = [
+    {
+      title: "Branch Name",
+      label: "branch_name",
+      type: "text",
+      value: formDataFilled.amc,
+      // touched: formik.touched.amc,
+      // errors: formik.errors.amc,
+    },
+    {
+      title: "AMC",
+      label: "amc",
+      type: "text",
+      value: formDataFilled.amc,
+      // touched: formik.touched.amc,
+      // errors: formik.errors.amc,
+    },
+    {
+      title: "ERP System Count",
+      label: "erp_system_count",
+      type: "number",
+      value: formDataFilled.erp_system_count,
+      // touched: formik.touched.erp_system_count,
+      // errors: formik.errors.erp_system_count,
+    },
+    {
+      title: "POS System Count",
+      label: "pos_system_count",
+      type: "number",
+      value: formDataFilled.pos_system_count,
+      // touched: formik.touched.pos_system_count,
+      // errors: formik.errors.pos_system_count,
+    },
+    {
+      title: "Tab Count",
+      label: "tab_count",
+      type: "number",
+      value: formDataFilled.tab_count,
+      // touched: formik.touched.tab_count,
+      // errors: formik.errors.tab_count,
+    },
+    {
+      title: "Active ERP",
+      label: "active_erp",
+      type: "number",
+      value: formDataFilled.active_erp,
+      // touched: formik.touched.active_erp,
+      // errors: formik.errors.active_erp,
+    },
+
+    {
+      title: "Active POS",
+      label: "active_pos",
+      type: "number",
+      value: formDataFilled.active_pos,
+      // touched: formik.touched.active_pos,
+      // errors: formik.errors.active_pos,
+    },
+    {
+      title: "Active Tabs",
+      label: "active_tabs",
+      type: "number",
+      value: formDataFilled.active_tabs,
+      // touched: formik.touched.active_tabs,
+      // errors: formik.errors.active_tabs,
+    },
+  ];
+
+  const { fetchedData: fetchedData, refetch: refetchSoftware } =
+    useQueryFetch(`request/softwares`);
+
+  const dropData = fetchedData?.result;
+
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    setFormDataFilled({ ...formDataFilled, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <Grid>
+      <div
+        style={{
+          width: "100%",
+          textAlign: "right",
+        }}
+      >
+        <CustomizedButton
+          mx={1}
+          bgcolor="dodgerblue"
+          onClick={() => setOpen(true)}
+        >
+          Add New
+        </CustomizedButton>
+
+        <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
+          {formData.map((data: any, index: any) => (
+            <Grid key={index} xs={12} sm={6} lg={4}>
+              <Grid sx={{ m: 1 }}>
+                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+                  {data.title}
+                </Typography>
+
+                <TextField
+                  sx={{ width: "100%", my: 1 }}
+                  fullWidth
+                  id={data.label}
+                  name={data.label}
+                  size="small"
+                  onChange={handleChange}
+                  // label={data.label}
+                  defaultValue={data.value}
+                  // type={data.type}
+                  // onChange={formik.handleChange}
+                  // error={data.touched && Boolean(data.errors)}
+                  // helperText={data.touched && data.errors}
+                />
+              </Grid>
+            </Grid>
+          ))}
+
+          <Grid>
+            <DrawerDropDown
+              text="Software Name"
+              value={softwareName}
+              setValue={setSoftwareName}
+              dropData={dropData}
+              id="name"
+              name="name"
+            />
+          </Grid>
+
+          <Grid>
+            <BranchInstallationDateSelector
+              installationDate={installationDate}
+              setInstallationDate={setInstallationDate}
+            />
+          </Grid>
+
+          <Grid>
+            <BranchSelectComponent
+              text="AMC Month"
+              value={amcMonth}
+              setValue={setAmcMonth}
+              dropData={months}
+              id="name"
+              name="name"
+            />
+          </Grid>
+
+          <Grid container lg={11} justifyContent="end">
+            {/* <DrawerButtons
+              mx={1}
+              // onClick={handleCreateBranch}
+              onCreate={formik.handleSubmit}
+              bgcolor="#32CD32"
+            >
+              Save
+            </DrawerButtons> */}
+
+            {saveButtonClick ? (
+              <CircularProgress />
+            ) : (
+              <Button
+                onClick={onSubmit}
+                disabled={false}
+                size="small"
+                sx={{
+                  width: props.width,
+                  my: 1,
+                  "&:hover": {
+                    boxShadow: "none",
+                  },
+                }}
+                variant="contained"
+              >
+                Save
+              </Button>
+            )}
+
+            <DrawerButtons mx={1} onClick={() => setOpen(false)} bgcolor="red">
+              Cancel
+            </DrawerButtons>
+          </Grid>
+          <Snackbar
+            // anchorOrigin={{ 'top', 'center' }}
+            open={snakeOpen}
+            autoHideDuration={5000}
+            message={messgae}
+            // key={'top' + 'center'}
+          />
+        </Drawer>
+      </div>
+      {request?.branch.length ? (
+        <table id={style.table}>
+          <thead>
+            <tr>
+              <th>No</th>
+
+              {tableHead.map((data: any, index: any) => (
+                <th key={index}>{data}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {request?.branch?.map((data: any, index: any) => (
+              <tr key={index} style={{ cursor: "pointer" }}>
+                <td style={{ fontWeight: "bold" }}>{index + 1}</td>
+                <td>{data.branch_name}</td>
+                <td>{data.software_name}</td>
+                <td>
+                  {data?.installation_date
+                    ? moment.utc(data?.installation_date).format("MMMM Do YYYY")
+                    : null}
+                </td>
+                <td>{data.amc}</td>
+                <td>
+                  {data?.amc_month
+                    ? months.find(
+                        (element: any) => element.value === data?.amc_month
+                      )?.label || null
+                    : null}
+                </td>
+                <td>{data.erp_system_count + "/" + data.active_erp}</td>
+                <td>{data.pos_system_count + "/" + data.active_pos}</td>
+                <td>{data.tab_count + "/" + data.active_tabs}</td>
+                <td>
+                  <Typography
+                    sx={{
+                      bgcolor: data?.is_active === true ? "yellowgreen" : "red",
+                      px: 1,
+                      borderRadius: "20px",
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    {data?.is_active === true ? "Active" : "Inactive"}
+                  </Typography>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div>
+          <Typography variant="body1">No Data Found</Typography>
+        </div>
+      )}
     </Grid>
   );
 };

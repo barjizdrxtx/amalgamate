@@ -1,84 +1,120 @@
-import * as React from 'react';
-import { Dayjs } from 'dayjs';
-import TextField from '@mui/material/TextField';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-
+import * as React from "react";
+import { Dayjs } from "dayjs";
+import TextField from "@mui/material/TextField";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 export const DateSelector = (props: any) => {
+  const { next_amc_date, setNextAmcDate } = props;
 
-    const { next_amc_date, setNextAmcDate } = props;
+  const [value, setValue] = React.useState<Dayjs | null>(null);
 
-    const [value, setValue] = React.useState<Dayjs | null>(null);
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        m: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "start",
+        alignItems: "start",
+      }}
+    >
+      <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+          AMC Date
+        </Typography>
+      </Box>
 
-    return (
-
-        <Box sx={{
-            width: "100%", m: 1, display: "flex", flexDirection: "column",
-            justifyContent: "start", alignItems: "start"
-        }}>
-
-            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
-
-                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>AMC Date</Typography>
-
-            </Box>
-
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-
-                <DatePicker
-                    // views={['month','day']}
-                    value={next_amc_date}
-                    onChange={(newValue) => {
-                        setNextAmcDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField sx={{ width: "100%" }} {...params} />}
-                />
-            </LocalizationProvider>
-
-        </Box>
-
-
-    )
-}
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          // views={['month','day']}
+          value={next_amc_date}
+          onChange={(newValue) => {
+            setNextAmcDate(newValue);
+          }}
+          renderInput={(params) => (
+            <TextField sx={{ width: "100%" }} {...params} />
+          )}
+        />
+      </LocalizationProvider>
+    </Box>
+  );
+};
 
 export const InstallationDateSelector = (props: any) => {
+  const { installationDate, setInstallationDate } = props;
 
-    const { installationDate, setInstallationDate } = props;
+  const [value, setValue] = React.useState<Dayjs | null>(null);
 
-    const [value, setValue] = React.useState<Dayjs | null>(null);
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        m: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "start",
+        alignItems: "start",
+      }}
+    >
+      <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+          Installation Date
+        </Typography>
+      </Box>
 
-    return (
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          value={installationDate}
+          onChange={(newValue) => {
+            setInstallationDate(newValue);
+          }}
+          renderInput={(params) => (
+            <TextField sx={{ width: "100%" }} {...params} />
+          )}
+        />
+      </LocalizationProvider>
+    </Box>
+  );
+};
 
-        <Box sx={{
-            width: "100%", m: 1, display: "flex", flexDirection: "column",
-            justifyContent: "start", alignItems: "start"
-        }}>
+export const BranchInstallationDateSelector = (props: any) => {
+  const { installationDate, setInstallationDate } = props;
 
-            <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+  const [value, setValue] = React.useState<Dayjs | null>(null);
 
-                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>Installation Date</Typography>
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        m: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "start",
+        alignItems: "start",
+      }}
+    >
+      <Box sx={{ mb: 1, flex: 1, display: "flex", justifyContent: "center" }}>
+        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+          Installation Date
+        </Typography>
+      </Box>
 
-            </Box>
-
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-
-                <DatePicker
-                    value={installationDate}
-                    onChange={(newValue) => {
-                        setInstallationDate(newValue);
-                    }}
-                    renderInput={(params) => <TextField sx={{ width: "100%" }} {...params} />}
-                />
-            </LocalizationProvider>
-
-        </Box>
-
-
-    )
-}
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          value={installationDate}
+          onChange={(newValue) => {
+            setInstallationDate(newValue);
+          }}
+          renderInput={(params) => (
+            <TextField sx={{ width: "100%" }} {...params} />
+          )}
+        />
+      </LocalizationProvider>
+    </Box>
+  );
+};

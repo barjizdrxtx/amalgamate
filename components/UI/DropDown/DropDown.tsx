@@ -1,85 +1,187 @@
-import { Box, Grid, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
-import React from 'react'
+import {
+  Box,
+  Grid,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
+import React from "react";
 
 export const DropDown = (props: any) => {
+  const { text, dropData, value, setValue, id, name } = props;
 
-    const { text, dropData, value, setValue, id, name } = props;
+  const handleChange = (event: SelectChangeEvent) => {
+    setValue(event.target.value as string);
+  };
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setValue(event.target.value as string);
-    };
+  return (
+    <Grid container>
+      <Grid container sx={{ m: 1, bgcolor: "white" }}>
+        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+          {text}
+        </Typography>
 
-    return (
+        <Select
+          sx={{
+            width: "100%",
+            my: 1,
+            textTransform: "capitalize",
+            bgcolor: "white",
+          }}
+          id={text}
+          value={value}
+          onChange={handleChange}
+        >
+          <MenuItem value={0} disabled>
+            {text}
+          </MenuItem>
 
-        <Grid container>
-
-            <Grid container sx={{ m: 1, bgcolor: "white" }}>
-
-                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{text}</Typography>
-
-                <Select sx={{ width: "100%", my: 1, textTransform: "capitalize", bgcolor: "white" }}
-                    id={text}
-                    value={value}
-                    onChange={handleChange}
-                >
-
-                    <MenuItem value={0} disabled >{text}</MenuItem>
-
-                    {dropData?.map((data: any, index: any) =>
-
-                        <MenuItem key={index} sx={{ textTransform: "capitalize", width: "100%" }} value={data[id]}>{data[name]}</MenuItem>
-
-                    )}
-
-                </Select>
-
-            </Grid>
-
-        </Grid >
-
-    )
-}
-
+          {dropData?.map((data: any, index: any) => (
+            <MenuItem
+              key={index}
+              sx={{ textTransform: "capitalize", width: "100%" }}
+              value={data[id]}
+            >
+              {data[name]}
+            </MenuItem>
+          ))}
+        </Select>
+      </Grid>
+    </Grid>
+  );
+};
 
 export const SelectComponent = (props: any) => {
+  const { text, dropData, value, setValue, id, name } = props;
 
-    const { text, dropData, value, setValue, id, name } = props;
+  const handleChange = (value: number) => {
+    setValue(value);
+  };
 
-    const handleChange = (value: number) => {
-        setValue(value);
-    };
+  return (
+    <Grid container>
+      <Grid container sx={{ m: 1, bgcolor: "white" }}>
+        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+          {text}
+        </Typography>
 
-    return (
+        <Select
+          sx={{
+            width: "100%",
+            my: 1,
+            textTransform: "capitalize",
+            bgcolor: "white",
+          }}
+          id={text}
+          value={value}
+          onChange={(e) => handleChange(+e.target.value)}
+        >
+          <MenuItem value={0} disabled>
+            {text}
+          </MenuItem>
 
-        <Grid container>
+          {dropData?.map((data: any, index: any) => (
+            <MenuItem
+              key={index}
+              sx={{ textTransform: "capitalize", width: "100%" }}
+              value={data["value"]}
+            >
+              {data["label"]}
+            </MenuItem>
+          ))}
+        </Select>
+      </Grid>
+    </Grid>
+  );
+};
 
-            <Grid container sx={{ m: 1, bgcolor: "white" }}>
+export const DrawerDropDown = (props: any) => {
+  const { text, dropData, value, setValue, id, name } = props;
 
-                <Typography sx={{ color: "#566573", fontWeight: "bold" }}>{text}</Typography>
+  const handleChange = (event: SelectChangeEvent) => {
+    setValue(event.target.value as string);
+  };
 
-                <Select sx={{ width: "100%", my: 1, textTransform: "capitalize", bgcolor: "white" }}
-                    id={text}
-                    value={value}
-                    onChange={(e) => handleChange(+e.target.value)}
-                >
+  return (
+    <Grid container>
+      <Grid container sx={{ m: 1, bgcolor: "white" }}>
+        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+          {text}
+        </Typography>
 
-                    <MenuItem value={0} disabled >{text}</MenuItem>
+        <Select
+          sx={{
+            width: "100%",
+            my: 1,
+            textTransform: "capitalize",
+            bgcolor: "white",
+          }}
+          id={text}
+          size="small"
+          value={value}
+          onChange={handleChange}
+        >
+          <MenuItem value={0} disabled>
+            {text}
+          </MenuItem>
 
-                    {dropData?.map((data: any, index: any) =>
+          {dropData?.map((data: any, index: any) => (
+            <MenuItem
+              key={index}
+              sx={{ textTransform: "capitalize", width: "100%" }}
+              value={data[id]}
+            >
+              {data[name]}
+            </MenuItem>
+          ))}
+        </Select>
+      </Grid>
+    </Grid>
+  );
+};
 
-                        <MenuItem key={index} sx={{ textTransform: "capitalize", width: "100%" }} value={data["value"]}>
-                            {data["label"]}
-                        </MenuItem>
+export const BranchSelectComponent = (props: any) => {
+  const { text, dropData, value, setValue, id, name } = props;
 
-                    )}
+  const handleChange = (value: number) => {
+    setValue(value);
+  };
 
-                </Select>
+  return (
+    <Grid container>
+      <Grid container sx={{ m: 1, bgcolor: "white" }}>
+        <Typography sx={{ color: "#566573", fontWeight: "bold" }}>
+          {text}
+        </Typography>
 
-            </Grid>
+        <Select
+          sx={{
+            width: "100%",
+            my: 1,
+            textTransform: "capitalize",
+            bgcolor: "white",
+          }}
+          size="small"
+          id={text}
+          value={value}
+          onChange={(e) => handleChange(+e.target.value)}
+        >
+          <MenuItem value={0} disabled>
+            {text}
+          </MenuItem>
 
-        </Grid >
-
-    )
-}
-
-
+          {dropData?.map((data: any, index: any) => (
+            <MenuItem
+              key={index}
+              sx={{ textTransform: "capitalize", width: "100%" }}
+              value={data["value"]}
+            >
+              {data["label"]}
+            </MenuItem>
+          ))}
+        </Select>
+      </Grid>
+    </Grid>
+  );
+};
