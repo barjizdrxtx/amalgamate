@@ -143,10 +143,17 @@ export const TableUI = (props: any) => {
 
                     <td key={index} >
 
-                      {el === 'total_systems' ? 
-                        data['erp_system_count'] + data['tab_count'] + data['pos_system_count'] 
+                      {
+                      el === 'total_systems' ? 
+                        // data['erp_system_count'] + data['tab_count'] + data['pos_system_count'] 
+                        data.branch.reduce((sum:any, item:any) => {
+                          return sum + item.erp_system_count + item.pos_system_count + item.tab_count;
+                      }, 0)
                       : el === 'active_systems' ? 
-                        data['active_erp'] + data['active_pos'] + data['active_tabs']
+                        // data['active_erp'] + data['active_pos'] + data['active_tabs']
+                        data.branch.reduce((sum:any, item:any) => {
+                          return sum + item.active_erp + item.active_pos + item.active_tabs;
+                      }, 0)
                       : nestedArray ? data["data"][el] 
                       : data[el]}
 
