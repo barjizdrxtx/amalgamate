@@ -903,6 +903,17 @@ export const Branches = (props: any) => {
           setSnakeOpen(true);
           setOpen(false);
           setSaveButtonClick(false);
+          setFormDataFilled({
+            branch_name: "",
+            software_name: "",
+            amc: "",
+            erp_system_count: 0,
+            pos_system_count: 0,
+            tab_count: 0,
+            active_erp: 0,
+            active_pos: 0,
+            active_tabs: 0,
+          });
         } else {
           setSaveButtonClick(false);
           setMessage("Failed to Create");
@@ -1133,9 +1144,21 @@ export const Branches = (props: any) => {
                       )?.label || null
                     : null}
                 </td>
-                <td>{data.erp_system_count + "/" + data.active_erp}</td>
-                <td>{data.pos_system_count + "/" + data.active_pos}</td>
-                <td>{data.tab_count + "/" + data.active_tabs}</td>
+                <td>
+                  {data.erp_system_count + "/" + data.active_erp === null
+                    ? 0
+                    : data.active_erp}
+                </td>
+                <td>
+                  {data.pos_system_count + "/" + data.active_pos === null
+                    ? 0
+                    : data.active_pos}
+                </td>
+                <td>
+                  {data.tab_count + "/" + data.active_tabs === null
+                    ? 0
+                    : data.active_tabs}
+                </td>
                 <td>
                   <Typography
                     sx={{

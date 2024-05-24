@@ -189,13 +189,13 @@ const index = () => {
                   report?.map((element: any, index) => (
                     <tr>
                       <td>{index + 1}</td>
-                      <td>{element.client_id}</td>
-                      <td>{element.client.customer_name}</td>
-                      <td>{element.branch_name}</td>
-                      <td>{element.software_name}</td>
-                      <td>{element.client.server_type}</td>
+                      <td>{element?.client_id}</td>
+                      <td>{element?.client?.customer_name}</td>
+                      <td>{element?.branch_name}</td>
+                      <td>{element?.software_name}</td>
+                      <td>{element?.client?.server_type}</td>
                       <td>
-                        {element.installation_date
+                        {element?.installation_date
                           ? moment
                               .utc(element?.installation_date)
                               .format("DD/MM/YYYY")
@@ -215,7 +215,7 @@ const index = () => {
                             color: "white",
                           }}
                         >
-                          {element.is_active === true ? "Active" : "Inactive"}
+                          {element?.is_active === true ? "Active" : "Inactive"}
                         </Typography>
                       </td>
                       {/* <td onClick={() => handleDownload(element.client_id)}> */}
