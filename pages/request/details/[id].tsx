@@ -1145,19 +1145,19 @@ export const Branches = (props: any) => {
                     : null}
                 </td>
                 <td>
-                  {data.erp_system_count + "/" + data.active_erp === null
-                    ? 0
-                    : data.active_erp}
+                  {data.erp_system_count +
+                    "/" +
+                    (data.active_erp === null ? 0 : data.active_erp)}
                 </td>
                 <td>
-                  {data.pos_system_count + "/" + data.active_pos === null
-                    ? 0
-                    : data.active_pos}
+                  {data.pos_system_count +
+                    "/" +
+                    (data.active_pos === null ? 0 : data.active_pos)}
                 </td>
                 <td>
-                  {data.tab_count + "/" + data.active_tabs === null
-                    ? 0
-                    : data.active_tabs}
+                  {data.tab_count +
+                    "/" +
+                    (data.active_tabs === null ? 0 : data.active_tabs)}
                 </td>
                 <td>
                   <Typography
