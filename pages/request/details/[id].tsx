@@ -1029,7 +1029,7 @@ export const Branches = (props: any) => {
               });
             } else {
               setSaveButtonClick(false);
-              setMessage("Failed to Create");
+              setMessage("Failed to Update");
               setSnakeOpen(true);
             }
             setSnakeOpen(false);
