@@ -834,6 +834,8 @@ export const Branches = (props: any) => {
   const [amcDate, setAmcDate] = React.useState(null);
   const [saveButtonClick, setSaveButtonClick] = useState(false);
   const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editingId, setEditingId] = useState(0);
   const [dailogeOpen, setDailogeOpen] = useState(false);
   const [snakeOpen, setSnakeOpen] = React.useState(false);
   const [messgae, setMessage] = React.useState("");
@@ -849,6 +851,17 @@ export const Branches = (props: any) => {
     "Status",
     "Actions",
   ];
+  const [formDataFilled, setFormDataFilled] = useState({
+    branch_name: "",
+    software_name: "",
+    amc: "",
+    erp_system_count: 0,
+    pos_system_count: 0,
+    tab_count: 0,
+    active_erp: 0,
+    active_pos: 0,
+    active_tabs: 0,
+  });
 
   const [loading, setLoading] = useState(
     new Array(request?.branch?.length).fill(false)
@@ -897,7 +910,17 @@ export const Branches = (props: any) => {
   };
 
   const handleEdit = async (data: any, index: number) => {
-    console.log("----------", data);
+    setEditingId(data.id);
+
+    setEditing(true);
+
+    setNextAmcDate(data?.next_amc_date);
+
+    setAmcMonth(data?.amc_month);
+
+    setInstallationDate(data?.installation_date);
+
+    setSoftwareName(data?.software_name);
 
     setFormDataFilled({
       branch_name: data.branch_name,
@@ -942,18 +965,6 @@ export const Branches = (props: any) => {
     setLoading(newLoadingStatesA);
   };
 
-  const [formDataFilled, setFormDataFilled] = useState({
-    branch_name: "",
-    software_name: "",
-    amc: "",
-    erp_system_count: 0,
-    pos_system_count: 0,
-    tab_count: 0,
-    active_erp: 0,
-    active_pos: 0,
-    active_tabs: 0,
-  });
-
   const months = [
     { value: 1, label: "January" },
     { value: 2, label: "February" },
@@ -971,56 +982,113 @@ export const Branches = (props: any) => {
 
   const onSubmit = (values: any) => {
     setSaveButtonClick(true);
-    const axiosrequest = axios
-      .post(
-        "branch",
-        {
-          client_id: request.client_id,
-          branch_name: formDataFilled.branch_name,
-          software_name: softwareName,
-          erp_system_count: formDataFilled.erp_system_count,
-          pos_system_count: formDataFilled.pos_system_count,
-          tab_count: formDataFilled.tab_count,
-          active_erp: formDataFilled.active_erp,
-          active_pos: formDataFilled.active_pos,
-          active_tabs: formDataFilled.active_tabs,
-          amc: formDataFilled.amc,
-          amc_month: amcMonth || null,
-          amc_date: amcDate || null,
-          next_amc_date: next_amc_date?.$d,
-          installation_date: installationDate?.$d,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        }
-      )
-      .then((res) => {
-        if (res?.data?.success) {
-          setMessage("Successfully Created");
-          setSnakeOpen(true);
-          setOpen(false);
-          setSaveButtonClick(false);
-          setFormDataFilled({
-            branch_name: "",
-            software_name: "",
-            amc: "",
-            erp_system_count: 0,
-            pos_system_count: 0,
-            tab_count: 0,
-            active_erp: 0,
-            active_pos: 0,
-            active_tabs: 0,
+    if (editing) {
+      if (editingId > 0) {
+        const axiosrequest = axios
+          .patch(
+            `branch/${editingId}`,
+            {
+              client_id: request.client_id,
+              branch_name: formDataFilled.branch_name,
+              software_name: softwareName,
+              erp_system_count: formDataFilled.erp_system_count,
+              pos_system_count: formDataFilled.pos_system_count,
+              tab_count: formDataFilled.tab_count,
+              active_erp: formDataFilled.active_erp,
+              active_pos: formDataFilled.active_pos,
+              active_tabs: formDataFilled.active_tabs,
+              amc: formDataFilled.amc,
+              amc_month: amcMonth || null,
+              amc_date: amcDate || null,
+              next_amc_date: next_amc_date?.$d,
+              installation_date: installationDate?.$d,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            }
+          )
+          .then((res) => {
+            if (res?.data?.success) {
+              setMessage("Successfully Updated");
+              setSnakeOpen(true);
+              setOpen(false);
+              setSaveButtonClick(false);
+              setFormDataFilled({
+                branch_name: "",
+                software_name: "",
+                amc: "",
+                erp_system_count: 0,
+                pos_system_count: 0,
+                tab_count: 0,
+                active_erp: 0,
+                active_pos: 0,
+                active_tabs: 0,
+              });
+            } else {
+              setSaveButtonClick(false);
+              setMessage("Failed to Create");
+              setSnakeOpen(true);
+            }
+            setSnakeOpen(false);
           });
-        } else {
-          setSaveButtonClick(false);
-          setMessage("Failed to Create");
-          setSnakeOpen(true);
-        }
-        setSnakeOpen(false);
-      });
+      } else {
+        alert("Please Select branch to Update");
+      }
+    } else {
+      const axiosrequest = axios
+        .post(
+          "branch",
+          {
+            client_id: request.client_id,
+            branch_name: formDataFilled.branch_name,
+            software_name: softwareName,
+            erp_system_count: formDataFilled.erp_system_count,
+            pos_system_count: formDataFilled.pos_system_count,
+            tab_count: formDataFilled.tab_count,
+            active_erp: formDataFilled.active_erp,
+            active_pos: formDataFilled.active_pos,
+            active_tabs: formDataFilled.active_tabs,
+            amc: formDataFilled.amc,
+            amc_month: amcMonth || null,
+            amc_date: amcDate || null,
+            next_amc_date: next_amc_date?.$d,
+            installation_date: installationDate?.$d,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
+        .then((res) => {
+          if (res?.data?.success) {
+            setMessage("Successfully Created");
+            setSnakeOpen(true);
+            setOpen(false);
+            setSaveButtonClick(false);
+            setFormDataFilled({
+              branch_name: "",
+              software_name: "",
+              amc: "",
+              erp_system_count: 0,
+              pos_system_count: 0,
+              tab_count: 0,
+              active_erp: 0,
+              active_pos: 0,
+              active_tabs: 0,
+            });
+          } else {
+            setSaveButtonClick(false);
+            setMessage("Failed to Create");
+            setSnakeOpen(true);
+          }
+          setSnakeOpen(false);
+        });
+    }
   };
 
   const formData = [
@@ -1028,7 +1096,7 @@ export const Branches = (props: any) => {
       title: "Branch Name",
       label: "branch_name",
       type: "text",
-      value: formDataFilled.amc,
+      value: formDataFilled.branch_name,
       // touched: formik.touched.amc,
       // errors: formik.errors.amc,
     },
@@ -1100,6 +1168,29 @@ export const Branches = (props: any) => {
     setFormDataFilled({ ...formDataFilled, [e.target.name]: e.target.value });
   };
 
+  const handleNew = () => {
+    setEditing(false);
+    setFormDataFilled({
+      branch_name: "",
+      software_name: "",
+      amc: "",
+      erp_system_count: 0,
+      pos_system_count: 0,
+      tab_count: 0,
+      active_erp: 0,
+      active_pos: 0,
+      active_tabs: 0,
+    });
+    setNextAmcDate(null);
+
+    setAmcMonth(null);
+
+    setInstallationDate(null);
+
+    setSoftwareName(null);
+    setOpen(true);
+  };
+
   return (
     <Grid>
       <div
@@ -1108,11 +1199,7 @@ export const Branches = (props: any) => {
           textAlign: "right",
         }}
       >
-        <CustomizedButton
-          mx={1}
-          bgcolor="dodgerblue"
-          onClick={() => setOpen(true)}
-        >
+        <CustomizedButton mx={1} bgcolor="dodgerblue" onClick={handleNew}>
           Add New
         </CustomizedButton>
 
@@ -1197,7 +1284,7 @@ export const Branches = (props: any) => {
                 }}
                 variant="contained"
               >
-                Save
+                {editing ? "Update" : "Save"}
               </Button>
             )}
 
