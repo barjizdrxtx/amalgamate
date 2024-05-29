@@ -33,6 +33,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 import { useFormik } from "formik";
 import EditIcon from "@mui/icons-material/Edit";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import {
   DrawerDropDown,
   BranchSelectComponent,
@@ -76,7 +77,7 @@ const index = () => {
         <Details request={request} refetch={refetch} router={router} id={id} />
       )}
 
-      {tab === 1 && <Branches request={request} />}
+      {tab === 1 && <Branches request={request} refetch={refetch} />}
 
       {tab === 2 && <ProductKey request={request} refetch={refetch} />}
 
@@ -833,6 +834,7 @@ export const Branches = (props: any) => {
   const [amcDate, setAmcDate] = React.useState(null);
   const [saveButtonClick, setSaveButtonClick] = useState(false);
   const [open, setOpen] = useState(false);
+  const [dailogeOpen, setDailogeOpen] = useState(false);
   const [snakeOpen, setSnakeOpen] = React.useState(false);
   const [messgae, setMessage] = React.useState("");
   const tableHead = [
@@ -857,11 +859,15 @@ export const Branches = (props: any) => {
   );
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setDailogeOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleDailogClose = () => {
+    setDailogeOpen(false);
   };
 
   const handleConfirm = async (id: number, index: number) => {
@@ -873,7 +879,7 @@ export const Branches = (props: any) => {
       .delete(`branch/${id}`)
       .then((response: any) => {
         if (response.data.statusCode === 200) {
-          // refetch();
+          refetch();
         } else if (response.data.statusCode === 404) {
           alert("No Data Found!");
         } else {
@@ -890,18 +896,37 @@ export const Branches = (props: any) => {
     setConfirmLoading(newLoadingStatesb);
   };
 
-  const handleEdit = async (id: number, index: number) => {};
+  const handleEdit = async (data: any, index: number) => {
+    console.log("----------", data);
 
-  const handleDeactivate = async (id: number, index: number) => {
+    setFormDataFilled({
+      branch_name: data.branch_name,
+      software_name: data.software_name,
+      amc: data.amc,
+      erp_system_count: data.erp_system_count,
+      pos_system_count: data.pos_system_count,
+      tab_count: data.tab_count,
+      active_erp: data.active_erp,
+      active_pos: data.active_pos,
+      active_tabs: data.active_tabs,
+    });
+    setOpen(true);
+  };
+
+  const handleDeactivate = async (
+    id: number,
+    index: number,
+    isActive: boolean
+  ) => {
     const newLoadingStates = [...loading];
     newLoadingStates[index] = true;
     setLoading(newLoadingStates);
 
     await axios
-      .patch(`branch/deactivate/${id}`)
+      .patch(`branch/deactivate/${id}?isActive=${isActive}`)
       .then((response: any) => {
         if (response.data.statusCode === 200) {
-          // refetch();
+          refetch();
         } else if (response.data.statusCode === 404) {
           alert("No Data Found!");
         } else {
@@ -1235,31 +1260,17 @@ export const Branches = (props: any) => {
                     (data.active_tabs === null ? 0 : data.active_tabs)}
                 </td>
                 <td>
-                  {loading[index] === true ? (
-                    <CircularProgress
-                      size={24}
-                      sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        marginTop: "-12px",
-                        marginLeft: "-12px",
-                      }}
-                    />
-                  ) : (
-                    <Typography
-                      sx={{
-                        bgcolor:
-                          data?.is_active === true ? "yellowgreen" : "red",
-                        px: 1,
-                        borderRadius: "20px",
-                        color: "white",
-                        textAlign: "center",
-                      }}
-                    >
-                      {data?.is_active === true ? "Active" : "Inactive"}
-                    </Typography>
-                  )}
+                  <Typography
+                    sx={{
+                      bgcolor: data?.is_active === true ? "yellowgreen" : "red",
+                      px: 1,
+                      borderRadius: "20px",
+                      color: "white",
+                      textAlign: "center",
+                    }}
+                  >
+                    {data?.is_active === true ? "Active" : "Inactive"}
+                  </Typography>
                 </td>
                 <td>
                   <Grid
@@ -1267,21 +1278,51 @@ export const Branches = (props: any) => {
                     justifyContent={"center"}
                     alignItems={"center"}
                   >
-                    {data.is_active && (
+                    {loading[index] === true ? (
+                      <CircularProgress
+                        size={24}
+                        sx={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
+                          marginTop: "-12px",
+                          marginLeft: "-12px",
+                        }}
+                      />
+                    ) : (
                       <Box sx={{ m: 1, position: "relative" }}>
-                        <Tooltip title="Deactivate" placement="top-start">
-                          <EditIcon
-                            onClick={() => handleEdit(data.id, index)}
-                          />
-                        </Tooltip>
+                        {data?.is_active ? (
+                          <Tooltip title="Deactivate" placement="top-start">
+                            <DisabledByDefaultIcon
+                              onClick={() =>
+                                handleDeactivate(data.id, index, false)
+                              }
+                            />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip title="Activate" placement="top-start">
+                            <CheckBoxIcon
+                              onClick={() =>
+                                handleDeactivate(data.id, index, true)
+                              }
+                            />
+                          </Tooltip>
+                        )}
                       </Box>
                     )}
-                    <Tooltip title="Delete" placement="top-start">
-                      <DeleteIcon onClick={handleClickOpen} />
-                    </Tooltip>
+                    <Box sx={{ m: 1, position: "relative" }}>
+                      <Tooltip title="Edit" placement="top-start">
+                        <EditIcon onClick={() => handleEdit(data, index)} />
+                      </Tooltip>
+                    </Box>
+                    <Box sx={{ m: 1, position: "relative" }}>
+                      <Tooltip title="Delete" placement="top-start">
+                        <DeleteIcon onClick={handleClickOpen} />
+                      </Tooltip>
+                    </Box>
                     <Dialog
-                      open={open}
-                      onClose={handleClose}
+                      open={dailogeOpen}
+                      onClose={handleDailogClose}
                       aria-labelledby="alert-dialog-title"
                       aria-describedby="alert-dialog-description"
                     >
@@ -1314,7 +1355,7 @@ export const Branches = (props: any) => {
                             </Button>
                           )}
                         </Box>
-                        <Button onClick={handleClose} autoFocus>
+                        <Button onClick={handleDailogClose} autoFocus>
                           Cancel
                         </Button>
                       </DialogActions>
