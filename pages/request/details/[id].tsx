@@ -32,6 +32,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 import { useFormik } from "formik";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   DrawerDropDown,
   BranchSelectComponent,
@@ -567,6 +568,7 @@ export const ProductKey = (props: any) => {
 
   const tableHead = [
     // "Client ID",
+    "Branch",
     "Product Key",
     "Software Name",
     "Mac Id",
@@ -579,6 +581,7 @@ export const ProductKey = (props: any) => {
 
   const element = [
     // "client_id",
+    "branch_id",
     "product_key",
     "software_name",
     "mac_id",
@@ -687,6 +690,8 @@ export const ProductKey = (props: any) => {
                     ? moment
                         .utc(data["last_loggedin_at"])
                         .format("MMMM Do YYYY hh:mm:ss A")
+                    : el === "branch_id"
+                    ? data.branch.branch_name
                     : data[el]}
                 </td>
               ))}
@@ -840,7 +845,77 @@ export const Branches = (props: any) => {
     "POS",
     "TAB",
     "Status",
+    "Actions",
   ];
+
+  const [loading, setLoading] = useState(
+    new Array(request?.branch?.length).fill(false)
+  );
+
+  const [confirmLoading, setConfirmLoading] = useState(
+    new Array(request?.branch?.length).fill(false)
+  );
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleConfirm = async (id: number, index: number) => {
+    const newLoadingStatesa = [...confirmLoading];
+    newLoadingStatesa[index] = true;
+    setConfirmLoading(newLoadingStatesa);
+
+    await axios
+      .delete(`branch/${id}`)
+      .then((response: any) => {
+        if (response.data.statusCode === 200) {
+          // refetch();
+        } else if (response.data.statusCode === 404) {
+          alert("No Data Found!");
+        } else {
+          alert("Failed to Delete, Please try Again Later!");
+        }
+      })
+      .catch((error: any) => {
+        alert("Failed to Delete, Please try Again Later!");
+      });
+
+    setOpen(false);
+    const newLoadingStatesb = [...confirmLoading];
+    newLoadingStatesb[index] = false;
+    setConfirmLoading(newLoadingStatesb);
+  };
+
+  const handleEdit = async (id: number, index: number) => {};
+
+  const handleDeactivate = async (id: number, index: number) => {
+    const newLoadingStates = [...loading];
+    newLoadingStates[index] = true;
+    setLoading(newLoadingStates);
+
+    await axios
+      .patch(`branch/deactivate/${id}`)
+      .then((response: any) => {
+        if (response.data.statusCode === 200) {
+          // refetch();
+        } else if (response.data.statusCode === 404) {
+          alert("No Data Found!");
+        } else {
+          alert("Failed to Deactivate, Please try Again Later!");
+        }
+      })
+      .catch((error: any) => {
+        alert("Failed to Deactivate, Please try Again Later!");
+      });
+
+    const newLoadingStatesA = [...loading];
+    newLoadingStatesA[index] = false;
+    setLoading(newLoadingStatesA);
+  };
 
   const [formDataFilled, setFormDataFilled] = useState({
     branch_name: "",
@@ -1160,17 +1235,91 @@ export const Branches = (props: any) => {
                     (data.active_tabs === null ? 0 : data.active_tabs)}
                 </td>
                 <td>
-                  <Typography
-                    sx={{
-                      bgcolor: data?.is_active === true ? "yellowgreen" : "red",
-                      px: 1,
-                      borderRadius: "20px",
-                      color: "white",
-                      textAlign: "center",
-                    }}
+                  {loading[index] === true ? (
+                    <CircularProgress
+                      size={24}
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        marginTop: "-12px",
+                        marginLeft: "-12px",
+                      }}
+                    />
+                  ) : (
+                    <Typography
+                      sx={{
+                        bgcolor:
+                          data?.is_active === true ? "yellowgreen" : "red",
+                        px: 1,
+                        borderRadius: "20px",
+                        color: "white",
+                        textAlign: "center",
+                      }}
+                    >
+                      {data?.is_active === true ? "Active" : "Inactive"}
+                    </Typography>
+                  )}
+                </td>
+                <td>
+                  <Grid
+                    container
+                    justifyContent={"center"}
+                    alignItems={"center"}
                   >
-                    {data?.is_active === true ? "Active" : "Inactive"}
-                  </Typography>
+                    {data.is_active && (
+                      <Box sx={{ m: 1, position: "relative" }}>
+                        <Tooltip title="Deactivate" placement="top-start">
+                          <EditIcon
+                            onClick={() => handleEdit(data.id, index)}
+                          />
+                        </Tooltip>
+                      </Box>
+                    )}
+                    <Tooltip title="Delete" placement="top-start">
+                      <DeleteIcon onClick={handleClickOpen} />
+                    </Tooltip>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        {"Caution!!!!"}
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                          Are you sure want to delete this Branch.
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Box sx={{ m: 1, position: "relative" }}>
+                          {confirmLoading[index] === true ? (
+                            <CircularProgress
+                              size={24}
+                              sx={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                marginTop: "-12px",
+                                marginLeft: "-12px",
+                              }}
+                            />
+                          ) : (
+                            <Button
+                              onClick={() => handleConfirm(data.id, index)}
+                            >
+                              Confirm
+                            </Button>
+                          )}
+                        </Box>
+                        <Button onClick={handleClose} autoFocus>
+                          Cancel
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                  </Grid>
                 </td>
               </tr>
             ))}
