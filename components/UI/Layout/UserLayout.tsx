@@ -101,12 +101,17 @@ export const UserLayout = () => {
               fullWidth
               id="reason"
               name="reason"
+              inputProps={{
+                autoComplete: "off",
+              }}
               // label={data.label}
               multiline
               rows={4}
               value={formik.values.reason}
               type="text"
-              disabled={localStorage.getItem("isSearch") === "true" ? false : true}
+              // disabled={
+              //   localStorage.getItem("isSearch") === "true" ? false : true
+              // }
               onChange={formik.handleChange}
               error={formik.touched.reason && Boolean(formik.errors.reason)}
               helperText={formik.touched.reason && formik.errors.reason}
@@ -123,13 +128,18 @@ export const UserLayout = () => {
               fullWidth
               id="client_id"
               name="client_id"
+              inputProps={{
+                autoComplete: "off",
+              }}
               // label={data.label}
               // multiline
               rows={1}
               value={formik.values.client_id}
               type="text"
               onChange={formik.handleChange}
-              disabled={localStorage.getItem("isSearch") === "true" ? false : true}
+              // disabled={
+              //   localStorage.getItem("isSearch") === "true" ? false : true
+              // }
               error={
                 formik.touched.client_id && Boolean(formik.errors.client_id)
               }
@@ -142,7 +152,9 @@ export const UserLayout = () => {
               <CircularProgress />
             ) : (
               <CustomizedButton
-                disabled={localStorage.getItem("isSearch") === "true" ? false : true}
+                // disabled={
+                //   localStorage.getItem("isSearch") === "true" ? false : true
+                // }
                 bgcolor="green"
                 onClick={formik.handleSubmit}
               >
