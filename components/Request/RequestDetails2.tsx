@@ -12,7 +12,7 @@ export const RequestDetails2 = (props: any) => {
   const [tab, setTab] = useState(0);
 
   return (
-    <Grid container justifyContent="left" sx={{ mt: { xs: 10, md: 3 } }}>
+    <Grid container justifyContent="center" sx={{ mt: { xs: 10, md: 3 } }}>
       <Grid
         container
         md={11}
@@ -23,10 +23,11 @@ export const RequestDetails2 = (props: any) => {
         }}
       >
         {searchData != null ? (
-          <>
+          <Grid container>
             <Grid container sx={{ m: 1 }}>
               {["Details", "Branches", "Product Key"].map((data, index) => (
                 <CustomizedButton
+                  fontSize={"0.8rem"}
                   color={tab === index ? "white" : "black"}
                   width="fit-content"
                   boxShadow="rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px"
@@ -38,12 +39,15 @@ export const RequestDetails2 = (props: any) => {
                 </CustomizedButton>
               ))}
             </Grid>
-            {tab === 0 && <Details searchData={searchData} />}
 
-            {tab === 1 && <Branches searchData={searchData} />}
+            <Grid container sx={{ overflow: "scroll" }}>
+              {tab === 0 && <Details searchData={searchData} />}
 
-            {tab === 2 && <ProductKey searchData={searchData} />}
-          </>
+              {tab === 1 && <Branches searchData={searchData} />}
+
+              {tab === 2 && <ProductKey searchData={searchData} />}
+            </Grid>
+          </Grid>
         ) : (
           <Grid container justifyContent="center">
             <img width="400px" src="assets/nodata.png" />
@@ -267,16 +271,12 @@ const Branches = (props: any) => {
   ];
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: { xs: 8, md: 3 } }}>
-      <Grid
-        container
-        md={11}
-        lg={11}
-        sx={{
-          bgcolor: "white",
-          borderRadius: "20px",
-        }}
-      >
+    <Grid
+      container
+      justifyContent="center"
+      sx={{ mt: { xs: 8, md: 3 }, bgcolor: "white", borderRadius: "20px" }}
+    >
+      <Grid container md={11} lg={11} sx={{}}>
         {searchData?.branch.length ? (
           <table id={style.table}>
             <thead>

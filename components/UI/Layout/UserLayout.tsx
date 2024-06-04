@@ -165,9 +165,9 @@ export const UserLayout = () => {
         </Grid>
       </form>
 
-      <div style={{ filter: `blur(${blurValue})` }}>
+      <Grid container bgcolor="white" sx={{  filter: `blur(${blurValue})` }}>
         <RequestDetails2 searchData={searchData} />
-      </div>
+      </Grid>
     </Grid>
   );
 };

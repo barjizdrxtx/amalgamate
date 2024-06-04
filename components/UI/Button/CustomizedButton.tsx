@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 
 export const CustomizedButton = (props: any) => {
-  const { disabled, children, onClick, bgcolor, type, mx, boxShadow, color } =
+  const { disabled, children, onClick, bgcolor, type, mx, boxShadow, color, fontSize } =
     props;
 
   return (
@@ -13,6 +13,7 @@ export const CustomizedButton = (props: any) => {
         boxShadow: boxShadow,
         width: props.width,
         mx: mx,
+        fontSize: fontSize,
         color: color,
         my: 1,
         bgcolor: bgcolor,
