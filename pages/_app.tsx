@@ -9,6 +9,7 @@ import { NavBar } from '../components/UI/Layout/NavBar'
 import { UserLayout } from '../components/UI/Layout/UserLayout'
 import { Login } from '../components/Auth/login'
 import { useDecodedJwt } from '../hooks/useDecodedJwt'
+import { TeleCallerLayout } from '../components/UI/Layout/TeleCallerLayout'
 
 const queryClient = new QueryClient()
 
@@ -17,6 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 
   const decoded = useDecodedJwt();
+
+  console.log("----------", decoded);
+
 
 
   return (
@@ -48,13 +52,21 @@ function MyApp({ Component, pageProps }: AppProps) {
 
           :
 
-          decoded?.role === "admin" || "developer" ?
+          decoded?.role === "admin" || decoded?.role === "developer" ?
 
             <Layout>
 
               <Component {...pageProps} />
 
-            </Layout> : <Login />
+            </Layout>
+            :
+
+            decoded?.role === "customer_service" ?
+
+              <TeleCallerLayout />
+
+              :
+              <Login />
 
         }
 

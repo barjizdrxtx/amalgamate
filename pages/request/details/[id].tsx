@@ -8,6 +8,7 @@ import {
   TextField,
   Drawer,
   Snackbar,
+  Modal,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -37,8 +38,20 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import {
   DrawerDropDown,
   BranchSelectComponent,
+  DropDown,
 } from "../../../components/UI/DropDown/DropDown";
 import { BranchInstallationDateSelector } from "../../../components/UI/DateSelector/DateSelector";
+
+const styleBox = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
 
 const index = () => {
   const router = useRouter();
@@ -89,12 +102,25 @@ const index = () => {
 const Details = (props: any) => {
   const { request, refetch, router, id } = props;
 
+  const { fetchedData: fetchedTelecallers, refetch: refetchTelecallersList } = useQueryFetch(`user/telecallers`);
+
   const [alertBox, setAlertBox] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [customerService, setCustomerService] = useState(0);
+  const [telecallerList, setTelecallerList] = useState([]);
+  // setTelecallerList(fetchedTelecallers?.result)
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const token = useJwt();
 
   React.useEffect(() => {
+    refetchTelecallersList()
     refetch();
+
+    request?.telecaller_id && setCustomerService(request?.telecaller_id)
+    // setTelecallerList(fetchedTelecallers?.result)
 
     // alert("hello")
   }, []);
@@ -116,6 +142,25 @@ const Details = (props: any) => {
       });
   };
 
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    
+    const axiosrequest = axios.patch(`request/${id}`, {
+      telecaller_id: customerService,
+      service_assigned_at: new Date(),
+      service_status: 'not_called'
+    },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      }
+    )
+    refetch();
+    handleClose();
+  };
+
   const download = (e: any) => {
     fetch(e.target.href, {
       method: "GET",
@@ -131,7 +176,7 @@ const Details = (props: any) => {
           link.click();
         });
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const months = [
@@ -187,6 +232,45 @@ const Details = (props: any) => {
             >
               Delete
             </CustomizedButton>
+
+            <CustomizedButton
+              mx={1}
+              onClick={handleOpen}
+              bgcolor="primary"
+            >
+              Customer Service
+            </CustomizedButton>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-title"
+              aria-describedby="modal-description"
+            >
+              <Box sx={styleBox}>
+                <Typography id="modal-title" variant="h6" component="h2">
+                  Customer Service
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                  <DropDown
+                    text="Choose Customer Service"
+                    value={customerService}
+                    setValue={setCustomerService}
+                    dropData={fetchedTelecallers?.result.length > 0 ? fetchedTelecallers?.result : []}
+                    id="id"
+                    name="username"
+                  />
+                  <Grid container justifyContent="space-evenly">
+                    <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                      Submit
+                    </Button>
+                    <Button type="button" variant="outlined" sx={{ mt: 2 }} onClick={handleClose}>
+                      Cancel
+                    </Button>
+                  </Grid>
+
+                </form>
+              </Box>
+            </Modal>
           </Grid>
 
           <Grid
@@ -323,8 +407,8 @@ const Details = (props: any) => {
             <Typography sx={{ flex: 1 }}>
               {request?.amc_month
                 ? months.find(
-                    (element: any) => element.value === request?.amc_month
-                  )?.label || null
+                  (element: any) => element.value === request?.amc_month
+                )?.label || null
                 : null}
             </Typography>
           </Grid>
@@ -355,6 +439,26 @@ const Details = (props: any) => {
               </Box>
             </Grid>
           ))}
+
+          <Grid
+            container
+            md={6}
+            lg={6}
+            sx={{
+              width: "100%",
+              p: 1,
+              borderBottom: "1px solid #E5E7E9",
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <Typography sx={{ flex: 1, fontWeight: "bold" }}>
+              Customer Support
+            </Typography>
+
+            <Typography sx={{ flex: 1 }}>{request?.telecaller_id ? request?.telecaller.username : 'Not Assigned'}</Typography>
+          </Grid>
         </Grid>
       ) : (
         <LoadingPage />
@@ -689,11 +793,11 @@ export const ProductKey = (props: any) => {
                 <td key={index}>
                   {el === "last_loggedin_at" && data?.last_loggedin_at
                     ? moment
-                        .utc(data["last_loggedin_at"])
-                        .format("MMMM Do YYYY hh:mm:ss A")
+                      .utc(data["last_loggedin_at"])
+                      .format("MMMM Do YYYY hh:mm:ss A")
                     : el === "branch_id"
-                    ? data.branch.branch_name
-                    : data[el]}
+                      ? data.branch.branch_name
+                      : data[el]}
                 </td>
               ))}
 
@@ -1220,10 +1324,10 @@ export const Branches = (props: any) => {
                   onChange={handleChange}
                   // label={data.label}
                   defaultValue={data.value}
-                  // type={data.type}
-                  // onChange={formik.handleChange}
-                  // error={data.touched && Boolean(data.errors)}
-                  // helperText={data.touched && data.errors}
+                // type={data.type}
+                // onChange={formik.handleChange}
+                // error={data.touched && Boolean(data.errors)}
+                // helperText={data.touched && data.errors}
                 />
               </Grid>
             </Grid>
@@ -1297,7 +1401,7 @@ export const Branches = (props: any) => {
             open={snakeOpen}
             autoHideDuration={5000}
             message={messgae}
-            // key={'top' + 'center'}
+          // key={'top' + 'center'}
           />
         </Drawer>
       </div>
@@ -1327,8 +1431,8 @@ export const Branches = (props: any) => {
                 <td>
                   {data?.amc_month
                     ? months.find(
-                        (element: any) => element.value === data?.amc_month
-                      )?.label || null
+                      (element: any) => element.value === data?.amc_month
+                    )?.label || null
                     : null}
                 </td>
                 <td>
