@@ -14,6 +14,7 @@ import { RequestDetails2 } from "../../Request/RequestDetails2";
 import { CustomizedButton } from "../Button/CustomizedButton";
 import style from "../../../styles/TableUI.module.css"
 import * as yup from "yup";
+import { useQueryFetch } from "../../../hooks/useQueryFetch";
 
 export const TeleCallerLayout = () => {
   axios.defaults.baseURL = BASE_URL;
@@ -21,54 +22,11 @@ export const TeleCallerLayout = () => {
   const [searchData, setSearchData] = useState();
   const [blurValue, setBlurValue] = useState("0px");
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { fetchedData: fetchedClients, refetch: refetchClientList } = useQueryFetch(`request/servicer/assigned-clients`);
+
+  const clientList = fetchedClients?.result;
 
   const token = useJwt();
-
-  const formik = useFormik({
-    initialValues: {
-      client_id: "",
-      reason: "",
-    },
-
-    validationSchema: validationSchema,
-
-    onSubmit: (values: any, e: any) => {
-      setButtonLoading(true);
-
-      // e.preventDefault()
-
-      const axiosrequest = axios.post(
-        "request/details",
-        {
-          client_id: values.client_id,
-          reason: values.reason,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-
-      // you could also use destructuring to have an array of responses
-      axios.all([axiosrequest]).then(
-        axios.spread(function (res) {
-          setSearchData(res.data.result);
-
-          if (res.data.result.is_active) {
-            setBlurValue("0px");
-          } else {
-            setBlurValue("5px");
-          }
-
-          localStorage.setItem("isSearch", "false");
-
-          setButtonLoading(false);
-        })
-      );
-    },
-  });
 
   return (
     <Grid
@@ -93,15 +51,35 @@ export const TeleCallerLayout = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {
+              clientList?.map((client: any) => {
+                return (
+                  <tr style={{backgroundColor: client.service_status === 'no_job' ? 'lightgreen': client.service_status === 'job' ? '#ffdddd' :'white'}}>
+                    <td>{client.client_id}</td>
+                    <td>{client.customer_name}</td>
+                    <td>{client.shop_category}</td>
+                    <td>{client.software_name}</td>
+                    <td>{client.contact_number}</td>
+                    <td>
 
-            </tr>
+                      <Typography sx={{
+                        width: 'fit-content', bgcolor: client.is_active === true ? "yellowgreen" : "gray", px: 1,
+                        borderRadius: "20px", color: "white"
+                      }}>{client.is_active === true ? "Active" : "Inactive"}</Typography>
+
+                    </td>
+                    <td></td>
+                  </tr>
+                )
+              })
+            }
+
           </tbody>
 
         </table>
       </Grid>
 
-    </Grid>
+    </Grid >
   );
 };
 
