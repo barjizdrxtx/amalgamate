@@ -49,6 +49,14 @@ interface Issue {
   jobNo: number;
 }
 
+interface IssueList {
+  subject: string;
+  issue_note: string;
+  job_no: number;
+  is_done: boolean;
+  action_remarks: string
+}
+
 interface Client {
   client_id: string;
   installation_date: any;
@@ -64,25 +72,15 @@ export const TeleCallerLayout = () => {
   const [open, setOpen] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [issues, setIssues] = useState<Issue[]>([]);
+  const [clientIssues, setClientIssues] = useState<IssueList[]>([]);
   const [subject, setSubject] = useState('');
   const [issue, setIssue] = useState('');
   const [nextJobNo, setNextJobNo] = useState(0);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [isViewIssuesModalOpen, setIsViewIssuesModalOpen] = useState(false);
 
-  // const handleAddIssue = () => {
-  //   const date = new Date().toLocaleDateString('en-US', {
-  //     year: 'numeric',
-  //     month: '2-digit',
-  //     day: '2-digit',
-  //   }); // Replace with your dynamic job number
-
-  //   if (subject && issue) {
-  //     setIssues([...issues, { subject, issue, date, jobNo: nextJobNo }]);
-  //     setSubject('');
-  //     setIssue('');
-  //     setNextJobNo(nextJobNo + 1)
-  //   }
-  // };
+  const handleViewIssuesModalOpen = () => setIsViewIssuesModalOpen(true);
+  const handleViewIssuesModalClose = () => setIsViewIssuesModalOpen(false);
 
   const handleAddIssue = () => {
     const date = new Date().toLocaleDateString('en-US', {
@@ -133,11 +131,18 @@ export const TeleCallerLayout = () => {
     }
   }, [fetchedJobNo]);
 
+  // const { fetchedData: fetchedClientIssues, refetch: refetchClientIssues } = clientData ? useQueryFetch(`jobs/${clientData.client_id}`) : { fetchedData: null, refetch: null }
+
+  // useEffect(() => {
+  //   if (fetchedClientIssues?.result) {
+  //     setClientIssues(fetchedClientIssues.result.map((el: any) => el.items));
+  //   }
+  // }, [fetchedClientIssues]);
+
   const token = useJwt();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    console.log("---------------issues", issues);
 
     const jobItems = await issues.map(issue => { return { subject: issue.subject, issue_note: issue.issue } })
 
@@ -161,6 +166,26 @@ export const TeleCallerLayout = () => {
 
     handleClose();
   };
+
+  const loadClientIssues = async (client: any) => {
+
+    const fetchedClientIssue = await axios.get(`job/jobs/${client.client_id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      }
+    })
+
+    let loadedIssues: IssueList[] = []
+    fetchedClientIssue?.data?.result?.map((el: any) => {
+      loadedIssues = [
+        ...loadedIssues,
+        ...el.items
+      ]
+    })
+
+    setClientIssues(loadedIssues)
+  }
 
 
   return (
@@ -234,7 +259,12 @@ export const TeleCallerLayout = () => {
                           </>
                           :
                           client.service_status === 'job' ?
-                            <Button
+                            <><Button
+                              onClick={() => {
+                                loadClientIssues(client)
+                                handleViewIssuesModalOpen()
+                              }
+                              }
                               sx={{
                                 bgcolor: "lightblue",
                                 color: "ButtonText",
@@ -242,7 +272,59 @@ export const TeleCallerLayout = () => {
                               }}
                             >
                               View Jobs
-                            </Button>
+                            </Button><Modal
+                              open={isViewIssuesModalOpen}
+                              onClose={handleViewIssuesModalClose}
+                              aria-labelledby="modal-title"
+                              aria-describedby="modal-description"
+                            >
+                                <Box sx={styleBox}>
+                                  <Typography id="modal-title" variant="h6" component="h2">
+                                    Client Issues
+                                  </Typography>
+                                  <Grid container spacing={2}>
+                                    {/* Table to display issues */}
+                                    <Grid item xs={12}>
+                                      <Table>
+                                        <TableHead>
+                                          <TableRow>
+                                            <TableCell>Job No</TableCell>
+                                            <TableCell>Subject</TableCell>
+                                            <TableCell>Issue</TableCell>
+                                            <TableCell>Status</TableCell>
+                                            <TableCell>Remarks</TableCell>
+                                          </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                          {clientIssues.length > 0 ? (
+                                            clientIssues.map((issue, index) => (
+                                              <TableRow key={index}>
+                                                <TableCell>{issue.job_no}</TableCell>
+                                                <TableCell>{issue.subject}</TableCell>
+                                                <TableCell>{issue.issue_note}</TableCell>
+                                                <TableCell>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
+                                                <TableCell>{issue.action_remarks}</TableCell>
+                                              </TableRow>
+                                            ))
+                                          ) : (
+                                            <TableRow>
+                                              <TableCell colSpan={5} align="center">
+                                                No issues available.
+                                              </TableCell>
+                                            </TableRow>
+                                          )}
+                                        </TableBody>
+                                      </Table>
+                                    </Grid>
+
+                                    <Grid container justifyContent="center">
+                                      <Button type="button" variant="outlined" sx={{ mt: 2 }} onClick={handleViewIssuesModalClose}>
+                                        Close
+                                      </Button>
+                                    </Grid>
+                                  </Grid>
+                                </Box>
+                              </Modal></>
                             :
                             <Button
                               sx={{
