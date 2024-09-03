@@ -292,7 +292,7 @@ export const TeleCallerLayout = () => {
                                             <TableCell>Subject</TableCell>
                                             <TableCell>Issue</TableCell>
                                             <TableCell>Status</TableCell>
-                                            <TableCell>Remarks</TableCell>
+                                            {/* <TableCell>Remarks</TableCell> */}
                                           </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -303,7 +303,7 @@ export const TeleCallerLayout = () => {
                                                 <TableCell>{issue.subject}</TableCell>
                                                 <TableCell>{issue.issue_note}</TableCell>
                                                 <TableCell>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
-                                                <TableCell>{issue.action_remarks}</TableCell>
+                                                {/* <TableCell>{issue.action_remarks}</TableCell> */}
                                               </TableRow>
                                             ))
                                           ) : (
