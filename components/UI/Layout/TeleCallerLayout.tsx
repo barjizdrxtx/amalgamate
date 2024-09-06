@@ -2,6 +2,11 @@ import {
   Box,
   Button,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   FormControl,
   Grid,
   IconButton,
@@ -43,14 +48,14 @@ const styleBox = {
 };
 
 interface Issue {
-  subject: string;
+  // subject: string;
   issue: string;
   date: string;
   jobNo: number;
 }
 
 interface IssueList {
-  subject: string;
+  // subject: string;
   issue_note: string;
   job_no: number;
   is_done: boolean;
@@ -78,6 +83,22 @@ export const TeleCallerLayout = () => {
   const [nextJobNo, setNextJobNo] = useState(0);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isViewIssuesModalOpen, setIsViewIssuesModalOpen] = useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+
+  const handleClickOpenAlert = () => {
+    setOpenAlert(true);
+  };
+
+  const handleClearAlert = () => {
+    setOpenAlert(false);
+    setIssues([])
+    setSubject('');
+    handleClose()
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlert(false);
+  };
 
   const handleViewIssuesModalOpen = () => setIsViewIssuesModalOpen(true);
   const handleViewIssuesModalClose = () => setIsViewIssuesModalOpen(false);
@@ -97,16 +118,15 @@ export const TeleCallerLayout = () => {
         setIssues(updatedIssues);
         setEditingIndex(null);
       } else {
-        setIssues([...issues, { date, jobNo: nextJobNo, subject, issue }]);
+        setIssues([...issues, { date, jobNo: nextJobNo, issue }]);
       }
-      setSubject('');
       setIssue('');
     }
   };
 
   const handleEditIssue = (index: number) => {
     const issueToEdit = issues[index];
-    setSubject(issueToEdit.subject);
+    // setSubject(issueToEdit.subject);
     setIssue(issueToEdit.issue);
     setEditingIndex(index);
   };
@@ -144,7 +164,7 @@ export const TeleCallerLayout = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const jobItems = await issues.map(issue => { return { subject: issue.subject, issue_note: issue.issue } })
+    const jobItems = await issues.map(issue => { return { issue_note: issue.issue } })
 
     const axiosrequest = await axios.post('job', {
       client_id: clientData?.client_id,
@@ -166,6 +186,11 @@ export const TeleCallerLayout = () => {
 
     handleClose();
   };
+
+  const handleCancel = () => {
+
+    issues.length > 0 ? handleClickOpenAlert() : handleClose()
+  }
 
   const loadClientIssues = async (client: any) => {
 
@@ -206,6 +231,7 @@ export const TeleCallerLayout = () => {
               <th>Category</th>
               <th>Software</th>
               <th>Mobile No</th>
+              <th>Email</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -220,6 +246,7 @@ export const TeleCallerLayout = () => {
                     <td>{client.shop_category}</td>
                     <td>{client.software_name}</td>
                     <td>{client.contact_number}</td>
+                    <td>{client.email}</td>
                     <td>
 
                       <Typography sx={{
@@ -289,7 +316,7 @@ export const TeleCallerLayout = () => {
                                         <TableHead>
                                           <TableRow>
                                             <TableCell>Job No</TableCell>
-                                            <TableCell>Subject</TableCell>
+                                            {/* <TableCell>Subject</TableCell> */}
                                             <TableCell>Issue</TableCell>
                                             <TableCell>Status</TableCell>
                                             {/* <TableCell>Remarks</TableCell> */}
@@ -300,7 +327,7 @@ export const TeleCallerLayout = () => {
                                             clientIssues.map((issue, index) => (
                                               <TableRow key={index}>
                                                 <TableCell>{issue.job_no}</TableCell>
-                                                <TableCell>{issue.subject}</TableCell>
+                                                {/* <TableCell>{issue.subject}</TableCell> */}
                                                 <TableCell>{issue.issue_note}</TableCell>
                                                 <TableCell>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
                                                 {/* <TableCell>{issue.action_remarks}</TableCell> */}
@@ -408,7 +435,7 @@ export const TeleCallerLayout = () => {
                                     onChange={(e) => setSubject(e.target.value)}
                                   />
                                 </Grid>
-                                <Grid item xs={5}>
+                                <Grid item xs={10}>
                                   <TextField
                                     label="Issue"
                                     variant="outlined"
@@ -429,7 +456,7 @@ export const TeleCallerLayout = () => {
                                         <TableRow>
                                           <TableCell>Date</TableCell>
                                           <TableCell>Job No</TableCell>
-                                          <TableCell>Subject</TableCell>
+                                          {/* <TableCell>Subject</TableCell> */}
                                           <TableCell>Issue</TableCell>
                                           <TableCell>Actions</TableCell>
                                         </TableRow>
@@ -439,7 +466,7 @@ export const TeleCallerLayout = () => {
                                           <TableRow key={index}>
                                             <TableCell>{issue.date}</TableCell>
                                             <TableCell>{issue.jobNo}</TableCell>
-                                            <TableCell>{issue.subject}</TableCell>
+                                            {/* <TableCell>{issue.subject}</TableCell> */}
                                             <TableCell>{issue.issue}</TableCell>
                                             <TableCell>
                                               <IconButton onClick={() => handleEditIssue(index)}>
@@ -462,9 +489,27 @@ export const TeleCallerLayout = () => {
                                 <Button type="submit" variant="contained" sx={{ mt: 2 }}>
                                   Submit
                                 </Button>
-                                <Button type="button" variant="outlined" sx={{ mt: 2 }} onClick={handleClose}>
+                                <Button type="button" variant="outlined" sx={{ mt: 2 }} onClick={handleCancel}>
                                   Cancel
                                 </Button>
+                                <Dialog
+                                  open={openAlert}
+                                  onClose={handleCloseAlert}
+                                  aria-labelledby="alert-dialog-title"
+                                  aria-describedby="alert-dialog-description"
+                                >
+                                  <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                      Are you sure about to clear the list
+                                    </DialogContentText>
+                                  </DialogContent>
+                                  <DialogActions>
+                                    <Button onClick={handleClearAlert}>Clear</Button>
+                                    <Button onClick={handleCloseAlert} autoFocus>
+                                      Cancel
+                                    </Button>
+                                  </DialogActions>
+                                </Dialog>
                               </Grid>
 
                             </form>

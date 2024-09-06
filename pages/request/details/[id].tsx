@@ -106,7 +106,7 @@ const Details = (props: any) => {
 
   const [alertBox, setAlertBox] = useState(false);
   const [open, setOpen] = useState(false);
-  const [customerService, setCustomerService] = useState(0);
+  const [customerService, setCustomerService] = useState(request?.telecaller_id ? request?.telecaller_id : 0);
   const [telecallerList, setTelecallerList] = useState([]);
   // setTelecallerList(fetchedTelecallers?.result)
 
@@ -144,7 +144,7 @@ const Details = (props: any) => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    
+
     const axiosrequest = axios.patch(`request/${id}`, {
       telecaller_id: customerService,
       service_assigned_at: new Date(),
@@ -247,12 +247,12 @@ const Details = (props: any) => {
               aria-describedby="modal-description"
             >
               <Box sx={styleBox}>
-                <Typography id="modal-title" variant="h6" component="h2">
+                {/* <Typography id="modal-title" variant="h6" component="h2">
                   Customer Service
-                </Typography>
+                </Typography> */}
                 <form onSubmit={handleSubmit}>
                   <DropDown
-                    text="Choose Customer Service"
+                    text="Customer Relationship Manager"
                     value={customerService}
                     setValue={setCustomerService}
                     dropData={fetchedTelecallers?.result.length > 0 ? fetchedTelecallers?.result : []}
@@ -454,7 +454,7 @@ const Details = (props: any) => {
             }}
           >
             <Typography sx={{ flex: 1, fontWeight: "bold" }}>
-              Customer Support
+              Customer Relationship Manager
             </Typography>
 
             <Typography sx={{ flex: 1 }}>{request?.telecaller_id ? request?.telecaller.username : 'Not Assigned'}</Typography>
