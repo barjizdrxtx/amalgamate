@@ -1,18 +1,12 @@
 import {
   Box,
   Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  FormControl,
   Grid,
   IconButton,
-  List,
-  ListItem,
-  ListItemText,
   Modal,
   Table,
   TableBody,
@@ -23,12 +17,9 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useJwt } from "../../../hooks/useJwt";
 import { BASE_URL } from "../../../url";
-import { RequestDetails2 } from "../../Request/RequestDetails2";
-import { CustomizedButton } from "../Button/CustomizedButton";
 import style from "../../../styles/TableUI.module.css"
 import * as yup from "yup";
 import { useQueryFetch } from "../../../hooks/useQueryFetch";
@@ -151,14 +142,6 @@ export const TeleCallerLayout = () => {
     }
   }, [fetchedJobNo]);
 
-  // const { fetchedData: fetchedClientIssues, refetch: refetchClientIssues } = clientData ? useQueryFetch(`jobs/${clientData.client_id}`) : { fetchedData: null, refetch: null }
-
-  // useEffect(() => {
-  //   if (fetchedClientIssues?.result) {
-  //     setClientIssues(fetchedClientIssues.result.map((el: any) => el.items));
-  //   }
-  // }, [fetchedClientIssues]);
-
   const token = useJwt();
 
   const handleSubmit = async (event: any) => {
@@ -170,6 +153,7 @@ export const TeleCallerLayout = () => {
       client_id: clientData?.client_id,
       caller_id: 0,
       date: new Date().toLocaleDateString(),
+      subject: subject,
       jobItems,
     },
       {
@@ -426,7 +410,7 @@ export const TeleCallerLayout = () => {
                                     Add Client Issues
                                   </Typography>
                                 </Grid>
-                                <Grid item xs={5}>
+                                <Grid item xs={12}>
                                   <TextField
                                     label="Subject"
                                     variant="outlined"
@@ -439,6 +423,8 @@ export const TeleCallerLayout = () => {
                                   <TextField
                                     label="Issue"
                                     variant="outlined"
+                                    multiline
+                                    maxRows={4}
                                     fullWidth
                                     value={issue}
                                     onChange={(e) => setIssue(e.target.value)}
