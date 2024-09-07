@@ -8,11 +8,13 @@ import {
   Grid,
   IconButton,
   Modal,
+  Tab,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
+  Tabs,
   TextField,
   Typography,
 } from "@mui/material";
@@ -25,6 +27,7 @@ import * as yup from "yup";
 import { useQueryFetch } from "../../../hooks/useQueryFetch";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 
 const styleBox = {
   position: 'absolute',
@@ -49,7 +52,8 @@ interface Issue {
 }
 
 interface IssueList {
-  // subject: string;
+  id: number;
+  subject: string;
   issue_note: string;
   job_no: number;
   is_done: boolean;
@@ -72,12 +76,14 @@ export const TeleCallerLayout = () => {
   const [buttonLoading, setButtonLoading] = useState(false);
   const [issues, setIssues] = useState<Issue[]>([]);
   const [clientIssues, setClientIssues] = useState<IssueList[]>([]);
+  const [clientHistory, setClientHistory] = useState<IssueList[]>([]);
   const [subject, setSubject] = useState('');
   const [issue, setIssue] = useState('');
   const [nextJobNo, setNextJobNo] = useState(0);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isViewIssuesModalOpen, setIsViewIssuesModalOpen] = useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
+  const [tabValue, setTabValue] = React.useState(0);
 
   const handleClickOpenAlert = () => {
     setOpenAlert(true);
@@ -168,9 +174,15 @@ export const TeleCallerLayout = () => {
     )
 
     if (axiosrequest?.data?.success) {
+      const client = {
+        client_id: axiosrequest?.data?.result?.client_id
+      }
       refetchClientList()
+      loadClientIssues(client)
     }
-
+    setSubject("")
+    setIssues([])
+    setIssue("")
     handleClose();
   };
 
@@ -189,14 +201,31 @@ export const TeleCallerLayout = () => {
     })
 
     let loadedIssues: IssueList[] = []
+    let loadedHistory: IssueList[] = []
     fetchedClientIssue?.data?.result?.map((el: any) => {
+      const items = el.items.map((item: any) => {
+        return {
+          ...item,
+          subject: el?.subject
+        }
+      })
+
+      const isses = items.filter((item: any) => item.is_cleared === false)
+      const history = items.filter((item: any) => item.is_cleared === true)
+
       loadedIssues = [
         ...loadedIssues,
-        ...el.items
+        ...isses
+      ]
+
+      loadedHistory = [
+        ...loadedHistory,
+        ...history
       ]
     })
 
     setClientIssues(loadedIssues)
+    setClientHistory(loadedHistory)
   }
 
   const handleNoJob = async (client: any) => {
@@ -214,6 +243,24 @@ export const TeleCallerLayout = () => {
     }
   }
 
+  const handleCloseIssue = async (jobId: Number) => {
+
+    const axiosrequest = await axios.patch(`job/close/${jobId}`, {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      }
+    )
+    if (axiosrequest?.data?.success) {
+      refetchClientList()
+    }
+  }
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   return (
     <Grid
@@ -296,6 +343,7 @@ export const TeleCallerLayout = () => {
                               onClick={() => {
                                 loadClientIssues(client)
                                 handleViewIssuesModalOpen()
+                                setClientData(client)
                               }
                               }
                               sx={{
@@ -305,12 +353,13 @@ export const TeleCallerLayout = () => {
                               }}
                             >
                               View Jobs
-                            </Button><Modal
-                              open={isViewIssuesModalOpen}
-                              onClose={handleViewIssuesModalClose}
-                              aria-labelledby="modal-title"
-                              aria-describedby="modal-description"
-                            >
+                            </Button>
+                              <Modal
+                                open={isViewIssuesModalOpen}
+                                onClose={handleViewIssuesModalClose}
+                                aria-labelledby="modal-title"
+                                aria-describedby="modal-description"
+                              >
                                 <Box sx={styleBox}>
                                   <Typography id="modal-title" variant="h6" component="h2">
                                     Client Issues
@@ -319,32 +368,82 @@ export const TeleCallerLayout = () => {
                                     {/* Table to display issues */}
                                     <Grid item xs={12}>
                                       <Box sx={{ maxWidth: '100%', overflowX: 'auto' }}>
-                                        <Table sx={{ minWidth: 650, maxWidth: 750 }}>
-                                          <TableHead>
-                                            <TableRow>
-                                              <TableCell style={{ width: '70px' }}>Job No</TableCell>
-                                              <TableCell style={{ width: '400px' }}>Issue</TableCell>
-                                              <TableCell style={{ width: '100px' }}>Status</TableCell>
-                                            </TableRow>
-                                          </TableHead>
-                                          <TableBody>
-                                            {clientIssues.length > 0 ? (
-                                              clientIssues.map((issue, index) => (
-                                                <TableRow key={index}>
-                                                  <TableCell style={{ width: '70px' }}>{issue.job_no}</TableCell>
-                                                  <TableCell style={{ width: '400px' }}>{issue.issue_note}</TableCell>
-                                                  <TableCell style={{ width: '100px' }}>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
-                                                </TableRow>
-                                              ))
-                                            ) : (
+                                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                          <Tabs value={tabValue} onChange={handleTabChange} aria-label="basic tabs example">
+                                            <Tab label="Issues" />
+                                            <Tab label="History" />
+                                          </Tabs>
+                                        </Box>
+                                      </Box>
+                                      <Box sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+
+                                        {tabValue === 0 ?
+                                          <Table sx={{ minWidth: 650, maxWidth: 750 }}>
+                                            <TableHead>
                                               <TableRow>
-                                                <TableCell colSpan={3} align="center">
-                                                  No issues available.
-                                                </TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Job No</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Subject</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Issue</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Status</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Action</TableCell>
                                               </TableRow>
-                                            )}
-                                          </TableBody>
-                                        </Table>
+                                            </TableHead>
+                                            <TableBody>
+                                              {clientIssues.length > 0 ? (
+                                                clientIssues.map((issue, index) => (
+                                                  <TableRow key={index}>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.job_no}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.subject}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.issue_note}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.is_done ? 'Done' : 'Pending'}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>
+                                                      {issue?.is_done && <IconButton size="small" onClick={() => handleCloseIssue(issue?.id)}>
+                                                        <DisabledByDefaultIcon fontSize="small" color="error" />
+                                                      </IconButton>}
+                                                    </TableCell>
+                                                  </TableRow>
+                                                ))
+                                              ) : (
+                                                <TableRow>
+                                                  <TableCell colSpan={3} align="center">
+                                                    No issues available.
+                                                  </TableCell>
+                                                </TableRow>
+                                              )
+                                              }
+                                            </TableBody>
+                                          </Table>
+                                          :
+                                          <Table sx={{ minWidth: 650, maxWidth: 750 }}>
+                                            <TableHead>
+                                              <TableRow>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Job No</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Subject</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Issue</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Status</TableCell>
+                                              </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                              {clientHistory.length > 0 ? (
+                                                clientHistory.map((issue, index) => (
+                                                  <TableRow key={index}>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.job_no}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.subject}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.issue_note}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.is_done ? 'Done' : 'Pending'}</TableCell>
+                                                  </TableRow>
+                                                ))
+                                              ) : (
+                                                <TableRow>
+                                                  <TableCell colSpan={3} align="center">
+                                                    No issues available.
+                                                  </TableCell>
+                                                </TableRow>
+                                              )
+                                              }
+                                            </TableBody>
+                                          </Table>
+                                        }
                                       </Box>
                                     </Grid>
 
@@ -354,6 +453,15 @@ export const TeleCallerLayout = () => {
                                         handleViewIssuesModalClose()
                                       }}>
                                         Close
+                                      </Button>
+                                      <Button
+                                        onClick={() => {
+                                          handleOpen()
+                                          setClientData(clientData)
+                                        }}
+                                        type="button" variant="contained" sx={{ mt: 2, ml: 2 }}
+                                      >
+                                        Add New Job
                                       </Button>
                                     </Grid>
                                   </Grid>

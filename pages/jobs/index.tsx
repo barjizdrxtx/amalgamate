@@ -140,38 +140,40 @@ const index = () => {
                           <Grid container spacing={2}>
                             {/* Table to display issues */}
                             <Grid item xs={12}>
-                              <Table>
-                                <TableHead>
-                                  <TableRow>
-                                    <TableCell></TableCell>
-                                    <TableCell>Job No</TableCell>
-                                    <TableCell>Subject</TableCell>
-                                    <TableCell>Issue</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    {/* <TableCell>Remarks</TableCell> */}
-                                  </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  {job.items.length > 0 ? (
-                                    job.items.map((issue: any, index: number) => (
-                                      <TableRow key={index}>
-                                        <TableCell><Checkbox onChange={() => { handleCheckBoxChange(issue.id) }} /></TableCell>
-                                        <TableCell>{issue.job_no}</TableCell>
-                                        <TableCell>{issue.subject}</TableCell>
-                                        <TableCell>{issue.issue_note}</TableCell>
-                                        <TableCell>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
-                                        {/* <TableCell>{issue.action_remarks}</TableCell> */}
-                                      </TableRow>
-                                    ))
-                                  ) : (
+                              <Box sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+                                <Table sx={{ minWidth: 650, maxWidth: 750 }}>
+                                  <TableHead>
                                     <TableRow>
-                                      <TableCell colSpan={5} align="center">
-                                        No issues available.
-                                      </TableCell>
+                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}></TableCell>
+                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Job No</TableCell>
+                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Subject</TableCell>
+                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Issue</TableCell>
+                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Status</TableCell>
+                                      {/* <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Remarks</TableCell> */}
                                     </TableRow>
-                                  )}
-                                </TableBody>
-                              </Table>
+                                  </TableHead>
+                                  <TableBody>
+                                    {job.items.length > 0 ? (
+                                      job.items.map((issue: any, index: number) => (
+                                        <TableRow key={index}>
+                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}><Checkbox onChange={() => { handleCheckBoxChange(issue.id) }} /></TableCell>
+                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.job_no}</TableCell>
+                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.subject}</TableCell>
+                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.issue_note}</TableCell>
+                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
+                                          {/* <TableCell>{issue.action_remarks}</TableCell> */}
+                                        </TableRow>
+                                      ))
+                                    ) : (
+                                      <TableRow>
+                                        <TableCell colSpan={5} align="center">
+                                          No issues available.
+                                        </TableCell>
+                                      </TableRow>
+                                    )}
+                                  </TableBody>
+                                </Table>
+                              </Box>
                             </Grid>
 
                             <Grid container justifyContent="center">
