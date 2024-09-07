@@ -31,7 +31,10 @@ const styleBox = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 800,
+  width: '90%',
+  maxWidth: 800,
+  maxHeight: '90vh',
+  overflow: 'auto',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -196,6 +199,21 @@ export const TeleCallerLayout = () => {
     setClientIssues(loadedIssues)
   }
 
+  const handleNoJob = async (client: any) => {
+
+    const axiosrequest = await axios.patch(`request/handleNoJob/${client.client_id}`, {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      }
+    )
+    if (axiosrequest?.data?.success) {
+      refetchClientList()
+    }
+  }
+
 
   return (
     <Grid
@@ -244,6 +262,10 @@ export const TeleCallerLayout = () => {
                         client.service_status === 'not_called' ?
                           <>
                             <Button
+                              onClick={() => {
+                                handleNoJob(client)
+                                setClientData(client)
+                              }}
                               sx={{
                                 m: 1,
                                 bgcolor: "lightgreen",
@@ -255,8 +277,8 @@ export const TeleCallerLayout = () => {
                             </Button>
                             <Button
                               onClick={() => {
-                                handleOpen(),
-                                  setClientData(client)
+                                handleOpen()
+                                setClientData(client)
                               }}
                               sx={{
                                 m: 1,
@@ -296,40 +318,41 @@ export const TeleCallerLayout = () => {
                                   <Grid container spacing={2}>
                                     {/* Table to display issues */}
                                     <Grid item xs={12}>
-                                      <Table>
-                                        <TableHead>
-                                          <TableRow>
-                                            <TableCell>Job No</TableCell>
-                                            {/* <TableCell>Subject</TableCell> */}
-                                            <TableCell>Issue</TableCell>
-                                            <TableCell>Status</TableCell>
-                                            {/* <TableCell>Remarks</TableCell> */}
-                                          </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                          {clientIssues.length > 0 ? (
-                                            clientIssues.map((issue, index) => (
-                                              <TableRow key={index}>
-                                                <TableCell>{issue.job_no}</TableCell>
-                                                {/* <TableCell>{issue.subject}</TableCell> */}
-                                                <TableCell>{issue.issue_note}</TableCell>
-                                                <TableCell>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
-                                                {/* <TableCell>{issue.action_remarks}</TableCell> */}
-                                              </TableRow>
-                                            ))
-                                          ) : (
+                                      <Box sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+                                        <Table sx={{ minWidth: 650, maxWidth: 750 }}>
+                                          <TableHead>
                                             <TableRow>
-                                              <TableCell colSpan={5} align="center">
-                                                No issues available.
-                                              </TableCell>
+                                              <TableCell style={{ width: '70px' }}>Job No</TableCell>
+                                              <TableCell style={{ width: '400px' }}>Issue</TableCell>
+                                              <TableCell style={{ width: '100px' }}>Status</TableCell>
                                             </TableRow>
-                                          )}
-                                        </TableBody>
-                                      </Table>
+                                          </TableHead>
+                                          <TableBody>
+                                            {clientIssues.length > 0 ? (
+                                              clientIssues.map((issue, index) => (
+                                                <TableRow key={index}>
+                                                  <TableCell style={{ width: '70px' }}>{issue.job_no}</TableCell>
+                                                  <TableCell style={{ width: '400px' }}>{issue.issue_note}</TableCell>
+                                                  <TableCell style={{ width: '100px' }}>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
+                                                </TableRow>
+                                              ))
+                                            ) : (
+                                              <TableRow>
+                                                <TableCell colSpan={3} align="center">
+                                                  No issues available.
+                                                </TableCell>
+                                              </TableRow>
+                                            )}
+                                          </TableBody>
+                                        </Table>
+                                      </Box>
                                     </Grid>
 
                                     <Grid container justifyContent="center">
-                                      <Button type="button" variant="outlined" sx={{ mt: 2 }} onClick={handleViewIssuesModalClose}>
+                                      <Button type="button" variant="outlined" sx={{ mt: 2 }} onClick={() => {
+                                        setClientIssues([])
+                                        handleViewIssuesModalClose()
+                                      }}>
                                         Close
                                       </Button>
                                     </Grid>
@@ -338,6 +361,10 @@ export const TeleCallerLayout = () => {
                               </Modal></>
                             :
                             <Button
+                              onClick={() => {
+                                handleOpen()
+                                setClientData(client)
+                              }}
                               sx={{
                                 bgcolor: "#ffdddd",
                                 color: "ButtonText",
@@ -437,35 +464,35 @@ export const TeleCallerLayout = () => {
                                 </Grid>
                                 {issues.length > 0 &&
                                   <Grid item xs={12}>
-                                    <Table>
-                                      <TableHead>
-                                        <TableRow>
-                                          <TableCell>Date</TableCell>
-                                          <TableCell>Job No</TableCell>
-                                          {/* <TableCell>Subject</TableCell> */}
-                                          <TableCell>Issue</TableCell>
-                                          <TableCell>Actions</TableCell>
-                                        </TableRow>
-                                      </TableHead>
-                                      <TableBody>
-                                        {issues.map((issue, index) => (
-                                          <TableRow key={index}>
-                                            <TableCell>{issue.date}</TableCell>
-                                            <TableCell>{issue.jobNo}</TableCell>
-                                            {/* <TableCell>{issue.subject}</TableCell> */}
-                                            <TableCell>{issue.issue}</TableCell>
-                                            <TableCell>
-                                              <IconButton onClick={() => handleEditIssue(index)}>
-                                                <EditIcon />
-                                              </IconButton>
-                                              <IconButton onClick={() => handleRemoveIssue(index)}>
-                                                <DeleteIcon />
-                                              </IconButton>
-                                            </TableCell>
+                                    <Box sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+                                      <Table size="small">
+                                        <TableHead>
+                                          <TableRow>
+                                            <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Date</TableCell>
+                                            <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Job No</TableCell>
+                                            <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Issue</TableCell>
+                                            <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Actions</TableCell>
                                           </TableRow>
-                                        ))}
-                                      </TableBody>
-                                    </Table>
+                                        </TableHead>
+                                        <TableBody>
+                                          {issues.map((issue, index) => (
+                                            <TableRow key={index}>
+                                              <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.date}</TableCell>
+                                              <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.jobNo}</TableCell>
+                                              <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.issue}</TableCell>
+                                              <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>
+                                                <IconButton size="small" onClick={() => handleEditIssue(index)}>
+                                                  <EditIcon fontSize="small" />
+                                                </IconButton>
+                                                <IconButton size="small" onClick={() => handleRemoveIssue(index)}>
+                                                  <DeleteIcon fontSize="small" />
+                                                </IconButton>
+                                              </TableCell>
+                                            </TableRow>
+                                          ))}
+                                        </TableBody>
+                                      </Table>
+                                    </Box>
                                   </Grid>
                                 }
 
