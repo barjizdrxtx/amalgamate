@@ -30,6 +30,7 @@ const index = () => {
   const token = useJwt();
 
   const [selectedJobs, setSelectedJobs] = useState<any>([]);
+  const [selectedJobData, setSelectedJobData] = useState<any>([]);
   const [isViewIssuesModalOpen, setIsViewIssuesModalOpen] = useState(false);
 
   const handleViewIssuesModalOpen = () => setIsViewIssuesModalOpen(true);
@@ -116,7 +117,7 @@ const index = () => {
                     <td>
                       <Button
                         onClick={() => {
-                          // loadClientIssues(client)
+                          setSelectedJobData(job)
                           handleViewIssuesModalOpen()
                         }}
                         sx={{
@@ -134,10 +135,38 @@ const index = () => {
                         aria-describedby="modal-description"
                       >
                         <Box sx={styleBox}>
-                          <Typography id="modal-title" variant="h6" component="h2">
+                          <Typography id="modal-title" variant="h6" component="h2" sx={{ fontSize: '16px', fontWeight: 'bold' }}>
                             Client Issues
                           </Typography>
-                          <Grid container spacing={2}>
+                          <Grid container spacing={2} sx={{ borderTop: 2, marginTop: 2 }}>
+                            <Grid container xs={6} sm={6} lg={6}>
+                              <Grid item xs={12} sx={{ m: 1 }}>
+                                <Typography sx={{ color: "#566573" }}>
+                                  Customer Name: <span style={{ color: 'black', fontWeight: 'bold' }}>{selectedJobData?.client?.customer_name}</span>
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={12} sx={{ m: 1 }}>
+                                <Typography sx={{ color: "#566573" }}>
+                                  Customer Id: <span style={{ color: 'black', fontWeight: 'bold' }}>{selectedJobData.client_id}</span>
+                                </Typography>
+                              </Grid>
+                            </Grid>
+                            <Grid container xs={6} sm={6} lg={6}>
+                              <Grid item xs={12} sx={{ m: 1 }}>
+                                <Typography sx={{ color: "#566573" }}>
+                                  Relationship Manager: <span style={{ color: 'black', fontWeight: 'bold' }}>{selectedJobData?.telecaller?.username}</span>
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={12} sx={{ m: 1 }}>
+                                <Typography sx={{ color: "#566573" }}>
+                                  Issued At <span style={{ color: 'black', fontWeight: 'bold' }}>{new Date(selectedJobData?.createdAt).toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                  })}</span>
+                                </Typography>
+                              </Grid>
+                            </Grid>
                             {/* Table to display issues */}
                             <Grid item xs={12}>
                               <Box sx={{ maxWidth: '100%', overflowX: 'auto' }}>
@@ -153,8 +182,8 @@ const index = () => {
                                     </TableRow>
                                   </TableHead>
                                   <TableBody>
-                                    {job.items.length > 0 ? (
-                                      job.items.map((issue: any, index: number) => (
+                                    {selectedJobData?.items?.length > 0 ? (
+                                      selectedJobData.items.map((issue: any, index: number) => (
                                         <TableRow key={index}>
                                           <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}><Checkbox onChange={() => { handleCheckBoxChange(issue.id) }} /></TableCell>
                                           <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.job_no}</TableCell>

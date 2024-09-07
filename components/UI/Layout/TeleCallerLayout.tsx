@@ -52,6 +52,8 @@ interface Issue {
 }
 
 interface IssueList {
+  doneAt: any;
+  createdAt: any;
   id: number;
   subject: string;
   issue_note: string;
@@ -255,6 +257,7 @@ export const TeleCallerLayout = () => {
     )
     if (axiosrequest?.data?.success) {
       refetchClientList()
+      loadClientIssues(clientData)
     }
   }
 
@@ -420,7 +423,9 @@ export const TeleCallerLayout = () => {
                                                 <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Job No</TableCell>
                                                 <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Subject</TableCell>
                                                 <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Issue</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Issued At</TableCell>
                                                 <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Status</TableCell>
+                                                <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Done At</TableCell>
                                               </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -430,7 +435,17 @@ export const TeleCallerLayout = () => {
                                                     <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.job_no}</TableCell>
                                                     <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.subject}</TableCell>
                                                     <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.issue_note}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{new Date(issue?.createdAt).toLocaleString('en-US', {
+                                                      month: '2-digit',
+                                                      day: '2-digit',
+                                                      year: 'numeric'
+                                                    })}</TableCell>
                                                     <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue?.is_done ? 'Done' : 'Pending'}</TableCell>
+                                                    <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{new Date(issue?.doneAt).toLocaleString('en-US', {
+                                                      month: '2-digit',
+                                                      day: '2-digit',
+                                                      year: 'numeric'
+                                                    })}</TableCell>
                                                   </TableRow>
                                                 ))
                                               ) : (
