@@ -538,7 +538,7 @@ export const TeleCallerLayout = () => {
                                     <Typography sx={{ color: "#566573" }}>
                                       Date: <span style={{ color: 'black', fontWeight: 'bold' }}>{new Date().toLocaleDateString('en-US', {
                                         year: 'numeric',
-                                        month: '2-digit',
+                                        month: 'short',
                                         day: '2-digit',
                                       })}</span>
                                     </Typography>
@@ -555,16 +555,16 @@ export const TeleCallerLayout = () => {
                                     <Typography sx={{ color: "#566573" }}>
                                       Installation Date: <span style={{ color: 'black', fontWeight: 'bold' }}>{clientData?.installation_date && new Date(clientData?.installation_date).toLocaleDateString('en-US', {
                                         year: 'numeric',
-                                        month: '2-digit',
+                                        month: 'short',
                                         day: '2-digit',
                                       })}</span>
                                     </Typography>
                                   </Grid>
-                                  <Grid item xs={12}>
+                                  {/* <Grid item xs={12}>
                                     <Typography sx={{ color: "#566573" }}>
                                       AMC: <span style={{ color: 'black', fontWeight: 'bold' }}>{clientData?.amc}</span>
                                     </Typography>
-                                  </Grid>
+                                  </Grid> */}
                                   <Grid item xs={12}>
                                     <Typography sx={{ color: "#566573" }}>
                                       Server Type: <span style={{ color: 'black', fontWeight: 'bold' }}> {clientData?.server_type}</span>
