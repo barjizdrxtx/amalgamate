@@ -86,6 +86,7 @@ export const TeleCallerLayout = () => {
   const [isViewIssuesModalOpen, setIsViewIssuesModalOpen] = useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
   const [tabValue, setTabValue] = React.useState(0);
+  const [search, setSearch] = React.useState('');
 
   const handleClickOpenAlert = () => {
     setOpenAlert(true);
@@ -141,7 +142,7 @@ export const TeleCallerLayout = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const { fetchedData: fetchedClients, refetch: refetchClientList } = useQueryFetch(`request/servicer/assigned-clients`);
+  const { fetchedData: fetchedClients, refetch: refetchClientList } = useQueryFetch(`request/servicer/assigned-clients?search=${search}`);
 
   const clientList = fetchedClients?.result;
 
@@ -267,11 +268,28 @@ export const TeleCallerLayout = () => {
 
   return (
     <Grid
-      container
+      // container
       justifyContent="center"
       alignItems="center"
       sx={{ mt: { xs: 8, md: 0 }, p: 1 }}
     >
+      <Grid
+        justifyContent="center"
+        alignItems="center"
+      >
+        < TextField sx={{ width: "40%", my: 1 }}
+          fullWidth
+          id={'search'}
+          name={'search'}
+          label={'search'}
+          value={search}
+          type={'text'}
+          onChange={(e) => {
+            setSearch(e.target.value)
+            refetchClientList()
+          }}
+        />
+      </Grid>
       <Grid>
         <table id={style.table}>
 

@@ -19,10 +19,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const decoded = useDecodedJwt();
 
-  console.log("----------", decoded);
-
-
-
   return (
 
     <QueryClientProvider client={queryClient}>
