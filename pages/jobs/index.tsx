@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Box, Button, Checkbox, FormControl, Grid, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useQueryFetch } from "../../hooks/useQueryFetch";
 import style from '../../styles/TableUI.module.css'
@@ -32,16 +32,31 @@ const index = () => {
 
   const { fetchedData: fetchedTelecallers, refetch: refetchTelecallersList } = useQueryFetch(`user/telecallers`);
 
+
+
   const [selectedJobs, setSelectedJobs] = useState<any>([]);
   const [selectedJobData, setSelectedJobData] = useState<any>([]);
   const [isViewIssuesModalOpen, setIsViewIssuesModalOpen] = useState(false);
   const [search, setSearch] = React.useState('');
-  const [customerService, setCustomerService] = useState(0);
+  const [telecaller, setTelecaller] = React.useState<number>(0);
+  const [open, setOpen] = React.useState(false);
+
+  const handleChange = (event: SelectChangeEvent<typeof telecaller>) => {
+    setTelecaller(+event.target.value);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const handleViewIssuesModalOpen = () => setIsViewIssuesModalOpen(true);
   const handleViewIssuesModalClose = () => setIsViewIssuesModalOpen(false);
 
-  const { fetchedData: fetchedJobList, refetch: refetchJobList } = useQueryFetch(`job/alljobs?search=${search}`);
+  const { fetchedData: fetchedJobList, refetch: refetchJobList } = useQueryFetch(`job/alljobs?search=${search}&telecaller=${telecaller}`);
 
   const jobList = fetchedJobList?.result
 
@@ -105,14 +120,26 @@ const index = () => {
           }}
         />
 
-        <DropDown
-          text="Customer Relationship Manager"
-          value={customerService}
-          setValue={setCustomerService}
-          dropData={fetchedTelecallers?.result.length > 0 ? fetchedTelecallers?.result : []}
-          id="id"
-          name="username"
-        />
+        <FormControl sx={{ m: 1, minWidth: 300 }}>
+          <InputLabel id="crm-label-id">CRM</InputLabel>
+          <Select
+            labelId="crm-label-id"
+            id="crm-open-select"
+            open={open}
+            onClose={handleClose}
+            onOpen={handleOpen}
+            value={telecaller}
+            label="CRM"
+            onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>All</em>
+            </MenuItem>
+            {fetchedTelecallers?.result.length > 0 && fetchedTelecallers?.result?.map((element: any) => {
+              return (<MenuItem value={element?.id}>{element?.username}</MenuItem>)
+            })}
+          </Select>
+        </FormControl>
       </Grid>
       <Grid>
         <table id={style.table}>
