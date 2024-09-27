@@ -274,6 +274,7 @@ export const TeleCallerLayout = () => {
       sx={{ mt: { xs: 8, md: 0 }, p: 1 }}
     >
       <Grid
+        container
         justifyContent="center"
         alignItems="center"
       >

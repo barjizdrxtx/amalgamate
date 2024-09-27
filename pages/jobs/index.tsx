@@ -1,10 +1,11 @@
-import { Box, Button, Checkbox, Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Button, Checkbox, Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useQueryFetch } from "../../hooks/useQueryFetch";
 import style from '../../styles/TableUI.module.css'
 import { BASE_URL } from "../../url";
 import axios from "axios";
 import { useJwt } from "../../hooks/useJwt";
+import { DropDown } from "../../components/UI/DropDown/DropDown";
 
 const styleBox = {
   position: 'absolute',
@@ -29,14 +30,18 @@ const index = () => {
   axios.defaults.baseURL = BASE_URL;
   const token = useJwt();
 
+  const { fetchedData: fetchedTelecallers, refetch: refetchTelecallersList } = useQueryFetch(`user/telecallers`);
+
   const [selectedJobs, setSelectedJobs] = useState<any>([]);
   const [selectedJobData, setSelectedJobData] = useState<any>([]);
   const [isViewIssuesModalOpen, setIsViewIssuesModalOpen] = useState(false);
+  const [search, setSearch] = React.useState('');
+  const [customerService, setCustomerService] = useState(0);
 
   const handleViewIssuesModalOpen = () => setIsViewIssuesModalOpen(true);
   const handleViewIssuesModalClose = () => setIsViewIssuesModalOpen(false);
 
-  const { fetchedData: fetchedJobList, refetch: refetchJobList } = useQueryFetch(`job/alljobs`);
+  const { fetchedData: fetchedJobList, refetch: refetchJobList } = useQueryFetch(`job/alljobs?search=${search}`);
 
   const jobList = fetchedJobList?.result
 
@@ -80,7 +85,35 @@ const index = () => {
   }
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: 5 }}>
+    <Grid
+      // container 
+      justifyContent="center" sx={{ mt: 5 }}>
+      <Grid container
+        justifyContent="center"
+        alignItems="center"
+      >
+        < TextField sx={{ width: "40%", my: 1 }}
+          fullWidth
+          id={'search'}
+          name={'search'}
+          label={'search'}
+          value={search}
+          type={'text'}
+          onChange={(e) => {
+            setSearch(e.target.value)
+            refetchJobList()
+          }}
+        />
+
+        <DropDown
+          text="Customer Relationship Manager"
+          value={customerService}
+          setValue={setCustomerService}
+          dropData={fetchedTelecallers?.result.length > 0 ? fetchedTelecallers?.result : []}
+          id="id"
+          name="username"
+        />
+      </Grid>
       <Grid>
         <table id={style.table}>
 
