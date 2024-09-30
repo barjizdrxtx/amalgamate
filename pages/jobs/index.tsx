@@ -1,296 +1,227 @@
-import { Box, Button, Checkbox, FormControl, Grid, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useQueryFetch } from "../../hooks/useQueryFetch";
-import style from '../../styles/TableUI.module.css'
-import { BASE_URL } from "../../url";
-import axios from "axios";
-import { useJwt } from "../../hooks/useJwt";
-import { DropDown } from "../../components/UI/DropDown/DropDown";
+import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { useQueryFetch } from '../../hooks/useQueryFetch';
+import { BASE_URL } from '../../url';
+import axios from 'axios';
+import { useJwt } from '../../hooks/useJwt';
+import IssuesModal from '../../components/UI/IssuesModal/IssuesModal';
 
-const styleBox = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 800,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-interface DoneList {
-  job_id: number,
-  is_done: boolean,
-  action_remarks: string;
+interface Job {
+  job_id: number;
+  client_id: string;
+  client: {
+    customer_name: string;
+    shop_category: string;
+    software_name: string;
+    contact_number: string;
+    is_active: boolean;
+  };
 }
 
+interface Telecaller {
+  id: number;
+  username: string;
+}
 
-const index = () => {
-  axios.defaults.baseURL = BASE_URL;
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  '&.MuiTableCell-head': {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    fontWeight: 'bold',
+  },
+  '&.MuiTableCell-body': {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+const JobListPage: React.FC = () => {
   const token = useJwt();
+  axios.defaults.baseURL = BASE_URL;
 
-  const { fetchedData: fetchedTelecallers, refetch: refetchTelecallersList } = useQueryFetch(`user/telecallers`);
-
-
-
-  const [selectedJobs, setSelectedJobs] = useState<any>([]);
-  const [selectedJobData, setSelectedJobData] = useState<any>([]);
+  const [search, setSearch] = useState('');
+  const [telecaller, setTelecaller] = useState<number>(0);
+  const [selectedJobData, setSelectedJobData] = useState<Job | null>(null);
   const [isViewIssuesModalOpen, setIsViewIssuesModalOpen] = useState(false);
-  const [search, setSearch] = React.useState('');
-  const [telecaller, setTelecaller] = React.useState<number>(0);
-  const [open, setOpen] = React.useState(false);
 
-  const handleChange = (event: SelectChangeEvent<typeof telecaller>) => {
-    setTelecaller(+event.target.value);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleViewIssuesModalOpen = () => setIsViewIssuesModalOpen(true);
-  const handleViewIssuesModalClose = () => setIsViewIssuesModalOpen(false);
-
+  const { fetchedData: fetchedTelecallers } = useQueryFetch('user/telecallers');
   const { fetchedData: fetchedJobList, refetch: refetchJobList } = useQueryFetch(`job/alljobs?search=${search}&telecaller=${telecaller}`);
 
-  const jobList = fetchedJobList?.result
+  const handleTelecallerChange = (event: SelectChangeEvent<number>) => {
+    setTelecaller(Number(event.target.value));
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+    refetchJobList();
+  };
+
+  const handleViewIssuesModalOpen = (job: Job) => {
+    setSelectedJobData(job);
+    setIsViewIssuesModalOpen(true);
+  };
+
+  const handleViewIssuesModalClose = () => {
+    setIsViewIssuesModalOpen(false);
+  };
 
   const handleDone = async () => {
-    if (selectedJobs.length > 0) {
-      const axiosrequest = await axios.patch('job/markAsDone', {
-        jobItems: selectedJobs
-      },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + token
-          }
-        }
-      )
+    try {
+      const response = await axios.patch(
+        'job/markAsDone',
+        { jobItems: [{ job_id: selectedJobData?.job_id, is_done: true, action_remarks: null }] },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-      if (axiosrequest?.data?.success) {
-        refetchJobList()
-        handleViewIssuesModalClose()
+      if (response.data.success) {
+        refetchJobList();
+        handleViewIssuesModalClose();
       }
-    } else {
-
+    } catch (error) {
+      console.error('Error marking job as done:', error);
     }
-  }
-
-  const handleCheckBoxChange = (jobId: number) => {
-    setSelectedJobs((prevSelectedJobs: { job_id: number; }[]) => {
-      const isJobSelected = prevSelectedJobs.some((item: { job_id: number; }) => item.job_id === jobId);
-
-      if (isJobSelected) {
-        return prevSelectedJobs.filter((item: { job_id: number; }) => item.job_id !== jobId);
-      } else {
-        return [...prevSelectedJobs, {
-          job_id: jobId,
-          is_done: true,
-          action_remarks: null
-        }];
-      }
-    });
-
-  }
+  };
 
   return (
-    <Grid
-      // container 
-      justifyContent="center" sx={{ mt: 5 }}>
-      <Grid container
-        justifyContent="center"
-        alignItems="center"
-      >
-        < TextField sx={{ width: "40%", my: 1 }}
+    <Grid container justifyContent="center" sx={{ mt: 5 }}>
+      <Grid container justifyContent="center" alignItems="center">
+        <TextField
+          sx={{ width: '40%', my: 1 }}
           fullWidth
-          id={'search'}
-          name={'search'}
-          label={'search'}
+          id="search"
+          name="search"
+          label="Search"
           value={search}
-          type={'text'}
-          onChange={(e) => {
-            setSearch(e.target.value)
-            refetchJobList()
-          }}
+          onChange={handleSearchChange}
         />
 
         <FormControl sx={{ m: 1, minWidth: 300 }}>
           <InputLabel id="crm-label-id">CRM</InputLabel>
           <Select
             labelId="crm-label-id"
-            id="crm-open-select"
-            open={open}
-            onClose={handleClose}
-            onOpen={handleOpen}
+            id="crm-select"
             value={telecaller}
             label="CRM"
-            onChange={handleChange}
+            onChange={handleTelecallerChange}
           >
-            <MenuItem value="">
+            <MenuItem value={0}>
               <em>All</em>
             </MenuItem>
-            {fetchedTelecallers?.result.length > 0 && fetchedTelecallers?.result?.map((element: any) => {
-              return (<MenuItem value={element?.id}>{element?.username}</MenuItem>)
-            })}
+            {fetchedTelecallers?.result.map((element: any) => (
+              <MenuItem key={element.id} value={element.id}>
+                {element.username}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
-      <Grid>
-        <table id={style.table}>
 
-          <thead>
-
-            <tr>
-              <th>Client Id</th>
-              <th>Customer Name</th>
-              <th>Category</th>
-              <th>Software</th>
-              <th>Mobile No</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {jobList?.length > 0 ?
-              jobList?.map((job: any) => {
-                return (
-                  <tr>
-                    <td>{job.client_id}</td>
-                    <td>{job?.client.customer_name}</td>
-                    <td>{job?.client.shop_category}</td>
-                    <td>{job?.client.software_name}</td>
-                    <td>{job?.client.contact_number}</td>
-                    <td>
-
-                      <Typography sx={{
-                        width: 'fit-content', bgcolor: job?.client.is_active === true ? "yellowgreen" : "gray", px: 1,
-                        borderRadius: "20px", color: "white"
-                      }}>{job?.client.is_active === true ? "Active" : "Inactive"}</Typography>
-
-                    </td>
-                    <td>
-                      <Button
-                        onClick={() => {
-                          setSelectedJobData(job)
-                          handleViewIssuesModalOpen()
-                        }}
+      <Box sx={{ width: '100%', overflowX: 'auto' }}>
+        <TableContainer component={Paper} sx={{ mt: 3, width: '95%', margin: 'auto' }}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Client Id</StyledTableCell>
+                <StyledTableCell>Customer Name</StyledTableCell>
+                <StyledTableCell>Category</StyledTableCell>
+                <StyledTableCell>Software</StyledTableCell>
+                <StyledTableCell>Mobile No</StyledTableCell>
+                <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell>Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {fetchedJobList?.result.length ? (
+                fetchedJobList.result.map((job: any) => (
+                  <StyledTableRow key={job.job_id}>
+                    <StyledTableCell component="th" scope="row">
+                      {job.client_id}
+                    </StyledTableCell>
+                    <StyledTableCell>{job.client.customer_name}</StyledTableCell>
+                    <StyledTableCell>{job.client.shop_category}</StyledTableCell>
+                    <StyledTableCell>{job.client.software_name}</StyledTableCell>
+                    <StyledTableCell>{job.client.contact_number}</StyledTableCell>
+                    <StyledTableCell>
+                      <Typography
                         sx={{
-                          bgcolor: "lightblue",
-                          color: "ButtonText",
-                          fontWeight: 'bold'
+                          width: 'fit-content',
+                          bgcolor: job.client.is_active ? 'success.main' : 'error.main',
+                          px: 1,
+                          py: 0.5,
+                          borderRadius: '20px',
+                          color: 'white',
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        {job.client.is_active ? 'Active' : 'Inactive'}
+                      </Typography>
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      <Button
+                        variant="contained"
+                        onClick={() => handleViewIssuesModalOpen(job)}
+                        sx={{
+                          bgcolor: 'info.main',
+                          color: 'white',
+                          '&:hover': {
+                            bgcolor: 'info.dark',
+                          },
                         }}
                       >
                         View Jobs
                       </Button>
-                      <Modal
-                        open={isViewIssuesModalOpen}
-                        onClose={handleViewIssuesModalClose}
-                        aria-labelledby="modal-title"
-                        aria-describedby="modal-description"
-                      >
-                        <Box sx={styleBox}>
-                          <Typography id="modal-title" variant="h6" component="h2" sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-                            Client Issues
-                          </Typography>
-                          <Grid container spacing={2} sx={{ borderTop: 2, marginTop: 2 }}>
-                            <Grid container xs={6} sm={6} lg={6}>
-                              <Grid item xs={12} sx={{ m: 1 }}>
-                                <Typography sx={{ color: "#566573" }}>
-                                  Customer Name: <span style={{ color: 'black', fontWeight: 'bold' }}>{selectedJobData?.client?.customer_name}</span>
-                                </Typography>
-                              </Grid>
-                              <Grid item xs={12} sx={{ m: 1 }}>
-                                <Typography sx={{ color: "#566573" }}>
-                                  Customer Id: <span style={{ color: 'black', fontWeight: 'bold' }}>{selectedJobData.client_id}</span>
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                            <Grid container xs={6} sm={6} lg={6}>
-                              <Grid item xs={12} sx={{ m: 1 }}>
-                                <Typography sx={{ color: "#566573" }}>
-                                  Relationship Manager: <span style={{ color: 'black', fontWeight: 'bold' }}>{selectedJobData?.telecaller?.username}</span>
-                                </Typography>
-                              </Grid>
-                              <Grid item xs={12} sx={{ m: 1 }}>
-                                <Typography sx={{ color: "#566573" }}>
-                                  Issued At <span style={{ color: 'black', fontWeight: 'bold' }}>{new Date(selectedJobData?.createdAt).toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: '2-digit',
-                                    day: '2-digit',
-                                  })}</span>
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                            {/* Table to display issues */}
-                            <Grid item xs={12}>
-                              <Box sx={{ maxWidth: '100%', overflowX: 'auto' }}>
-                                <Table sx={{ minWidth: 650, maxWidth: 750 }}>
-                                  <TableHead>
-                                    <TableRow>
-                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}></TableCell>
-                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Job No</TableCell>
-                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Subject</TableCell>
-                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Issue</TableCell>
-                                      <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Status</TableCell>
-                                      {/* <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>Remarks</TableCell> */}
-                                    </TableRow>
-                                  </TableHead>
-                                  <TableBody>
-                                    {selectedJobData?.items?.length > 0 ? (
-                                      selectedJobData.items.map((issue: any, index: number) => (
-                                        <TableRow key={index}>
-                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}><Checkbox onChange={() => { handleCheckBoxChange(issue.id) }} /></TableCell>
-                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.job_no}</TableCell>
-                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.subject}</TableCell>
-                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.issue_note}</TableCell>
-                                          <TableCell style={{ padding: '8px', fontSize: '0.875rem' }}>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
-                                          {/* <TableCell>{issue.action_remarks}</TableCell> */}
-                                        </TableRow>
-                                      ))
-                                    ) : (
-                                      <TableRow>
-                                        <TableCell colSpan={5} align="center">
-                                          No issues available.
-                                        </TableCell>
-                                      </TableRow>
-                                    )}
-                                  </TableBody>
-                                </Table>
-                              </Box>
-                            </Grid>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))
+              ) : (
+                <StyledTableRow>
+                  <StyledTableCell colSpan={7} align="center">
+                    No Jobs Found
+                  </StyledTableCell>
+                </StyledTableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
 
-                            <Grid container justifyContent="center">
-                              <Button type="button" variant="contained" sx={{ mt: 2 }} onClick={handleDone}>
-                                Mark as Done
-                              </Button>
-                              <Button type="button" variant="outlined" sx={{ mt: 2, ml: 2 }} onClick={handleViewIssuesModalClose}>
-                                Close
-                              </Button>
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      </Modal>
-                    </td>
-                  </tr>
-                )
-              })
-              :
-              <TableRow>
-                <TableCell colSpan={5} align="center">
-                  No Jobs Found
-                </TableCell>
-              </TableRow>
-            }
-          </tbody>
-        </table>
-      </Grid>
+      {selectedJobData && (
+        <IssuesModal
+          isOpen={isViewIssuesModalOpen}
+          onClose={handleViewIssuesModalClose}
+          selectedJobData={selectedJobData}
+          handleDone={handleDone}
+        />
+      )}
     </Grid>
   );
 };
-export default index;
+
+export default JobListPage;
