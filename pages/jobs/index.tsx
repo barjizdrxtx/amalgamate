@@ -84,11 +84,15 @@ const JobListPage: React.FC = () => {
   };
 
   const handleViewIssuesModalOpen = (job: Job) => {
+
+    console.log("------------job", job);
+    
     setSelectedJobData(job);
     setIsViewIssuesModalOpen(true);
   };
 
   const handleViewIssuesModalClose = () => {
+    setSelectedJobData(null)
     setIsViewIssuesModalOpen(false);
   };
 
@@ -134,7 +138,7 @@ const JobListPage: React.FC = () => {
             <MenuItem value={0}>
               <em>All</em>
             </MenuItem>
-            {fetchedTelecallers?.result.map((element: any) => (
+            {fetchedTelecallers?.result?.map((element: any) => (
               <MenuItem key={element.id} value={element.id}>
                 {element.username}
               </MenuItem>
@@ -158,8 +162,8 @@ const JobListPage: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {fetchedJobList?.result.length ? (
-                fetchedJobList.result.map((job: any) => (
+              {fetchedJobList?.result?.length ? (
+                fetchedJobList?.result?.map((job: any) => (
                   <StyledTableRow key={job.job_id}>
                     <StyledTableCell component="th" scope="row">
                       {job.client_id}

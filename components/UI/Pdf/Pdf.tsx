@@ -1,6 +1,7 @@
 import React from "react";
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import * as moment from "moment";
+import new_logo from '../../../public/assets/logo/new_logo.jpg'
 
 const styles = StyleSheet.create({
   page: {
@@ -13,6 +14,15 @@ const styles = StyleSheet.create({
     padding: 20,
     height: 100,
     textAlign: "center",
+  },
+  logo: {
+    width: 100,
+    height: 100,
+  },
+  companyInfo: {
+    textAlign: "right",
+    fontSize: 12,
+    fontWeight: "bold",
   },
   addressContainer: {
     flexDirection: "row",
@@ -111,8 +121,13 @@ const PDFDocument = (props: any) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
-          {/* <Text>Invoice Report</Text>
-        <Text>Date: [Insert Date]</Text> */}
+          {/* Header Section with Logo */}
+          <View style={styles.header}>
+            <Image
+              // style={styles.logo}
+              src="https://amberapp.app/amalgamate/uploads/asset/new_logo.jpg"
+            />
+          </View>
         </View>
 
         <View style={styles.addressContainer}>

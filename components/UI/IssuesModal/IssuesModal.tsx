@@ -11,7 +11,12 @@ import {
   TableCell,
   Button,
   Collapse,
-  IconButton
+  IconButton,
+  Select,
+  MenuItem,
+  TextField,
+  FormControl,
+  InputLabel
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -26,12 +31,15 @@ interface Telecaller {
   username: string;
 }
 
+type IssueStatus = 'Done' | 'Rejected' | 'Waiting for Approval' | 'Cash Work';
+
 interface Issue {
   id: string;
   job_no: string;
   subject: string;
-  is_done: boolean;
+  status: IssueStatus;
   issue_note: string;
+  remark?: string;
 }
 
 interface SelectedJobData {
@@ -44,6 +52,8 @@ interface SelectedJobData {
 
 interface ExpandableRowProps {
   issue: Issue;
+  onStatusChange: (id: string, newStatus: IssueStatus) => void;
+  onRemarkChange: (id: string, newRemark: string) => void;
 }
 
 interface IssuesModalProps {
@@ -69,7 +79,7 @@ const ModalContent = styled(Box)(({ theme }) => ({
   overflowY: 'auto',
 }));
 
-const ExpandableRow: React.FC<ExpandableRowProps> = ({ issue }) => {
+const ExpandableRow: React.FC<ExpandableRowProps> = ({ issue, onStatusChange, onRemarkChange }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -82,7 +92,19 @@ const ExpandableRow: React.FC<ExpandableRowProps> = ({ issue }) => {
         </TableCell>
         <TableCell>{issue.job_no}</TableCell>
         <TableCell>{issue.subject}</TableCell>
-        <TableCell>{issue.is_done ? 'Done' : 'Pending'}</TableCell>
+        <TableCell>
+          <FormControl fullWidth>
+            <Select
+              value={issue.status}
+              onChange={(e) => onStatusChange(issue.id, e.target.value as IssueStatus)}
+            >
+              <MenuItem value="Done">Done</MenuItem>
+              <MenuItem value="Rejected">Rejected</MenuItem>
+              <MenuItem value="Waiting for Approval">Waiting for Approval</MenuItem>
+              <MenuItem value="Cash Work">Cash Work</MenuItem>
+            </Select>
+          </FormControl>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
@@ -97,7 +119,19 @@ const ExpandableRow: React.FC<ExpandableRowProps> = ({ issue }) => {
                     <TableCell component="th" scope="row">Issue Note</TableCell>
                     <TableCell>{issue.issue_note}</TableCell>
                   </TableRow>
-                  {/* Add more rows here for additional issue details */}
+                  <TableRow>
+                    <TableCell component="th" scope="row">Update Remark</TableCell>
+                    <TableCell>
+                      <TextField
+                        fullWidth
+                        multiline
+                        rows={2}
+                        value={issue.remark || ''}
+                        onChange={(e) => onRemarkChange(issue.id, e.target.value)}
+                        placeholder="Enter update remark"
+                      />
+                    </TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </Box>
@@ -109,6 +143,27 @@ const ExpandableRow: React.FC<ExpandableRowProps> = ({ issue }) => {
 };
 
 const IssuesModal: React.FC<IssuesModalProps> = ({ isOpen, onClose, selectedJobData, handleDone }) => {
+  const [issues, setIssues] = useState<Issue[]>(selectedJobData.items);
+
+  const handleStatusChange = (id: string, newStatus: IssueStatus) => {
+    setIssues(issues.map(issue => 
+      issue.id === id ? { ...issue, status: newStatus } : issue
+    ));
+  };
+
+  const handleRemarkChange = (id: string, newRemark: string) => {
+    setIssues(issues.map(issue => 
+      issue.id === id ? { ...issue, remark: newRemark } : issue
+    ));
+  };
+
+  const handleSaveChanges = () => {
+    // Here you would typically send the updated issues to your backend
+    console.log('Saving changes:', issues);
+    // After saving, you might want to close the modal or update the parent component
+    onClose();
+  };
+
   return (
     <StyledModal
       open={isOpen}
@@ -154,9 +209,14 @@ const IssuesModal: React.FC<IssuesModalProps> = ({ isOpen, onClose, selectedJobD
                 </TableRow>
               </TableHead>
               <TableBody>
-                {selectedJobData?.items?.length > 0 ? (
-                  selectedJobData.items.map((issue: any, index: number) => (
-                    <ExpandableRow key={index} issue={issue} />
+                {issues.length > 0 ? (
+                  issues.map((issue: Issue) => (
+                    <ExpandableRow 
+                      key={issue.id} 
+                      issue={issue} 
+                      onStatusChange={handleStatusChange}
+                      onRemarkChange={handleRemarkChange}
+                    />
                   ))
                 ) : (
                   <TableRow>
@@ -169,8 +229,8 @@ const IssuesModal: React.FC<IssuesModalProps> = ({ isOpen, onClose, selectedJobD
             </Table>
           </Grid>
           <Grid container justifyContent="center" sx={{ mt: 2 }}>
-            <Button variant="contained" onClick={handleDone} sx={{ mr: 2 }}>
-              Mark as Done
+            <Button variant="contained" onClick={handleSaveChanges} sx={{ mr: 2 }}>
+              Save Changes
             </Button>
             <Button variant="outlined" onClick={onClose}>
               Close
