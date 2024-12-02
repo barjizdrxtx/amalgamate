@@ -41,6 +41,8 @@ import {
   DropDown,
 } from "../../../components/UI/DropDown/DropDown";
 import { BranchInstallationDateSelector } from "../../../components/UI/DateSelector/DateSelector";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 const styleBox = {
   position: 'absolute',
@@ -666,6 +668,21 @@ const checkbox = [
 
 export const ProductKey = (props: any) => {
   const { request, refetch } = props;
+  const [copiedProductKey, setCopiedProductKey] = useState('');
+
+  const handleCopy = (product_key: string) => {
+    // Copy the product key to clipboard
+    navigator.clipboard.writeText(product_key).then(() => {
+      setCopiedProductKey(product_key);
+
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        setCopiedProductKey('');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy:', err);
+    });
+  };
 
   // console.log("request", request?.product_keys)
 
@@ -797,7 +814,20 @@ export const ProductKey = (props: any) => {
                       .format("MMMM Do YYYY hh:mm:ss A")
                     : el === "branch_id"
                       ? data.branch.branch_name
-                      : data[el]}
+                      : el === "product_key" ?
+                        (
+                          <div className="flex items-center">
+                            <Tooltip title={copiedProductKey === data[el] ? "Copied!" : "Copy"} placement="top-start">
+                              {copiedProductKey === data[el] ? (
+                                <DoneAllIcon fontSize="small" className="text-green-500" />
+                              ) : (
+                                <ContentCopyIcon fontSize="small" onClick={() => handleCopy(data[el])} />
+                              )}
+                            </Tooltip>
+                            {data[el]}
+                          </div>
+                        )
+                        : data[el]}
                 </td>
               ))}
 

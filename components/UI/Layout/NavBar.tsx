@@ -70,20 +70,20 @@ export const DeskTopNavBar = (props: any) => {
 
                 <Grid container justifyContent="start" alignItems="center"
                     xs={6} lg={6}>
-
-                    <Box sx={{
+                    <img width="100px" height="50px" src="https://amberapp.app/amalgamate/uploads/asset/new_logo.jpg" alt="" />
+                    {/* <Box sx={{
                         mx: 1,
-                        width: "50px", height: "50px", borderRadius: "100%",
+                        width: "100px", height: "100px",
                         display: "flex",
                         justifyContent: "center", p: 1,
-                        alignItems: "center", bgcolor: "dodgerblue",
+                        alignItems: "center",
                     }}>
 
-                        <img width="100%" src="https://www.amalgamatetechnologies.com/images/logo.png" alt="" />
+                        <img width="100%" src="https://amberapp.app/amalgamate/uploads/asset/new_logo.jpg" alt="" />
 
-                    </Box>
+                    </Box> */}
 
-                    <Typography sx={{ color: PRIMARY_COLOR }} variant="h5" fontWeight="bold">AMALGAMATE</Typography>
+                    {/* <Typography sx={{ color: PRIMARY_COLOR }} variant="h5" fontWeight="bold">AMALGAMATE</Typography> */}
 
                 </Grid>
 

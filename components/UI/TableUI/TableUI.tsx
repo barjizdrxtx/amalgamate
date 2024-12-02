@@ -15,7 +15,7 @@ export const TableUI = (props: any) => {
 
   const [page, setPage]: any = useState(1);
 
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(25);
 
   const router = useRouter();
 

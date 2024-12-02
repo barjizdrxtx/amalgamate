@@ -26,6 +26,7 @@ const index = () => {
   const [month, setMonth] = React.useState<number>(0);
   const [report, setReport] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   let request: string | any[] = [];
 
@@ -93,6 +94,42 @@ const index = () => {
 
   const handleDownload = (client_id: string) => {
     alert(`${client_id}'s report will be available soon`);
+  };
+
+
+  const handleAmcDownload = async (element: any) => {
+    setIsLoading(true);
+    try {
+      // const pdfBuffer = await generatePDFInvoice(element);
+
+      const response = await fetch('/api/generate-pdf', {
+        method: 'POST',
+        body: JSON.stringify(element)
+      });
+
+      if (!response.ok) {
+        throw new Error('PDF generation failed');
+      }
+
+      const blob = await response.blob();
+      
+      // Create a link and trigger download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${element?.client?.customer_name}_invoice.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('PDF Download Error:', error);
+      // Optionally show an error toast/message
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -197,8 +234,8 @@ const index = () => {
                       <td>
                         {element?.installation_date
                           ? moment
-                              .utc(element?.installation_date)
-                              .format("DD/MM/YYYY")
+                            .utc(element?.installation_date)
+                            .format("DD/MM/YYYY")
                           : null}
                       </td>
                       <td>{element.amc}</td>
@@ -220,7 +257,7 @@ const index = () => {
                       </td>
                       {/* <td onClick={() => handleDownload(element.client_id)}> */}
                       <td>
-                        <PDFDownloadLink
+                        {/* <PDFDownloadLink
                           document={<PDFDocument data={element} />}
                           fileName={`${element?.client?.customer_name} invoice.pdf`}
                         >
@@ -234,7 +271,13 @@ const index = () => {
                               />
                             )
                           }
-                        </PDFDownloadLink>
+                        </PDFDownloadLink> */}
+                        <button
+                          onClick={() => handleAmcDownload(element)}
+                          disabled={isLoading}
+                        >
+                          {isLoading ? 'Generating...' : 'Download Invoice'}
+                        </button>
                       </td>
                     </tr>
                   ))}
