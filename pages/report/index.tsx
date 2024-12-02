@@ -112,7 +112,7 @@ const index = () => {
       }
 
       const blob = await response.blob();
-      
+
       // Create a link and trigger download
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -120,7 +120,7 @@ const index = () => {
       link.download = `${element?.client?.customer_name}_invoice.pdf`;
       document.body.appendChild(link);
       link.click();
-      
+
       // Cleanup
       link.remove();
       window.URL.revokeObjectURL(url);
@@ -272,12 +272,16 @@ const index = () => {
                             )
                           }
                         </PDFDownloadLink> */}
-                        <button
-                          onClick={() => handleAmcDownload(element)}
-                          disabled={isLoading}
-                        >
-                          {isLoading ? 'Generating...' : 'Download Invoice'}
-                        </button>
+
+                        {loading ? (
+                          <DownloadingIcon />
+                        ) : (
+                          <DownloadIcon
+                            onClick={() => handleAmcDownload(element)}
+                            color="primary"
+                            sx={{ cursor: "pointer" }}
+                          />
+                        )}
                       </td>
                     </tr>
                   ))}
