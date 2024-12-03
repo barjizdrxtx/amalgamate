@@ -1,7 +1,7 @@
 import React from "react";
 import { Document, Page, Text, View, StyleSheet, Image } from "@react-pdf/renderer";
 import * as moment from "moment";
-import new_logo from '../../../public/assets/logo/new_logo.jpg'
+import path from 'path';
 
 const styles = StyleSheet.create({
   page: {
@@ -9,15 +9,14 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
-    // backgroundColor: "#333",
-    // color: "#fff",
-    padding: 20,
     height: 100,
     textAlign: "center",
+    alignItems: "center",
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 250,
+    height: 550,
+    backgroundColor: "#cccccc", 
   },
   companyInfo: {
     textAlign: "right",
@@ -51,8 +50,6 @@ const styles = StyleSheet.create({
   },
   invoiceTableCell: {
     padding: 3,
-    // borderBottomWidth: 1,
-    // borderBottomColor: "#ddd",
     fontSize: 10,
     width: "100%",
   },
@@ -117,16 +114,18 @@ const PDFDocument = (props: any) => {
     .add(365, "d")
     .format("DD-MMM-YYYY");
 
+  const logoPath = path.join(process.cwd(), 'public', 'assets', 'logo', 'new_logo.jpg');
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           {/* Header Section with Logo */}
           <View style={styles.header}>
-            <Image
-              // style={styles.logo}
-              src="https://amberapp.app/amalgamate/uploads/asset/new_logo.jpg"
-            />
+          <Image
+            style={styles.logo}
+            src={logoPath}
+          />
           </View>
         </View>
 

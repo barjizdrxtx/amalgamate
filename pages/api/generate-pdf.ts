@@ -2,15 +2,14 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import PDFDocument from 'pdfkit';
 import moment from 'moment';
 import path from 'path';
+import fs from 'fs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
-
+    const data = JSON.parse(req.body);
     try {
-        const data = JSON.parse(req.body);
-
         // Create a new PDF document
         const doc = new PDFDocument({ size: 'A4', margin: 50 });
 
@@ -28,50 +27,91 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Calculate AMC dates
         const installDate = moment.utc(data.installation_date);
         const currentAMC = installDate.format('DD-MMM-YYYY');
-        const nextAMC = installDate.add(365, 'days').format('DD-MMM-YYYY');
+        const nextAMC = installDate.clone().add(365, 'days').format('DD-MMM-YYYY');
 
-        // Add content to the PDF
-        doc.fontSize(10);
-
+        // Page width and styling
         const pageWidth = 595.28;
         const pageCenter = pageWidth / 2;
-        const logoPath = path.join(process.cwd(), 'public', 'assets', 'logo', 'new_logo.jpg');
-        const logoX = pageCenter - 100 / 2;
-        doc.image(logoPath, logoX, 20, { width: 100 });
+        const startX = 50;
+        const colWidth = 250;
 
-        // Invoice Header
+        // Background color for headers
+        const headerBackgroundColor = '#0066CC'; // Blue color similar to the original invoice
+        const textColor = 'white';
+
+        // Add logo
+        const logoPath = data.logo_path || path.join(process.cwd(), 'public', 'assets', 'logo', 'new_logo.jpg');
+
+        // Check if logo exists
+        if (fs.existsSync(logoPath)) {
+            const logoX = pageCenter - 100 / 2;
+            doc.image(logoPath, logoX, 20, { width: 100 });
+        }
+
+        // Invoice Header with Background
         doc.moveDown(2);
-        doc.font('Helvetica-Bold').fontSize(16).text('AMC INVOICE', { align: 'center' });
-        doc.moveDown();
+        doc.fillColor(headerBackgroundColor)
+            .rect(startX, doc.y, pageWidth - 2 * startX, 25)
+            .fill();
+        doc.fillColor(textColor)
+            .font('Helvetica-Bold')
+            .fontSize(16)
+            .text('AMC INVOICE', { align: 'center' });
 
-        // Customer Information
-        doc.font('Helvetica').fontSize(10);
+        // Invoice Details
+        doc.fillColor('black')
+            .font('Helvetica')
+            .fontSize(10);
         doc.text('Invoice No: #' + moment.utc(new Date()).valueOf(), { align: 'right' });
         doc.text('Date: ' + moment.utc(new Date()).format('DD/MM/YYYY'), { align: 'right' });
         doc.moveDown();
 
-        // Services Details
-        doc.font('Helvetica-Bold').text('SERVICES TO', { underline: true });
-        doc.font('Helvetica').text(`Customer ID: ${data.client_id}`);
+        // Services Details Header
+        doc.fillColor(headerBackgroundColor)
+            .rect(startX, doc.y, pageWidth - 2 * startX, 20)
+            .fill();
+        doc.fillColor(textColor)
+            .font('Helvetica-Bold')
+            .text('SERVICES TO', { align: 'center' });
+
+        // Customer Information
+        doc.fillColor('black')
+            .font('Helvetica')
+            .text(`Customer ID: ${data.client_id}`);
         doc.text(`Customer Name: ${data.client?.customer_name}`);
         doc.text(`Branch: ${data.branch_name}`);
         doc.moveDown();
 
-        // Bill To
-        doc.font('Helvetica-Bold').text('BILL TO', { underline: true });
-        doc.font('Helvetica').text(`${data.client?.customer_name}`);
+        // Bill To Header
+        doc.fillColor(headerBackgroundColor)
+            .rect(startX, doc.y, pageWidth - 2 * startX, 20)
+            .fill();
+        doc.fillColor(textColor)
+            .font('Helvetica-Bold')
+            .text('BILL TO', { align: 'center' });
+
+        // Bill To Details
+        doc.fillColor('black')
+            .font('Helvetica')
+            .text(`${data.client?.customer_name}`);
         doc.text(`Contact: ${data.client?.email}`);
         doc.text(`Address: ${data.client?.shop_address}`);
         doc.moveDown(2);
 
-        // Service Details
-        const startX = 50;
-        const colWidth = 250;
+        // Service Details Header
+        doc.fillColor(headerBackgroundColor)
+            .rect(startX, doc.y, pageWidth - 2 * startX, 20)
+            .fill();
+        doc.fillColor(textColor)
+            .font('Helvetica-Bold')
+            .text('Service Details', { align: 'center' });
 
-        doc.font('Helvetica-Bold').text('Service Details', { align: 'center' });
+        // Service Details Content
+        doc.fillColor('black')
+            .font('Helvetica');
 
         // Installation Date Row
-        doc.font('Helvetica').text('Installation Date', startX, undefined, { continued: true });
+        doc.text('Installation Date', startX, undefined, { continued: true });
         doc.text(formatDate(data.installation_date), startX + colWidth);
 
         // AMC Duration Row
@@ -84,10 +124,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         doc.moveDown();
 
-        // Pricing Details
-        doc.font('Helvetica-Bold').text('Pricing Details', { align: 'center' });
+        // Pricing Details Header
+        doc.fillColor(headerBackgroundColor)
+            .rect(startX, doc.y, pageWidth - 2 * startX, 20)
+            .fill();
+        doc.fillColor(textColor)
+            .font('Helvetica-Bold')
+            .text('Pricing Details', { align: 'center' });
 
-        doc.font('Helvetica').text('Description', startX, undefined, { continued: true });
+        // Pricing Details Content
+        doc.fillColor('black')
+            .font('Helvetica');
+
+        doc.text('Description', startX, undefined, { continued: true });
         doc.text(`${data.software_name.toUpperCase()} - YEAR ${currentYear}`, startX + colWidth);
 
         doc.text('Total Amount', startX, undefined, { continued: true });
@@ -96,8 +145,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         doc.moveDown(2);
 
         // Footer
-        doc.font('Helvetica').fontSize(8);
-        doc.text('Please contact +974 30611913 with any questions regarding this invoice', { align: 'center' });
+        doc.font('Helvetica')
+            .fontSize(8)
+            .fillColor('black')
+            .text('Please contact +974 30611913 with any questions regarding this invoice', { align: 'center' });
         doc.text('Authorized Signatory, Amalgamate Technology', { align: 'center' });
 
         // Finalize PDF

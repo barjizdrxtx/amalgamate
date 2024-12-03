@@ -257,7 +257,7 @@ const index = () => {
                       </td>
                       {/* <td onClick={() => handleDownload(element.client_id)}> */}
                       <td>
-                        {/* <PDFDownloadLink
+                        <PDFDownloadLink
                           document={<PDFDocument data={element} />}
                           fileName={`${element?.client?.customer_name} invoice.pdf`}
                         >
@@ -271,9 +271,9 @@ const index = () => {
                               />
                             )
                           }
-                        </PDFDownloadLink> */}
+                        </PDFDownloadLink>
 
-                        {loading ? (
+                        {/* {loading ? (
                           <DownloadingIcon />
                         ) : (
                           <DownloadIcon
@@ -281,7 +281,7 @@ const index = () => {
                             color="primary"
                             sx={{ cursor: "pointer" }}
                           />
-                        )}
+                        )} */}
                       </td>
                     </tr>
                   ))}
