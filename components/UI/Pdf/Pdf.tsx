@@ -353,7 +353,10 @@ const PDFDocument = (props: any) => {
           </Text>
         </View>
         <View style={{ height: 115 }}>
-
+          <Image
+            style={{paddingLeft: 50, width: 150}}
+            src='https://ticketapi.keralamatch.life/api/test/image/img_1733322080742-698939743.jpeg'
+          />
         </View>
         <View>
           <Text style={styles.footer}>Zone: 90, Street: 696, Building: 45, Al Wakra, Doha-Qatar www.amalgamatetechnologies.com</Text>
