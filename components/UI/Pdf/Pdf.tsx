@@ -50,6 +50,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "extrabold",
   },
+  footer: {
+    backgroundColor: "#4f81bd",
+    color: "#fff",
+    textAlign: "center",
+    padding: 3,
+    fontSize: 10,
+  },
   invoiceTableCell: {
     padding: 3,
     fontSize: 10,
@@ -131,7 +138,7 @@ const PDFDocument = (props: any) => {
           </View>
           <View style={{ alignItems: 'center' }}>
             <Text style={{ fontSize: 9 }}>
-            .................................... Cr No.103050 P.O.Box No.9800 Doha, Qatar ....................................
+              .................................... Cr No.103050 P.O.Box No.9800 Doha, Qatar ....................................
             </Text>
           </View>
         </View>
@@ -344,6 +351,12 @@ const PDFDocument = (props: any) => {
           <Text style={{ fontSize: 10, padding: 5, fontWeight: 'extrabold' }}>
             Doha, Qatar
           </Text>
+        </View>
+        <View style={{ height: 115 }}>
+
+        </View>
+        <View>
+          <Text style={styles.footer}>Zone: 90, Street: 696, Building: 45, Al Wakra, Doha-Qatar www.amalgamatetechnologies.com</Text>
         </View>
       </Page>
     </Document>
