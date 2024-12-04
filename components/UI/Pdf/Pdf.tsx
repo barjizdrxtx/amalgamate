@@ -9,14 +9,16 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
-    height: 100,
+    padding: 5,
+    height: 150,
     textAlign: "center",
     alignItems: "center",
+    paddingBottom: 20
   },
   logo: {
     width: 250,
     height: 550,
-    backgroundColor: "#cccccc", 
+    // backgroundColor: "#cccccc",
   },
   companyInfo: {
     textAlign: "right",
@@ -114,7 +116,7 @@ const PDFDocument = (props: any) => {
     .add(365, "d")
     .format("DD-MMM-YYYY");
 
-  const logoPath = path.join(process.cwd(), 'public', 'assets', 'logo', 'new_logo.jpg');
+  const logoPath = path.join(process.cwd(), 'public', 'assets', 'logo', 'uevents_logo.png');
 
   return (
     <Document>
@@ -122,10 +124,15 @@ const PDFDocument = (props: any) => {
         <View style={styles.header}>
           {/* Header Section with Logo */}
           <View style={styles.header}>
-          <Image
-            style={styles.logo}
-            src={logoPath}
-          />
+            <Image
+              style={styles.logo}
+              src='https://ticketapi.keralamatch.life/api/test/image/img_1733306353093-575664728.png'
+            />
+          </View>
+          <View style={{ alignItems: 'center' }}>
+            <Text style={{ fontSize: 9 }}>
+            .................................... Cr No.103050 P.O.Box No.9800 Doha, Qatar ....................................
+            </Text>
           </View>
         </View>
 
@@ -324,13 +331,18 @@ const PDFDocument = (props: any) => {
           </Text>
         </View>
         <View>
-          <Text style={{ fontSize: 10, marginBottom: 5, padding: 5 }}>
+          <Text style={{ fontSize: 10, marginBottom: 5, padding: 5, fontWeight: 'extrabold' }}>
             Authorized Signatory,
           </Text>
         </View>
         <View>
-          <Text style={{ fontSize: 10, padding: 5 }}>
+          <Text style={{ fontSize: 10, padding: 5, fontWeight: 'extrabold' }}>
             Amalgamate Technology
+          </Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 10, padding: 5, fontWeight: 'extrabold' }}>
+            Doha, Qatar
           </Text>
         </View>
       </Page>
