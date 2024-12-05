@@ -183,6 +183,9 @@ const IssuesModal: React.FC<IssuesModalProps> = ({ isOpen, onClose, selectedJobD
             <Typography sx={{ color: "text.secondary", mt: 1 }}>
               Customer Id: <Box component="span" sx={{ color: 'text.primary', fontWeight: 'bold' }}>{selectedJobData?.client_id}</Box>
             </Typography>
+            <Typography sx={{ color: "text.secondary", mt: 1 }}>
+              AMC: <Box component="span" sx={{ color: 'text.primary', fontWeight: 'bold' }}>{selectedJobData?.client?.amc}</Box>
+            </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography sx={{ color: "text.secondary" }}>
