@@ -5,6 +5,7 @@ import { useQueryFetch } from '../../../hooks/useQueryFetch';
 import { useRouter } from 'next/router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { SearchBar } from '../SearchBar/SearchBar';
+import { DropDown } from '../DropDown/DropDown';
 
 export const TableUI = (props: any) => {
 
@@ -19,11 +20,52 @@ export const TableUI = (props: any) => {
 
   const router = useRouter();
 
+  const serverDropData = [
+    { name: 'all' },
+    { name: "vpn" },
+    { name: "onpremise" },
+    { name: "cloud" },
+    { name: "dyndns" }
+  ]
+
+
+  const statusDropData = [
+    { name: 'all' },
+    { name: "active" },
+    { name: "inactive" },
+  ]
+
   const [searchResult, setSearchResult]: any = useState('')
+  const [serverType, setServerType]: any = useState('all')
+  const [status, setStatus]: any = useState('all')
 
   // ?page=${page}&limit=${limit}
+  // Function to construct query
+  const buildQuery = () => {
+    const params = new URLSearchParams();
 
-  const { fetchedData: tableData } = useQueryFetch(`request/search?query=${searchResult}&page=${page}&limit=${limit}`);
+    // Add required parameters
+    params.append('query', searchResult);
+    params.append('page', page.toString());
+    params.append('limit', limit.toString());
+
+    // Conditionally add optional parameters
+    if (serverType !== 'all') {
+      params.append('server_type', serverType);
+    }
+    if (status !== 'all') {
+      if (status === 'active')
+        params.append('is_active', 'true');
+      else
+        params.append('is_active', 'false');
+    }
+
+    return params.toString();
+  };
+
+  // Using the query in your custom hook or fetch
+  const query = buildQuery();
+  const { fetchedData: tableData } = useQueryFetch(`request/search?${query}`);
 
 
   const totalLength = tableData?.result?.rows?.length
@@ -48,7 +90,7 @@ export const TableUI = (props: any) => {
 
     }
 
-  }, [page])
+  }, [searchResult, serverType, status, page])
 
 
   useEffect(() => {
@@ -85,11 +127,17 @@ export const TableUI = (props: any) => {
             color: "#566573", textTransform: "capitalize"
           }}>{tableName}</Typography>
 
-          <Box sx={{ py: 3, display: "flex", justifyContent: "start", alignItems: "center" }}>
-
-            <SearchBar setSearchResult={setSearchResult} setPage={setPage} />
-
-          </Box>
+          <Grid item container justifyContent="space-between" alignItems="center">
+            <Box sx={{ display: "flex", justifyContent: "start", alignItems: "center", width: '30%' }}>
+              <SearchBar setSearchResult={setSearchResult} setPage={setPage} />
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "start", alignItems: "center", width: '30%' }}>
+              <DropDown text="Server type" value={serverType} setValue={setServerType} dropData={serverDropData} id="name" name="name" />
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "start", alignItems: "center", width: '30%' }}>
+              <DropDown text="Status" value={status} setValue={setStatus} dropData={statusDropData} id="name" name="name" />
+            </Box>
+          </Grid>
 
 
           <table id={style.table}>
@@ -144,18 +192,18 @@ export const TableUI = (props: any) => {
                     <td key={index} >
 
                       {
-                      el === 'total_systems' ? 
-                        // data['erp_system_count'] + data['tab_count'] + data['pos_system_count'] 
-                        data.branch.reduce((sum:any, item:any) => {
-                          return sum + item.erp_system_count + item.pos_system_count + item.tab_count;
-                      }, 0)
-                      : el === 'active_systems' ? 
-                        // data['active_erp'] + data['active_pos'] + data['active_tabs']
-                        data.branch.reduce((sum:any, item:any) => {
-                          return sum + item.active_erp + item.active_pos + item.active_tabs;
-                      }, 0)
-                      : nestedArray ? data["data"][el] 
-                      : data[el]}
+                        el === 'total_systems' ?
+                          // data['erp_system_count'] + data['tab_count'] + data['pos_system_count'] 
+                          data.branch.reduce((sum: any, item: any) => {
+                            return sum + item.erp_system_count + item.pos_system_count + item.tab_count;
+                          }, 0)
+                          : el === 'active_systems' ?
+                            // data['active_erp'] + data['active_pos'] + data['active_tabs']
+                            data.branch.reduce((sum: any, item: any) => {
+                              return sum + item.active_erp + item.active_pos + item.active_tabs;
+                            }, 0)
+                            : nestedArray ? data["data"][el]
+                              : data[el]}
 
                     </td>
 
@@ -192,7 +240,7 @@ export const TableUI = (props: any) => {
 
           </Box>
 
-        </Box>
+        </Box >
       </Grid >
 
     </>
